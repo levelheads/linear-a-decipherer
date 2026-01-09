@@ -62,7 +62,7 @@ This file indexes all reference materials used in the Linear A decipherment proj
 - **Full Citation**: Kanta, A., Nakassis, D., Palaima, T.G., & Perna, M. (2025). "An archaeological and epigraphical overview of some inscriptions found in the Cult Center of the city of Knossos (Anetaki plot)." *Ariadne*, Supplement 5, pp. 27-43.
 - **Type**: Article (Open Access PDF)
 - **License**: CC BY-NC-SA 4.0
-- **Local Path**: `references/pdfs/Kanta_et_al_2025_Knossos_Scepter.pdf` (to acquire)
+- **Local Path**: `references/pdfs/Kanta_et_al_2025_Knossos_Scepter.pdf` (acquired 2026-01-09)
 - **Article URL**: https://ejournals.lib.uoc.gr/Ariadne/article/view/1841
 - **PDF URL**: https://ejournals.lib.uoc.gr/Ariadne/article/view/1841/1751
 - **DOI**: 10.26248/ariadne.vi.1841
@@ -75,17 +75,23 @@ This file indexes all reference materials used in the Linear A decipherment proj
 - **Total: 119 signs** (longest Linear A inscription ever found)
 
 **Key Excerpts**:
-> [Awaiting extraction from PDF - download manually]
+> "The ivory ring is inscribed on all four of its faces with a text in Linear A that represents the longest Linear A inscription ever discovered." (p. 35)
+
+> "The ring inscription shows a refined, calligraphic hand with stylistic affinity to Cretan Hieroglyphic." (paraphrased from p. 36)
+
+**Official Designations**:
+- **KN Zg 57** - Ivory ring (ceremonial/religious inscription)
+- **KN Zg 58** - Ivory handle (administrative inscription)
 
 **Notes**:
 - **OPEN ACCESS** - PDF freely downloadable for non-commercial use
-- Critical source for complete scepter transliteration
+- This paper is an "overview" - full transliteration forthcoming in "Anetaki II"
 - Two inscriptions by different scribes (ring + handle)
-- Ring: ~100+ signs, ceremonial/religious style, no numerals, 12 animal metopes
-- Handle: ~10-20 signs, administrative style with numerals and fractions
+- Ring: 84 preserved + 35 partial signs, ceremonial/religious style, no numerals
+- Handle: administrative style with numerals and 6 fraction signs
 - Found in "Fetish Shrine" at Anetaki plot, Knossos (Neopalatial, 1700-1450 BCE)
 - First confirmed Linear A at Knossos cult center
-- Not yet added to Younger's transcriptions or SigLA database (as of 2026-01-09)
+- See `analyses/KNOSSOS_SCEPTER_DATA_2026-01-09.md` for detailed extraction
 
 ---
 
@@ -210,15 +216,13 @@ Priority sources not yet obtained:
 
 | Source | Priority | Type | Status |
 |--------|----------|------|--------|
-| Kanta et al. 2025 (PDF download) | **Critical** | PDF | **OPEN ACCESS** - download manually |
+| Anetaki II (full scepter transliteration) | **Critical** | Publication | Forthcoming |
 | GORILA volumes | High | Book | Institutional access needed |
 | Finkelberg 1998 (Luwian hypothesis) | Medium | Article | To acquire |
 | Gordon 1966 (Semitic hypothesis) | Medium | Book | To acquire |
 | Beekes 2014 (Pre-Greek) | Medium | Book | To acquire |
 
-**Action Required**: Download Kanta et al. 2025 PDF from:
-https://ejournals.lib.uoc.gr/Ariadne/article/view/1841/1751
-Save to: `references/pdfs/Kanta_et_al_2025_Knossos_Scepter.pdf`
+**Completed**: Kanta et al. 2025 acquired 2026-01-09 (see above)
 
 ---
 

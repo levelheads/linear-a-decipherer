@@ -27,7 +27,7 @@ Overview of the Linear A inscription corpus and key reference materials.
 | ZA | Zakros | 31 | Eastern Crete |
 | PH | Phaistos | 26 | **Oldest corpus** (MM IIB, 1800-1680 BCE) |
 | AR | Archanes | 7 | |
-| KN | Knossos | 6 | Few Linear A (mostly Linear B) |
+| KN | Knossos | 8 | Few Linear A (mostly Linear B); +2 from 2024 scepter |
 | MA | Malia | 6 | |
 | TY | Tylissos | 2 | |
 | PE | Petras | 2 | |
@@ -190,11 +190,12 @@ Sub-fragments: HT 85a, HT 85b
 
 | Attribute | Details |
 |-----------|---------|
-| Reference | KN Zf ? (formal classification pending) |
+| Ring | **KN Zg 57** - Ceremonial/religious inscription |
+| Handle | **KN Zg 58** - Administrative inscription |
 | Location | Anetaki plot, southern precinct of Heraklion |
 | Context | "Fetish Shrine" - semi-subterranean ritual deposit |
 | Date | Neopalatial Period (1700-1450 BCE) |
-| Sign count | ~119 signs (longest Linear A inscription ever) |
+| Sign count | 84 preserved + 35 partial = **~119 signs** (longest Linear A inscription ever) |
 
 **Physical description**:
 - Ivory ring + handle (possibly originally a single unit)
