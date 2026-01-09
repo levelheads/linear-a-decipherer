@@ -58,6 +58,17 @@ linear-a-decipherer/
 │   ├── KOBER_METHOD_ANALYSIS_2026-01-09.md
 │   └── CORPUS_DATA_2026-01-09.md
 │
+├── external/                 # External data (git submodules)
+│   └── lineara/              # lineara.xyz corpus data
+│
+├── tools/                    # Analysis scripts
+│   └── parse_lineara_corpus.py
+│
+├── data/                     # Generated data (gitignored)
+│   ├── corpus.json           # Parsed inscription data
+│   ├── cognates.json         # Linear B cognate mappings
+│   └── statistics.json       # Corpus statistics
+│
 ├── sessions/                 # Session logs
 │   ├── SESSION_LOG_2026-01-05.md
 │   └── SESSION_LOG_2026-01-09.md
@@ -75,6 +86,23 @@ linear-a-decipherer/
 2. **Review Methodology**: `linear-a-decipherer/references/methodology.md`
 3. **Explore Corpus Data**: `analyses/CORPUS_DATA_2026-01-09.md`
 4. **See Pattern Analysis**: `analyses/KOBER_METHOD_ANALYSIS_2026-01-09.md`
+
+## Corpus Data
+
+This project integrates the [lineara.xyz](https://lineara.xyz) corpus as a git submodule, providing structured access to 1,700+ inscriptions.
+
+**Setup** (after cloning):
+```bash
+git submodule update --init
+python tools/parse_lineara_corpus.py
+```
+
+**Output** (in `data/`, gitignored):
+- `corpus.json` - Full inscription data (1,721 inscriptions, 89 sites)
+- `cognates.json` - Linear B cognate mappings (231 words, 191 roots)
+- `statistics.json` - Corpus statistics and word frequencies
+
+**Attribution**: Data from [mwenge/lineara.xyz](https://github.com/mwenge/lineara.xyz), which aggregates GORILA (Godart & Olivier), George Douros, and John Younger. See [ATTRIBUTION.md](ATTRIBUTION.md).
 
 ## The Anchor Hierarchy
 

@@ -21,3 +21,15 @@
 # Logs
 *.log
 logs/
+
+# Reference materials (large files stored locally, indexed in sources.md)
+reference texts/
+references/pdfs/
+references/local/
+*.pdf
+*.docx
+*.doc
+*.epub
+
+# Generated data (regenerate with: python tools/parse_lineara_corpus.py)
+data/

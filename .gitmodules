@@ -1,0 +1,3 @@
+[submodule "external/lineara"]
+	path = external/lineara
+	url = https://github.com/mwenge/lineara.xyz.git
