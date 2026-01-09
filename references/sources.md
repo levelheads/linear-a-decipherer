@@ -59,21 +59,33 @@ This file indexes all reference materials used in the Linear A decipherment proj
 
 ### Kanta et al. - Knossos Ivory Scepter
 
-- **Full Citation**: Kanta, A., et al. (2025). "The Knossos Ivory Scepter: A New Linear A Inscription." *Ariadne*, Supplement 5.
-- **Type**: Article (URL)
-- **Local Path**: (not yet acquired)
-- **URL**: https://ejournals.lib.uoc.gr/Ariadne/article/view/1841
+- **Full Citation**: Kanta, A., Nakassis, D., Palaima, T.G., & Perna, M. (2025). "An archaeological and epigraphical overview of some inscriptions found in the Cult Center of the city of Knossos (Anetaki plot)." *Ariadne*, Supplement 5, pp. 27-43.
+- **Type**: Article (Open Access PDF)
+- **License**: CC BY-NC-SA 4.0
+- **Local Path**: `references/pdfs/Kanta_et_al_2025_Knossos_Scepter.pdf` (to acquire)
+- **Article URL**: https://ejournals.lib.uoc.gr/Ariadne/article/view/1841
+- **PDF URL**: https://ejournals.lib.uoc.gr/Ariadne/article/view/1841/1751
+- **DOI**: 10.26248/ariadne.vi.1841
 - **Accessed**: 2026-01-09
 - **Relevance**: Longest Linear A inscription (119 signs); dual register analysis; 2024 discovery
 
+**Sign Count** (confirmed):
+- 84 signs completely or partially preserved
+- 35 signs in small traces or probably present
+- **Total: 119 signs** (longest Linear A inscription ever found)
+
 **Key Excerpts**:
-> [Awaiting full transliteration]
+> [Awaiting extraction from PDF - download manually]
 
 **Notes**:
+- **OPEN ACCESS** - PDF freely downloadable for non-commercial use
 - Critical source for complete scepter transliteration
 - Two inscriptions by different scribes (ring + handle)
-- Ring: ceremonial/religious style
-- Handle: administrative style with numerals
+- Ring: ~100+ signs, ceremonial/religious style, no numerals, 12 animal metopes
+- Handle: ~10-20 signs, administrative style with numerals and fractions
+- Found in "Fetish Shrine" at Anetaki plot, Knossos (Neopalatial, 1700-1450 BCE)
+- First confirmed Linear A at Knossos cult center
+- Not yet added to Younger's transcriptions or SigLA database (as of 2026-01-09)
 
 ---
 
@@ -175,18 +187,38 @@ This file indexes all reference materials used in the Linear A decipherment proj
 
 ---
 
+### Younger - Linear A Texts & Inscriptions
+
+- **Full Citation**: Younger, J.G. (ongoing, last updated 2024-04-08). *Linear A Texts & Inscriptions in phonetic transcription*.
+- **Type**: Online compilation (Academia.edu)
+- **URL**: https://www.academia.edu/117949876/Linear_A_Texts_and_Inscriptions_in_phonetic_transcription
+- **Accessed**: 2026-01-09
+- **Relevance**: Comprehensive phonetic transcriptions of all GORILA tablets; ~1,500 documents, ~7,500 signs
+
+**Notes**:
+- Primary reference for tablet transcriptions
+- Uses Linear B phonetic values with systematic conventions
+- Includes administrative vocabulary analysis and libation formula documentation
+- Does NOT yet include Knossos scepter (last updated before 2025 publication)
+- Covers sites: HT, KH, ZA, PH, AR, KN, MA, TY, PE, and others
+
+---
+
 ## Sources To Acquire
 
 Priority sources not yet obtained:
 
 | Source | Priority | Type | Status |
 |--------|----------|------|--------|
-| Kanta et al. 2025 (full text) | Critical | PDF | Awaiting |
+| Kanta et al. 2025 (PDF download) | **Critical** | PDF | **OPEN ACCESS** - download manually |
 | GORILA volumes | High | Book | Institutional access needed |
-| Younger's Linear A Texts | Medium | URL | To index |
 | Finkelberg 1998 (Luwian hypothesis) | Medium | Article | To acquire |
 | Gordon 1966 (Semitic hypothesis) | Medium | Book | To acquire |
 | Beekes 2014 (Pre-Greek) | Medium | Book | To acquire |
+
+**Action Required**: Download Kanta et al. 2025 PDF from:
+https://ejournals.lib.uoc.gr/Ariadne/article/view/1841/1751
+Save to: `references/pdfs/Kanta_et_al_2025_Knossos_Scepter.pdf`
 
 ---
 
