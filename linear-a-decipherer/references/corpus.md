@@ -6,10 +6,15 @@ Overview of the Linear A inscription corpus and key reference materials.
 
 ## Corpus Statistics
 
-- **Total inscriptions**: ~1,427 specimens
-- **Total signs**: 7,362-7,396
+| Source | Documents | Signs | Notes |
+|--------|-----------|-------|-------|
+| GORILA (1976-1985) | ~1,427 | 7,362-7,396 | Authoritative print corpus |
+| PAITO Project (2023) | 1,534 | 7,574 | Updated count with recent finds |
+| lineara.xyz | 1,721 | — | Includes word-level entries |
+
 - **Date range**: ~1800-1450 BCE (Middle Minoan IB to Late Minoan IB)
 - **Sign inventory**: ~90 core syllabograms + ~180 total simple signs + 164 complex signs + 30 fractions
+- **Document distribution**: ~90% administrative, ~10% non-administrative (PAITO)
 
 ## Major Find Sites
 
@@ -17,10 +22,10 @@ Overview of the Linear A inscription corpus and key reference materials.
 
 | Site Code | Name | Tablets | Notes |
 |-----------|------|---------|-------|
-| HT | Hagia Triada | 147 | Largest corpus; administrative |
+| HT | Hagia Triada | 147 | Largest corpus; administrative; LM IB |
 | KH | Khania | 99 | Second largest |
 | ZA | Zakros | 31 | Eastern Crete |
-| PH | Phaistos | 26 | Earliest inscriptions |
+| PH | Phaistos | 26 | **Oldest corpus** (MM IIB, 1800-1680 BCE) |
 | AR | Archanes | 7 | |
 | KN | Knossos | 6 | Few Linear A (mostly Linear B) |
 | MA | Malia | 6 | |
@@ -29,6 +34,8 @@ Overview of the Linear A inscription corpus and key reference materials.
 | MY | Myrtos Pyrgos | 2 | |
 | PA | Palaikastro | 2 | |
 | GO | Gournia | 1 | |
+
+> **Chronological Note**: The Phaistos Room 25 tablets (PH 1-30) represent the **oldest Linear A inscriptions**, predating most Hagia Triada tablets by 200+ years. Early PH tablets may preserve archaic features lost in later standardization. (Source: PAITO Project)
 
 ### Outside Crete
 

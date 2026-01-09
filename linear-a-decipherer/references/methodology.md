@@ -237,6 +237,49 @@ INDICATORS:
 - Varies between tablets (unlike toponyms)
 ```
 
+## Advanced Imaging for Uncertain Signs
+
+When standard photographs or drawings leave sign identification uncertain, advanced imaging techniques can reveal details invisible to conventional examination.
+
+### RTI (Reflectance Transformation Imaging)
+
+**Method**: Capture 48-60 photographs of the same artifact from varying light angles. Software combines these to create an interactive model where the user can "re-light" the surface from any direction.
+
+**Reveals**:
+- Faint incisions obscured by surface wear
+- Overlapping strokes indicating scribal corrections
+- Depth and direction of stylus impressions
+- Distinctions between similar signs (e.g., AB 08 vs AB 28)
+
+**When to note**: If a sign reading is uncertain, flag that "RTI examination may clarify" in analysis.
+
+### 3D Laser Scanning
+
+**Method**: Project laser light to capture spatial coordinates at 0.01mm resolution. Generates curvature analysis that mathematically represents engraved signs.
+
+**Reveals**:
+- Three-dimensional stroke structure
+- Evidence of tablet formation and scribe pressure
+- Physical relationships between signs impossible to see in 2D
+
+### Materiality Considerations
+
+The PAITO Project emphasizes that tablets are physical artifacts, not just texts:
+
+- **Tablet formation**: How clay was prepared affects sign legibility
+- **Scribe hand**: Pressure, angle, and speed leave physical traces
+- **Post-depositional damage**: Distinguishing ancient damage from modern
+
+**When analyzing uncertain signs**:
+1. Note physical condition (broken, abraded, fire-damaged)
+2. Consider whether damage is ancient or modern
+3. Flag that physical examination or RTI may resolve uncertainty
+4. Document confidence reduction due to materiality issues
+
+**Reference**: PAITO Project methodology (https://www.paitoproject.it/en/pa-i-to-project-2/)
+
+---
+
 ## The Negative Evidence Principle
 
 **What Linear A is NOT telling us is also informative:**

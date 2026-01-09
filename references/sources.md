@@ -141,16 +141,37 @@ This file indexes all reference materials used in the Linear A decipherment proj
 
 ### PAITO Project
 
-- **Full Citation**: Del Freo, M. & Ferro, L. (ongoing). *PAITO: Corpus of Mycenaean and Linear A Inscriptions*. CNR-ISPC.
+- **Full Citation**: Greco, A., Flouda, G., & Notti, E. (ongoing). *PA-I-TO: Linear A and Linear B Epigraphic Project*. Sapienza Università di Roma / Heraklion Archaeological Museum / IULM University.
 - **Type**: Database (URL)
 - **URL**: https://www.paitoproject.it/linear-a/
+- **Project Overview**: https://www.paitoproject.it/en/pa-i-to-project-2/
 - **Accessed**: 2026-01-09
-- **Relevance**: 1,534 Linear A documents; scholarly curation
+- **Contact**: Prof. Alessandro Greco (a.greco@uniroma1.it)
+- **License**: Scientific non-profit use; permission required for reproduction
+- **Relevance**: 1,534 Linear A documents; 7,574 signs; RTI/3D imaging methodology
+
+**Corpus Statistics**:
+- 1,534 Linear A documents (as of 2023)
+- 7,574 total signs
+- ~90% administrative documents, ~10% non-administrative
+- Sites: Hagia Triada, Phaistos, Knossos, plus Aegean islands and Asia Minor
+
+**Methodology** (valuable for our approach):
+- **RTI (Reflectance Transformation Imaging)**: 48-60 photos at varying light angles
+- **3D Laser Scanning**: 0.01mm resolution for curvature analysis
+- Captures sign details invisible in standard examination
+- Emphasizes "materiality" - physical tablet formation and scribe hand
+
+**Key Insight - Phaistos Chronology**:
+- Room 25 tablets (PH 1-30) are the **oldest Linear A corpus** (MM IIB, 1800-1680 BCE)
+- Predates most Hagia Triada tablets by 200+ years
+- Early tablets may show archaic features vs. later standardization
 
 **Notes**:
-- Italian CNR project
-- Cross-references with Linear B corpus
-- Academic quality control
+- Multi-institutional collaboration (Sapienza, IULM, Heraklion Museum)
+- 2D+ and 3D-models available for scholarly use with permission
+- Participated in 2024 Knossos ivory scepter documentation
+- Focus on paleographic documentation over linguistic interpretation
 
 ---
 
