@@ -1,5 +1,7 @@
 # Linear A Decipherer
 
+[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+
 A rigorous methodology system for analyzing undeciphered Minoan Bronze Age inscriptions (c.1800-1450 BCE) from Crete.
 
 ## Overview
@@ -20,36 +22,59 @@ The system uses a methodology derived from the successful Linear B decipherment 
 
 The system operates under six inviolable principles derived from Alice Kober's methodology and Michael Ventris's successful decipherment of Linear B:
 
-1. **KOBER PRINCIPLE** - Let data lead; never start with language assumptions
-2. **VENTRIS LESSON** - Abandon theories when evidence contradicts
-3. **ANCHOR-BASED EXPANSION** - Build from certain to speculative
-4. **MULTI-HYPOTHESIS TESTING** - Test ALL four linguistic hypotheses
-5. **NEGATIVE EVIDENCE** - Consider what's absent, not just present
-6. **CROSS-CORPUS CONSISTENCY** - Readings must work across entire corpus
+| # | Principle | Summary |
+|---|-----------|---------|
+| 1 | **KOBER** | Let data lead; never start with language assumptions |
+| 2 | **VENTRIS** | Abandon theories when evidence contradicts |
+| 3 | **ANCHORS** | Build from certain to speculative |
+| 4 | **MULTI-HYP** | Test ALL four linguistic hypotheses |
+| 5 | **NEGATIVE** | Consider what's absent, not just present |
+| 6 | **CORPUS** | Readings must work across entire corpus |
+
+**Violating any principle invalidates the analysis.**
 
 ## Project Structure
 
 ```
 linear-a-decipherer/
-  FIRST_PRINCIPLES.md    # Six inviolable principles (start here)
-  SKILL.md               # Operational procedures
-  references/
-    methodology.md       # Analytical techniques
-    hypotheses.md        # Four linguistic frameworks
-    corpus.md            # Inscription database
-    sign_list.md         # Linear A syllabary
-
-Analysis outputs:
-  KNOSSOS_SCEPTER_ANALYSIS.md          # 2024 ivory scepter (119 signs)
-  LINEAR_A_COMPREHENSIVE_ANALYSIS.md   # Corpus-wide analysis
-  SESSION_LOG_*.md                     # Research session logs
+├── README.md                 # This file
+├── LICENSE                   # CC BY-NC-SA 4.0
+├── CONTRIBUTING.md           # Contribution guidelines (First Principles required)
+├── CITATION.cff              # Academic citation format
+├── CLAUDE.md                 # AI assistant guidance
+│
+├── linear-a-decipherer/      # Core methodology
+│   ├── FIRST_PRINCIPLES.md   # Six inviolable principles (READ FIRST)
+│   ├── SKILL.md              # Operational procedures
+│   └── references/
+│       ├── methodology.md    # Analytical techniques (Kober Method)
+│       ├── hypotheses.md     # Four linguistic frameworks
+│       ├── corpus.md         # Inscription database
+│       └── sign_list.md      # Linear A syllabary
+│
+├── analyses/                 # Research outputs
+│   ├── LINEAR_A_COMPREHENSIVE_ANALYSIS.md
+│   ├── KNOSSOS_SCEPTER_ANALYSIS.md
+│   ├── KOBER_METHOD_ANALYSIS_2026-01-09.md
+│   └── CORPUS_DATA_2026-01-09.md
+│
+├── sessions/                 # Session logs
+│   ├── SESSION_LOG_2026-01-05.md
+│   └── SESSION_LOG_2026-01-09.md
+│
+└── .github/
+    └── ISSUE_TEMPLATE/       # Templates for contributions
+        ├── proposed-reading.md
+        ├── pattern-observation.md
+        └── new-corpus-data.md
 ```
 
-## Key Resources
+## Quick Start
 
-- **SigLA Database**: https://sigla.phis.me - Primary inscription source
-- **Knossos Scepter (2024)**: Longest Linear A inscription ever found (119 signs)
-- **Ariadne Supplement 5**: https://ejournals.lib.uoc.gr/Ariadne/article/view/1841
+1. **Read First Principles**: `linear-a-decipherer/FIRST_PRINCIPLES.md`
+2. **Review Methodology**: `linear-a-decipherer/references/methodology.md`
+3. **Explore Corpus Data**: `analyses/CORPUS_DATA_2026-01-09.md`
+4. **See Pattern Analysis**: `analyses/KOBER_METHOD_ANALYSIS_2026-01-09.md`
 
 ## The Anchor Hierarchy
 
@@ -61,6 +86,51 @@ Analysis outputs:
 | 4 | Structural patterns | Transaction signs | MEDIUM |
 | 5 | Morphological patterns | -jo genitive? | LOW-MEDIUM |
 | 6 | Lexical matches | ki-ro = deficit | LOW |
+
+## Key Resources
+
+| Resource | URL | Description |
+|----------|-----|-------------|
+| SigLA | https://sigla.phis.me | Palaeographical database (772 documents) |
+| lineara.xyz | https://lineara.xyz | Corpus explorer (1,800+ inscriptions) |
+| PAITO Project | https://www.paitoproject.it/linear-a/ | Epigraphic research (1,534 documents) |
+| Ariadne Journal | https://ejournals.lib.uoc.gr/Ariadne/ | Academic publications |
+
+## Current Research Status
+
+**Verified Anchors**:
+- pa-i-to = Phaistos (Level 1, CERTAIN)
+- ku-ro = "total" (Level 2, HIGH, 50+ occurrences)
+- ki-ro = "deficit" (Level 2, HIGH, 30+ occurrences)
+
+**Pattern Findings**:
+- K-R root paradigm (ku-ro, ki-ro, ka-i-ro) suggests morphological system
+- -SI/-TI alternation in libation formulas may indicate verbal conjugation
+- Proto-Greek hypothesis remains WEAK (negative evidence)
+
+**Best-Fit Model**: Contact language (Pre-Greek base + Semitic administrative loans)
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines. All contributions must:
+- Follow First Principles
+- Test all four linguistic hypotheses
+- Verify readings across corpus
+- Use calibrated confidence levels
+
+## Citation
+
+```bibtex
+@software{linear_a_decipherer,
+  title = {Linear A Decipherment Methodology System},
+  author = {LevelHeads Research},
+  year = {2026},
+  url = {https://github.com/levelheads/linear-a-decipherer},
+  license = {CC-BY-NC-SA-4.0}
+}
+```
+
+See [CITATION.cff](CITATION.cff) for full citation information.
 
 ## Historical Context
 
@@ -77,4 +147,4 @@ The goal is not to "solve" Linear A quickly, but to incrementally build understa
 
 ## License
 
-Research and educational use.
+This work is licensed under [CC BY-NC-SA 4.0](LICENSE) - Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International.

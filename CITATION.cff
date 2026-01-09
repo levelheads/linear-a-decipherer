@@ -1,0 +1,53 @@
+cff-version: 1.2.0
+title: "Linear A Decipherment Methodology System"
+message: "If you use this methodology or data, please cite it as below."
+type: software
+authors:
+  - name: "LevelHeads Research"
+repository-code: "https://github.com/levelheads/linear-a-decipherer"
+url: "https://github.com/levelheads/linear-a-decipherer"
+abstract: >-
+  A rigorous evidence-based methodology system for analyzing
+  undeciphered Minoan Bronze Age inscriptions (c.1800-1450 BCE)
+  using principles derived from the successful Linear B decipherment.
+  Implements the Kober Method, multi-hypothesis testing, and
+  anchor-based expansion with calibrated confidence levels.
+keywords:
+  - Linear A
+  - Minoan
+  - Bronze Age
+  - decipherment
+  - Aegean scripts
+  - epigraphy
+  - Kober Method
+license: CC-BY-NC-SA-4.0
+version: "1.0.0"
+date-released: "2026-01-09"
+references:
+  - type: article
+    authors:
+      - family-names: Kober
+        given-names: Alice
+    title: "The Minoan Scripts: Fact and Theory"
+    journal: "American Journal of Archaeology"
+    year: 1948
+  - type: book
+    authors:
+      - family-names: Ventris
+        given-names: Michael
+      - family-names: Chadwick
+        given-names: John
+    title: "Documents in Mycenaean Greek"
+    year: 1956
+    publisher:
+      name: "Cambridge University Press"
+  - type: book
+    authors:
+      - family-names: Godart
+        given-names: Louis
+      - family-names: Olivier
+        given-names: Jean-Pierre
+    title: "Recueil des inscriptions en linéaire A (GORILA)"
+    year: 1976-1985
+    publisher:
+      name: "Librairie Orientaliste Paul Geuthner"
