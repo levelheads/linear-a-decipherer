@@ -72,11 +72,12 @@ linear-a-decipherer/
 │   ├── corpus_lookup.py          # Query inscriptions
 │   ├── enrich_chronology.py      # Chronological context
 │   ├── hypothesis_tester.py      # Multi-hypothesis testing (with contextual integration)
+│   ├── git_manager.py            # Git workflow management
 │   ├── kober_analyzer.py         # Frequency/positional analysis
-│   ├── kr_paradigm_validator.py  # K-R form validation (NEW)
+│   ├── kr_paradigm_validator.py  # K-R form validation
 │   ├── negative_evidence.py      # Negative evidence analysis
 │   ├── parse_lineara_corpus.py   # Corpus data generator
-│   ├── regional_analyzer.py      # Site-by-site vocabulary comparison (NEW)
+│   ├── regional_analyzer.py      # Site-by-site vocabulary comparison
 │   ├── statistical_analysis.py   # Pattern detection
 │   └── validate_corpus.py        # Corpus integrity checks
 │
@@ -242,6 +243,21 @@ python tools/corpus_lookup.py --report ku-ro
 - Proto-Greek hypothesis remains WEAK (strong negative evidence from vowel frequencies)
 
 **Best-Fit Model**: Contact language (Pre-Greek base + Semitic administrative loans + Luwian personal names)
+
+## Git Workflow
+
+This project uses a structured git workflow. See [GIT_WORKFLOW.md](GIT_WORKFLOW.md) for full details.
+
+```bash
+# Check repository status
+python tools/git_manager.py status
+
+# Run pre-commit checks
+python tools/git_manager.py pre-commit
+
+# Full sync check
+python tools/git_manager.py sync
+```
 
 ## Contributing
 
