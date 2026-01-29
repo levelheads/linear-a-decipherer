@@ -56,6 +56,8 @@ linear-a-decipherer/
 │       └── HT13_QUICK_START.md
 │
 ├── analyses/                 # Research outputs
+│   ├── KNOSSOS_SCEPTER_COMPLETE.md  # 119-sign scepter analysis
+│   ├── TY3a_COMPLETE_ANALYSIS.md    # Tylissos oil distribution tablet
 │   ├── LINEAR_A_COMPREHENSIVE_ANALYSIS.md
 │   ├── KNOSSOS_SCEPTER_ANALYSIS.md
 │   ├── KOBER_METHOD_ANALYSIS_2026-01-09.md
@@ -66,11 +68,15 @@ linear-a-decipherer/
 │
 ├── tools/                    # Analysis scripts
 │   ├── analyze_inscription.py    # Full analysis pipeline
+│   ├── contextual_analyzer.py    # Contextual pattern analysis
 │   ├── corpus_lookup.py          # Query inscriptions
 │   ├── enrich_chronology.py      # Chronological context
-│   ├── hypothesis_tester.py      # Multi-hypothesis testing
+│   ├── hypothesis_tester.py      # Multi-hypothesis testing (with contextual integration)
 │   ├── kober_analyzer.py         # Frequency/positional analysis
+│   ├── kr_paradigm_validator.py  # K-R form validation (NEW)
+│   ├── negative_evidence.py      # Negative evidence analysis
 │   ├── parse_lineara_corpus.py   # Corpus data generator
+│   ├── regional_analyzer.py      # Site-by-site vocabulary comparison (NEW)
 │   ├── statistical_analysis.py   # Pattern detection
 │   └── validate_corpus.py        # Corpus integrity checks
 │
@@ -149,6 +155,11 @@ This project integrates the [lineara.xyz](https://lineara.xyz) corpus as a git s
 | `signs.json` | Sign inventory with frequencies |
 | `statistics.json` | Corpus statistics and word frequencies |
 | `hypothesis_results.json` | Multi-hypothesis test results |
+| `negative_evidence_report.json` | Negative evidence analysis (First Principle #5) |
+| `contextual_analysis.json` | Contextual pattern analysis |
+| `regional_analysis.json` | Site-by-site vocabulary comparison |
+| `kr_paradigm_report.json` | K-R paradigm validation (60 occurrences mapped) |
+| `scepter_sequences.json` | Knossos scepter inscription data |
 | `pattern_report.json` | Kober Method pattern analysis |
 | `chronology_enrichment_report.json` | Temporal context data |
 | `statistical_report.json` | Statistical analysis output |
@@ -176,19 +187,61 @@ This project integrates the [lineara.xyz](https://lineara.xyz) corpus as a git s
 | PAITO Project | https://www.paitoproject.it/linear-a/ | Epigraphic research (1,534 documents) |
 | Ariadne Journal | https://ejournals.lib.uoc.gr/Ariadne/ | Academic publications |
 
+## Analysis Tools
+
+The `tools/` directory contains Python analysis scripts:
+
+| Tool | Description | First Principle |
+|------|-------------|-----------------|
+| `hypothesis_tester.py` | Tests words against 4 linguistic hypotheses (with contextual integration) | #4 Multi-Hypothesis |
+| `negative_evidence.py` | Analyzes absent patterns and statistical deviations | #5 Negative Evidence |
+| `regional_analyzer.py` | Site-by-site vocabulary comparison (HT, KH, ZA, PH, etc.) | #6 Cross-Corpus |
+| `kr_paradigm_validator.py` | Validates K-R forms (ku-ro/ki-ro) corpus-wide | #6 Cross-Corpus |
+| `contextual_analyzer.py` | Conditional frequencies, formula detection, document structures | #6 Cross-Corpus |
+| `corpus_lookup.py` | Fast indexed search with context extraction | #6 Cross-Corpus |
+| `kober_analyzer.py` | Frequency/positional analysis, triplet detection | #1 Kober |
+| `statistical_analysis.py` | Pattern detection and statistical tests | #1 Kober |
+
+**Usage Examples**:
+```bash
+# Test a word against all hypotheses
+python tools/hypothesis_tester.py --word ku-ro
+
+# Run negative evidence analysis
+python tools/negative_evidence.py --all
+
+# Compare vocabulary across sites
+python tools/regional_analyzer.py --all
+
+# Validate K-R paradigm corpus-wide
+python tools/kr_paradigm_validator.py --all
+
+# Detect formulaic sequences
+python tools/contextual_analyzer.py --analyze formulas
+
+# Search corpus with context
+python tools/corpus_lookup.py --report ku-ro
+```
+
 ## Current Research Status
 
 **Verified Anchors**:
 - pa-i-to = Phaistos (Level 1, CERTAIN)
-- ku-ro = "total" (Level 2, HIGH, 50+ occurrences)
-- ki-ro = "deficit" (Level 2, HIGH, 30+ occurrences)
+- ku-ro = "total" (Level 2, HIGH, 37 occurrences)
+- ki-ro = "deficit" (Level 2, MEDIUM, 16 occurrences)
+
+**Key Findings (Phase 2)**:
+- **Vowel Distribution**: /o/ at 3.9% vs ~20% expected for Greek - strong negative evidence against Proto-Greek
+- **K-R Paradigm**: 60 forms mapped; ku-ro and ki-ro NOT in complementary distribution (5 inscriptions contain both)
+- **Regional Variation**: LOW vocabulary overlap between sites (Jaccard <0.03) - suggests regional administrative independence
+- **Linguistic Mix**: Administrative terms show Semitic influence (A-DU, A-DA), personal names show Luwian patterns (KO-A-DU-WA)
 
 **Pattern Findings**:
-- K-R root paradigm (ku-ro, ki-ro, ka-i-ro) suggests morphological system
+- K-R root paradigm (ku-ro, ki-ro, ku-ra, ki-ra) suggests morphological system
 - -SI/-TI alternation in libation formulas may indicate verbal conjugation
-- Proto-Greek hypothesis remains WEAK (negative evidence)
+- Proto-Greek hypothesis remains WEAK (strong negative evidence from vowel frequencies)
 
-**Best-Fit Model**: Contact language (Pre-Greek base + Semitic administrative loans)
+**Best-Fit Model**: Contact language (Pre-Greek base + Semitic administrative loans + Luwian personal names)
 
 ## Contributing
 
