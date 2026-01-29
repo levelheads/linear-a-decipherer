@@ -22,6 +22,14 @@
 *.log
 logs/
 
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+
 # Reference materials (large files stored locally, indexed in sources.md)
 reference texts/
 references/pdfs/
