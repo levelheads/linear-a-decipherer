@@ -46,11 +46,14 @@ linear-a-decipherer/
 ├── linear-a-decipherer/      # Core methodology
 │   ├── FIRST_PRINCIPLES.md   # Six inviolable principles (READ FIRST)
 │   ├── SKILL.md              # Operational procedures
-│   └── references/
-│       ├── methodology.md    # Analytical techniques (Kober Method)
-│       ├── hypotheses.md     # Four linguistic frameworks
-│       ├── corpus.md         # Inscription database
-│       └── sign_list.md      # Linear A syllabary
+│   ├── references/
+│   │   ├── methodology.md    # Analytical techniques (Kober Method)
+│   │   ├── hypotheses.md     # Four linguistic frameworks
+│   │   ├── corpus.md         # Inscription database
+│   │   └── sign_list.md      # Linear A syllabary
+│   └── examples/
+│       ├── HT13_COMPLETE_ANALYSIS.md
+│       └── HT13_QUICK_START.md
 │
 ├── analyses/                 # Research outputs
 │   ├── LINEAR_A_COMPREHENSIVE_ANALYSIS.md
@@ -62,12 +65,25 @@ linear-a-decipherer/
 │   └── lineara/              # lineara.xyz corpus data
 │
 ├── tools/                    # Analysis scripts
-│   └── parse_lineara_corpus.py
+│   ├── analyze_inscription.py    # Full analysis pipeline
+│   ├── corpus_lookup.py          # Query inscriptions
+│   ├── enrich_chronology.py      # Chronological context
+│   ├── hypothesis_tester.py      # Multi-hypothesis testing
+│   ├── kober_analyzer.py         # Frequency/positional analysis
+│   ├── parse_lineara_corpus.py   # Corpus data generator
+│   ├── statistical_analysis.py   # Pattern detection
+│   └── validate_corpus.py        # Corpus integrity checks
 │
 ├── data/                     # Generated data (gitignored)
-│   ├── corpus.json           # Parsed inscription data
+│   ├── corpus.json           # Parsed inscription data (1,721 entries)
 │   ├── cognates.json         # Linear B cognate mappings
-│   └── statistics.json       # Corpus statistics
+│   ├── signs.json            # Sign inventory
+│   ├── statistics.json       # Corpus statistics
+│   ├── chronology_enrichment_report.json
+│   ├── hypothesis_results.json
+│   ├── pattern_report.json
+│   ├── statistical_report.json
+│   └── validation_report.json
 │
 ├── sessions/                 # Session logs
 │   ├── SESSION_LOG_2026-01-05.md
@@ -80,27 +96,63 @@ linear-a-decipherer/
         └── new-corpus-data.md
 ```
 
+## Getting Started
+
+### Prerequisites
+
+- Python 3.8+
+- Git with submodule support
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/levelheads/linear-a-decipherer.git
+cd linear-a-decipherer
+
+# Initialize the corpus submodule
+git submodule update --init
+
+# Generate analysis data (outputs to data/, ~2MB)
+python tools/parse_lineara_corpus.py
+```
+
+### Verify Setup
+
+After running the commands above, you should have:
+
+| Directory/File | Contents |
+|----------------|----------|
+| `external/lineara/` | Corpus data from lineara.xyz |
+| `data/corpus.json` | Parsed inscriptions (1,721 entries) |
+| `data/cognates.json` | Linear B cognate mappings |
+| `data/signs.json` | Sign inventory |
+
 ## Quick Start
 
 1. **Read First Principles**: `linear-a-decipherer/FIRST_PRINCIPLES.md`
 2. **Review Methodology**: `linear-a-decipherer/references/methodology.md`
-3. **Explore Corpus Data**: `analyses/CORPUS_DATA_2026-01-09.md`
-4. **See Pattern Analysis**: `analyses/KOBER_METHOD_ANALYSIS_2026-01-09.md`
+3. **See Example Analysis**: `linear-a-decipherer/examples/HT13_QUICK_START.md`
+4. **Explore Corpus Data**: `analyses/CORPUS_DATA_2026-01-09.md`
+5. **See Pattern Analysis**: `analyses/KOBER_METHOD_ANALYSIS_2026-01-09.md`
 
 ## Corpus Data
 
 This project integrates the [lineara.xyz](https://lineara.xyz) corpus as a git submodule, providing structured access to 1,700+ inscriptions.
 
-**Setup** (after cloning):
-```bash
-git submodule update --init
-python tools/parse_lineara_corpus.py
-```
+**Generated Files** (in `data/`, gitignored - regenerate with `python tools/parse_lineara_corpus.py`):
 
-**Output** (in `data/`, gitignored):
-- `corpus.json` - Full inscription data (1,721 inscriptions, 89 sites)
-- `cognates.json` - Linear B cognate mappings (231 words, 191 roots)
-- `statistics.json` - Corpus statistics and word frequencies
+| File | Description |
+|------|-------------|
+| `corpus.json` | Full inscription data (1,721 inscriptions, 89 sites) |
+| `cognates.json` | Linear B cognate mappings (231 words, 191 roots) |
+| `signs.json` | Sign inventory with frequencies |
+| `statistics.json` | Corpus statistics and word frequencies |
+| `hypothesis_results.json` | Multi-hypothesis test results |
+| `pattern_report.json` | Kober Method pattern analysis |
+| `chronology_enrichment_report.json` | Temporal context data |
+| `statistical_report.json` | Statistical analysis output |
+| `validation_report.json` | Corpus integrity checks |
 
 **Attribution**: Data from [mwenge/lineara.xyz](https://github.com/mwenge/lineara.xyz), which aggregates GORILA (Godart & Olivier), George Douros, and John Younger. See [ATTRIBUTION.md](ATTRIBUTION.md).
 
