@@ -77,6 +77,29 @@ def extract_js_map_entries(content: str) -> list:
     return entries
 
 
+def convert_js_unicode_escapes(s: str) -> str:
+    """
+    Convert JavaScript Unicode escapes with curly braces to standard format.
+
+    JavaScript allows: \\u{1076b} (variable length hex in curly braces)
+    JSON requires:     \\uD801\\uDF6B (surrogate pairs for code points > U+FFFF)
+
+    For code points <= U+FFFF, convert to \\uXXXX.
+    For code points > U+FFFF, convert to surrogate pairs or use the actual character.
+    """
+    def replace_unicode_escape(match):
+        code_point = int(match.group(1), 16)
+        if code_point <= 0xFFFF:
+            return f'\\u{code_point:04X}'
+        else:
+            # For code points > U+FFFF, just insert the actual character
+            # This is safer than trying to compute surrogate pairs
+            return chr(code_point)
+
+    # Pattern matches \u{XXXX} or \u{XXXXX} etc.
+    return re.sub(r'\\u\{([0-9A-Fa-f]+)\}', replace_unicode_escape, s)
+
+
 def parse_js_object_safe(obj_str: str) -> dict:
     """
     Parse a JavaScript object string to Python dict.
@@ -89,6 +112,10 @@ def parse_js_object_safe(obj_str: str) -> dict:
     except json.JSONDecodeError:
         # Try some fixups
         fixed = obj_str
+
+        # Convert JavaScript-style Unicode escapes (\u{XXXX}) to JSON-compatible format
+        fixed = convert_js_unicode_escapes(fixed)
+
         # Remove trailing commas before closing braces/brackets
         fixed = re.sub(r',\s*}', '}', fixed)
         fixed = re.sub(r',\s*\]', ']', fixed)
@@ -289,6 +316,128 @@ def compute_statistics(inscriptions: dict) -> dict:
     return stats
 
 
+def extract_sign_data(inscriptions: dict) -> dict:
+    """
+    Extract sign-level data from inscriptions for pattern analysis.
+
+    Returns dictionary mapping sign -> {
+        'total_occurrences': int,
+        'position_frequency': {'initial': int, 'medial': int, 'final': int},
+        'contexts': {'pre_logogram': int, 'post_numeral': int, 'standalone': int},
+        'attestations': [list of inscription IDs + position],
+        'co_occurrences': {other_sign: count}
+    }
+    """
+    print("Extracting sign-level data...")
+
+    sign_data = {}
+
+    # Regular expressions for detecting logograms and numerals
+    logogram_pattern = re.compile(r'^([A-Z]{2,}|VIN|OLE|GRA|FIC|OVI|CAP|SUS|BOS|\*\d+)')
+    numeral_pattern = re.compile(r'^[\d\s.¹²³⁄₂₃₄₅₆₇₈○◎—|]+$')
+
+    for inscription_id, data in inscriptions.items():
+        if '_parse_error' in data:
+            continue
+
+        transliterated = data.get('transliteratedWords', [])
+        if not transliterated:
+            continue
+
+        # Process each word in the inscription
+        for word_idx, word in enumerate(transliterated):
+            # Skip separators, newlines, and numerals
+            if not word or word in ['\n', '𐄁', '', '—', '≈']:
+                continue
+            if numeral_pattern.match(word):
+                continue
+
+            # Check if this is a logogram
+            is_logogram = bool(logogram_pattern.match(word))
+            if is_logogram:
+                continue
+
+            # Split word into syllabograms
+            syllabograms = word.split('-')
+            num_signs = len(syllabograms)
+
+            for sign_idx, sign in enumerate(syllabograms):
+                # Clean subscripts (RA₂ → RA, PA₃ → PA)
+                clean_sign = re.sub(r'[₀₁₂₃₄₅₆₇₈₉]', '', sign).upper()
+
+                # Skip empty or very long strings
+                if not clean_sign or len(clean_sign) > 6:
+                    continue
+
+                # Initialize sign data if first occurrence
+                if clean_sign not in sign_data:
+                    sign_data[clean_sign] = {
+                        'total_occurrences': 0,
+                        'position_frequency': {'initial': 0, 'medial': 0, 'final': 0},
+                        'contexts': {'pre_logogram': 0, 'post_numeral': 0, 'standalone': 0},
+                        'attestations': [],
+                        'co_occurrences': Counter()
+                    }
+
+                # Increment total occurrences
+                sign_data[clean_sign]['total_occurrences'] += 1
+
+                # Determine position in word
+                if num_signs == 1:
+                    position = 'standalone'
+                    sign_data[clean_sign]['contexts']['standalone'] += 1
+                elif sign_idx == 0:
+                    position = 'initial'
+                elif sign_idx == num_signs - 1:
+                    position = 'final'
+                else:
+                    position = 'medial'
+
+                if position != 'standalone':
+                    sign_data[clean_sign]['position_frequency'][position] += 1
+
+                # Check context (pre-logogram, post-numeral)
+                if word_idx + 1 < len(transliterated):
+                    next_word = transliterated[word_idx + 1]
+                    if next_word and logogram_pattern.match(next_word):
+                        sign_data[clean_sign]['contexts']['pre_logogram'] += 1
+
+                if word_idx > 0:
+                    prev_word = transliterated[word_idx - 1]
+                    if prev_word and numeral_pattern.match(prev_word):
+                        sign_data[clean_sign]['contexts']['post_numeral'] += 1
+
+                # Record attestation
+                sign_data[clean_sign]['attestations'].append({
+                    'inscription': inscription_id,
+                    'word_index': word_idx,
+                    'sign_index': sign_idx,
+                    'position': position,
+                    'full_word': word
+                })
+
+                # Record co-occurrences (other signs in same word)
+                for other_idx, other_sign in enumerate(syllabograms):
+                    if other_idx != sign_idx:
+                        other_clean = re.sub(r'[₀₁₂₃₄₅₆₇₈₉]', '', other_sign).upper()
+                        if other_clean and len(other_clean) <= 6:
+                            sign_data[clean_sign]['co_occurrences'][other_clean] += 1
+
+    # Convert Counters to dicts for JSON serialization
+    for sign in sign_data:
+        sign_data[sign]['co_occurrences'] = dict(
+            sign_data[sign]['co_occurrences'].most_common(20)  # Top 20 co-occurrences
+        )
+        # Limit attestations to first 100 for file size
+        if len(sign_data[sign]['attestations']) > 100:
+            sign_data[sign]['attestations'] = sign_data[sign]['attestations'][:100]
+            sign_data[sign]['attestations_truncated'] = True
+
+    print(f"  Extracted data for {len(sign_data)} unique signs")
+
+    return sign_data
+
+
 def main():
     """Main entry point."""
     print("=" * 60)
@@ -319,6 +468,9 @@ def main():
 
     # Compute statistics
     statistics = compute_statistics(inscriptions)
+
+    # Extract sign-level data
+    sign_data = extract_sign_data(inscriptions)
 
     # Write output files
     print()
@@ -354,11 +506,25 @@ def main():
         json.dump(statistics, f, ensure_ascii=False, indent=2)
     print(f"  {stats_path} ({stats_path.stat().st_size / 1024:.1f} KB)")
 
+    signs_path = OUTPUT_DIR / "signs.json"
+    with open(signs_path, 'w', encoding='utf-8') as f:
+        json.dump({
+            'attribution': {
+                'source': 'lineara.xyz (https://github.com/mwenge/lineara.xyz)',
+                'note': 'Sign-level frequency, position, and co-occurrence data for pattern analysis',
+                'generated': datetime.now().isoformat()
+            },
+            'total_signs': len(sign_data),
+            'signs': sign_data
+        }, f, ensure_ascii=False, indent=2)
+    print(f"  {signs_path} ({signs_path.stat().st_size / 1024:.1f} KB)")
+
     print()
     print("=" * 60)
     print("Parsing complete!")
     print(f"  Inscriptions: {len(inscriptions)}")
     print(f"  Sites: {len(statistics['by_site'])}")
+    print(f"  Unique signs: {len(sign_data)}")
     print(f"  Cognate words: {len(cognates.get('identicalWords', {}))}")
     print(f"  Cognate roots: {len(cognates.get('identicalRoots', {}))}")
     print("=" * 60)
