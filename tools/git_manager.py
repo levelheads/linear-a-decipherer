@@ -57,16 +57,24 @@ def get_status() -> Dict:
     # Get status
     code, out, _ = run_git(['status', '--porcelain'])
     for line in out.strip().split('\n'):
-        if not line:
+        if not line or len(line) < 3:
             continue
-        state = line[:2]
-        filepath = line[3:]
 
-        if state[0] in 'MADRC':
+        # Git status --porcelain format: XY PATH
+        # X = status in index, Y = status in work tree
+        index_status = line[0]
+        worktree_status = line[1]
+        filepath = line[3:].strip()
+
+        # Skip submodules with untracked content (shows as modified but isn't our code)
+        if 'external/' in filepath:
+            continue
+
+        if index_status in 'MADRC':
             status['staged'].append(filepath)
-        if state[1] in 'MADRC':
+        if worktree_status in 'MADRC':
             status['modified'].append(filepath)
-        if state == '??':
+        if index_status == '?' and worktree_status == '?':
             # Filter out ignored patterns
             if not any(p in filepath for p in ['__pycache__', '.DS_Store']):
                 status['untracked'].append(filepath)
