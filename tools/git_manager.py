@@ -54,21 +54,21 @@ def get_status() -> Dict:
     code, out, _ = run_git(['branch', '--show-current'])
     status['branch'] = out.strip()
 
-    # Get status
-    code, out, _ = run_git(['status', '--porcelain'])
+    # Get status (ignore submodules which have different format)
+    code, out, _ = run_git(['status', '--porcelain', '--ignore-submodules'])
     for line in out.strip().split('\n'):
         if not line or len(line) < 3:
             continue
 
         # Git status --porcelain format: XY PATH
-        # X = status in index, Y = status in work tree
+        # X = status in index (staged), Y = status in work tree (modified)
+        # The path starts after the 2-char status + space
         index_status = line[0]
-        worktree_status = line[1]
-        filepath = line[3:].strip()
+        worktree_status = line[1] if len(line) > 1 else ' '
 
-        # Skip submodules with untracked content (shows as modified but isn't our code)
-        if 'external/' in filepath:
-            continue
+        # Find where the filepath starts (after status chars)
+        # Handle both 'XY PATH' and 'X  PATH' formats
+        filepath = line[2:].lstrip()
 
         if index_status in 'MADRC':
             status['staged'].append(filepath)
@@ -301,7 +301,14 @@ def sync_check():
     issues = []
 
     if status['has_uncommitted']:
-        issues.append(f"Uncommitted changes: {len(status['modified'])} modified, {len(status['untracked'])} untracked")
+        parts = []
+        if status['staged']:
+            parts.append(f"{len(status['staged'])} staged")
+        if status['modified']:
+            parts.append(f"{len(status['modified'])} modified")
+        if status['untracked']:
+            parts.append(f"{len(status['untracked'])} untracked")
+        issues.append(f"Uncommitted changes: {', '.join(parts)}")
 
     if status['needs_push']:
         issues.append(f"Unpushed commits: {status['remote_status']}")
@@ -316,8 +323,11 @@ def sync_check():
         print()
         print("RECOMMENDED ACTIONS:")
         if status['has_uncommitted']:
-            print("  1. Stage changes: git add <files>")
-            print("  2. Commit: git commit -m 'message'")
+            if status['staged']:
+                print("  1. Commit staged files: git commit -m 'message'")
+            else:
+                print("  1. Stage changes: git add <files>")
+                print("  2. Commit: git commit -m 'message'")
         if status['needs_push']:
             print("  3. Push: git push")
         if 'behind' in status['remote_status']:
