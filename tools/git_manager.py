@@ -71,7 +71,8 @@ def get_status() -> Dict:
             if not any(p in filepath for p in ['__pycache__', '.DS_Store']):
                 status['untracked'].append(filepath)
 
-    status['has_uncommitted'] = bool(status['staged'] or status['modified'] or status['untracked'])
+    status['has_uncommitted'] = bool(status['staged'] or status['modified'] or
+                                      [f for f in status['untracked'] if f])
 
     # Check if ahead of remote
     code, out, _ = run_git(['rev-list', '--count', '@{u}..HEAD'])
