@@ -109,18 +109,36 @@ Overview of the Linear A inscription corpus and key reference materials.
 
 ### Online Resources
 
+**GORILA Online** (École française d'Athènes)
+- All 5 volumes digitized and freely accessible
+- Vol 1: http://cefael.efa.gr/detail.php?site_id=1&actionID=page&serie_id=EtCret&volume_number=21&issue_number=1&sp=5
+- Vol 2-5: Same pattern with issue_number=2,3,4,5
+- Photos, drawings, and transcriptions
+- Authoritative AB sign numbering
+
 **SigLA** (`https://sigla.phis.me`)
 - Digital palaeographical database
 - Searchable by sign, word, document
 - Original drawings (not GORILA copies)
 - Color-coded sign functions
-- In development; administrative tablets focus
+- 772+ documents; 300 standard signs; 3,000+ searchable sign instances
 
-**John Younger's Website** (`http://people.ku.edu/~jyounger/LinearA/`)
-- Phonetic transcriptions of all tablets
+**John Younger's Corpus** (Academia.edu - migrated April 2024)
+- **NEW URL**: https://www.academia.edu/117949876/Linear_A_Texts_and_Inscriptions_in_phonetic_transcription
+- Old KU server (people.ku.edu/~jyounger/LinearA/) **deprecated February 2024**
+- Phonetic transcriptions of all GORILA tablets
 - Based on GORILA with corrections
 - Transliteration using Linear B values
-- Free access to normalized texts
+
+**DĀMOS** (`https://damos.hf.uio.no/`)
+- Complete Linear B corpus (6,000+ tablets)
+- Essential for cognate verification
+- Word search and scribal hand identification
+
+**Mnamon** (`https://mnamon.sns.it/index.php?page=Risorse&id=19&lang=en`)
+- Curated index of 37+ Linear A resources
+- Research centers, bibliographies, fonts
+- Maintained by Scuola Normale Superiore
 
 ## Key Inscriptions
 

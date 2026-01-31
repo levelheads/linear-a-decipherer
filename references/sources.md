@@ -98,15 +98,27 @@ This file indexes all reference materials used in the Linear A decipherment proj
 ### GORILA - Recueil des inscriptions en linéaire A
 
 - **Full Citation**: Godart, L. & Olivier, J.-P. (1976-1985). *Recueil des inscriptions en linéaire A* (GORILA). Études Crétoises, vols. 21.1-5. Paris: Geuthner.
-- **Type**: Book (5 volumes)
-- **Local Path**: (not held locally)
-- **URL**: (institutional access required)
+- **Type**: Book (5 volumes) - **NOW DIGITIZED ONLINE**
+- **Local Path**: Available in `external/lineara/papers/` (PDF copies)
 - **Relevance**: Authoritative corpus; AB numbering system; sign classification standard
+- **Inscriptions**: 1,427 documents; 7,362-7,396 signs
+
+**Online Access** (École française d'Athènes - cefael.efa.gr):
+
+| Volume | Contents | URL |
+|--------|----------|-----|
+| **Vol. 1** | Tablets published before 1970 | http://cefael.efa.gr/detail.php?site_id=1&actionID=page&serie_id=EtCret&volume_number=21&issue_number=1&sp=5 |
+| **Vol. 2** | Nodules, roundels before 1970 | http://cefael.efa.gr/detail.php?site_id=1&actionID=page&serie_id=EtCret&volume_number=21&issue_number=2&sp=5 |
+| **Vol. 3** | 1975-1976 publications | http://cefael.efa.gr/detail.php?site_id=1&actionID=page&serie_id=EtCret&volume_number=21&issue_number=3&sp=5 |
+| **Vol. 4** | Vases, jewelry, misc. | http://cefael.efa.gr/detail.php?site_id=1&actionID=page&serie_id=EtCret&volume_number=21&issue_number=4&sp=5 |
+| **Vol. 5** | Indices, concordances, sign tables | http://cefael.efa.gr/detail.php?site_id=1&actionID=page&serie_id=EtCret&volume_number=21&issue_number=5&sp=5 |
 
 **Notes**:
 - Definitive reference for Linear A inscriptions
 - Establishes AB### sign numbering convention
-- Five volumes covering all known inscriptions through 1985
+- **OPEN ACCESS** via École française d'Athènes digital library
+- Photos, drawings, and transcriptions for each document
+- Volume 5 contains the authoritative sign classification
 
 ---
 
@@ -195,11 +207,24 @@ This file indexes all reference materials used in the Linear A decipherment proj
 
 ### Younger - Linear A Texts & Inscriptions
 
-- **Full Citation**: Younger, J.G. (ongoing, last updated 2024-04-08). *Linear A Texts & Inscriptions in phonetic transcription*.
+- **Full Citation**: Younger, J.G. (ongoing, last updated 2024-04-23). *Linear A Texts & Inscriptions in phonetic transcription*.
 - **Type**: Online compilation (Academia.edu)
-- **URL**: https://www.academia.edu/117949876/Linear_A_Texts_and_Inscriptions_in_phonetic_transcription
-- **Accessed**: 2026-01-09
+- **Primary URL**: https://www.academia.edu/117949876/Linear_A_Texts_and_Inscriptions_in_phonetic_transcription
+- **Introduction**: https://www.academia.edu/117949722/Younger_JG_Linear_A_folder_introduction
+- **Lexicon**: http://www.people.ku.edu/~jyounger/LinearA/lexicon.html (may be deprecated)
+- **Accessed**: 2026-01-31
 - **Relevance**: Comprehensive phonetic transcriptions of all GORILA tablets; ~1,500 documents, ~7,500 signs
+
+**URL Migration Notice (February 2024)**:
+> The original Kansas University server (people.ku.edu/~jyounger/LinearA/) was **shut down in February 2024**. Younger migrated materials to Academia.edu in April 2024. Some old links in lineara.xyz commentary may be broken.
+
+**Available Files on Academia.edu**:
+- Introduction and overview of Linear A
+- Linear AB syllabary
+- Haghia Triada texts (transliteration)
+- Texts from other sites
+- Lexicon (planned)
+- Chronological updates list (planned)
 
 **Notes**:
 - Primary reference for tablet transcriptions
@@ -207,6 +232,7 @@ This file indexes all reference materials used in the Linear A decipherment proj
 - Includes administrative vocabulary analysis and libation formula documentation
 - Does NOT yet include Knossos scepter (last updated before 2025 publication)
 - Covers sites: HT, KH, ZA, PH, AR, KN, MA, TY, PE, and others
+- Younger has worked on Linear A for 20+ years; contextual/archaeological approach
 
 ---
 
@@ -226,11 +252,282 @@ Priority sources not yet obtained:
 
 ---
 
+---
+
+## Additional Online Resources
+
+### Mnamon Portal (Meta-Resource)
+
+- **Full Citation**: Del Freo, M. (ed.). *Mnamon: Ancient Writing Systems in the Mediterranean*. Scuola Normale Superiore di Pisa.
+- **Type**: Portal / Meta-resource
+- **URL**: https://mnamon.sns.it/index.php?page=Scrittura&id=19&lang=en
+- **Resources Page**: https://mnamon.sns.it/index.php?page=Risorse&id=19&lang=en
+- **DOI**: 10.25429/sns.it/lettere/mnamon000
+- **ISBN**: 978-88-7642-719-0
+- **Last Updated**: April 2022 (Linear A section by Maurizio Del Freo)
+- **Accessed**: 2026-01-31
+- **Relevance**: Curated index of 37+ Linear A resources; research centers; bibliographies
+
+**Sections Available**:
+- Linear A overview and script description
+- Examples of writing (sample inscriptions)
+- List of symbols (sign inventory)
+- Online resources (comprehensive link collection)
+
+**Notes**:
+- Best single starting point for discovering Linear A resources
+- Critically reviewed by specialists
+- Covers research centers, databases, bibliographies, fonts, archives
+
+---
+
+### DĀMOS - Database of Mycenaean at Oslo
+
+- **Full Citation**: Piquero Rodríguez, J. et al. *DĀMOS: Database of Mycenaean at Oslo*. University of Oslo.
+- **Type**: Database (URL)
+- **URL**: https://damos.hf.uio.no/
+- **Texts**: https://damos.hf.uio.no/about/texts/
+- **Accessed**: 2026-01-31
+- **Relevance**: Complete Linear B corpus for cognate verification; 6,000+ tablets
+
+**Statistics**:
+- Knossos: 3,369 tablets by ~100 scribes
+- Pylos: 1,107 tablets by 32 scribes
+- Other sites: Mycenae, Thebes, Tiryns, Midea, Dimini
+
+**Features**:
+- Full corpus in transcription
+- Word search tool
+- Updated with new joins and readings
+- Scribal hand identification
+
+**Notes**:
+- Essential for Linear B cognate verification
+- Cross-reference Linear A readings against Linear B vocabulary
+- Maintained with ongoing updates from new archaeological finds
+
+---
+
+### INSCRIBE Project (ERC)
+
+- **Full Citation**: Ferrara, S. (PI). *INSCRIBE: Invention of Scripts and their Beginnings*. ERC Consolidator Grant, University of Bologna.
+- **Type**: Research Project + Database
+- **URL**: https://site.unibo.it/inscribe/en/about-1
+- **SigLA Integration**: https://site.unibo.it/inscribe/en/linear-a-sigla
+- **Accessed**: 2026-01-31
+- **Relevance**: Comparative study of writing invention; computational approaches
+
+**Key Outputs**:
+- SigLA paleographic database (see separate entry)
+- LAIF (Linear A Inscription Finder) - in development
+- Fraction sign analysis (computational)
+- Sign evolution studies
+
+**Notes**:
+- Ongoing ERC-funded project
+- Focus on script invention and early development
+- May produce additional digital resources
+
+---
+
+### Linear A Digital Corpus (TEI-EpiDoc)
+
+- **Full Citation**: Petrolito, T., Petrolito, R., Cacciafoco, F.P., & Winterstein, G. (2015). "Minoan Linguistic Resources: The Linear A Digital Corpus." *Proceedings of LaTeCH 2015*.
+- **Type**: Digital Corpus (TEI-XML)
+- **URL**: https://aclanthology.org/W15-3715/
+- **PDF**: https://aclanthology.org/W15-3715.pdf
+- **Accessed**: 2026-01-31
+- **Relevance**: Structured XML corpus; Unicode standardization; NLP-ready format
+
+**Technical Details**:
+- TEI-EpiDoc XML encoding
+- Custom Linear A Unicode font
+- Standardized character mapping
+- Designed for computational analysis
+
+**Notes**:
+- Useful for NLP/computational approaches
+- Addresses Unicode visualization issues
+- May be outdated compared to SigLA/lineara.xyz
+
+---
+
+### CREWS Project (Cambridge)
+
+- **Full Citation**: Steele, P.M. (PI). *CREWS: Contexts of and Relations between Early Writing Systems*. ERC, University of Cambridge.
+- **Type**: Research Project
+- **URL**: https://crewsproject.wordpress.com/
+- **Accessed**: 2026-01-31
+- **Relevance**: Writing systems methodology; Bronze Age Aegean scripts context
+
+**Key Publications**:
+- Blog posts on Linear A methodology
+- Comparative script analysis
+- Replica tablet creation guides
+
+**Notes**:
+- Valuable for methodological context
+- Cross-script comparisons (Cypriot, Anatolian, etc.)
+
+---
+
+### PASP - Program in Aegean Scripts and Prehistory
+
+- **Full Citation**: Palaima, T.G. (Director). *Program in Aegean Scripts and Prehistory*. University of Texas at Austin.
+- **Type**: Research Center + Archive
+- **URL**: https://sites.utexas.edu/scripts/
+- **Accessed**: 2026-01-31
+- **Relevance**: Primary US center for Aegean script studies; archives
+
+**Archives Held**:
+- Elizabeth Wayland Barber Collection
+- William Brice Collection (includes Ventris correspondence)
+- Pylos tablet documentation project
+
+**Notes**:
+- Major scholarly archive for Linear A/B research history
+- Pylos tablets digitization with RTI/3D scanning
+- Annual research programs on decipherment
+
+---
+
+### CaLiBRA - Cambridge Linear B Research Archive
+
+- **Full Citation**: University of Cambridge. *CaLiBRA: Cambridge Archive of Linear B Research*.
+- **Type**: Database / Image Archive
+- **URL**: https://calibra.classics.cam.ac.uk/
+- **Accessed**: 2026-01-31
+- **Relevance**: Searchable photographs of Linear B tablets; cognate verification
+
+**Notes**:
+- High-quality tablet photographs
+- Useful for comparing Linear A/B sign forms
+- Focus on Pylos archive
+
+---
+
+### Computational Approaches Review (2024)
+
+- **Full Citation**: Ferrara, S. et al. (2024). "A Systematic Review of Computational Approaches to Deciphering Bronze Age Aegean and Cypriot Scripts." *Computational Linguistics*, 50(2), 725-773.
+- **Type**: Review Article
+- **URL**: https://direct.mit.edu/coli/article/50/2/725/119990/
+- **PDF**: https://aclanthology.org/2024.cl-2.7.pdf
+- **Accessed**: 2026-01-31
+- **Relevance**: State-of-the-art computational methods; machine learning approaches
+
+**Coverage**:
+- Traditional and deep learning decipherment approaches
+- Archanes script, Cretan Hieroglyphic, Phaistos Disc
+- Linear A computational analysis methods
+- Cypro-Minoan and Cypriot syllabary
+
+**Notes**:
+- Essential reading for computational methodology
+- Identifies gaps and opportunities in automated analysis
+- Published 2024 - most current review available
+
+---
+
+### Salgarella Publications (2024)
+
+- **Full Citation**: Salgarella, E. & Judson, A. (2024). "Signs of the time? Testing the chronological significance of Linear A and B palaeography." In *Ko-ro-na-we-sa: Proceedings of the 15th International Colloquium on Mycenaean Studies*. Crete University Press.
+- **Type**: Conference Proceedings
+- **URL**: https://www.academia.edu/127103477/
+- **Accessed**: 2026-01-31
+- **Relevance**: Chronological analysis via paleography; tablet dating methodology
+
+**Also see**:
+- Meissner, T. & Salgarella, E. (2024). "The Relationship Between Cretan Hieroglyphic and the Other Cretan Scripts." In Civitillo et al. (eds.), *Cretan Hieroglyphic*. Cambridge University Press, pp. 134-164.
+- Salgarella, Bellinato & Ferrara (2025, forthcoming). "On Aegean Spices: Decipherment prospects on Linear A and B spice-related signs."
+
+---
+
+## Fonts and Technical Resources
+
+### Noto Sans Linear A
+
+- **Type**: Unicode Font
+- **URL**: https://fonts.google.com/noto/specimen/Noto+Sans+Linear+A
+- **License**: SIL Open Font License
+- **Relevance**: Complete Linear A Unicode character set
+
+**Notes**:
+- Google's comprehensive ancient script font
+- Recommended for document preparation
+- Full Unicode Block U+10600-U+1077F
+
+---
+
+### Aegean Font (George Douros)
+
+- **Type**: Unicode Font
+- **URL**: https://localfonts.eu/freefonts/greek-free-fonts/unicode-fonts-for-ancient-scripts/aegean/
+- **Relevance**: Cretan Hieroglyphic, Linear A, Linear B, Cypriot
+
+**Notes**:
+- Covers multiple Aegean scripts in one font
+- Used by lineara.xyz project
+- Includes sign variants
+
+---
+
+### Linear A LaTeX Package
+
+- **Type**: LaTeX Package + Fonts
+- **URL**: https://ctan.org/pkg/lineara
+- **Author**: Apostolos Syropoulos
+- **Relevance**: Academic document preparation with Linear A signs
+
+---
+
+## Research Centers and Archaeological Schools
+
+| Institution | URL | Focus |
+|-------------|-----|-------|
+| **SAIA** (Italian School at Athens) | http://www.scuoladiatene.it/ | Cretan excavations |
+| **INSTAP** | http://www.instapstudycenter.org/ | Aegean prehistory (US) |
+| **EfA** (French School at Athens) | http://www.efa.gr/ | Malia excavations |
+| **BSA** (British School at Athens) | http://www.bsa.ac.uk/ | Knossos, Palekastro |
+| **ASCSA** (American School) | http://www.ascsa.edu.gr/ | Research library |
+| **Heraklion Museum** | https://heraklionmuseum.gr/language/en/home/ | 75% of Linear A inscriptions |
+
+---
+
+## Bibliographies
+
+| Resource | URL | Coverage |
+|----------|-----|----------|
+| **Younger Bibliography** | http://www.people.ku.edu/~jyounger/LinearA/biblio.html | 1980-present |
+| **NESTOR** | https://classics.uc.edu/nestor | Aegean prehistory to 2006 |
+| **SMID** | https://repositories.lib.utexas.edu/handle/2152/16096 | Linear A/B (1979-1999) |
+
+---
+
 ## URL Verification Log
 
 | URL | Last Verified | Status |
 |-----|---------------|--------|
-| https://sigla.phis.me | 2026-01-09 | Active |
-| https://lineara.xyz | 2026-01-09 | Active |
-| https://www.paitoproject.it/linear-a/ | 2026-01-09 | Active |
-| https://ejournals.lib.uoc.gr/Ariadne/article/view/1841 | 2026-01-09 | Active |
+| https://sigla.phis.me | 2026-01-31 | Active |
+| https://lineara.xyz | 2026-01-31 | Active |
+| https://www.paitoproject.it/linear-a/ | 2026-01-31 | Active |
+| https://ejournals.lib.uoc.gr/Ariadne/article/view/1841 | 2026-01-31 | Active |
+| https://mnamon.sns.it/index.php?page=Risorse&id=19&lang=en | 2026-01-31 | Active |
+| https://damos.hf.uio.no/ | 2026-01-31 | Active |
+| http://cefael.efa.gr/ (GORILA) | 2026-01-31 | Active |
+| https://site.unibo.it/inscribe/en/ | 2026-01-31 | Active |
+| https://sites.utexas.edu/scripts/ | 2026-01-31 | Active |
+| https://calibra.classics.cam.ac.uk/ | 2026-01-31 | Active |
+
+---
+
+## Integration Status
+
+| Resource | Programmatic Integration | Notes |
+|----------|--------------------------|-------|
+| **lineara.xyz** | FULL | Primary corpus via parse_lineara_corpus.py |
+| **ORACC/Akkadian** | FULL | Via oracc_connector.py |
+| **SigLA** | Reference only | No API; would require scraping |
+| **GORILA** | Via lineara.xyz | Direct PDFs now linked |
+| **DĀMOS** | Reference only | Potential for Linear B cross-ref |
+| **PAITO** | Reference only | Chronology metadata source |
+| **John Younger** | Via lineara.xyz | Original KU URL deprecated Feb 2024 |
