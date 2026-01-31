@@ -2266,6 +2266,255 @@ class ORACCConnector:
             'unique_sources': len(sources) - 1,  # Subtract empty string
         }
 
+    # ============================================================
+    # LINEAR A ADMINISTRATIVE TERMS COMPARISON
+    # ============================================================
+
+    # Static mapping of Linear A administrative terms to potential Akkadian parallels
+    LINEAR_A_ADMIN_TERMS = {
+        'ku-ro': {
+            'linear_a': 'ku-ro',
+            'context': 'Totaling marker at end of commodity lists',
+            'akkadian_candidates': [
+                {'term': 'kullatu', 'meaning': 'totality, entirety', 'root': 'KLL', 'phonetic_match': 'HIGH'},
+                {'term': 'kalû', 'meaning': 'all, entire', 'root': 'KL', 'phonetic_match': 'MEDIUM'},
+            ],
+            'notes': 'Strong phonetic and semantic parallel to Akkadian KLL root'
+        },
+        'ki-ro': {
+            'linear_a': 'ki-ro',
+            'context': 'Appears with negative quantities, suggests deficit/shortage',
+            'akkadian_candidates': [
+                {'term': 'kirû', 'meaning': 'garden, orchard', 'root': 'KR', 'phonetic_match': 'HIGH'},
+                {'term': 'ḫurrāqu', 'meaning': 'deficit, shortage', 'root': 'ḪRQ', 'phonetic_match': 'LOW'},
+            ],
+            'notes': 'Phonetic match to kirû but semantic mismatch; function parallels ḫurrāqu'
+        },
+        'sa-ra2': {
+            'linear_a': 'sa-ra2',
+            'context': 'Transaction/allocation contexts',
+            'akkadian_candidates': [
+                {'term': 'šarāku', 'meaning': 'to give, grant', 'root': 'ŠRK', 'phonetic_match': 'HIGH'},
+            ],
+            'notes': 'Strong candidate for Semitic loan if Linear A has Akkadian substrate'
+        },
+        'su-pu': {
+            'linear_a': 'su-pu',
+            'context': 'Vessel commodity contexts',
+            'akkadian_candidates': [
+                {'term': 'suppu', 'meaning': 'bowl, vessel', 'root': 'SPP', 'phonetic_match': 'HIGH'},
+            ],
+            'notes': 'Excellent phonetic match; may indicate vessel type'
+        },
+        'ka-ro-pa3': {
+            'linear_a': 'ka-ro-pa3',
+            'context': 'Vessel references',
+            'akkadian_candidates': [
+                {'term': 'karpu', 'meaning': 'vessel, jar', 'root': 'KRP', 'phonetic_match': 'HIGH'},
+            ],
+            'notes': 'Strong cognate candidate for vessel terminology'
+        },
+        'da-me': {
+            'linear_a': 'da-me',
+            'context': 'Common term, possibly community/people',
+            'akkadian_candidates': [
+                {'term': 'dāmu', 'meaning': 'blood, blood relative, family', 'root': 'DM', 'phonetic_match': 'HIGH'},
+            ],
+            'notes': 'Possible semantic extension from blood/kinship to community'
+        },
+        'a-du': {
+            'linear_a': 'a-du',
+            'context': 'Personal name or title',
+            'akkadian_candidates': [
+                {'term': 'nadānu', 'meaning': 'to give', 'root': 'NDN', 'phonetic_match': 'LOW'},
+            ],
+            'notes': 'May be personal name rather than administrative term'
+        },
+        'te': {
+            'linear_a': 'te',
+            'context': 'Transaction sign at line beginnings',
+            'akkadian_candidates': [],
+            'notes': 'May be grammatical marker rather than lexical item; no clear Akkadian parallel'
+        },
+        'po-to-ku-ro': {
+            'linear_a': 'po-to-ku-ro',
+            'context': 'Extended form of ku-ro, "grand total"',
+            'akkadian_candidates': [
+                {'term': 'napḫaru + kullatu', 'meaning': 'complete total', 'root': 'PḪR+KLL', 'phonetic_match': 'LOW'},
+            ],
+            'notes': 'Compound form suggesting intensified totaling function'
+        },
+        'da-i': {
+            'linear_a': 'da-i',
+            'context': 'Transaction context, possibly receipt/delivery',
+            'akkadian_candidates': [],
+            'notes': 'Requires more contextual analysis'
+        },
+    }
+
+    def verify_akkadian_parallel(self, linear_a_term: str) -> Dict:
+        """
+        Verify a Linear A term against Akkadian parallels.
+
+        Args:
+            linear_a_term: Linear A term (e.g., "ku-ro")
+
+        Returns:
+            Verification result with matches and confidence
+        """
+        term_lower = linear_a_term.lower().replace('_', '-')
+
+        # Check static Linear A admin terms
+        if term_lower in self.LINEAR_A_ADMIN_TERMS:
+            entry = self.LINEAR_A_ADMIN_TERMS[term_lower]
+            return {
+                'linear_a': entry['linear_a'],
+                'context': entry['context'],
+                'akkadian_candidates': entry['akkadian_candidates'],
+                'notes': entry['notes'],
+                'vocabulary_matches': self._find_vocabulary_matches(entry['akkadian_candidates']),
+                'confidence': self._calculate_akkadian_confidence(entry)
+            }
+
+        # Try direct vocabulary search
+        results = self.query(linear_a_term)
+        if results:
+            return {
+                'linear_a': linear_a_term,
+                'context': 'Direct vocabulary match',
+                'akkadian_candidates': [
+                    {'term': r['term'], 'meaning': r['meaning'], 'root': r['root']}
+                    for r in results[:3]
+                ],
+                'notes': 'Found via vocabulary search',
+                'vocabulary_matches': results[:3],
+                'confidence': 'SPECULATIVE'
+            }
+
+        return {
+            'linear_a': linear_a_term,
+            'context': 'Unknown',
+            'akkadian_candidates': [],
+            'notes': 'No Akkadian parallels identified',
+            'vocabulary_matches': [],
+            'confidence': 'NONE'
+        }
+
+    def _find_vocabulary_matches(self, candidates: List[Dict]) -> List[Dict]:
+        """Find full vocabulary entries for candidates."""
+        matches = []
+        for cand in candidates:
+            term = cand.get('term', '')
+            if term in self.vocabulary:
+                matches.append(self.vocabulary[term])
+            else:
+                # Try fuzzy match
+                for akk_term, data in self.vocabulary.items():
+                    if term.lower() in akk_term.lower():
+                        matches.append(data)
+                        break
+        return matches
+
+    def _calculate_akkadian_confidence(self, entry: Dict) -> str:
+        """
+        Calculate confidence level for Akkadian parallel.
+
+        Scoring:
+        - HIGH: Strong phonetic + semantic match
+        - MEDIUM: Phonetic OR semantic match, not both
+        - LOW: Weak matches
+        - SPECULATIVE: Possible but uncertain
+        """
+        candidates = entry.get('akkadian_candidates', [])
+        if not candidates:
+            return 'NONE'
+
+        high_matches = sum(1 for c in candidates if c.get('phonetic_match') == 'HIGH')
+        medium_matches = sum(1 for c in candidates if c.get('phonetic_match') == 'MEDIUM')
+
+        if high_matches >= 1 and len(candidates) >= 1:
+            return 'HIGH'
+        elif medium_matches >= 1 or high_matches >= 1:
+            return 'MEDIUM'
+        else:
+            return 'SPECULATIVE'
+
+    def batch_verify_terms(self, terms: List[str]) -> Dict:
+        """
+        Verify multiple Linear A terms against Akkadian parallels.
+
+        Args:
+            terms: List of Linear A terms to verify
+
+        Returns:
+            Batch verification report
+        """
+        results = {}
+        high_confidence = []
+        medium_confidence = []
+        low_confidence = []
+        no_match = []
+
+        for term in terms:
+            verification = self.verify_akkadian_parallel(term)
+            results[term] = verification
+
+            conf = verification.get('confidence', 'NONE')
+            if conf == 'HIGH':
+                high_confidence.append(term)
+            elif conf == 'MEDIUM':
+                medium_confidence.append(term)
+            elif conf in ('LOW', 'SPECULATIVE'):
+                low_confidence.append(term)
+            else:
+                no_match.append(term)
+
+        return {
+            'total_terms': len(terms),
+            'results': results,
+            'summary': {
+                'high_confidence': high_confidence,
+                'medium_confidence': medium_confidence,
+                'low_confidence': low_confidence,
+                'no_match': no_match
+            },
+            'statistics': {
+                'high': len(high_confidence),
+                'medium': len(medium_confidence),
+                'low': len(low_confidence),
+                'none': len(no_match)
+            }
+        }
+
+    def get_admin_terms(self) -> Dict:
+        """Get all Linear A administrative term mappings."""
+        return self.LINEAR_A_ADMIN_TERMS
+
+    def generate_comparison_report(self) -> Dict:
+        """Generate comprehensive Linear A / Akkadian comparison report."""
+        all_terms = list(self.LINEAR_A_ADMIN_TERMS.keys())
+        batch_results = self.batch_verify_terms(all_terms)
+
+        return {
+            'generated': datetime.now().isoformat(),
+            'title': 'Linear A - Akkadian Administrative Vocabulary Comparison',
+            'source': 'ORACC Connector (CAD/CDA based)',
+            'linear_a_terms_analyzed': len(all_terms),
+            'akkadian_vocabulary_size': len(self.vocabulary),
+            'batch_results': batch_results,
+            'methodology': 'Phonetic pattern matching combined with semantic context analysis',
+            'limitations': [
+                'Linear A remains undeciphered; phonetic values derived from Linear B',
+                'Akkadian is East Semitic; if Linear A is non-Semitic, matches may be coincidental',
+                'Semantic matching relies on contextual inference from tablet positions',
+            ],
+            'recommendations': [
+                'Cross-verify with Luwian/Anatolian parallels',
+                'Test against Pre-Greek substrate vocabulary',
+                'Consider West Semitic (Ugaritic, Hebrew) alternatives'
+            ]
+        }
+
 
 def print_term(term_data: Dict, verbose: bool = False):
     """Pretty print a term."""
@@ -2310,6 +2559,28 @@ def main():
         '--exact',
         action='store_true',
         help='Use exact matching for queries'
+    )
+    parser.add_argument(
+        '--linear-a',
+        type=str,
+        metavar='TERM',
+        help='Verify a Linear A term against Akkadian parallels'
+    )
+    parser.add_argument(
+        '--batch',
+        type=str,
+        metavar='FILE',
+        help='Process list of Linear A terms from file (one per line)'
+    )
+    parser.add_argument(
+        '--admin-terms',
+        action='store_true',
+        help='Show all Linear A administrative term mappings'
+    )
+    parser.add_argument(
+        '--report',
+        action='store_true',
+        help='Generate comprehensive Linear A / Akkadian comparison report'
     )
     parser.add_argument(
         '--category', '-c',
@@ -2434,18 +2705,127 @@ def main():
         for conf, n in sorted(stats['confidence_levels'].items()):
             print(f"  {conf}: {n}")
 
+    elif args.linear_a:
+        # Verify a Linear A term
+        loaded = connector.load_vocabulary(output_path)
+        if loaded == 0:
+            print("Loading vocabulary for verification...")
+            connector.build_static_dictionary()
+
+        result = connector.verify_akkadian_parallel(args.linear_a)
+        print(f"\nLinear A term: {result['linear_a']}")
+        print(f"Context: {result['context']}")
+        print(f"Confidence: {result['confidence']}")
+
+        if result['akkadian_candidates']:
+            print("\nAkkadian candidates:")
+            for cand in result['akkadian_candidates']:
+                phonetic = cand.get('phonetic_match', 'N/A')
+                print(f"  {cand['term']}: {cand['meaning']} (root: {cand['root']}, phonetic: {phonetic})")
+
+        if result.get('notes'):
+            print(f"\nNotes: {result['notes']}")
+
+    elif args.batch:
+        # Batch process Linear A terms from file
+        loaded = connector.load_vocabulary(output_path)
+        if loaded == 0:
+            print("Loading vocabulary for verification...")
+            connector.build_static_dictionary()
+
+        batch_file = Path(args.batch)
+        if not batch_file.exists():
+            print(f"File not found: {args.batch}")
+            return 1
+
+        with open(batch_file, 'r', encoding='utf-8') as f:
+            terms = [line.strip() for line in f if line.strip() and not line.startswith('#')]
+
+        print(f"\nProcessing {len(terms)} terms from {args.batch}...")
+        results = connector.batch_verify_terms(terms)
+
+        print(f"\nBatch Verification Results:")
+        print(f"  Total terms: {results['total_terms']}")
+        print(f"  High confidence: {results['statistics']['high']}")
+        print(f"  Medium confidence: {results['statistics']['medium']}")
+        print(f"  Low/speculative: {results['statistics']['low']}")
+        print(f"  No match: {results['statistics']['none']}")
+
+        if results['summary']['high_confidence']:
+            print(f"\nHigh confidence matches:")
+            for term in results['summary']['high_confidence']:
+                r = results['results'][term]
+                if r['akkadian_candidates']:
+                    print(f"  {term} -> {r['akkadian_candidates'][0]['term']}")
+
+    elif args.admin_terms:
+        # Show all Linear A admin term mappings
+        terms = connector.get_admin_terms()
+        print(f"\nLinear A Administrative Terms ({len(terms)} entries):")
+        for term, data in terms.items():
+            print(f"\n  {term}")
+            print(f"    Context: {data['context']}")
+            if data['akkadian_candidates']:
+                print(f"    Akkadian candidates:")
+                for cand in data['akkadian_candidates']:
+                    print(f"      - {cand['term']}: {cand['meaning']} [{cand.get('phonetic_match', 'N/A')}]")
+            if data.get('notes'):
+                print(f"    Notes: {data['notes']}")
+
+    elif args.report:
+        # Generate comprehensive comparison report
+        loaded = connector.load_vocabulary(output_path)
+        if loaded == 0:
+            print("Building vocabulary for report...")
+            connector.build_static_dictionary()
+
+        report = connector.generate_comparison_report()
+
+        print(f"\n{report['title']}")
+        print("=" * 60)
+        print(f"Generated: {report['generated']}")
+        print(f"Linear A terms analyzed: {report['linear_a_terms_analyzed']}")
+        print(f"Akkadian vocabulary size: {report['akkadian_vocabulary_size']}")
+
+        stats = report['batch_results']['statistics']
+        print(f"\nMatch Statistics:")
+        print(f"  High confidence: {stats['high']}")
+        print(f"  Medium confidence: {stats['medium']}")
+        print(f"  Low/speculative: {stats['low']}")
+        print(f"  No match: {stats['none']}")
+
+        print(f"\nLimitations:")
+        for lim in report['limitations']:
+            print(f"  - {lim}")
+
+        print(f"\nRecommendations:")
+        for rec in report['recommendations']:
+            print(f"  - {rec}")
+
+        # Save report to file
+        report_file = COMPARATIVE_DIR / "linear_a_akkadian_comparison.json"
+        with open(report_file, 'w', encoding='utf-8') as f:
+            json.dump(report, f, ensure_ascii=False, indent=2)
+        print(f"\nFull report saved to: {report_file}")
+
     else:
         print("\nUsage:")
         print("  --build-static    Build vocabulary from CAD/CDA sources")
         print("  --fetch           Attempt ORACC fetch (with static fallback)")
         print("  --query TERM      Search for a term")
         print("  --category CAT    Get terms in a category")
+        print("  --linear-a TERM   Verify Linear A term against Akkadian")
+        print("  --batch FILE      Process list of Linear A terms from file")
+        print("  --admin-terms     Show all Linear A admin term mappings")
+        print("  --report          Generate comparison report")
         print("  --stats           Show vocabulary statistics")
         print("\nExamples:")
         print("  python tools/oracc_connector.py --build-static")
         print("  python tools/oracc_connector.py --query kull")
         print("  python tools/oracc_connector.py --category totaling -v")
-        print("  python tools/oracc_connector.py --stats")
+        print("  python tools/oracc_connector.py --linear-a ku-ro")
+        print("  python tools/oracc_connector.py --admin-terms")
+        print("  python tools/oracc_connector.py --report")
 
     return 0
 

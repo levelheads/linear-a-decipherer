@@ -18,6 +18,9 @@
 | Discover new paradigms | paradigm_discoverer.py | — |
 | Analyze personal names | personal_name_analyzer.py | — |
 | Check for contradictions | phase_validator.py | — |
+| **Audit corpus structure** | **corpus_auditor.py** | — |
+| **Verify KU-RO totals** | **corpus_auditor.py --totals** | — |
+| **Find function words** | **corpus_auditor.py --function-word** | — |
 
 ---
 
@@ -127,6 +130,37 @@
    - Numerical mismatches
 
 5. **Update confidence in CONFIRMED_READINGS.md**
+
+---
+
+### "I want to audit corpus structure (no language assumptions)"
+
+**Example**: Find function words, verify totals, check commodity associations
+
+**Steps**:
+1. **Run full structural audit**
+   ```bash
+   python tools/corpus_auditor.py --all --save
+   ```
+
+2. **Investigate specific function word candidate**
+   ```bash
+   python tools/corpus_auditor.py --function-word TE
+   ```
+
+3. **Check arithmetic consistency**
+   ```bash
+   python tools/corpus_auditor.py --totals
+   ```
+
+4. **Update knowledge management**
+   - Mismatches may indicate parsing errors or undocumented fractions
+   - High-specificity tokens are commodity-specific terms
+   - Low-specificity tokens are function words or general terms
+
+**Output location**: data/audit/corpus_audit.json
+
+**Key insight**: This works WITHOUT language assumptions - pure structural/mathematical analysis
 
 ---
 
@@ -470,6 +504,41 @@ Five new tools were added to enforce First Principles automatically:
 - Confidence evolution tracking
 
 **Key function**: Prevents accumulating contradicting claims across analysis sessions
+
+---
+
+### corpus_auditor.py (NEW)
+
+**Purpose**: Structural corpus analysis WITHOUT language assumptions
+
+Implements three audit functions from quantitative corpus linguistics:
+
+1. **Arithmetic validation** (`--totals`): Verify KU-RO totals match preceding amounts
+2. **Token-commodity co-occurrence** (`--cooccurrence`): Build bipartite graph of words and logograms
+3. **Function word analysis** (`--function-word WORD`): Positional study of candidates like TE
+
+**Input**:
+- `--totals` - Validate arithmetic consistency of KU-RO totals
+- `--cooccurrence` - Build token-commodity matrix
+- `--function-word [WORD]` - Analyze positional distribution
+- `--all` - Run full audit
+- `--save` - Export results to JSON
+
+**Output**:
+- **Totals**: VERIFIED/PARTIAL/MISMATCH/INCOMPLETE status for each KU-RO
+- **Co-occurrence**: High-specificity tokens (commodity-specific) vs low-specificity (function words)
+- **Function words**: Position entropy, neighbors, scribe/site distribution, role hypothesis
+
+**Key metrics**:
+- Position entropy: 0 = fixed position, 1 = uniform distribution
+- Specificity: 0 = appears with all commodities, 1 = one commodity only
+
+**Example findings** (2026-01-31 audit):
+- TE: 67% line-initial, entropy 0.64 → "Header/Topic marker"
+- KU-RO: 100% line-initial (on its own line), always followed by number
+- KI-RO: 100% specificity with CYP (copper) — previously undocumented!
+
+**Critical insight**: Can discover function word roles purely from position, no translation needed
 
 ---
 

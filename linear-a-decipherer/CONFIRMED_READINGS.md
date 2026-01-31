@@ -28,8 +28,15 @@ Readings supported by Linear B correspondence AND consistent positional/function
 
 | Word | Meaning | Evidence | Occurrences | Position | Linear B | Regional Scope |
 |------|---------|----------|-------------|----------|----------|----------------|
-| **ku-ro** | total/sum | Position at section ends; sums verified mathematically; Linear B totaling parallel | 37 | List-final | to-so (function) | **Cross-site**: HT (35), ZA (1), PH (1); **absent at KH** |
-| **ki-ro** | deficit/partial | Context after totals or as header; functions as accounting term | 16 | Variable | — | **HT-EXCLUSIVE** (100% at Hagia Triada) |
+| **ku-ro** | total/sum | Position at section ends; sums verified mathematically; Linear B totaling parallel | 39 | List-final | to-so (function) | **Cross-site**: HT (37), ZA (1), PH (1); **absent at KH** |
+| **ki-ro** | deficit/partial | Context after totals or as header; functions as accounting term | 17 | Variable | — | **HT-primary** (16 at HT, 1 at AR) |
+| **-JA suffix** | adjectival/ethnic | 77 occurrences across 17 sites; word-final 65.9%; Luwian -iya parallel | 77 | Word-final | — | **Pan-Minoan**: All major sites + religious sites |
+
+**NEW (Strategic Plan Phase 2)**: -JA suffix promoted to HIGH based on:
+- 77 occurrences (exceeds 10+ threshold)
+- 17 sites (widest distribution of any morphological element)
+- Consistent word-final position (65.9%)
+- Strong Luwian -iya adjectival/ethnic parallel
 
 ### Regional Validation Notes (OPERATION MINOS II Phase 8)
 

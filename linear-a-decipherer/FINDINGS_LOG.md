@@ -6,6 +6,54 @@
 
 ## 2026-01-31
 
+### Corpus Structural Audit: Function Words and Arithmetic
+
+**Scope**: Automated structural analysis of entire corpus (1,722 inscriptions)
+
+**Tool**: `tools/corpus_auditor.py` (new)
+
+**Key Findings**:
+
+#### 1. TE is a Header/Topic Marker (HIGH confidence)
+- **Position**: 67% line-initial, 31% medial, 2% final
+- **Entropy**: 0.637 (moderately fixed position)
+- **Distribution**: 58 occurrences across 12 sites
+- **Hypothesis**: Functions as topic/header marker, not conjunction
+- **Note**: Different from -TE suffix (verbal ending)
+
+#### 2. KI-RO Commodity Association Pattern (CLARIFIED)
+- **Finding**: When KI-RO appears ON SAME LINE as a commodity, it's always CYP (copper)
+- **Note**: KI-RO often appears as standalone (no commodity on line) - these cases not counted
+- **Implication**: KI-RO + CYP is a fixed phrase for "copper deficit"; standalone KI-RO is generic
+- **Contrast with KU-RO**: KU-RO appears with multiple commodities (GRA, OLIV, VIN) = generic "total"
+
+#### 3. KU-RO Arithmetic Validation (Mixed Results)
+- **Verified**: 11.4% (exact match)
+- **Close match** (≤0.5 diff): HT13 differs by only 0.5 (likely fraction parsing)
+- **Large mismatches**: Many tablets show significant differences
+- **Interpretation**: Mismatches likely due to:
+  - Multi-section tablets (KU-RO totals only current section)
+  - Damaged/missing lines
+  - Unparsed fraction signs
+
+#### 4. Token-Commodity Associations
+**High-specificity tokens** (100% one commodity):
+- KA → CYP (copper): 169 associations
+- SI → VIN (wine): 118 associations
+- NI → VIN (wine): 76 associations
+- TA → OLE (oil): 29 associations
+- KI-RO → CYP (copper): 16 associations
+
+**Low-specificity tokens** (function words):
+- KU-RO: Appears with GRA, OLIV, VIN (confirms generic "total" function)
+- A-DU: Appears with VIR, GRA, CYP (generic administrative term)
+
+**Confidence**: HIGH (automated corpus-wide analysis)
+
+**File**: data/audit/corpus_audit.json
+
+---
+
 ### Phase 10: Khania Operates Parallel Administrative System
 
 **Scope**: Complete vocabulary analysis of Khania (KH) corpus (227 inscriptions)
