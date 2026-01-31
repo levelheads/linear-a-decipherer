@@ -58,6 +58,7 @@
 | **MA-DI** | 6 | Complete | Proto-Greek (wool/mother); always with small numerals | POSSIBLE | [../analysis/sessions/PHASE2_HIGH_FREQ_BATCH2.md](../analysis/sessions/PHASE2_HIGH_FREQ_BATCH2.md) | 2026-01-31 |
 | **KA-PA** | 6 | Complete | Proto-Greek (bronze); VIR+SA-RA₂ associations | POSSIBLE | [../analysis/sessions/PHASE2_HIGH_FREQ_BATCH2.md](../analysis/sessions/PHASE2_HIGH_FREQ_BATCH2.md) | 2026-01-31 |
 | **SI-KA** | 6 | Complete | Semitic (wage/barley); HTW sealing series | POSSIBLE | [../analysis/sessions/PHASE2_HIGH_FREQ_BATCH2.md](../analysis/sessions/PHASE2_HIGH_FREQ_BATCH2.md) | 2026-01-31 |
+| ***301** | 290 | Complete | Unique to Linear A; pharyngeal or palatalized consonant; key in A-TA-I-*301-WA-JA | POSSIBLE | [../analysis/sessions/LINEAR_A_UNIQUE_SIGNS_ANALYSIS.md](../analysis/sessions/LINEAR_A_UNIQUE_SIGNS_ANALYSIS.md) | 2026-01-31 |
 | **DA-KA** | 5 | Complete | Luwian; HTW sealing series | POSSIBLE | [../analysis/sessions/PHASE2_HIGH_FREQ_BATCH2.md](../analysis/sessions/PHASE2_HIGH_FREQ_BATCH2.md) | 2026-01-31 |
 | **I-DA** | 5 | Complete | Semitic (grain/honey); multi-site; GRA association | PROBABLE | [../analysis/sessions/PHASE2_HIGH_FREQ_BATCH2.md](../analysis/sessions/PHASE2_HIGH_FREQ_BATCH2.md) | 2026-01-31 |
 | **KI-RE-TA-NA** | 4 | Complete | Luwian nominal morphology; OLE/GRA/VIR associations | PROBABLE | [../analysis/sessions/PHASE2_HIGH_FREQ_BATCH2.md](../analysis/sessions/PHASE2_HIGH_FREQ_BATCH2.md) | 2026-01-31 |
@@ -108,6 +109,7 @@
 | **External Database Connectors** | **Complete** | **SigLA Querier (84 signs), GORILA Indexer (166 inscriptions), ORACC batch mode (10 Linear A terms); tools/sigla_querier.py, tools/gorila_indexer.py, tools/oracc_connector.py enhanced** | — | 2026-01-31 |
 | Contact Language Model | Complete | Pre-Greek substrate + Semitic administrative loans + possible Luwian religious layer | [../analysis/completed/thematic/LINEAR_A_COMPREHENSIVE_ANALYSIS.md](../analysis/completed/thematic/LINEAR_A_COMPREHENSIVE_ANALYSIS.md) | 2026-01-05 |
 | Vowel Frequency Distribution | Complete | Low /o/ (2.9%) argues against Proto-Greek | [../analysis/completed/thematic/LINEAR_A_COMPREHENSIVE_ANALYSIS.md](../analysis/completed/thematic/LINEAR_A_COMPREHENSIVE_ANALYSIS.md) | 2026-01-05 |
+| **Script Adaptation: Unique Signs** | **Complete** | **123 signs unique to Linear A (no Linear B cognate); 874 attestations; *301 most frequent (290); positional constraints reveal phonotactics; evidence for pharyngeal/palatalized consonants absent in Greek; F/M gender markers; Luwian +3, Semitic +2, Pre-Greek +1, Proto-Greek -2** | [../analysis/sessions/LINEAR_A_UNIQUE_SIGNS_ANALYSIS.md](../analysis/sessions/LINEAR_A_UNIQUE_SIGNS_ANALYSIS.md) | 2026-01-31 |
 
 ---
 

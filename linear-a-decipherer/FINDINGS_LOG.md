@@ -6,6 +6,56 @@
 
 ## 2026-01-31
 
+### Script Adaptation Analysis: 123 Unique Linear A Signs
+
+**Scope**: Systematic analysis of signs that exist in Linear A but have no Linear B equivalent
+
+**Key Finding**: When Greeks adapted Linear A to write Mycenaean Greek (~1450 BCE), they dropped 123 signs representing sounds that Greek did not have.
+
+**Quantitative Results**:
+- **123 unique signs** identified (GORILA *XXX series)
+- **874 total attestations** across corpus
+- **30+ sites** attest unique signs
+- ***301** is most frequent (290 occurrences, 23 sites)
+
+**Top Unique Signs**:
+
+| Sign | Attestations | Primary Position | Key Context |
+|------|-------------|------------------|-------------|
+| *301 | 290 | Initial (88%) | A-TA-I-*301-WA-JA (libation formula) |
+| *304 | 42 | Initial (88%) | Standalone; commodity contexts |
+| *188 | 32 | Mixed | With SU-PU₂, PA₃ |
+| *21 | 30 | Initial (70%) | *21F, *21M (gender markers) |
+| *118 | 26 | Final (69%) | DA-SI-*118 (word-final) |
+
+**Phonological Inferences**:
+
+| Feature | Evidence | Confidence |
+|---------|----------|------------|
+| **More consonants than Greek** | 123 unique signs dropped | HIGH |
+| **Possible pharyngeals** | *301 distribution matches Semitic pattern | MEDIUM |
+| **Possible palatalized series** | Luwian parallels; position constraints | MEDIUM |
+| **/l/ vs. /r/ distinction** | Separate sign series retained | HIGH |
+| **Grammatical classifiers** | F/M marked signs (*21F, *21M, etc.) | MEDIUM |
+
+**Hypothesis Scores**:
+- Luwian/Anatolian: +3 (palatalized consonants explain many unique signs)
+- Semitic: +2 (pharyngeals explain *301)
+- Pre-Greek: +1 (unique inventory consistent with isolate)
+- Proto-Greek: **-2** (Greek has FEWER phonemes, not more)
+
+**Implications**:
+1. Linear A language had richer consonant inventory than Greek
+2. Dropped signs reveal "negative space" of Greek phonology
+3. *301 is critical — appears in religious vocabulary with Luwian-like morphology
+4. Script adaptation is a methodological tool for phoneme reconstruction
+
+**Confidence**: HIGH (systematic corpus-wide analysis)
+
+**File**: [../analysis/sessions/LINEAR_A_UNIQUE_SIGNS_ANALYSIS.md](../analysis/sessions/LINEAR_A_UNIQUE_SIGNS_ANALYSIS.md)
+
+---
+
 ### Corpus Structural Audit: Function Words and Arithmetic
 
 **Scope**: Automated structural analysis of entire corpus (1,722 inscriptions)
