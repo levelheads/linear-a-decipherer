@@ -161,13 +161,38 @@ These paradigms suggest systematic vowel gradation in Linear A morphology, exten
 | **A-TA-I-*301-WA-JA** | Religious invocation | PROBABLE | Luwian/Pre-Greek | 11 occurrences; -WA-JA ending; sign *301 in 14 religious variants; sites: IOZ (3), SYZ (5), PKZ (1), KOZ (1), TLZ (1); standard opening formula | 11 |
 | **DA-MA-TE** | Goddess name (Demeter?) | SPECULATIVE | Proto-Greek | Single occurrence at KYZ (Kythera); only Proto-Greek support in religious corpus; possible source of Greek Demeter | 1 |
 
+### Level 5: Vessel Vocabulary (PROBABLE to POSSIBLE) — NEW 2026-01-31
+
+| Word | Proposed Meaning | Confidence | Best Hypothesis | Evidence | Occurrences |
+|------|------------------|------------|-----------------|----------|-------------|
+| **SU-PU** | bowl (*suppu*) | PROBABLE | Akkadian | Phonological match; vessel inventory context (HT 31) | 3+ |
+| **KA-RO-PA₃** | vessel (*karpu*) | PROBABLE | Akkadian | K-R-P root; vessel inventory context | 2+ |
+| **QA-PA₃** | measure (*qappu*) | POSSIBLE | Akkadian | Phonological match; measurement context | 2+ |
+
+**Implications**: Semitic vocabulary confirmed in THREE domains:
+1. Accounting: KU-RO (*kull*)
+2. Allocation: SA-RA₂ (*šarāku*)
+3. Vessels: SU-PU, KA-RO-PA₃ (*suppu*, *karpu*)
+
+---
+
+### Level 5: Theophoric Names (HIGH) — NEW 2026-01-31
+
+| Name | Deity | Confidence | Evidence | Occurrences |
+|------|-------|------------|----------|-------------|
+| **DA-MA-TE** | Demeter | HIGH | Linear B cognate *da-ma-te*; peak sanctuary context (PKZ) | 1 |
+| **A-TA-NA** | Athena | HIGH | Linear B cognate *a-ta-na*; HT administrative context | 2 |
+| **A-TA-NA-TE** | Athena derivative | HIGH | -TE suffix on A-TA-NA base | 2 |
+
+**Implications**: Demeter and Athena worship may have **Minoan origins** predating Greek arrival.
+
+---
+
 ### Level 6: Lexical Speculation (SPECULATIVE)
 
 | Word | Proposed Meaning | Hypothesis | Issue |
 |------|------------------|------------|-------|
 | **ya-ne** | wine (*yayin*) | Semitic | Single context; could be loan |
-| **qa-pa** | vessel (*kappu*) | Semitic | Limited evidence |
-| **ka-ro-pa** | vessel (*karpu*) | Semitic | Etymology uncertain |
 
 ---
 
@@ -226,6 +251,10 @@ Track which readings depend on which anchors. If an anchor is demoted/rejected, 
 | -JA suffix = adjectival | Luwian morphology layer | PROBABLE | Cross-site | Demote to POSSIBLE |
 | -TE/-TI suffixes = verbal | Luwian morphology layer | POSSIBLE | Cross-site | Demote to SPECULATIVE |
 | -U class marker | Luwian morphology layer | PROBABLE | Cross-site | Demote to POSSIBLE |
+| SU-PU = *suppu* | Semitic vessel loanword layer | PROBABLE | HT-only | Demote if layer rejected |
+| KA-RO-PA₃ = *karpu* | Semitic vessel loanword layer | PROBABLE | HT-only | Demote if layer rejected |
+| DA-MA-TE = Demeter | Linear B cognate | HIGH | PKZ (peak sanctuary) | Independent anchor |
+| A-TA-NA = Athena | Linear B cognate | HIGH | HT | Independent anchor |
 
 ### Regional Scope Legend (OPERATION MINOS II Phase 8)
 

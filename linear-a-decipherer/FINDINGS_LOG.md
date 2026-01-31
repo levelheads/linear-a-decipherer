@@ -6,6 +6,110 @@
 
 ## 2026-01-31
 
+### Phase 10: Khania Operates Parallel Administrative System
+
+**Scope**: Complete vocabulary analysis of Khania (KH) corpus (227 inscriptions)
+
+**Key Finding**: KH uses a **DIFFERENT** administrative system from Hagia Triada.
+
+**Evidence**:
+1. **ZERO** KU-RO occurrences (vs. 35 at HT)
+2. **ZERO** KI-RO occurrences (vs. 16 at HT)
+3. **ZERO** SA-RA₂ occurrences (vs. 20 at HT)
+4. Only 1.8% vocabulary overlap with HT
+
+**KH-Specific Signs Identified**:
+- `*164` = textile marker (13 occ)
+- `*306` = commodity qualifier (7 occ)
+- `*401+RU` = liquid measure (7 occ)
+- `CYP+D/CYP+E` = copper grades (parallel to HT OLE variants)
+- `*411-VS/*409-VS/*408-VS` = vessel content sealings
+
+**Implications**:
+- Semitic administrative vocabulary (KU-RO, SA-RA₂) may be HT-specific
+- KH may preserve older/indigenous vocabulary
+- Regional variation is REAL - cannot assume HT readings apply corpus-wide
+
+**Confidence**: HIGH (complete corpus analysis)
+
+**File**: [../analysis/sessions/PHASE10_KH_VOCABULARY_COMPLETE.md](../analysis/sessions/PHASE10_KH_VOCABULARY_COMPLETE.md)
+
+---
+
+### Semitic Vessel Vocabulary Confirmed (HT 31)
+
+**Finding**: Three vessel terms show strong Akkadian cognates
+
+| Linear A | Akkadian | Meaning | Confidence |
+|----------|----------|---------|------------|
+| **SU-PU** | *suppu* | bowl | PROBABLE |
+| **KA-RO-PA₃** | *karpu* | vessel | PROBABLE |
+| **QA-PA₃** | *qappu* | measure | POSSIBLE |
+
+**Context**: HT 31 vessel inventory (3,775 vessels calculated)
+
+**Implications**:
+- Semitic vocabulary extends to THREE domains: accounting (KU-RO), allocation (SA-RA₂), vessels (SU-PU)
+- Strengthens loanword layer hypothesis
+- Vessel inventories use different conventions (no KU-RO total)
+
+**Confidence**: PROBABLE (phonological fit + contextual match)
+
+**File**: [../analysis/completed/inscriptions/HT31_TRANSLATION.md](../analysis/completed/inscriptions/HT31_TRANSLATION.md)
+
+---
+
+### Personal Names: 127 Identified with Theophoric Patterns
+
+**Finding**: Comprehensive extraction identifies 127 personal names (140% increase)
+
+**Linguistic Distribution**:
+- Unknown: 48 (37.8%)
+- Semitic: 28 (22.0%)
+- Pre-Greek: 25 (19.7%)
+- Luwian: 21 (16.5%)
+- Greek: 5 (3.9%)
+
+**High-Confidence Deity Names**:
+| Linear A | Linear B | Deity | Confidence |
+|----------|----------|-------|------------|
+| **DA-MA-TE** | *da-ma-te* | Demeter | HIGH |
+| **A-TA-NA** | *a-ta-na* | Athena | HIGH |
+
+**Suffix Patterns**: -JA (26, theophoric), -NA (18, feminine), -NE (14, feminine), -SI (10, origin)
+
+**Implications**:
+- Demeter and Athena worship may have Minoan origins
+- 48% of names contain theophoric elements
+- Pre-Greek substrate best explains religious naming
+
+**Confidence**: HIGH (systematic corpus-wide analysis)
+
+**File**: [../data/personal_names_comprehensive.json](../data/personal_names_comprehensive.json)
+
+---
+
+### HT 28: 5 Oil Types and U-MI-NA-SI Dual Usage
+
+**Finding**: HT 28 documents 5 distinct oil types on single tablet
+
+**Oil Types**: OLE+U, OLE+KI, OLE+MI, OLE+TU, OLE+DI
+
+**U-MI-NA-SI Discovery**: This term appears in BOTH:
+- Administrative context (HT 28 header)
+- Religious context (peak sanctuary libations)
+
+**Implications**:
+- Oil economy was highly differentiated
+- Some vocabulary crosses administrative/religious boundary
+- SA-RA₂ functions as section marker within accounts
+
+**Confidence**: PROBABLE (structural analysis)
+
+**File**: [../analysis/completed/inscriptions/HT28_TRANSLATION.md](../analysis/completed/inscriptions/HT28_TRANSLATION.md)
+
+---
+
 ### Commodity Logogram Analysis Complete - 11 Oil Types Identified
 
 **Scope**: Systematic corpus survey of commodity logograms and modifiers

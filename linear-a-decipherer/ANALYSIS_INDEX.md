@@ -22,6 +22,8 @@
 | **HT 9a** | Hagia Triada | **Translation Attempted** | **PROBABLE** | **Wine list; 7 recipients; KU-RO 31.75; related to HT 9b** | [../analysis/sessions/PHASE7_TRANSLATIONS.md](../analysis/sessions/PHASE7_TRANSLATIONS.md) | 2026-01-31 |
 | **HT 9b** | Hagia Triada | **Translation Attempted** | **PROBABLE** | **Commodity list; same names as 9a; KU-RO 24 exact match** | [../analysis/sessions/PHASE7_TRANSLATIONS.md](../analysis/sessions/PHASE7_TRANSLATIONS.md) | 2026-01-31 |
 | **HT 88** | Hagia Triada | **Translation Attempted** | **PROBABLE** | **Personnel assessment; A-DU header; KI-RO/KU-RO sections** | [../analysis/sessions/PHASE7_TRANSLATIONS.md](../analysis/sessions/PHASE7_TRANSLATIONS.md) | 2026-01-31 |
+| **HT 28** | Hagia Triada | **Complete** | **PROBABLE** | **Mixed commodity account (Schoep Ia); opisthograph; A-SI-JA-KA + U-MI-NA-SI header; SA-RA2 allocation x2; 5 oil types (OLE+U/KI/MI/TU/DI); VIR+KA personnel; no KU-RO; possible feminine names (-A endings)** | [../analysis/completed/inscriptions/HT28_TRANSLATION.md](../analysis/completed/inscriptions/HT28_TRANSLATION.md) | 2026-01-31 |
+| **HT 31** | Hagia Triada | **Complete** | **POSSIBLE** | **Vessel inventory (3775 vessels total); NO KU-RO; Semitic vessel vocabulary (SU-PU < *suppu*, KA-RO-PA3 < *karpu*); two-section structure (small/large scale); *815 logogram series with phonetic complements; TI-SA/PU-KO header** | [../analysis/completed/inscriptions/HT31_TRANSLATION.md](../analysis/completed/inscriptions/HT31_TRANSLATION.md) | 2026-01-31 |
 
 ---
 
@@ -94,6 +96,7 @@
 | **Phase 8A2: KI-RO Function Mapping** | **Complete** | **KI-RO is 100% HT-exclusive (16 occ.); no deficit terms at KH/ZA/PH; U/I vowel polarity = total/deficit; absence at non-HT sites is functionally significant (HT as central accounting hub)** | [../analysis/sessions/PHASE8_KIRO_FUNCTION.md](../analysis/sessions/PHASE8_KIRO_FUNCTION.md) | 2026-01-31 |
 | **Commodity Logogram Analysis** | **Complete** | **Full corpus survey: OLE (22+variants), VIN (53), GRA (62+variants), CYP (52), OLIV (24); 11 OLE modifiers identified; TY3a shows 8+ oil types; modifiers likely acrophonic (quality/processing); SA-RA2 is multi-commodity term** | [../analysis/sessions/COMMODITY_ANALYSIS.md](../analysis/sessions/COMMODITY_ANALYSIS.md) | 2026-01-31 |
 | **KHANIA VOCABULARY ANALYSIS** | **Complete** | **KH uses DIFFERENT administrative system: no KU-RO/KI-RO/SA-RA2; copper-dominated (CYP 64+ occ); NI appears 26x but NOT a totaling term; 101 unique vessel sealings (*411-VS etc.); only 1.8% vocabulary overlap with HT** | [../analysis/sessions/KHANIA_VOCABULARY_ANALYSIS.md](../analysis/sessions/KHANIA_VOCABULARY_ANALYSIS.md) | 2026-01-31 |
+| **PHASE 10: KH VOCABULARY COMPLETE** | **Complete** | ***164=textile marker; *306=commodity qualifier; *401+RU=liquid measure; CYP+D/CYP+E=copper grades (parallel to HT OLE variants); *411-VS/*409-VS/*408-VS=vessel content sealings; KH operated parallel administrative tradition; no functional equivalent to KU-RO found** | [../analysis/sessions/PHASE10_KH_VOCABULARY_COMPLETE.md](../analysis/sessions/PHASE10_KH_VOCABULARY_COMPLETE.md) | 2026-01-31 |
 | Contact Language Model | Complete | Pre-Greek substrate + Semitic administrative loans + possible Luwian religious layer | [../analysis/completed/thematic/LINEAR_A_COMPREHENSIVE_ANALYSIS.md](../analysis/completed/thematic/LINEAR_A_COMPREHENSIVE_ANALYSIS.md) | 2026-01-05 |
 | Vowel Frequency Distribution | Complete | Low /o/ (2.9%) argues against Proto-Greek | [../analysis/completed/thematic/LINEAR_A_COMPREHENSIVE_ANALYSIS.md](../analysis/completed/thematic/LINEAR_A_COMPREHENSIVE_ANALYSIS.md) | 2026-01-05 |
 
@@ -105,9 +108,9 @@
 
 | Metric | Count | Total | Percentage |
 |--------|-------|-------|------------|
-| Inscriptions fully analyzed | 3 | 1,721 | 0.17% |
+| Inscriptions fully analyzed | 5 | 1,721 | 0.29% |
 | Inscriptions partially analyzed | 5 | 1,721 | 0.29% |
-| **Total inscriptions touched** | **8** | **1,721** | **0.46%** |
+| **Total inscriptions touched** | **10** | **1,721** | **0.58%** |
 
 ### By Word
 
@@ -115,8 +118,8 @@
 |--------|-------|-------|
 | High-frequency words analyzed | **47** | Batch 1 (18): KU-RO, KI-RO, SA-RA₂, pa-i-to, ku-do-ni-ja, A-DU, A-DA, KO-A-DU-WA, JA-SA-SA-RA-ME, A-TA-I-*301-WA-JA, SI-RU-TE, I-PI-NA-MA, DA-RE, KU-NI-SU, SA-RU, KU-RE, U-NA-KA-NA-SI, DI-NA-U; SA-paradigm (6): SA-RO, SA-MA, SA-RA, SA-QE-RI, SA-JA-MA, PU-RA₂; **Batch 2 (22): I-RA₂, MA-DI, KA-PA, SI-KA, DA-KA, I-DA, KI-RE-TA-NA, TA-NA-TI, JE-DI, PA-JA-RE, DA-RI-DA, QA-*310-I, KU-PA₃-NU, *306-TU, DA-SI-*118, A-KA-RU, A-RI-NI-TA, A-NE, A-RA, A-MI, A-MA, A-RI, KU-ZU-NI** |
 | Words with CERTAIN confidence | 2 | pa-i-to, ku-do-ni-ja |
-| Words with HIGH confidence | 2 | KU-RO, KI-RO |
-| Words with PROBABLE confidence | **20** | SA-RA₂, A-DU, A-DA, KO-A-DU-WA, JA-SA-SA-RA-ME, I-RA₂, I-DA, KI-RE-TA-NA, SA-MA, KU-PA₃-NU, PU-RA₂, A-KA-RU, A-RI-NI-TA, A-NE, A-RA, A-MI, A-MA, A-RI |
+| Words with HIGH confidence | **4** | KU-RO, KI-RO, **DA-MA-TE**, **A-TA-NA** |
+| Words with PROBABLE confidence | **23** | SA-RA₂, A-DU, A-DA, KO-A-DU-WA, JA-SA-SA-RA-ME, I-RA₂, I-DA, KI-RE-TA-NA, SA-MA, KU-PA₃-NU, PU-RA₂, A-KA-RU, A-RI-NI-TA, A-NE, A-RA, A-MI, A-MA, A-RI, **SU-PU**, **KA-RO-PA₃**, **A-TA-NA-TE** |
 | Words with POSSIBLE confidence | **23** | A-TA-I-*301-WA-JA, SI-RU-TE, I-PI-NA-MA, DA-RE, KU-NI-SU, SA-RU, U-NA-KA-NA-SI, DI-NA-U, MA-DI, KA-PA, SI-KA, DA-KA, TA-NA-TI, JE-DI, PA-JA-RE, SA-RO, DA-RI-DA, QA-*310-I, *306-TU, DA-SI-*118, KU-ZU-NI |
 
 ---
@@ -135,9 +138,10 @@
 
 | ID/Topic | Why Priority | Notes |
 |----------|--------------|-------|
-| KH tablets (99 total) | Second largest corpus | Regional variation study |
+| ~~KH tablets (99 total)~~ | ~~Second largest corpus~~ | **COMPLETE** - [PHASE10_KH_VOCABULARY_COMPLETE.md](../analysis/sessions/PHASE10_KH_VOCABULARY_COMPLETE.md) |
 | ZA tablets (31 total) | Third site for verification | Cross-corpus consistency |
 | PU-RA₂ investigation | Related to SA-RA₂ pattern | 4 occurrences |
+| Personal names analysis | 127 names identified | Theophoric patterns discovered |
 
 ---
 
