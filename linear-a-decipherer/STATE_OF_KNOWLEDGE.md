@@ -10,10 +10,12 @@
 
 | Metric | Value |
 |--------|-------|
-| **Corpus Analyzed** | 8 / 1,721 inscriptions (0.46%) |
-| **Confirmed Readings** | 2 toponyms + 2 administrative terms + 12 logograms |
-| **Active Hypotheses** | 4 (Luwian, Semitic, Pre-Greek, Proto-Greek) |
-| **Best-Fit Model** | Contact Language (Pre-Greek base + Semitic admin + Luwian religious) |
+| **Corpus Analyzed** | 12+ / 1,721 inscriptions (~0.7%) |
+| **Words Analyzed** | **47** high-frequency words (94% of Phase 2 target) |
+| **Confirmed Readings** | 2 CERTAIN + 4 HIGH + **24 PROBABLE** + 23 POSSIBLE |
+| **Translation Attempts** | **4 tablets** (HT 13, HT 9a, HT 9b, HT 88) |
+| **Active Hypotheses** | 3 active + 1 ELIMINATED (Proto-Greek) |
+| **Best-Fit Model** | Contact Language (Pre-Greek base + Semitic admin + Luwian morphology) |
 
 ---
 
@@ -72,12 +74,25 @@ All confirmed via pictographic origin and/or Linear B equivalents.
 
 ## Hypothesis Scorecard
 
-| Hypothesis | Administrative | Religious | Phonology | Morphology | **Overall** |
-|------------|----------------|-----------|-----------|------------|-------------|
-| **Semitic (loans)** | PROBABLE | WEAK | POSSIBLE | WEAK | **PROBABLE** |
-| **Pre-Greek** | POSSIBLE | POSSIBLE | POSSIBLE | WEAK | **POSSIBLE** |
-| **Luwian** | WEAK | POSSIBLE | POSSIBLE | WEAK | **POSSIBLE** |
-| **Proto-Greek** | WEAK | WEAK | WEAK | WEAK | **WEAK** |
+**Updated 2026-01-31 (OPERATION MINOS Discrimination Matrix)**
+
+| Hypothesis | Total Score | Rank | Verdict |
+|------------|-------------|------|---------|
+| **Semitic (loans)** | **+47.4** | **1** | STRONGEST - Best fit for administrative vocabulary |
+| **Luwian/Anatolian** | **+39.0** | 2 | Second - Strongest for suffix morphology (-JA, -WA-) |
+| **Pre-Greek Substrate** | **+23.5** | 3 | Third - Toponyms, divine names, base vocabulary |
+| **Proto-Greek** | **+7.25** | 4 | **ELIMINATED** - Critical phonological mismatch |
+
+**Proto-Greek ELIMINATED as primary language hypothesis** (per HYPOTHESIS_DISCRIMINATION_MATRIX.md):
+- /o/ frequency: 3.9% observed vs 20% expected
+- Greek case endings (-os, -oi, -ai, -es): 0% observed
+- Retain ONLY as post-1450 BCE loan contact layer
+
+**Critical Negative Evidence Against Proto-Greek** (per Phase 1):
+- /o/ frequency: 3.9% observed (expected ~20% for Greek)
+- /a/ frequency: 41.7% observed (expected ~22% for Greek)
+- Greek case endings (-os, -on, -oi, -ai, -es): 0% observed
+- No Greek morphological patterns detected
 
 ### Hypothesis Details
 
@@ -142,6 +157,43 @@ All confirmed via pictographic origin and/or Linear B equivalents.
 ---
 
 ## Recent Discoveries (2026-01-31)
+
+### OPERATION MINOS: All 7 Phases Complete
+
+**15 analysis files created** via parallel agent execution:
+
+#### Major Findings
+
+1. **Proto-Greek ELIMINATED** (HYPOTHESIS_DISCRIMINATION_MATRIX.md)
+   - Score: +7.25 (lowest of all hypotheses)
+   - /o/ frequency 3.9% vs expected 20%
+   - Greek case endings: 0% observed
+   - Recommendation: Retain only as late contact layer
+
+2. **Semitic STRONGEST for Administrative Layer** (+47.4)
+   - KU-RO = *kull* "total"
+   - KI-RO = "deficit/partial"
+   - SA-RA₂ = Akkadian *šarāku* "allocate"
+
+3. **Luwian STRONGEST for Suffix Morphology** (PHASE6_SUFFIXES.md)
+   - -JA (65 occ): Adjectival suffix like Luwian -iya
+   - -TE (56 occ): 3sg past like Luwian -ta
+   - -TI (49 occ): 3sg present like Luwian -ti
+   - **-U endings: Luwian best fit (64%), NOT Semitic** (correction to Phase 1)
+
+4. **Libation Formula Structure** (PHASE4_LIBATION_FORMULAS.md)
+   - Position 1: A-TA-I-*301-WA-JA (invocation)
+   - Position 2: JA-DI-KI-TU (secondary)
+   - Position 3: **JA-SA-SA-RA-ME** (divine name - Pre-Greek)
+   - Position 4: U-NA-KA-NA-SI (epithet)
+   - Position 5: I-PI-NA-MA + SI-RU-TE (ritual closing)
+
+5. **Regional Vocabulary Warning** (PHASE5_REGIONAL_PREVIEW.md)
+   - KU-RO: 94.6% at Hagia Triada only
+   - KI-RO: 100% at HT only
+   - SA-RA₂: 100% at HT only
+   - Zero syllabic words appear at all 4 major sites
+   - **Implication**: Core readings may be HT-specific, not universal
 
 ### SA-RA₂ = Akkadian šarāku
 
@@ -218,15 +270,21 @@ All confirmed via pictographic origin and/or Linear B equivalents.
 5. **Negative Evidence**: What's absent constrains interpretation
 6. **Corpus Consistency**: Verify across all occurrences
 
-### Current Research Phases
+### Current Research Phases (OPERATION MINOS)
 
-| Phase | Status | Description |
-|-------|--------|-------------|
-| Corpus overview | Complete | Statistics, anchors, frequency |
-| Multi-hypothesis framework | Complete | All four hypotheses tested |
-| Administrative vocabulary | In Progress | KU-RO, KI-RO, SA-RA₂ analyzed |
-| Religious register | Pending | Libation formulas to analyze |
-| Regional variation | Pending | HT vs. KH vs. ZA comparison |
+| Phase | Status | Key Deliverable |
+|-------|--------|-----------------|
+| **Phase 1: Reconnaissance** | **COMPLETE** | HYPOTHESIS_DISCRIMINATION_MATRIX.md - Proto-Greek ELIMINATED |
+| **Phase 2: High-Freq Words** | **COMPLETE** | 47/50 words analyzed; 8 analysis files created |
+| **Phase 3: HT Administrative** | **COMPLETE** | PHASE3_HT_ADMIN.md - 8 core admin terms mapped |
+| **Phase 4: Libation Formulas** | **COMPLETE** | PHASE4_LIBATION_FORMULAS.md - 5-position formula; JA-SA-SA-RA-ME divine |
+| **Phase 5: Regional Comparison** | **COMPLETE** | PHASE5_REGIONAL_PREVIEW.md - HT bias documented |
+| **Phase 6: Morphology** | **COMPLETE** | PHASE6_SUFFIXES.md - -JA/-TE/-TI patterns; Luwian strongest |
+| **Phase 7: Translations** | **COMPLETE** | PHASE7_TRANSLATIONS.md - 4 tablets translated |
+
+**New Discovery Corrections**:
+- Phase 1 claimed "-U = 100% Semitic" → Phase 2 found **Luwian best fit (64%)** for -U endings
+- KU-RO/KI-RO/SA-RA₂ are **94-100% HT-concentrated** (regional bias warning)
 
 ---
 

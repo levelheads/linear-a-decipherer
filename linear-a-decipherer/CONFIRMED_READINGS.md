@@ -87,8 +87,49 @@ Pictographic or ideographic signs with confirmed meanings.
 | **A-DU** | administrative term | PROBABLE | Semitic | Exact semantics unclear |
 | **A-DA** | personal name/title | PROBABLE | Semitic | Limited contexts |
 | **KO-A-DU-WA** | personal name | PROBABLE | Luwian | -WA suffix supports but not conclusive |
-| **po-to-ku-ro** | grand total | PROBABLE | — | Limited attestations (~10) |
+| **PO-TO-KU-RO** | grand total (compound) | PROBABLE | Multi-hypothesis | 2 attestations; appears after KU-RO with larger values |
+| **KU-RE** | subtotal | POSSIBLE | Semitic | 2 attestations; appears before KU-RO in HT39 |
+| **KA-RU** | header/category marker | POSSIBLE | Semitic | 2 attestations; tablet-initial position |
 | **ja-sa-sa-ra-me** | divine name | POSSIBLE | Pre-Greek | Religious context only |
+
+### K-R Paradigm (OPERATION MINOS Phase 2 Discovery)
+
+**3-Tier Accounting Hierarchy** discovered 2026-01-31:
+
+| Word | Meaning | Confidence | Function | Occurrences | Evidence |
+|------|---------|------------|----------|-------------|----------|
+| **PO-TO-KU-RO** | Grand total | PROBABLE | Top tier (all sections) | 5 | Compound of PO-TO + KU-RO; appears after KU-RO with larger values |
+| **KU-RO** | Section total | HIGH | Mid tier (section sums) | 37 | Linear B parallel; mathematically verified |
+| **KU-RE** | Subtotal | POSSIBLE | Sub-sections | 2 | U→E vowel shift; precedes KU-RO in HT 39 |
+| **KI-RO** | Deficit/owed | HIGH | Shortfall notation | 16 | U→I vowel polarity; follows totals |
+| **KU-RA** | Category header | POSSIBLE | Transaction type marker | 3 | U→A vowel shift; tablet-initial |
+| **KI-RA** | Deficit category | SPECULATIVE | Deficit header(?) | 2 | I-series + A ending |
+| **KA-RU** | Header/label | POSSIBLE | Non-numeric header | 2 | A-U pattern |
+
+**K-R Vowel System**:
+- U-series (KU-RO, KU-RE): Positive/complete
+- I-series (KI-RO, KI-RA): Negative/deficit
+- A-series (KU-RA, KA-RU): Headers/categories
+
+### Suffix Morphology (OPERATION MINOS Phase 6)
+
+| Suffix | Meaning | Confidence | Best Hypothesis | Occurrences | Evidence |
+|--------|---------|------------|-----------------|-------------|----------|
+| **-JA** | Adjectival/genitive | PROBABLE | Luwian | 65 | Luwian *-iya* parallel; word-final position |
+| **-TE** | 3sg past tense | POSSIBLE | Luwian | 56 | Luwian *-ta* parallel |
+| **-TI** | 3sg present tense | POSSIBLE | Luwian | 49 | Luwian *-ti* parallel |
+| **-U** | Noun class marker | PROBABLE | Luwian (64%) | 25+ analyzed | NOT Semitic as initially thought; Luwian best fit |
+| **-WA-** | Quotative particle | POSSIBLE | Luwian | Various | Luwian quotative parallel |
+
+### Level 5: Morphological/Structural Patterns (PROBABLE to POSSIBLE)
+
+| Word | Proposed Meaning | Confidence | Best Hypothesis | Evidence | Occurrences |
+|------|------------------|------------|-----------------|----------|-------------|
+| **JA-SA-SA-RA-ME** | Divine name | PROBABLE | Pre-Greek | All 7 occurrences at peak/cave sanctuaries (IOZ, PKZ, PLZ, TLZ, PSZ); gemination SA-SA unique; -ME divine suffix; variants: A-SA-SA-RA-ME (IOZ), A-SA-SA-RA (PKZ), JA-SA-SA-RA (IOZ); Phase 2/4 confirms | 7+ |
+| **U-NA-KA-NA-SI** | Divine epithet | PROBABLE | Pre-Greek | 4 occurrences (IOZ, PKZ, KOZ); always follows JA-SA-SA-RA-ME; variants: U-NA-RU-KA-NA-SI (IOZ), U-NA-RU-KA-NA-TI (PKZ), JA-SA-U-NA-KA-NA-SI (PKZ compound) | 4 |
+| **I-PI-NA-MA + SI-RU-TE** | Ritual formula pair | PROBABLE | Pre-Greek | 5 co-occurrences; highest PMI in corpus (7.36); I-PI-NA-MA always precedes SI-RU-TE; sites: IOZ (2), KOZ (1), TLZ (1), VRYZ (1); ritual formula exclusive | 6+7 |
+| **A-TA-I-*301-WA-JA** | Religious invocation | PROBABLE | Luwian/Pre-Greek | 11 occurrences; -WA-JA ending; sign *301 in 14 religious variants; sites: IOZ (3), SYZ (5), PKZ (1), KOZ (1), TLZ (1); standard opening formula | 11 |
+| **DA-MA-TE** | Goddess name (Demeter?) | SPECULATIVE | Proto-Greek | Single occurrence at KYZ (Kythera); only Proto-Greek support in religious corpus; possible source of Greek Demeter | 1 |
 
 ### Level 6: Lexical Speculation (SPECULATIVE)
 
@@ -135,6 +176,32 @@ To move a reading from "Under Investigation" to "Confirmed":
 - Hapax legomenon (1 occurrence) → Max: POSSIBLE
 - Single-hypothesis support only → Max: PROBABLE
 - Contradictory evidence → REJECT or flag
+
+---
+
+## Critical Dependencies
+
+Track which readings depend on which anchors. If an anchor is demoted/rejected, these readings must be re-evaluated.
+
+| Reading | Depends On | Current Level | If Anchor Changes |
+|---------|------------|---------------|-------------------|
+| SA-RA₂ = *šarāku* | Semitic loanword layer accepted | PROBABLE | Demote to SPECULATIVE |
+| KU-RO = "total" | Linear B cognate validity | HIGH | Demote to POSSIBLE |
+| KI-RO = "deficit/owed" | KU-RO interpretation + complementary position | HIGH | Re-evaluate function |
+| PO-TO-KU-RO = "grand total" | KU-RO interpretation | PROBABLE | Re-evaluate meaning |
+| KU-RE = "subtotal" | KU-RO interpretation + HT39 sequence | POSSIBLE | Demote if KU-RO fails |
+| KU-RA = "category header" | K-R paradigm validity | POSSIBLE | Demote if KU-RO fails |
+| KI-RA = "deficit header" | KI-RO interpretation | SPECULATIVE | Demote if KI-RO fails |
+| KA-RU = "header" | Tablet-initial position evidence | POSSIBLE | Independent of KU-RO |
+| -JA suffix = adjectival | Luwian morphology layer | PROBABLE | Demote to POSSIBLE |
+| -TE/-TI suffixes = verbal | Luwian morphology layer | POSSIBLE | Demote to SPECULATIVE |
+| -U class marker | Luwian morphology layer | PROBABLE | Demote to POSSIBLE |
+
+**When to update this table**:
+- When adding new readings to Level 4-6
+- When a reading's interpretation depends on another reading
+- When cross-corpus verification reveals dependencies
+- After anchor re-evaluation (per FIRST_PRINCIPLES.md protocol)
 
 ---
 

@@ -1633,7 +1633,9 @@ def main():
             print(f"\n{hyp.upper()}: {data['verdict']} (score: {data['score']})")
             if data.get('evidence'):
                 for ev in data['evidence']:
-                    print(f"  - {ev['observation']}: {ev['interpretation']}")
+                    obs = ev.get('observation', ev.get('element', ev.get('type', 'unknown')))
+                    interp = ev.get('interpretation', ev.get('meaning', ''))
+                    print(f"  - {obs}: {interp}")
             if data.get('cognates_found') or data.get('root_matches') or data.get('greek_cognates'):
                 cognates = data.get('cognates_found') or data.get('root_matches') or data.get('greek_cognates')
                 for cog in cognates:

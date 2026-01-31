@@ -92,6 +92,28 @@ Standard decipherment practice: establish anchor points, then extend systematica
 ### Self-Check Question
 **"Am I building from confirmed anchors outward, or from speculation inward?"**
 
+### Anchor Re-evaluation Protocol
+
+Anchors are provisional. Evidence that established them can be superseded.
+
+**Triggers for anchor review**:
+- Anchor term appears in unexpected context in new/re-examined inscription
+- Cross-corpus verification reveals inconsistent anchor behavior
+- New archaeological or linguistic evidence challenges original basis
+- Anchor hasn't been comprehensively reviewed in 10+ analyses
+
+**Review procedure**:
+1. Collect ALL corpus contexts where anchor term appears
+2. Verify anchor behavior remains consistent across contexts
+3. Confirm original basis (Linear B cognate, toponym confirmation, pictographic origin) is still valid
+4. Document outcome in CONFIRMED_READINGS.md:
+   - CONFIRMED: Anchor remains at current level
+   - DEMOTED: Move to lower level; update all dependent readings
+   - REJECTED: Remove from CONFIRMED_READINGS.md; add to Rejection Log
+
+**Cascade requirement**:
+If an anchor is DEMOTED or REJECTED, check Critical Dependencies in CONFIRMED_READINGS.md and re-evaluate all affected readings.
+
 ---
 
 ## Principle 4: MULTI-HYPOTHESIS TESTING
