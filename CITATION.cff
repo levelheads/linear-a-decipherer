@@ -21,8 +21,8 @@ keywords:
   - epigraphy
   - Kober Method
 license: CC-BY-NC-SA-4.0
-version: "1.0.0"
-date-released: "2026-01-09"
+version: "0.2.0"
+date-released: "2026-01-31"
 references:
   - type: article
     authors:
@@ -51,3 +51,14 @@ references:
     year: 1976-1985
     publisher:
       name: "Librairie Orientaliste Paul Geuthner"
+  - type: article
+    authors:
+      - family-names: Kanta
+        given-names: Athanasia
+      - family-names: Anetaki
+        given-names: Eirini
+    title: "The Ivory Linear A Scepter from Knossos"
+    journal: "Ariadne Supplement"
+    volume: 5
+    year: 2025
+    url: "https://ejournals.lib.uoc.gr/Ariadne/article/view/1841"
