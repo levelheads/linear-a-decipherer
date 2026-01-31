@@ -195,6 +195,40 @@ These paradigms suggest systematic vowel gradation in Linear A morphology, exten
 
 ---
 
+### Unique Signs: Phonological Evidence (NEW 2026-01-31)
+
+**123 signs** exist in Linear A with no Linear B equivalent. These were dropped when Greeks adapted the script, revealing sounds Greek didn't have.
+
+| Sign | Attestations | Position | Phonological Hypothesis | Confidence |
+|------|-------------|----------|-------------------------|------------|
+| ***301** | 290 | Initial (88%) | Pharyngeal (/ʕ/, /ħ/) or palatalized (/kʲ/) | POSSIBLE |
+| ***304** | 42 | Initial (88%) | Unknown consonant | SPECULATIVE |
+| ***21** | 30 | Initial (70%) | Gender classifier (F/M variants) | POSSIBLE |
+| ***118** | 26 | Final (69%) | Word-final consonant | SPECULATIVE |
+
+**Key Finding: Sign *301**
+- Most frequent unique sign (290 occurrences, 33% of all unique sign attestations)
+- 23 sites (widest distribution of any unique sign)
+- Primary context: A-TA-I-*301-WA-JA (religious invocation)
+- 88% word-initial position
+- **If identified**: Would unlock significant religious vocabulary
+
+**Phonological Profile of Linear A Language**:
+
+| Feature | Evidence | Confidence |
+|---------|----------|------------|
+| More consonants than Greek | 123 signs dropped | HIGH |
+| Possible pharyngeals | *301 distribution matches Semitic | MEDIUM |
+| Possible palatalized series | Luwian parallels | MEDIUM |
+| /l/ vs. /r/ distinction | Both series retained | HIGH |
+| Grammatical classifiers | F/M marked signs | MEDIUM |
+
+**Hypothesis Impact**: Luwian +3, Semitic +2, Pre-Greek +1, Proto-Greek **-2**
+
+**Full analysis**: [LINEAR_A_UNIQUE_SIGNS_ANALYSIS.md](../analysis/sessions/LINEAR_A_UNIQUE_SIGNS_ANALYSIS.md)
+
+---
+
 ### Level 6: Lexical Speculation (SPECULATIVE)
 
 | Word | Proposed Meaning | Hypothesis | Issue |

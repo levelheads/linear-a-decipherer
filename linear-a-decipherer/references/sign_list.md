@@ -141,7 +141,27 @@ NU (56), PI (56), NE (55), SU (51), ZE (47), WA (45), QE (43), QA (43), ME (43),
 PO (8), AU (8), QI (3), ZO (2)
 
 ### Unique to Linear A (No Linear B Cognate)
-Some signs appear only in Linear A and lack Linear B equivalents, making their phonetic values more speculative.
+
+**123 signs** exist in Linear A with no Linear B equivalent. These were dropped when Greeks adapted the script (~1450 BCE), representing sounds Greek didn't have.
+
+**Full analysis**: See [LINEAR_A_UNIQUE_SIGNS_ANALYSIS.md](../../analysis/sessions/LINEAR_A_UNIQUE_SIGNS_ANALYSIS.md)
+
+| Sign | Attestations | Position | Phonological Hypothesis |
+|------|-------------|----------|------------------------|
+| ***301** | 290 | Initial (88%) | Pharyngeal or palatalized; appears in A-TA-I-*301-WA-JA |
+| ***304** | 42 | Initial (88%) | Unknown; commodity contexts |
+| ***188** | 32 | Mixed | Unknown; with vessel terms |
+| ***21** | 30 | Initial (70%) | Gender classifier (*21F, *21M variants) |
+| ***118** | 26 | Final (69%) | Word-final consonant; DA-SI-*118 |
+| ***86** | 24 | Initial (92%) | Unknown; with *188 |
+| ***306** | 23 | Initial (87%) | Unknown; personal name contexts |
+| ***305** | 20 | Initial (70%) | Unknown; KA-*305, KU-*305 |
+
+**Phonological Implications**:
+- Linear A had more consonants than Greek (explains why 123 signs dropped)
+- Possible pharyngeal consonants (/ʕ/, /ħ/) — common in Semitic, absent in Greek
+- Possible palatalized series — common in Luwian, absent in Greek
+- F/M gender markers suggest grammatical classifiers (not needed for Greek)
 
 ## Linear B Cognate Confidence Levels
 
