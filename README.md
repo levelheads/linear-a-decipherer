@@ -42,10 +42,17 @@ linear-a-decipherer/
 ├── CONTRIBUTING.md           # Contribution guidelines (First Principles required)
 ├── CITATION.cff              # Academic citation format
 ├── CLAUDE.md                 # AI assistant guidance
+├── GIT_WORKFLOW.md           # Git practices
 │
-├── linear-a-decipherer/      # Core methodology
+├── linear-a-decipherer/      # Core methodology & knowledge management
 │   ├── FIRST_PRINCIPLES.md   # Six inviolable principles (READ FIRST)
 │   ├── SKILL.md              # Operational procedures
+│   ├── ANALYSIS_INDEX.md     # Central registry of all analyses
+│   ├── STATE_OF_KNOWLEDGE.md # Current research synthesis
+│   ├── CONFIRMED_READINGS.md # Secure interpretations by anchor level
+│   ├── FINDINGS_LOG.md       # Chronological discovery record
+│   ├── LESSONS_LEARNED.md    # Methodology refinements
+│   ├── TOOLS_GUIDE.md        # Task-based tool selection
 │   ├── references/
 │   │   ├── methodology.md    # Analytical techniques (Kober Method)
 │   │   ├── hypotheses.md     # Four linguistic frameworks
@@ -55,13 +62,24 @@ linear-a-decipherer/
 │       ├── HT13_COMPLETE_ANALYSIS.md
 │       └── HT13_QUICK_START.md
 │
-├── analyses/                 # Research outputs
-│   ├── KNOSSOS_SCEPTER_COMPLETE.md  # 119-sign scepter analysis
-│   ├── TY3a_COMPLETE_ANALYSIS.md    # Tylissos oil distribution tablet
-│   ├── LINEAR_A_COMPREHENSIVE_ANALYSIS.md
-│   ├── KNOSSOS_SCEPTER_ANALYSIS.md
-│   ├── KOBER_METHOD_ANALYSIS_2026-01-09.md
-│   └── CORPUS_DATA_2026-01-09.md
+├── analysis/                 # Research outputs (consolidated)
+│   ├── completed/
+│   │   ├── inscriptions/     # Per-inscription analyses
+│   │   │   ├── KNOSSOS_SCEPTER_COMPLETE.md
+│   │   │   └── TY3a_COMPLETE_ANALYSIS.md
+│   │   └── thematic/         # Cross-cutting investigations
+│   │       ├── LINEAR_A_COMPREHENSIVE_ANALYSIS.md
+│   │       ├── SA-RA2_akkadian_deep_investigation.md
+│   │       └── KOBER_METHOD_ANALYSIS_2026-01-09.md
+│   ├── sessions/             # Session logs
+│   │   ├── SESSION_LOG_2026-01-05.md
+│   │   ├── SESSION_LOG_2026-01-09.md
+│   │   └── analysis_session_2026-01-31.md
+│   ├── drafts/               # Work in progress
+│   └── archive/              # Superseded analyses
+│
+├── templates/                # Document templates
+│   └── SESSION_TEMPLATE.md   # Session log template
 │
 ├── external/                 # External data (git submodules)
 │   └── lineara/              # lineara.xyz corpus data
@@ -70,37 +88,18 @@ linear-a-decipherer/
 │   ├── analyze_inscription.py    # Full analysis pipeline
 │   ├── contextual_analyzer.py    # Contextual pattern analysis
 │   ├── corpus_lookup.py          # Query inscriptions
-│   ├── enrich_chronology.py      # Chronological context
-│   ├── hypothesis_tester.py      # Multi-hypothesis testing (with contextual integration)
-│   ├── git_manager.py            # Git workflow management
+│   ├── hypothesis_tester.py      # Multi-hypothesis testing
 │   ├── kober_analyzer.py         # Frequency/positional analysis
 │   ├── kr_paradigm_validator.py  # K-R form validation
 │   ├── negative_evidence.py      # Negative evidence analysis
-│   ├── parse_lineara_corpus.py   # Corpus data generator
 │   ├── regional_analyzer.py      # Site-by-site vocabulary comparison
-│   ├── statistical_analysis.py   # Pattern detection
-│   └── validate_corpus.py        # Corpus integrity checks
+│   └── slot_grammar_analyzer.py  # Grammatical slot analysis
 │
 ├── data/                     # Generated data (gitignored)
-│   ├── corpus.json           # Parsed inscription data (1,721 entries)
-│   ├── cognates.json         # Linear B cognate mappings
-│   ├── signs.json            # Sign inventory
-│   ├── statistics.json       # Corpus statistics
-│   ├── chronology_enrichment_report.json
-│   ├── hypothesis_results.json
-│   ├── pattern_report.json
-│   ├── statistical_report.json
-│   └── validation_report.json
-│
-├── sessions/                 # Session logs
-│   ├── SESSION_LOG_2026-01-05.md
-│   └── SESSION_LOG_2026-01-09.md
+│   └── [various .json files]
 │
 └── .github/
     └── ISSUE_TEMPLATE/       # Templates for contributions
-        ├── proposed-reading.md
-        ├── pattern-observation.md
-        └── new-corpus-data.md
 ```
 
 ## Getting Started
@@ -138,10 +137,10 @@ After running the commands above, you should have:
 ## Quick Start
 
 1. **Read First Principles**: `linear-a-decipherer/FIRST_PRINCIPLES.md`
-2. **Review Methodology**: `linear-a-decipherer/references/methodology.md`
-3. **See Example Analysis**: `linear-a-decipherer/examples/HT13_QUICK_START.md`
-4. **Explore Corpus Data**: `analyses/CORPUS_DATA_2026-01-09.md`
-5. **See Pattern Analysis**: `analyses/KOBER_METHOD_ANALYSIS_2026-01-09.md`
+2. **Review Current State**: `linear-a-decipherer/STATE_OF_KNOWLEDGE.md`
+3. **Check What's Done**: `linear-a-decipherer/ANALYSIS_INDEX.md`
+4. **See Example Analysis**: `linear-a-decipherer/examples/HT13_QUICK_START.md`
+5. **Review Methodology**: `linear-a-decipherer/references/methodology.md`
 
 ## Corpus Data
 

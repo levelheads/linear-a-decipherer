@@ -154,11 +154,13 @@ The `git_manager.py pre-commit` command checks:
 ### Always Commit:
 
 ```
-tools/*.py              # Analysis scripts
-analyses/*.md           # Research outputs
-linear-a-decipherer/    # Core methodology
-README.md               # Project documentation
-.gitignore              # Ignore patterns
+tools/*.py                          # Analysis scripts
+analysis/completed/**/*.md          # Finished analyses
+analysis/sessions/*.md              # Session logs
+linear-a-decipherer/*.md            # Core methodology + knowledge management
+templates/*.md                      # Document templates
+README.md                           # Project documentation
+.gitignore                          # Ignore patterns
 ```
 
 ### Never Commit (Gitignored):
@@ -209,6 +211,22 @@ git restore .
 
 ---
 
+## Knowledge Management Updates
+
+After analysis work, update these files before committing:
+
+| Document | When to Update |
+|----------|----------------|
+| `linear-a-decipherer/ANALYSIS_INDEX.md` | After each analysis (add entry) |
+| `linear-a-decipherer/FINDINGS_LOG.md` | When discoveries are made |
+| `linear-a-decipherer/CONFIRMED_READINGS.md` | When readings reach HIGH+ confidence |
+| `linear-a-decipherer/STATE_OF_KNOWLEDGE.md` | After major findings |
+| `linear-a-decipherer/LESSONS_LEARNED.md` | When methodology is refined |
+
+Session logs should be created using `templates/SESSION_TEMPLATE.md` and saved to `analysis/sessions/`.
+
+---
+
 ## Agent Integration
 
 When working with Claude Code, the git workflow should be:
@@ -216,6 +234,6 @@ When working with Claude Code, the git workflow should be:
 1. **Task completion** → Check if commit needed
 2. **Multiple related changes** → Single atomic commit
 3. **Phase completion** → Comprehensive commit with summary
-4. **Session end** → Always verify sync status
+4. **Session end** → Update knowledge management docs, then verify sync status
 
 The agent can call `python tools/git_manager.py sync` at any time to check repository status.

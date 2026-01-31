@@ -38,6 +38,17 @@ This document contains six inviolable principles that govern all decipherment op
 5. `linear-a-decipherer/references/corpus.md` (inscription database)
 6. `linear-a-decipherer/references/sign_list.md` (syllabary)
 
+### Knowledge Management (Check Before/After Analysis)
+
+| Document | Purpose | When to Check |
+|----------|---------|---------------|
+| `linear-a-decipherer/ANALYSIS_INDEX.md` | What's been analyzed | Before starting new work |
+| `linear-a-decipherer/STATE_OF_KNOWLEDGE.md` | Current understanding | Before starting new work |
+| `linear-a-decipherer/CONFIRMED_READINGS.md` | Secure interpretations | When proposing readings |
+| `linear-a-decipherer/FINDINGS_LOG.md` | Discovery record | After making discoveries |
+| `linear-a-decipherer/LESSONS_LEARNED.md` | Methodology refinements | After learning something new |
+| `linear-a-decipherer/TOOLS_GUIDE.md` | Tool selection | When choosing analysis tools |
+
 ---
 
 ## Architecture
@@ -99,6 +110,15 @@ Single-hypothesis support caps confidence at PROBABLE. Multi-hypothesis converge
 2. Match against sign list (references/sign_list.md)
 3. Assign AB numbers (GORILA classification)
 4. Proceed as above
+
+### After Any Analysis
+
+1. Update `linear-a-decipherer/ANALYSIS_INDEX.md` with new entry
+2. If discoveries made, add to `linear-a-decipherer/FINDINGS_LOG.md`
+3. If readings reach HIGH+ confidence, update `linear-a-decipherer/CONFIRMED_READINGS.md`
+4. If major findings, update `linear-a-decipherer/STATE_OF_KNOWLEDGE.md`
+5. If methodology refined, add to `linear-a-decipherer/LESSONS_LEARNED.md`
+6. Use `templates/SESSION_TEMPLATE.md` for session logs
 
 ### Site Code Reference
 
