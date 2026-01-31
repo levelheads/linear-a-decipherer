@@ -617,6 +617,165 @@ class ContextualAnalyzer:
         return results
 
     # =========================================================================
+    # COMMODITY SLOT EXTRACTION (Challenge 3 Support)
+    # =========================================================================
+
+    def extract_commodity_triplets(self) -> dict:
+        """
+        Extract all [X] + LOGOGRAM + NUMBER triplets from the corpus.
+
+        These patterns are critical for grammatical analysis because:
+        1. LOGOGRAM: Semantically known (commodity type)
+        2. NUMBER: Provides quantification
+        3. [X] slot: Grammatically constrained position
+
+        Returns dict with triplets and statistics.
+        """
+        print("Extracting commodity triplets (Challenge 3)...")
+
+        # Known commodity logograms
+        commodity_logograms = [
+            'GRA', 'VIN', 'OLE', 'OLIV', 'CYP', 'AROM', 'TELA', 'LANA',
+            'BOS', 'OVIS', 'CAP', 'SUS', 'HORD', 'NI', 'FIC', 'CUM',
+        ]
+
+        triplets = []
+        slot_word_freq = Counter()
+        slot_by_logogram = defaultdict(list)
+        slot_suffixes = Counter()
+
+        for insc_id, data in self.corpus['inscriptions'].items():
+            if '_parse_error' in data:
+                continue
+
+            words = data.get('transliteratedWords', [])
+
+            # Filter to valid tokens
+            valid_tokens = []
+            for i, word in enumerate(words):
+                if word and word not in ['\n', '𐄁', '', '—', '≈', '𐝫']:
+                    valid_tokens.append({'index': i, 'word': word})
+
+            # Look for patterns: SYLLABIC + LOGOGRAM + NUMERAL
+            for i in range(len(valid_tokens) - 2):
+                t1, t2, t3 = valid_tokens[i], valid_tokens[i+1], valid_tokens[i+2]
+
+                # Check pattern: [X] + LOGOGRAM + NUMBER
+                is_syllabic = self._is_syllabic(t1['word'])
+                is_logo = self._is_logogram(t2['word'])
+                is_num = self._is_numeral(t3['word'])
+
+                if is_syllabic and is_logo and is_num:
+                    x_slot = t1['word'].upper()
+                    logogram = t2['word'].upper()
+
+                    triplet = {
+                        'inscription_id': insc_id,
+                        'x_slot': x_slot,
+                        'logogram': logogram,
+                        'number': t3['word'],
+                        'position': i,
+                        'context_before': [valid_tokens[j]['word'] for j in range(max(0, i-2), i)],
+                        'context_after': [valid_tokens[j]['word'] for j in range(i+3, min(len(valid_tokens), i+5))],
+                        'site': data.get('site', ''),
+                    }
+                    triplets.append(triplet)
+
+                    # Track frequencies
+                    slot_word_freq[x_slot] += 1
+                    slot_by_logogram[logogram].append(x_slot)
+
+                    # Extract final syllable as potential case marker
+                    syllables = x_slot.split('-')
+                    if syllables:
+                        final_syl = syllables[-1]
+                        # Remove subscripts
+                        final_syl = re.sub(r'[₀₁₂₃₄₅₆₇₈₉]', '', final_syl)
+                        slot_suffixes[final_syl] += 1
+
+        results = {
+            'total_triplets': len(triplets),
+            'unique_slot_words': len(slot_word_freq),
+            'triplets': triplets,
+            'slot_word_frequencies': dict(slot_word_freq.most_common()),
+            'slot_suffix_frequencies': dict(slot_suffixes.most_common()),
+            'slots_by_logogram': {k: list(set(v)) for k, v in slot_by_logogram.items()},
+        }
+
+        self.results['commodity_triplets'] = results
+        return results
+
+    def analyze_slot_distributions(self) -> dict:
+        """
+        Analyze positional and distributional patterns of slot words.
+
+        Examines:
+        1. Where slot words appear in inscriptions (early/middle/late)
+        2. Which logograms they associate with
+        3. Morphological patterns (suffixes, prefixes)
+        """
+        print("Analyzing slot word distributions...")
+
+        # Ensure triplets are extracted
+        if 'commodity_triplets' not in self.results:
+            self.extract_commodity_triplets()
+
+        triplets = self.results['commodity_triplets'].get('triplets', [])
+        if not triplets:
+            return {}
+
+        # Position analysis
+        position_dist = {'early': [], 'middle': [], 'late': []}
+        suffix_contexts = defaultdict(lambda: {'logograms': Counter(), 'sites': Counter()})
+
+        for t in triplets:
+            x_slot = t['x_slot']
+            logogram = t['logogram']
+            site = t.get('site', 'Unknown')
+
+            # Classify position
+            # Note: position relative to total not available here, use heuristic
+            pos = t.get('position', 0)
+            if pos < 3:
+                position_dist['early'].append(x_slot)
+            elif pos < 8:
+                position_dist['middle'].append(x_slot)
+            else:
+                position_dist['late'].append(x_slot)
+
+            # Track suffix contexts
+            syllables = x_slot.split('-')
+            if syllables:
+                final_syl = re.sub(r'[₀₁₂₃₄₅₆₇₈₉]', '', syllables[-1])
+                suffix_contexts[final_syl]['logograms'][logogram] += 1
+                suffix_contexts[final_syl]['sites'][site] += 1
+
+        # Calculate suffix statistics
+        suffix_stats = {}
+        for suffix, data in suffix_contexts.items():
+            total = sum(data['logograms'].values())
+            if total >= 3:  # Minimum occurrences
+                suffix_stats[suffix] = {
+                    'total_occurrences': total,
+                    'logogram_diversity': len(data['logograms']) / total,
+                    'top_logograms': dict(data['logograms'].most_common(5)),
+                    'top_sites': dict(data['sites'].most_common(3)),
+                }
+
+        results = {
+            'position_distribution': {
+                'early': len(position_dist['early']),
+                'middle': len(position_dist['middle']),
+                'late': len(position_dist['late']),
+            },
+            'suffix_statistics': suffix_stats,
+            'unique_suffixes_analyzed': len(suffix_stats),
+        }
+
+        self.results['slot_distributions'] = results
+        return results
+
+    # =========================================================================
     # MAIN ANALYSIS
     # =========================================================================
 

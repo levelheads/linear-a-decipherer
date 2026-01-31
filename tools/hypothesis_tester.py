@@ -395,6 +395,202 @@ GREEK_PHONOLOGY_EXPECTATIONS = {
 }
 
 
+# ===========================================================================
+# CASE MARKER PREDICTIONS BY GRAMMATICAL ROLE (Challenge 3 Support)
+# Used for slot grammar analysis - predicting markers by grammatical function
+# ===========================================================================
+
+CASE_MARKER_PREDICTIONS = {
+    'luwian': {
+        'RECIPIENT': {
+            'markers': ['-si', '-i', '-a-si'],
+            'description': 'Luwian dative-locative endings',
+            'confidence': 'MEDIUM',
+            'source': 'Melchert (2003)',
+        },
+        'SOURCE': {
+            'markers': ['-za', '-ati', '-ta'],
+            'description': 'Luwian ablative markers',
+            'confidence': 'MEDIUM',
+            'source': 'Melchert (2003)',
+        },
+        'AGENT': {
+            'markers': ['-s', '-sa', ''],
+            'description': 'Luwian nominative/agentive',
+            'confidence': 'MEDIUM',
+            'source': 'Melchert (2003)',
+        },
+        'BENEFICIARY': {
+            'markers': ['-si', '-a-si', '-i'],
+            'description': 'Luwian dative (same as recipient)',
+            'confidence': 'MEDIUM',
+            'source': 'Melchert (2003)',
+        },
+        'POSSESSOR': {
+            'markers': ['-sa', '-ssa', '-as-sa'],
+            'description': 'Luwian genitive/possessive',
+            'confidence': 'MEDIUM',
+            'source': 'Melchert (2003)',
+        },
+        'QUANTITY_MOD': {
+            'markers': ['-ja', '-i-ja', '-wa'],
+            'description': 'Luwian adjectival suffix -iya',
+            'confidence': 'LOW',
+            'source': 'Yakubovich (2010)',
+        },
+        'QUALITY_MOD': {
+            'markers': ['-ja', '-i-ja'],
+            'description': 'Luwian adjectival suffix',
+            'confidence': 'LOW',
+            'source': 'Yakubovich (2010)',
+        },
+    },
+    'semitic': {
+        'RECIPIENT': {
+            'markers': ['-a', '-am', 'la-', 'li-'],
+            'description': 'Semitic dative/ventive markers',
+            'confidence': 'LOW',
+            'source': 'GAG (Akkadian Grammar)',
+        },
+        'SOURCE': {
+            'markers': ['mi-', 'min-', '-tu'],
+            'description': 'Semitic ablative constructions',
+            'confidence': 'LOW',
+            'source': 'GAG',
+        },
+        'AGENT': {
+            'markers': ['-u', '-um', ''],
+            'description': 'Semitic nominative/construct',
+            'confidence': 'LOW',
+            'source': 'GAG',
+        },
+        'BENEFICIARY': {
+            'markers': ['ana-', 'la-'],
+            'description': 'Semitic typically uses prepositions',
+            'confidence': 'LOW',
+            'source': 'GAG',
+        },
+        'POSSESSOR': {
+            'markers': ['-i', '-im', '-su', '-ka'],
+            'description': 'Semitic genitive suffixes',
+            'confidence': 'MEDIUM',
+            'source': 'GAG',
+        },
+        'QUANTITY_MOD': {
+            'markers': ['-u', '-a'],
+            'description': 'Semitic adjectival forms',
+            'confidence': 'LOW',
+            'source': 'GAG',
+        },
+        'QUALITY_MOD': {
+            'markers': ['-u', '-a', '-i'],
+            'description': 'Semitic adjectival forms',
+            'confidence': 'LOW',
+            'source': 'GAG',
+        },
+    },
+    'pregreek': {
+        'RECIPIENT': {
+            'markers': ['-na', '-nth', '-ss'],
+            'description': 'Pre-Greek characteristic suffixes (speculative)',
+            'confidence': 'LOW',
+            'source': 'Beekes (2014)',
+        },
+        'SOURCE': {
+            'markers': ['-th', '-ss-a', '-mn'],
+            'description': 'Pre-Greek ablative-like (speculative)',
+            'confidence': 'LOW',
+            'source': 'Beekes (2014)',
+        },
+        'AGENT': {
+            'markers': ['-s', '-ss', '-nth'],
+            'description': 'Pre-Greek nominal suffixes',
+            'confidence': 'LOW',
+            'source': 'Furnée (1972)',
+        },
+        'BENEFICIARY': {
+            'markers': ['-na', '-nth', '-ss'],
+            'description': 'Pre-Greek suffixes (speculative)',
+            'confidence': 'LOW',
+            'source': 'Beekes (2014)',
+        },
+        'POSSESSOR': {
+            'markers': ['-ss-a', '-nth-os', '-mn-os'],
+            'description': 'Pre-Greek possessive (by analogy)',
+            'confidence': 'SPECULATIVE',
+            'source': 'Furnée (1972)',
+        },
+        'QUANTITY_MOD': {
+            'markers': ['-ss', '-nth', '-mn'],
+            'description': 'Pre-Greek adjectival',
+            'confidence': 'SPECULATIVE',
+            'source': 'Beekes (2014)',
+        },
+        'QUALITY_MOD': {
+            'markers': ['-ss', '-nth', '-mn'],
+            'description': 'Pre-Greek adjectival',
+            'confidence': 'SPECULATIVE',
+            'source': 'Beekes (2014)',
+        },
+    },
+    'protogreek': {
+        'RECIPIENT': {
+            'markers': ['-i', '-oi', '-ai', '-e'],
+            'description': 'Proto-Greek dative endings',
+            'confidence': 'MEDIUM',
+            'source': 'Ventris & Chadwick (1973)',
+        },
+        'SOURCE': {
+            'markers': ['-o', '-as', '-os', '-tos'],
+            'description': 'Proto-Greek genitive-ablative',
+            'confidence': 'MEDIUM',
+            'source': 'Ventris & Chadwick (1973)',
+        },
+        'AGENT': {
+            'markers': ['-s', '-os', '-es', '-a'],
+            'description': 'Proto-Greek nominative endings',
+            'confidence': 'MEDIUM',
+            'source': 'Ventris & Chadwick (1973)',
+        },
+        'BENEFICIARY': {
+            'markers': ['-i', '-oi', '-ai'],
+            'description': 'Proto-Greek dative (same as recipient)',
+            'confidence': 'MEDIUM',
+            'source': 'Ventris & Chadwick (1973)',
+        },
+        'POSSESSOR': {
+            'markers': ['-o', '-oio', '-as', '-ao'],
+            'description': 'Proto-Greek genitive endings',
+            'confidence': 'MEDIUM',
+            'source': 'Ventris & Chadwick (1973)',
+        },
+        'QUANTITY_MOD': {
+            'markers': ['-os', '-a', '-on', '-e'],
+            'description': 'Proto-Greek adjectival agreement',
+            'confidence': 'MEDIUM',
+            'source': 'Ventris & Chadwick (1973)',
+        },
+        'QUALITY_MOD': {
+            'markers': ['-os', '-a', '-on'],
+            'description': 'Proto-Greek adjectival',
+            'confidence': 'MEDIUM',
+            'source': 'Ventris & Chadwick (1973)',
+        },
+    },
+}
+
+# Grammatical roles that can fill the [X] slot in [X] + LOGOGRAM + NUMBER
+GRAMMATICAL_ROLES = {
+    'RECIPIENT': 'Who receives the commodity',
+    'SOURCE': 'Where the commodity comes from',
+    'AGENT': 'Who provides/delivers the commodity',
+    'BENEFICIARY': 'For whom the commodity is intended',
+    'POSSESSOR': 'Whose commodity it is',
+    'QUANTITY_MOD': 'How much (adjectival modifier)',
+    'QUALITY_MOD': 'What kind (adjectival modifier)',
+}
+
+
 class HypothesisTester:
     """
     Tests Linear A words against four linguistic hypotheses.
@@ -1088,6 +1284,127 @@ class HypothesisTester:
         else:
             result['verdict'] = 'NEUTRAL'
 
+        return result
+
+    # =========================================================================
+    # GRAMMATICAL ROLE TESTING (Challenge 3 Support)
+    # =========================================================================
+
+    def test_grammatical_role(self, word: str, role: str) -> dict:
+        """
+        Test a word against a specific grammatical role across all hypotheses.
+
+        This method supports Challenge 3 (Attack from Logograms Inward) by
+        testing whether a word's morphology matches predicted case markers
+        for a specific grammatical role (RECIPIENT, SOURCE, AGENT, etc.).
+
+        Args:
+            word: Linear A word (e.g., 'PA-I-TO')
+            role: Grammatical role to test (e.g., 'RECIPIENT', 'POSSESSOR')
+
+        Returns:
+            dict with match scores for each hypothesis
+        """
+        if role not in GRAMMATICAL_ROLES:
+            return {
+                'word': word,
+                'role': role,
+                'error': f'Unknown role: {role}. Valid roles: {list(GRAMMATICAL_ROLES.keys())}',
+            }
+
+        word_upper = word.upper()
+        syllables = word_upper.split('-')
+        final_syl = syllables[-1] if syllables else ''
+        # Remove subscripts
+        final_syl = re.sub(r'[₀₁₂₃₄₅₆₇₈₉]', '', final_syl)
+
+        result = {
+            'word': word,
+            'role': role,
+            'role_description': GRAMMATICAL_ROLES[role],
+            'final_syllable': final_syl,
+            'hypothesis_matches': {},
+            'best_match': None,
+            'best_score': 0,
+        }
+
+        hypotheses = ['luwian', 'semitic', 'pregreek', 'protogreek']
+
+        for hyp in hypotheses:
+            if hyp not in CASE_MARKER_PREDICTIONS:
+                continue
+
+            hyp_data = CASE_MARKER_PREDICTIONS[hyp].get(role, {})
+            markers = hyp_data.get('markers', [])
+
+            match_score = 0.0
+            matched_marker = None
+
+            for marker in markers:
+                # Normalize marker
+                norm_marker = marker.lstrip('-').upper()
+                if not norm_marker:
+                    continue
+
+                # Check for match
+                if final_syl == norm_marker:
+                    match_score = 1.0
+                    matched_marker = marker
+                    break
+                elif final_syl.endswith(norm_marker):
+                    match_score = 0.8
+                    matched_marker = marker
+                elif norm_marker.endswith(final_syl) and len(final_syl) >= 2:
+                    match_score = 0.5
+                    matched_marker = marker
+
+            result['hypothesis_matches'][hyp] = {
+                'score': match_score,
+                'matched_marker': matched_marker,
+                'predicted_markers': markers,
+                'confidence': hyp_data.get('confidence', 'UNKNOWN'),
+                'description': hyp_data.get('description', ''),
+            }
+
+            if match_score > result['best_score']:
+                result['best_score'] = match_score
+                result['best_match'] = {
+                    'hypothesis': hyp,
+                    'marker': matched_marker,
+                    'score': match_score,
+                }
+
+        return result
+
+    def test_all_roles(self, word: str) -> dict:
+        """
+        Test a word against all grammatical roles across all hypotheses.
+
+        Returns comprehensive role-hypothesis matrix.
+        """
+        word_upper = word.upper()
+        result = {
+            'word': word,
+            'role_matrix': {},
+            'best_overall': None,
+        }
+
+        best_score = 0
+        best_combo = None
+
+        for role in GRAMMATICAL_ROLES:
+            role_result = self.test_grammatical_role(word, role)
+            result['role_matrix'][role] = role_result['hypothesis_matches']
+
+            # Track best overall
+            if role_result['best_score'] > best_score:
+                best_score = role_result['best_score']
+                best_combo = {
+                    'role': role,
+                    **role_result['best_match'],
+                }
+
+        result['best_overall'] = best_combo
         return result
 
     # =========================================================================
