@@ -48,6 +48,7 @@ This document contains six inviolable principles that govern all decipherment op
 | `linear-a-decipherer/FINDINGS_LOG.md` | Discovery record | After making discoveries |
 | `linear-a-decipherer/LESSONS_LEARNED.md` | Methodology refinements | After learning something new |
 | `linear-a-decipherer/TOOLS_GUIDE.md` | Tool selection | When choosing analysis tools |
+| `linear-a-decipherer/references/numerals_and_fractions.md` | Numerical system & fractions | When analyzing commodity tablets |
 
 ---
 

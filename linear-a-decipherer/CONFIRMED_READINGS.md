@@ -26,10 +26,23 @@ These readings are confirmed through geographic identification and Linear B corr
 
 Readings supported by Linear B correspondence AND consistent positional/functional evidence.
 
-| Word | Meaning | Evidence | Occurrences | Position | Linear B |
-|------|---------|----------|-------------|----------|----------|
-| **ku-ro** | total/sum | Position at section ends; sums verified mathematically; Linear B totaling parallel | 37 | List-final | to-so (function) |
-| **ki-ro** | deficit/partial | Context after totals or as header; functions as accounting term | 16 | Variable | — |
+| Word | Meaning | Evidence | Occurrences | Position | Linear B | Regional Scope |
+|------|---------|----------|-------------|----------|----------|----------------|
+| **ku-ro** | total/sum | Position at section ends; sums verified mathematically; Linear B totaling parallel | 37 | List-final | to-so (function) | **Cross-site**: HT (35), ZA (1), PH (1); **absent at KH** |
+| **ki-ro** | deficit/partial | Context after totals or as header; functions as accounting term | 16 | Variable | — | **HT-EXCLUSIVE** (100% at Hagia Triada) |
+
+### Regional Validation Notes (OPERATION MINOS II Phase 8)
+
+**KU-RO Cross-Site Verification**:
+- HT: 35 occurrences, 83% mathematically verified as totals
+- ZA: 1 occurrence (ZA15b: KU-RO VIN 78) — structurally verified
+- PH: 1 occurrence (PH(?)31a, MMIII period) — **earliest attestation**, animal inventory total
+- **KH: 0 occurrences** in 227 inscriptions — complete absence
+
+**KI-RO Regional Status**:
+- All 16 occurrences at Hagia Triada only
+- May represent HT-specific administrative terminology
+- Cannot claim universality without non-HT attestation
 
 **Requirements for Level 2**:
 - Linear B cognate (phonetic or functional)
@@ -81,9 +94,9 @@ Pictographic or ideographic signs with confirmed meanings.
 
 ### Level 4-5: Structural/Morphological (PROBABLE to POSSIBLE)
 
-| Word | Proposed Meaning | Confidence | Best Hypothesis | Blocking Issue |
-|------|------------------|------------|-----------------|----------------|
-| **SA-RA₂** | allocation (*šarāku*) | PROBABLE | Akkadian | No bilingual confirmation |
+| Word | Proposed Meaning | Confidence | Best Hypothesis | Blocking Issue | Regional Scope |
+|------|------------------|------------|-----------------|----------------|----------------|
+| **SA-RA₂** | allocation (*šarāku*) | PROBABLE | Akkadian | No bilingual confirmation | **HT-EXCLUSIVE** (100% at HT) |
 | **A-DU** | administrative term | PROBABLE | Semitic | Exact semantics unclear |
 | **A-DA** | personal name/title | PROBABLE | Semitic | Limited contexts |
 | **KO-A-DU-WA** | personal name | PROBABLE | Luwian | -WA suffix supports but not conclusive |
@@ -92,24 +105,41 @@ Pictographic or ideographic signs with confirmed meanings.
 | **KA-RU** | header/category marker | POSSIBLE | Semitic | 2 attestations; tablet-initial position |
 | **ja-sa-sa-ra-me** | divine name | POSSIBLE | Pre-Greek | Religious context only |
 
-### K-R Paradigm (OPERATION MINOS Phase 2 Discovery)
+### K-R Paradigm (OPERATION MINOS Phase 2 Discovery + Phase 8 Regional Validation)
 
 **3-Tier Accounting Hierarchy** discovered 2026-01-31:
 
-| Word | Meaning | Confidence | Function | Occurrences | Evidence |
-|------|---------|------------|----------|-------------|----------|
-| **PO-TO-KU-RO** | Grand total | PROBABLE | Top tier (all sections) | 5 | Compound of PO-TO + KU-RO; appears after KU-RO with larger values |
-| **KU-RO** | Section total | HIGH | Mid tier (section sums) | 37 | Linear B parallel; mathematically verified |
-| **KU-RE** | Subtotal | POSSIBLE | Sub-sections | 2 | U→E vowel shift; precedes KU-RO in HT 39 |
-| **KI-RO** | Deficit/owed | HIGH | Shortfall notation | 16 | U→I vowel polarity; follows totals |
-| **KU-RA** | Category header | POSSIBLE | Transaction type marker | 3 | U→A vowel shift; tablet-initial |
-| **KI-RA** | Deficit category | SPECULATIVE | Deficit header(?) | 2 | I-series + A ending |
-| **KA-RU** | Header/label | POSSIBLE | Non-numeric header | 2 | A-U pattern |
+| Word | Meaning | Confidence | Function | Occurrences | Evidence | Regional Scope |
+|------|---------|------------|----------|-------------|----------|----------------|
+| **PO-TO-KU-RO** | Grand total | PROBABLE | Top tier (all sections) | 5 | Compound of PO-TO + KU-RO; appears after KU-RO with larger values | HT-only |
+| **KU-RO** | Section total | HIGH | Mid tier (section sums) | 37 | Linear B parallel; mathematically verified | **Cross-site** (HT, ZA, PH) |
+| **KU-RE** | Subtotal | POSSIBLE | Sub-sections | 2 | U→E vowel shift; precedes KU-RO in HT 39 | HT-only |
+| **KI-RO** | Deficit/owed | HIGH | Shortfall notation | 16 | U→I vowel polarity; follows totals | **HT-EXCLUSIVE** |
+| **KU-RA** | Category header | POSSIBLE | Transaction type marker | 3 | U→A vowel shift; tablet-initial | ZA dialectal? |
+| **KI-RA** | Deficit category | SPECULATIVE | Deficit header(?) | 2 | I-series + A ending | ZA dialectal? |
+| **KA-RU** | Header/label | POSSIBLE | Non-numeric header | 2 | A-U pattern | HT-only |
 
 **K-R Vowel System**:
 - U-series (KU-RO, KU-RE): Positive/complete
 - I-series (KI-RO, KI-RA): Negative/deficit
 - A-series (KU-RA, KA-RU): Headers/categories
+
+**Regional Pattern (Phase 8)**:
+- **Western sites (HT)**: -O endings dominant (KU-RO, KI-RO)
+- **Eastern sites (ZA)**: -A endings attested (KU-RA, KI-RA) — possible dialectal variation
+- **KH (Khania)**: Zero K-R forms in 227 inscriptions — different administrative system
+
+### Additional Paradigms (OPERATION MINOS II Phase 8 Discovery)
+
+Beyond K-R, three new paradigms identified with similar vowel alternation patterns:
+
+| Paradigm | Forms Attested | Vowel Alternation | Confidence |
+|----------|----------------|-------------------|------------|
+| **S-R** | SA-RO, SA-RA, SA-RI, SA-RE | U/O → A → I → E | PROBABLE |
+| **D-R** | DA-RO, DA-RA, DA-RE | O → A → E | POSSIBLE |
+| **K-P** | KU-PA, KI-PA, KA-PA | U → I → A | SPECULATIVE |
+
+These paradigms suggest systematic vowel gradation in Linear A morphology, extending beyond administrative vocabulary.
 
 ### Suffix Morphology (OPERATION MINOS Phase 6)
 
@@ -183,25 +213,35 @@ To move a reading from "Under Investigation" to "Confirmed":
 
 Track which readings depend on which anchors. If an anchor is demoted/rejected, these readings must be re-evaluated.
 
-| Reading | Depends On | Current Level | If Anchor Changes |
-|---------|------------|---------------|-------------------|
-| SA-RA₂ = *šarāku* | Semitic loanword layer accepted | PROBABLE | Demote to SPECULATIVE |
-| KU-RO = "total" | Linear B cognate validity | HIGH | Demote to POSSIBLE |
-| KI-RO = "deficit/owed" | KU-RO interpretation + complementary position | HIGH | Re-evaluate function |
-| PO-TO-KU-RO = "grand total" | KU-RO interpretation | PROBABLE | Re-evaluate meaning |
-| KU-RE = "subtotal" | KU-RO interpretation + HT39 sequence | POSSIBLE | Demote if KU-RO fails |
-| KU-RA = "category header" | K-R paradigm validity | POSSIBLE | Demote if KU-RO fails |
-| KI-RA = "deficit header" | KI-RO interpretation | SPECULATIVE | Demote if KI-RO fails |
-| KA-RU = "header" | Tablet-initial position evidence | POSSIBLE | Independent of KU-RO |
-| -JA suffix = adjectival | Luwian morphology layer | PROBABLE | Demote to POSSIBLE |
-| -TE/-TI suffixes = verbal | Luwian morphology layer | POSSIBLE | Demote to SPECULATIVE |
-| -U class marker | Luwian morphology layer | PROBABLE | Demote to POSSIBLE |
+| Reading | Depends On | Current Level | Regional Scope | If Anchor Changes |
+|---------|------------|---------------|----------------|-------------------|
+| SA-RA₂ = *šarāku* | Semitic loanword layer accepted | PROBABLE | **HT-EXCLUSIVE** | Demote to SPECULATIVE |
+| KU-RO = "total" | Linear B cognate validity | HIGH | Cross-site (HT/ZA/PH) | Demote to POSSIBLE |
+| KI-RO = "deficit/owed" | KU-RO interpretation + complementary position | HIGH | **HT-EXCLUSIVE** | Re-evaluate; may be HT innovation |
+| PO-TO-KU-RO = "grand total" | KU-RO interpretation | PROBABLE | HT-only | Re-evaluate meaning |
+| KU-RE = "subtotal" | KU-RO interpretation + HT39 sequence | POSSIBLE | HT-only | Demote if KU-RO fails |
+| KU-RA = "category header" | K-R paradigm validity | POSSIBLE | ZA dialectal | Demote if KU-RO fails |
+| KI-RA = "deficit header" | KI-RO interpretation | SPECULATIVE | ZA dialectal | Demote if KI-RO fails |
+| KA-RU = "header" | Tablet-initial position evidence | POSSIBLE | HT-only | Independent of KU-RO |
+| -JA suffix = adjectival | Luwian morphology layer | PROBABLE | Cross-site | Demote to POSSIBLE |
+| -TE/-TI suffixes = verbal | Luwian morphology layer | POSSIBLE | Cross-site | Demote to SPECULATIVE |
+| -U class marker | Luwian morphology layer | PROBABLE | Cross-site | Demote to POSSIBLE |
+
+### Regional Scope Legend (OPERATION MINOS II Phase 8)
+
+| Scope | Definition | Confidence Implication |
+|-------|------------|------------------------|
+| **Cross-site** | Verified at 2+ major sites | Can claim universality |
+| **HT-EXCLUSIVE** | 100% at Hagia Triada | May be HT-specific; cannot claim universal |
+| **HT-only** | Only at HT but <100% (some damaged) | Likely HT-specific |
+| **ZA dialectal** | Present at Zakros with variant form | Possible eastern dialect |
 
 **When to update this table**:
 - When adding new readings to Level 4-6
 - When a reading's interpretation depends on another reading
 - When cross-corpus verification reveals dependencies
 - After anchor re-evaluation (per FIRST_PRINCIPLES.md protocol)
+- **After regional validation changes scope classification**
 
 ---
 

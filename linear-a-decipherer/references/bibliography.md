@@ -62,7 +62,7 @@ Comprehensive bibliography of sources cited in the Linear A decipherment methodo
 **Younger, John G.** 2024. "Linear A Texts & Inscriptions in phonetic transcription." Last updated April 8, 2024.
 **URL**: https://www.academia.edu/117949876/Linear_A_Texts_and_Inscriptions_in_phonetic_transcription
 
-**Note**: Comprehensive phonetic transcriptions using Linear B values. ~1,500 documents, ~7,500 signs. Does not yet include 2024 Knossos scepter discovery.
+**Note**: Comprehensive phonetic transcriptions using Linear B values. ~1,500 documents, ~7,500 signs. Does not yet include 2024 Knossos scepter discovery. Key for transaction words identification via positional analysis.
 
 ---
 
@@ -218,6 +218,13 @@ Comprehensive bibliography of sources cited in the Linear A decipherment methodo
 
 ---
 
+**Facchetti, Giulio M.** 2001. "Qualche osservazione sulla lingua minoica." *Kadmos* 40 (1): 1-38.
+**DOI**: 10.1515/kadm.2001.40.1.1
+
+**Note**: Revives Evans's Etruscan-Minoan connection; proposes systematic correspondences between Linear A and Etruscan/Tyrrhenian languages. See also hypotheses.md Section 3 on Pre-Greek substrate.
+
+---
+
 **Furnée, Edzard J.** 1972. *Die wichtigsten konsonantischen Erscheinungen des Vorgriechischen: Mit einem Appendix über den Vokalismus.* The Hague: Mouton.
 **ISBN**: 978-90-279-2232-8
 
@@ -240,6 +247,20 @@ Comprehensive bibliography of sources cited in the Linear A decipherment methodo
 
 ---
 
+### Hypothesis 5: Hurrian/Mitanni (Emerging)
+
+**Monti, Orazio.** *[Publications on Hurrian-Minoan connections]*
+
+**Note**: Proponent of Hurrian affiliation for Minoan. This is an emerging/optional hypothesis, not one of the four mandatory hypotheses. See hypotheses.md Section 6.
+
+---
+
+**van Soesbergen, Peter G.** *[Publications on Hurrian-Minoan connections]*
+
+**Note**: Co-proponent of Hurrian hypothesis for Minoan language. Geographic and cultural connections between Crete and Hurrian regions via Bronze Age trade networks.
+
+---
+
 ## Comparative & Supporting Studies
 
 ### Aegean Bronze Age Context
@@ -247,7 +268,7 @@ Comprehensive bibliography of sources cited in the Linear A decipherment methodo
 **Schoep, Ilse.** 2004. "Assessing the Role of Architecture in Conspicuous Consumption in the Middle Minoan I-II Periods." *Oxford Journal of Archaeology* 23 (3): 243-269.
 **DOI**: 10.1111/j.1468-0092.2004.00211.x
 
-**Note**: Socio-economic context for Linear A administrative use; relevant for understanding document types and distribution patterns.
+**Note**: Socio-economic context for Linear A administrative use; relevant for understanding document types and distribution patterns. Key for document classification by semantic fields.
 
 ---
 
@@ -263,14 +284,40 @@ Comprehensive bibliography of sources cited in the Linear A decipherment methodo
 **Davis, Brent.** 2010. "Linear A and the Placement of Crete within the Aegean Writing Systems." In *Studies in Ancient Greek Dialects: From Central Greece to the Black Sea*, ed. by Giorgos K. Giannakis et al., 65-88. Thessaloniki: Centre for the Greek Language.
 **ISBN**: 978-960-7779-52-8
 
-**Note**: Analyzes Linear A's position within the family of Aegean scripts; discusses phonological inventory and CV structure.
+**Note**: Analyzes Linear A's position within the family of Aegean scripts; discusses phonological inventory and CV structure. Key source for statistical sound constraint analysis.
 
 ---
 
 **Duhoux, Yves.** 1998. "Le linéaire A: problèmes de déchiffrement." In *Recherches récentes en épigraphie crétoise*, ed. by Jan Driessen and Alexandre Farnoux, 289-310. Bulletin de Correspondance Hellénique, Supplément 33. Athens: École française d'Athènes.
 **ISBN**: 978-2-86958-121-9
 
-**Note**: Critical assessment of decipherment attempts; emphasizes methodological caution and the limits of current knowledge.
+**Note**: Critical assessment of decipherment attempts; emphasizes methodological caution and the limits of current knowledge. Key for prefix/suffix pattern analysis in Linear A morphology.
+
+---
+
+### Numerical System & Fractions
+
+**Ferrara, Silvia.** 2020. "Fractions in the Aegean Bronze Age: A 'Notational' Approach to Numerical Analysis in Linear A and Linear B." *Journal of Archaeological Science* 117: 105116.
+**DOI**: 10.1016/j.jas.2020.105116
+
+**Note**: INSCRIBE Project director at University of Bologna. Proposes sexagesimal (base-60) fraction system for Linear A, with unit fraction notation similar to Near Eastern practices. Essential reference for commodity tablet analysis. See also `references/numerals_and_fractions.md`.
+
+---
+
+### Computational Approaches
+
+**Nepal, Adarsh, and Francesco Perono Cacciafoco.** 2024. "A Novel Approach for Deciphering Linear A: Comparative Symbol Feature Weighting with the Carian Alphabet and Cypriot Syllabary." *Information* 15 (2): 73.
+**DOI**: 10.3390/info15020073
+**URL**: https://www.mdpi.com/2078-2489/15/2/73
+
+**Note**: Feature-based symbol similarity analysis comparing Linear A graphemes to Carian Alphabet and Cypriot Syllabary using visual feature weights. Methodologically innovative but results require verification against First Principles.
+
+---
+
+**Petrosyan, Ararat.** 2026. "Deductive Analysis Methodology for Undeciphered Scripts." *Greek Reporter* (guest article), January 15, 2026.
+**URL**: https://greekreporter.com/2026/01/15/reconstruct-linear-a-crack-language/
+
+**Note**: Proposes administrative text analysis without requiring full language decipherment. Demonstrates extraction of transaction patterns from positional analysis.
 
 ---
 
@@ -385,14 +432,15 @@ When citing inscriptions, use the following format:
 
 This bibliography is maintained as part of the Linear A Decipherment Project.
 
-**Last updated**: 2026-01-25
+**Last updated**: 2026-01-31
 **Maintainer**: See project CLAUDE.md for contribution guidelines
 **Additions**: Submit via pull request with full bibliographic data in Chicago style
 
 ---
 
-**Total sources**: 40+ (including web resources and databases)
+**Total sources**: 50+ (including web resources and databases)
 **Primary corpus works**: 7
-**Linguistic hypothesis sources**: 11
-**Methodology sources**: 6
+**Linguistic hypothesis sources**: 15 (includes emerging Hurrian hypothesis)
+**Methodology sources**: 8 (includes Ferrara fraction research)
+**Computational approaches**: 3
 **Related scripts & comparative**: 5

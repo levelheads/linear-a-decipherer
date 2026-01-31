@@ -209,7 +209,9 @@ Components:
 
 **Fractions**: Complex system with multiple symbols
 - J, E, F, K, L, etc. represent various fractions
-- System not fully understood
+- Ferrara (2020) proposes sexagesimal (base-60) system
+
+> For detailed fraction analysis including Ferrara's 2020 research, see **numerals_and_fractions.md**.
 
 ## Paleographic Variants
 
@@ -248,6 +250,7 @@ For detailed analysis methodology, see:
 - **methodology.md** - Kober Method for pattern analysis
 - **corpus.md** - Full inscription database with site information
 - **hypotheses.md** - Linguistic frameworks for testing proposed readings
+- **numerals_and_fractions.md** - Detailed numerical system documentation (Ferrara 2020)
 
 For sign-level computational analysis (when available):
 - **data/signs.json** - Sign frequency, position, co-occurrence data

@@ -101,16 +101,35 @@ A hypothesis gains **support** if:
 - Consonant clusters not typical of IE
 - Vowel alternations (a/e, i/e)
 
+**Etruscan/Tyrrhenian Connection**:
+
+The Etruscan hypothesis has a notable history:
+
+1. **Arthur Evans** (1909): Originally proposed that Linear A recorded a language related to Etruscan, based on perceived script similarities and Mediterranean trade connections.
+
+2. **Michael Ventris** (1940s): Pursued the Etruscan hypothesis for Linear B before evidence forced abandonment. His failure with Etruscan and success with Greek illustrates First Principle #2.
+
+3. **Revival (2000s)**: Giulio Facchetti and Mario Negri have revived interest in Etruscan-Minoan connections, proposing systematic correspondences.
+
+**Tyrrhenian Language Family Hypothesis**:
+Some scholars propose a "Tyrrhenian" or "Tyrsenian" family including:
+- Etruscan (Italy)
+- Lemnian (Aegean)
+- Rhaetic (Alps)
+- Possibly Minoan (Crete)
+
 **Potential cognates with Etruscan**:
 | Linear A | Etruscan | Notes |
 |----------|----------|-------|
 | Various toponyms | -ssa, -nthos suffixes | Shared substrate |
-| Structural similarities proposed by Facchetti, Ventris |
+| Morphological patterns | Agglutinative structure | Proposed by Facchetti |
 
 **Weaknesses**:
 - Tyrrhenian family itself poorly understood
 - Limited textual evidence for comparison
+- Etruscan is isolate; relationship to other languages unproven
 - May be catch-all category for "not IE, not Semitic"
+- Ventris's failure with Etruscan-Linear B is cautionary
 
 ## 4. Proto-Greek Hypothesis
 
@@ -185,7 +204,31 @@ When proposing new readings:
 6. Explicitly state confidence level and reasoning
 7. Acknowledge alternative interpretations
 
-## 6. Computational Approaches (2019-2024)
+## 6. Hurrian/Mitanni Hypothesis (Emerging)
+
+> ⚠️ NOTE: This is an OPTIONAL/EMERGING hypothesis, NOT one of the four
+> mandatory hypotheses in FIRST_PRINCIPLES.md. Test only when the four
+> mandatory hypotheses prove unsatisfactory.
+
+**Key proponents**: Orazio Monti, Peter van Soesbergen
+
+**Core arguments**:
+- Links Minoan to non-Indo-European Anatolian language families
+- Hurrian agglutinative morphology may parallel Linear A patterns
+- Bronze Age trade and cultural contact between Crete and Hurrian regions (Mitanni kingdom)
+- Some administrative terminology might show Hurrian parallels
+
+**Weaknesses**:
+- Limited scholarly acceptance; not mainstream
+- Few specific word equations published
+- Geographic distance greater than Anatolian (Luwian) hypothesis
+- Hurrian itself poorly understood compared to Akkadian or Luwian
+
+**Status**: Emerging; test when four mandatory hypotheses unsatisfactory. Not required for routine analysis.
+
+---
+
+## 7. Computational Approaches (2019-2024)
 
 Recent research applies algorithmic methods to Linear A:
 
