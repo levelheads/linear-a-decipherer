@@ -32,6 +32,11 @@
 |------|---------|-------------|----------|
 | **pa-i-to** | Phaistos | 12 | Geographic + Linear B cognate |
 | **ku-do-ni-ja** | Kydonia (Chania) | 8 | Geographic + Linear B cognate |
+| **di-ki-te** | Mount Dikte | — | PK Za 11a; Linear B *di-ka-ta-de* |
+| **tu-ru-sa** | Tylissos | — | KO Za 1b; Linear B *tu-ri-so* |
+| **i-da** | Mount Ida | — | PK Za 18; Linear B *i-da-i-jo* |
+
+**Note**: SE-TO-I-JA (PR Za1.b) proposed as "Arkhanes or Mallia" but location unconfirmed — SPECULATIVE.
 
 ### Level 2: HIGH (Linear B Cognates + Position)
 
@@ -39,7 +44,7 @@
 |------|---------|-------------|----------|----------------|
 | **ku-ro** | total/sum | 39 | List-final; sums verified mathematically | Gordon (1966) |
 | **ki-ro** | deficit/category marker | 17 | Multi-function: deficit OR header | Gordon (1966) |
-| **MA-RU (A 559)** | wool (*maru*) | — | Complex sign; Linear B *145/LANA retained from Minoan; Greek μαλλός /mallós/ "wool/fleece" | Salgarella (2020) |
+| **MA-RU (A 559)** | wool (*maru*) | — | Complex sign; Linear B *145/LANA retained from Minoan; Greek μαλλός /mallós/ "wool/fleece"; Hesychius glosses Cretan μάλλυκες = τρίχες "hair" | Salgarella (2020) |
 | **-JA suffix** | adjectival/ethnic | 77 | Word-final 65.9%; Luwian -iya parallel | Palmer (1958) |
 | **DA-MA-TE** | Demeter (deity) | 1 | Linear B cognate *da-ma-te*; peak sanctuary | — |
 | **A-TA-NA** | Athena (deity) | 2 | Linear B cognate *a-ta-na* | — |
@@ -76,8 +81,21 @@
 | **JA-SA-SA-RA-ME** | divine name | PROBABLE | Pre-Greek | This project |
 | **SU-PU** | bowl (*suppu*) | PROBABLE | Akkadian | This project |
 | **KA-RO-PA₃** | vessel (*karpu*) | PROBABLE | Akkadian | This project |
-| **-TE/-TI** | verbal endings | POSSIBLE | Luwian | Palmer (1958) |
+| **-TE/-TI** | verbal endings OR 'from/of' | POSSIBLE | Luwian (Palmer 1958) OR locative (Valério 2007) | Dual interpretation |
 | **-U** | noun class marker | PROBABLE | Luwian (64%) | This project |
+| **I-/J- prefix** | 'to' or 'at' | SPECULATIVE | Duhoux 1997 interpretation | Single scholar |
+| **-RU/-RE** | = Greek -os? | SPECULATIVE | Steele & Meissner 2017 | See note below |
+
+**Critical Note on -RU/-RE**: If Minoan -RU/-RE corresponds to Greek -os masculine ending (DI-DE-RU → di-de-ro), this implies either genetic relationship or borrowing — which contradicts "isolated language" claims. Treat with caution.
+
+### Level 6: SPECULATIVE (Single Scholar Interpretations)
+
+| Word | Proposed Meaning | Source | Problem |
+|------|------------------|--------|---------|
+| **NI (AB 30)** | 'fig' (acrophonic of νικύλεον) | Neumann 1958 | Assumes acrophonic principle + Greek etymology. Circular if Minoan is "isolated." |
+| **KI-KI-NA** | 'figs of sycamore' | HT 88.2; cf. Greek κεικύνη | Depends on NI = 'fig' being correct. Building speculation on speculation. |
+
+**Methodology Note**: These etymologies use Greek to decode Minoan, then claim Minoan is unrelated to Greek. This internal contradiction should prevent automatic acceptance.
 
 ### K-R Paradigm (3-Tier Accounting)
 
@@ -92,11 +110,18 @@
 
 | Term | Proposed Meaning | Confidence | Source |
 |------|------------------|------------|--------|
-| KU-RO | total/sum | HIGH | Gordon (1966) |
-| KI-RO | deficit/category | HIGH | Gordon (1966) |
+| KU-RO | total/sum | HIGH | Gordon (1966); HT 9a.6, 9b.6 |
+| KI-RO | deficit/category | HIGH | Gordon (1966); HT 123a.9 |
+| PO-TO-KU-RO | grand total | PROBABLE | HT 122b.6 |
+| KU-RA | total (variant?) | POSSIBLE | ZA 20.4 — needs verification |
+| DA-I | total (alternative?) | POSSIBLE | HT 12.6 — needs verification |
 | SA-RA₂ | allocation (*šarāku*) | PROBABLE | This project |
-| U-MI-NA-SI | debt / '[s/he] owes' | POSSIBLE | Younger (2024) |
-| A-DU | administrative term | PROBABLE | Multiple |
+| U-MI-NA-SI | debt / '[s/he] owes' | POSSIBLE | Younger (2024); HT 28b.1-2 |
+| A-DU | administrative term | PROBABLE | HT 95b.1; compounds: A-DU-RE-ZA, A-DU-KU-MI-NA |
+| KA-I-RO | balance? | SPECULATIVE | ZA 8.6 — single scholar interpretation |
+| KI-RA | balance? | SPECULATIVE | HT 103.5 — single scholar interpretation |
+
+**Caution**: KU-RA, DA-I, KA-I-RO, KI-RA are proposed by Schoep 2002 / Younger 2024 but have limited attestation. "Balance" meanings especially speculative.
 
 ---
 
@@ -117,6 +142,16 @@
 1. **Luwian DOMINANT** (30.3%) - morphological particles (-JA, WA, U) more pervasive than recognized
 2. **Proto-Greek ELIMINATED** (2.5% support; only 5 words) - phonological incompatibility confirmed
 3. **Pre-Greek low** - may reflect detection limitations rather than actual absence
+
+### Untested Hypotheses (Proposed in Literature)
+
+| Hypothesis | Proponents | Status | Why Not Prioritized |
+|------------|------------|--------|---------------------|
+| **Hurrian** | Monti 2002, 2005, 2006; van Soesbergen 2017 | NOT TESTED | Methodological criticisms; Hurrian corpus limited |
+| **Etruscan** | Facchetti 2001; Facchetti & Negri 2003 | NOT TESTED | Facchetti has retreated from strong claims; Etruscan itself poorly understood |
+| **Hattic/Hatto-Sumerian** | Schrijver 2018 | NOT TESTED | Highly speculative; Hattic corpus too small for comparison |
+
+**Methodological Note**: The "isolated language" designation (Davis 2014) is essentially an admission that affiliation cannot be determined — NOT a positive finding that Minoan has no relatives. Our multi-hypothesis testing with percentages is more epistemically honest than declaring isolation.
 
 ### Legacy Scores (Manual Analysis)
 
@@ -247,13 +282,15 @@
 ## Open Questions
 
 ### High Priority
-1. **Is Semitic layer loanwords or genetic?** Current: Probably loanwords
-2. **What language family is substrate?** Current: Unknown (possibly isolate)
-3. **Can religious texts provide different vocabulary?** Current: Yes - distinct register
+1. **Is Semitic layer loanwords or genetic?** Current: Probably loanwords (no triconsonantal morphology)
+2. **What language family is substrate?** Current: Unknown — "isolated" designation reflects inability to determine, not positive finding
+3. **Can religious texts provide different vocabulary?** Current: Yes - distinct register (Luwian/Pre-Greek dominant)
+4. **Why do -RU/-RE match Greek -os if Minoan is "isolated"?** Unresolved contradiction in scholarship
 
 ### Medium Priority
-4. **Regional scribal traditions?** ANSWERED: HT = hub; KH = parallel system
-5. **Vowel ending patterns?** PARTIAL: -U favors Luwian (64%), not Semitic
+5. **Regional scribal traditions?** ANSWERED: HT = hub; KH = parallel system
+6. **Vowel ending patterns?** PARTIAL: -U favors Luwian (64%), not Semitic
+7. **Should we test Hurrian hypothesis?** Current: Low priority due to methodological criticisms
 
 ---
 
@@ -275,6 +312,39 @@
 | u | 18.1% | Moderate |
 | e | 14.0% | Moderate |
 | **o** | **2.9%** | **Low (argues against Greek)** |
+
+### Consonantal Series (Consensus View via Linear B Comparison)
+
+| Category | Series | Notes |
+|----------|--------|-------|
+| Stops | /p/, /t/, /k/ | Voicing and aspiration unclear |
+| Nasals | /m/, /n/ | — |
+| Liquids | /l/, /r/ | Both represented by r-series |
+| Fricative | /s/ | — |
+| Approximants | /w/, /j/ | — |
+| Affricates | z-series | Phonetic value debated |
+| Labio-velars | q-series | Interpretation much-debated |
+
+**Sources**: Duhoux 1992: 74-9, Davis 2014: 192-278, Consani 2021: 50-3
+
+**Critical Caveat**: This 12-series inventory assumes Linear A phonemes map 1:1 to Linear B. Our dropped-sign analysis (123 unique signs) suggests Linear A had ADDITIONAL phonemes not captured here — pharyngeals, palatalized stops, possibly emphatics.
+
+---
+
+## Syntax (Limited Evidence)
+
+| Feature | Status | Evidence | Caution Level |
+|---------|--------|----------|---------------|
+| Word Order | **Possibly VSO** | Libation formula Position 1 = Verb | SPECULATIVE |
+| Syntactical Complexity | Very limited | Formulaic, cultic/ritual inscriptions | ESTABLISHED |
+| Longest Syntactic Texts | Libation formulas | 6-position structure (Salgarella 2020) | ESTABLISHED |
+
+**VSO Hypothesis (Davis 2013)**: Based on libation formula where verb appears sentence-initial. However:
+- Single text type ≠ language-wide syntax
+- Cultic register may differ from ordinary speech
+- Cambridge 2026 itself states "not enough probative evidence to claim an affiliation"
+
+**Our Position**: Note VSO as *possible* but do not treat as established fact.
 
 ---
 
@@ -391,8 +461,25 @@ If these anchors change, dependent readings must be re-evaluated:
 | Gordon | 1966 | *Evidence for the Minoan Language* | KU-RO = *kull* (Semitic "total") |
 | Palmer | 1958 | — | -JA suffix; Luwian morphology |
 | Beekes | 2014 | *Pre-Greek* | Substrate phonology |
-| Salgarella | 2020 | *Aegean Scripts* | HT 28 structure; 6-position libation formula; MA-RU = wool; sign classification |
+| Salgarella | 2020 | *Aegean Linear Scripts* | HT 28 structure; 6-position libation formula; MA-RU = wool; sign classification |
 | Younger | 2024 | *Linear A Texts: Introduction* | U-MI-NA-SI = 'debt/owes'; transcriptions |
+| Schoep | 2002 | — pp. 159-66 | Transaction terms (KU-RO, KI-RO context) |
+| Valério | 2007 | — | -TE/-TI = 'from/of' interpretation |
+| Steele & Meissner | 2017 | — | -RU/-RE morphology; word endings |
+| Duhoux | 1978, 1992, 1997 | — | Affixes; phonology; I-/J- prefix |
+| Davis | 2013, 2014 | — | VSO hypothesis; "isolated language" consensus |
+| Consani | 2021 | — pp. 50-53 | Recent phonological overview |
+
+### Critical Gaps in Our Bibliography
+
+| Citation | Why Critical | Priority |
+|----------|--------------|----------|
+| **Davis 2014** (full) | Comprehensive synthesis: phonology (192-278), affiliation (156-278) | URGENT |
+| **Duhoux 1992** | Phonology + libation formula primary analysis | URGENT |
+| **Duhoux 2020** | Current "isolated language" position | HIGH |
+| **Consani 2021** | Most recent phonological analysis | HIGH |
+
+**Note**: We frequently cite secondary sources (Salgarella 2020) but lack primary methodological works (Davis, Duhoux). Acquiring these is essential for rigorous scholarship.
 
 ---
 

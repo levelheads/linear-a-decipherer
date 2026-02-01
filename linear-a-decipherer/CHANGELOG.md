@@ -4,6 +4,58 @@
 
 ---
 
+## 2026-02-01 (Cambridge 2026 Publication Review)
+
+### Critical Review: "Writing in Bronze Age Crete" (Cambridge 2026)
+
+**Scope**: Comprehensive comparison of pp. 50-54 (Sections 8.1-8.4) against our knowledge base.
+
+---
+
+#### What We Already Knew (Confirmed)
+- 5-vowel system with /a,i,u/ complete, /e,o/ incomplete
+- PA-I-TO = Phaistos, KU-RO = total, KI-RO = deficit
+- MA-RU = wool (Salgarella 2020), -JA suffix adjectival (Palmer 1958)
+- Libation formula 6-position structure
+
+#### New Items Added (with Critical Framing)
+
+**Level 1 (CERTAIN)**: 3 new toponyms
+- DI-KI-TE (Mt. Dikte), TU-RU-SA (Tylissos), I-DA (Mt. Ida)
+
+**Phonology**: 12-consonant series inventory added with caveat that our 123 dropped signs suggest additional phonemes beyond this baseline.
+
+**Syntax**: VSO hypothesis (Davis 2013) noted as SPECULATIVE — based on single text type (libation formula), Cambridge itself says "not enough probative evidence."
+
+**Morphology**:
+- I-/J- prefix = 'to/at' (Duhoux 1997) — marked SPECULATIVE
+- -RU/-RE = Greek -os (Steele & Meissner 2017) — marked SPECULATIVE with critical note on internal contradiction
+
+**Transaction Terms**: KU-RA, DA-I, KA-I-RO, KI-RA added as POSSIBLE/SPECULATIVE with caveats.
+
+**Vocabulary**: NI = 'fig', KI-KI-NA = 'sycamore figs' — marked SPECULATIVE (circular methodology: uses Greek to decode, claims Minoan is isolated).
+
+#### Hypotheses NOT Adopted
+
+| Item | Reason |
+|------|--------|
+| "Isolated language" framing | Admission of ignorance ≠ positive finding; our multi-hypothesis approach more rigorous |
+| Hurrian/Etruscan/Hattic testing | Methodological problems in source literature; low priority |
+
+#### Key Contradictions Identified
+
+**-RU/-RE = Greek -os**: If Minoan shares morphological endings with Greek, this implies relationship (genetic or borrowing). Cannot simultaneously claim "isolated language" and Greek morphological correspondence.
+
+#### Bibliography Gaps Identified
+
+URGENT: Davis 2014 (comprehensive synthesis), Duhoux 1992 (phonology/libation formula primary work)
+
+---
+
+**Methodology Applied**: Distinguished WELL-ESTABLISHED (multiple evidence lines) from PROBABLE (assumption-dependent), SPECULATIVE (single scholar), and CONTROVERSIAL (internally contradictory).
+
+---
+
 ## 2026-02-01 (COMPREHENSIVE AUDIT FIXES)
 
 ### Bug Fixes and Strategic Improvements
