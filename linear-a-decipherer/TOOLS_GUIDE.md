@@ -623,6 +623,90 @@ Implements three audit functions from quantitative corpus linguistics:
 
 ---
 
+## New Tools (2026-02 Audit)
+
+Two new tools were added to address critical gaps identified in the 2026-02 comprehensive audit:
+
+### sign_reconciler.py
+
+**Purpose**: Reconcile the two sign classification systems (phonetic notation vs AB numbers)
+
+This tool addresses the critical issue that `signs.json` (mixed notation) and `sign_database.json` (AB numbers) had only 2 signs in common with no explicit mapping.
+
+**Input**:
+- `--build` - Build unified mapping table and save to `data/sign_mapping.json`
+- `--lookup [SIGN]` - Look up sign by phonetic value (e.g., KU, RA)
+- `--ab [AB#]` - Look up by AB number (e.g., AB81, AB02)
+- `--word [WORD]` - Normalize a word showing AB mappings (e.g., KU-RO)
+- `--validate` - Validate all corpus signs against sign database
+- `--report` - Generate human-readable reconciliation report
+
+**Output**:
+- Bidirectional mapping: phonetic ↔ AB numbers
+- Unified sign inventory with frequency data from both sources
+- Corpus validation report showing mapped vs unmapped signs
+
+**Example**:
+```bash
+python tools/sign_reconciler.py --word KU-RO
+# Output:
+#   KU -> AB81 (CERTAIN)
+#   RO -> AB02 (CERTAIN)
+```
+
+**Key insight**: Enables cross-referencing between paleographic data and corpus analysis
+
+---
+
+### batch_pipeline.py
+
+**Purpose**: Systematic analysis of the entire corpus (addresses 0.81% coverage gap)
+
+This tool chains together discovery, hypothesis testing, validation, and synthesis into a single pipeline, enabling analysis at scale.
+
+**Stages**:
+1. **DISCOVER**: Extract all words with frequency counts
+2. **HYPOTHESIZE**: Test each word against four linguistic hypotheses
+3. **VALIDATE**: Check cross-corpus consistency (First Principle #6)
+4. **SYNTHESIZE**: Aggregate findings and generate recommendations
+
+**Input**:
+- `--full` - Run complete pipeline on entire corpus
+- `--stage [STAGE]` - Run single stage (discover/hypothesize/validate/synthesize)
+- `--site [SITE]` - Filter by site code (e.g., HT, KH, ZA)
+- `--min-freq [N]` - Minimum frequency threshold (default: 2)
+- `--max-words [N]` - Maximum words to test (for quick runs)
+- `--resume` - Resume from last checkpoint
+
+**Output**:
+- `data/batch_analysis_results.json` - Complete synthesis with:
+  - Hypothesis rankings across corpus
+  - High/medium confidence findings
+  - Cross-corpus validation verdicts
+  - Recommendations for KNOWLEDGE.md updates
+- `data/pipeline_checkpoints/` - Stage checkpoints for resumption
+
+**Example**:
+```bash
+# Full pipeline with minimum frequency 3
+python tools/batch_pipeline.py --full --min-freq 3 --verbose
+
+# Resume after interruption
+python tools/batch_pipeline.py --full --resume
+
+# Analyze only Hagia Triada tablets
+python tools/batch_pipeline.py --full --site HT --min-freq 5
+```
+
+**First Principles Compliance**:
+- P1 (Kober): Patterns analyzed before language assumption
+- P4 (Multi-Hypothesis): All four hypotheses tested automatically
+- P6 (Cross-Corpus): Every reading verified corpus-wide
+
+**Critical impact**: Scales analysis from 14 inscriptions (0.81%) to full corpus (1,722 inscriptions)
+
+---
+
 ## Related Documents
 
 - [FIRST_PRINCIPLES.md](FIRST_PRINCIPLES.md) - Methodology

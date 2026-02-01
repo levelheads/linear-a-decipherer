@@ -1,0 +1,23 @@
+# Linear A Decipherment Project - Python Dependencies
+#
+# This project is designed to use Python 3.8+ standard library only.
+# No external dependencies required for core functionality.
+#
+# The following are optional for enhanced functionality:
+#
+# For development/testing (optional):
+# pytest>=7.0.0
+# pytest-cov>=4.0.0
+#
+# For documentation generation (optional):
+# sphinx>=5.0.0
+# sphinx-rtd-theme>=1.0.0
+#
+# Note: All 27 tools in the tools/ directory run with stdlib only.
+# This intentional design ensures:
+#   - Easy installation on any system with Python 3.8+
+#   - No dependency conflicts
+#   - Long-term reproducibility
+#
+# Python version requirement:
+# python_requires>=3.8
