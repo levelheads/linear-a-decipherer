@@ -4,6 +4,63 @@
 
 ---
 
+## 2026-02-01 (Methodological Improvements Implementation)
+
+### New Tools Added
+
+Implemented four methodological improvement systems addressing critique gaps:
+
+1. **anchor_tracker.py** - Anchor dependency tracking with cascade failure detection
+   - Data: `data/anchors.json`, `data/reading_dependencies.json`
+   - CLI: `--cascade`, `--register`, `--validate`, `--graph`
+   - Tracks which readings depend on which anchors
+   - Automatic cascade analysis when anchors questioned
+
+2. **falsification_system.py** - Explicit rejection/acceptance thresholds
+   - Thresholds: ELIMINATED (<5%), WEAK (5-15%), MODERATE (15-25%), STRONG (>25%)
+   - CLI: `--classify`, `--all`, `--test-significance`
+   - Calculates Bayes factors and confidence intervals
+
+3. **regional_weighting.py** - HT bias correction
+   - Data: `data/negative_evidence_catalog.json`
+   - Formula: weight = 1.0 + log2(sites)×0.1 - (ht_conc-0.5)×0.5
+   - CLI: `--word`, `--all`, `--site-stats`
+   - Example: KU-RO at HT → ~0.75 weight (25% penalty)
+
+4. **bayesian_hypothesis_tester.py** - Probabilistic inference
+   - Calibrated priors: Luwian 0.25, Semitic 0.15, Pre-Greek 0.20, Proto-Greek 0.05, Isolate 0.35
+   - CLI: `--word`, `--corpus`, `--sensitivity`
+   - Posterior probabilities with 95% credible intervals
+
+5. **integrated_validator.py** - Unified pipeline combining all four systems
+   - Full validation pipeline: raw score → regional weight → negative evidence → threshold → Bayesian → anchor constraints
+   - CLI: `--word`, `--all`, `--validate-methodology`
+
+### Documentation Updates
+
+- **METHODOLOGY.md**: Added Part 7 (Quantitative Methods) documenting:
+  - Falsification thresholds table
+  - Regional weighting formula
+  - Anchor dependency tracking rules
+  - Bayesian prior probabilities
+  - Integrated validation pipeline
+
+- **KNOWLEDGE.md**: Expanded Critical Dependencies section with:
+  - Full anchor registry (9 anchors with IDs, levels, confidence)
+  - Reading dependencies table (7 readings with cascade risks)
+  - Cascade warnings and example commands
+
+### Methodological Significance
+
+These tools address critique points:
+1. "No automated mechanism traces anchor dependencies" → anchor_tracker.py
+2. "Binary matching, not probabilistic inference" → bayesian_hypothesis_tester.py
+3. "Implicit rejection thresholds" → falsification_system.py
+4. "HT bias not quantified" → regional_weighting.py
+5. "No unified validation" → integrated_validator.py
+
+---
+
 ## 2026-02-01 (Cambridge 2026 Publication Review)
 
 ### Critical Review: "Writing in Bronze Age Crete" (Cambridge 2026)

@@ -350,14 +350,45 @@
 
 ## Critical Dependencies
 
-If these anchors change, dependent readings must be re-evaluated:
+If these anchors change, dependent readings must be re-evaluated.
 
-| Reading | Depends On | If Anchor Changes |
-|---------|------------|-------------------|
-| SA-RA₂ | Semitic loanword layer | Demote to SPECULATIVE |
-| KU-RO family | Linear B cognate validity | Demote to POSSIBLE |
-| -JA suffix | Luwian morphology layer | Demote to POSSIBLE |
-| Vessel vocabulary | Semitic loan layer | Demote if rejected |
+**Tools**: `tools/anchor_tracker.py --cascade ANCHOR_ID --to QUESTIONED`
+
+### Anchor Registry
+
+| Anchor ID | Name | Level | Confidence |
+|-----------|------|-------|------------|
+| anchor_linear_b_comparison | Linear B Phonetic Comparison | 2 | HIGH |
+| anchor_semitic_loan_layer | Semitic Loanword Layer | 4 | MEDIUM |
+| anchor_luwian_morphology | Luwian Morphological Layer | 4 | MEDIUM |
+| anchor_toponym_phaistos | PA-I-TO = Phaistos | 1 | CERTAIN |
+| anchor_toponym_kydonia | KU-DO-NI-JA = Kydonia | 1 | CERTAIN |
+| anchor_commodity_logograms | Commodity Logograms | 3 | HIGH |
+| anchor_kuro_total | KU-RO = Total/Sum | 2 | HIGH |
+| anchor_kiro_deficit | KI-RO = Deficit/Category | 4 | MEDIUM |
+| anchor_ja_suffix | -JA Adjectival Suffix | 5 | MEDIUM |
+
+### Reading Dependencies
+
+| Reading | Depends On | Max Confidence | Cascade Risk |
+|---------|------------|----------------|--------------|
+| KU-RO | Linear B + kuro_total | HIGH | Foundation of K-R paradigm |
+| KI-RO | Linear B + kiro_deficit + semitic | MEDIUM | Dependent on KU-RO |
+| SA-RA₂ | Linear B + semitic | PROBABLE | Semitic layer dependent |
+| PO-TO-KU-RO | Linear B + kuro_total | PROBABLE | Derived from KU-RO |
+| -JA suffix | Linear B + luwian + ja_suffix | PROBABLE | Single-hypothesis cap |
+| PA-I-TO | toponym_phaistos | CERTAIN | Primary anchor |
+| SU-PU, KA-RO-PA₃ | Linear B + semitic | PROBABLE | Vessel vocabulary |
+
+### Cascade Warnings
+
+When reviewing an anchor, run: `python tools/anchor_tracker.py --cascade ANCHOR_ID --to QUESTIONED`
+
+Example cascade from `anchor_semitic_loan_layer`:
+- SA-RA₂ → demote to SPECULATIVE
+- SU-PU → demote to SPECULATIVE
+- KA-RO-PA₃ → demote to SPECULATIVE
+- Affects 35 words (17.7% of corpus)
 
 ---
 

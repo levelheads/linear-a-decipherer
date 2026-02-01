@@ -300,6 +300,96 @@ ANY PARTIAL → Must document limitation explicitly
 
 ---
 
+## Part 7: Quantitative Methods (2026 Additions)
+
+### Falsification Thresholds
+
+Explicit thresholds for hypothesis acceptance/rejection:
+
+| Category | Range | Meaning | Action |
+|----------|-------|---------|--------|
+| **ELIMINATED** | <5% | Indistinguishable from noise | Hypothesis rejected |
+| **WEAK** | 5-15% | Possible contact layer | Test for specific borrowings |
+| **MODERATE** | 15-25% | Possible genetic affiliation | Prioritize investigation |
+| **STRONG** | >25% | Likely genetic relationship | Primary focus |
+
+**Tool**: `tools/falsification_system.py`
+
+### Regional Weighting Formula
+
+Addresses HT bias (63.4% of corpus):
+
+```
+weight = 1.0
+if num_sites >= 2: weight += log2(num_sites) * 0.1   # Diversity bonus
+if ht_concentration > 0.5: weight -= (ht_conc - 0.5) * 0.5  # HT penalty
+weight = clip(weight, 0.3, 1.5)
+```
+
+Example: KU-RO at 39 HT tablets → ~0.75 weight (25% confidence penalty)
+
+**Tool**: `tools/regional_weighting.py`
+
+### Anchor Dependency Tracking
+
+Every reading must register its anchor dependencies:
+
+```
+Reading → depends_on → [Anchor1, Anchor2, ...]
+```
+
+Cascade rules:
+1. Reading confidence cannot exceed lowest anchor confidence
+2. If anchor QUESTIONED → dependent readings flagged for review
+3. If anchor REJECTED → dependent readings demoted to SPECULATIVE
+
+**Tool**: `tools/anchor_tracker.py`
+
+### Bayesian Prior Probabilities
+
+Calibrated priors for hypothesis testing:
+
+| Hypothesis | Prior | Rationale |
+|------------|-------|-----------|
+| Luwian | 0.25 | Geographic proximity; Palmer/Finkelberg case |
+| Semitic | 0.15 | Trade routes; Gordon's evidence |
+| Pre-Greek | 0.20 | Substrate theory; Beekes' lexicon |
+| Proto-Greek | 0.05 | Low /o/ argues strongly against |
+| Isolate | 0.35 | Conservative null hypothesis |
+
+**Tool**: `tools/bayesian_hypothesis_tester.py`
+
+### Negative Evidence Catalog
+
+Canonical absences that constrain hypotheses:
+
+| Pattern | Hypothesis | Status | Implication |
+|---------|------------|--------|-------------|
+| /o/ at 2.9% | Proto-Greek | CERTAIN absence | ELIMINATED |
+| Greek case endings | Proto-Greek | CERTAIN absence | ELIMINATED |
+| to-so (Greek total) | Proto-Greek | CERTAIN absence | Different vocabulary |
+| Triconsonantal morphology | Semitic | PROBABLE absence | Loans, not genetic |
+
+**Data**: `data/negative_evidence_catalog.json`
+
+### Integrated Validation Pipeline
+
+All readings must pass through unified validator:
+
+```
+Raw hypothesis score
+  → Apply regional weight
+  → Apply negative evidence penalty
+  → Classify via falsification thresholds
+  → Calculate Bayesian posterior
+  → Check anchor dependency constraints
+  → Output: Methodology-compliant assessment
+```
+
+**Tool**: `tools/integrated_validator.py`
+
+---
+
 ## Final Reminder
 
 > "Linear A is undeciphered. Every claim requires evidence. Every interpretation requires humility. These principles exist because generations of scholars made the mistakes they prevent."
@@ -309,3 +399,4 @@ ANY PARTIAL → Must document limitation explicitly
 ---
 
 *Methodology document consolidating FIRST_PRINCIPLES.md, SKILL.md, and CLAUDE_REFERENCE.md*
+*Part 7 added 2026-02-01: Quantitative methods addressing methodology critique*
