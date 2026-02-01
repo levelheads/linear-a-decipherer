@@ -2,7 +2,7 @@
 
 **Methodological insights from completed analysis work**
 
-**Last Updated**: 2026-01-31
+**Last Updated**: 2026-02-01
 
 ---
 
@@ -66,6 +66,63 @@
 
 ---
 
+### From Tool Parity Bug (2026-02-01)
+
+**Lesson**: All tools analyzing the same corpus must use identical filtering logic
+
+**Problem Encountered**: `batch_pipeline.py` showed Proto-Greek at rank #2 while `hypothesis_tester.py` showed it at 2.5%. The 75% discrepancy came from batch_pipeline including single-syllables (KU, KA, SI) and logograms (OLIV, GRA) that hypothesis_tester filtered out.
+
+**Impact**: Single-syllables match multiple hypothesis patterns by chance, inflating scores for all hypotheses but especially those with short morphemes.
+
+**Application**: Before trusting comparative results from multiple tools:
+1. Verify identical word filtering logic
+2. Verify identical normalization (case, Unicode)
+3. Verify identical counting methodology
+
+**Added to Workflow**: Tool parity check when running multiple analysis tools
+
+---
+
+### From Cambridge 2026 Review (2026-02-01)
+
+**Lesson**: Check scholarly literature for internal contradictions before adopting claims
+
+**Problem Encountered**: Cambridge publication claims both:
+- "-RU/-RE corresponds to Greek -os masculine ending" (implies relationship)
+- "Minoan is an isolated language" (implies no relationship)
+
+These are mutually contradictory. If Minoan shares morphological endings with Greek, it either borrowed from Greek, loaned to Greek, or shares a common ancestor — none of which is "isolated."
+
+**Application**: When reviewing literature, explicitly check if claims are mutually consistent. Flag contradictions rather than adopting both sides.
+
+**Added to Workflow**: Internal consistency check for all new scholarly claims
+
+---
+
+### From Evidence Level Discipline (2026-02-01)
+
+**Lesson**: Maintain strict evidence hierarchy; don't let speculation become fact through repetition
+
+**Problem Encountered**: Claims like NI = 'fig' (single scholar, Greek etymology) were being treated as established. Then KI-KI-NA = 'sycamore figs' was built on this, compounding speculation.
+
+**Application**: Track dependency chains explicitly:
+- If Claim A depends on Claim B
+- And Claim B is SPECULATIVE
+- Then Claim A cannot be higher than SPECULATIVE
+
+**Evidence Levels** (strict hierarchy):
+| Level | Criteria |
+|-------|----------|
+| CERTAIN | Multiple independent evidence lines |
+| PROBABLE | Single strong evidence + supporting context |
+| POSSIBLE | Reasonable inference, limited evidence |
+| SPECULATIVE | Single scholar interpretation |
+| CONTROVERSIAL | Contradicts other accepted claims |
+
+**Added to Workflow**: Dependency tracking in KNOWLEDGE.md entries
+
+---
+
 ## Red Flags Encountered
 
 ### Pattern: Single-Hypothesis Support Only
@@ -97,6 +154,28 @@
 | Referencing "Gordon 1966" | Need to verify claims | Web fetch to check actual content |
 
 **Resolution**: Always fetch and verify sources. Document source quality in analysis.
+
+---
+
+### Pattern: Internal Contradictions in Literature (2026-02-01)
+
+| When Encountered | What It Indicated | How We Caught It |
+|------------------|-------------------|------------------|
+| "-RU/-RE = Greek -os" + "isolated language" | Scholarly hedging, not rigorous finding | Explicit contradiction check |
+| Greek etymologies for "isolated" language | Circular methodology | Logical analysis |
+
+**Resolution**: Do not automatically adopt scholarly consensus. Check for internal consistency. "We don't know" ≠ "It has no relatives."
+
+---
+
+### Pattern: Dependency Chain Blindness (2026-02-01)
+
+| When Encountered | What It Indicated | How We Caught It |
+|------------------|-------------------|------------------|
+| KI-KI-NA depends on NI = 'fig' | Compounding speculation | Traced claim dependencies |
+| Greek etymology chains | Building on unverified base | Evidence level audit |
+
+**Resolution**: Track what each claim depends on. A claim cannot be more certain than its weakest dependency.
 
 ---
 
@@ -184,17 +263,67 @@
 
 ---
 
+### 6. Score Inflation via Noise (2026-02-01)
+
+**Wrong**: Include single-syllables (KU, KA, SI) and logograms in hypothesis testing
+**Right**: Filter to multi-syllable words only; single syllables match patterns by chance
+
+**Example**: 98/130 findings (75%) were single-syllables, completely inverting hypothesis rankings.
+
+---
+
+### 7. Circular Methodology Detection (2026-02-01)
+
+**Wrong**: Use Greek to decode Minoan → claim Minoan is unrelated to Greek
+**Right**: If using Language X to decode, you're implicitly claiming a relationship
+
+**Example**: NI = 'fig' based on Greek νικύλεον, then claiming Minoan is "isolated."
+
+---
+
+### 8. Tool Inconsistency (2026-02-01)
+
+**Wrong**: Same query returning different results based on case or tool choice
+**Right**: Normalize all inputs; verify tool parity before comparative analysis
+
+**Example**: "ku-ro" → 0 results; "KU-RO" → 37 results (case sensitivity bug)
+
+---
+
+### 9. Parallel Session Confusion (2026-02-01)
+
+**Wrong**: Assume your edits are uncommitted without checking git
+**Right**: When running multiple sessions, always `git status` before assuming state
+
+**Example**: Edits appeared uncommitted but another session had already committed them.
+
+---
+
 ## Tool-Specific Lessons
 
 ### corpus_lookup.py
 
 - Always verify occurrence counts against multiple sources
 - Cross-reference with SigLA for palaeographic details
+- **2026-02-01 Fix**: Case sensitivity — all searches now normalize to uppercase
 
 ### hypothesis_tester.py
 
 - Don't trust single-hypothesis high scores
 - Multi-hypothesis convergence is stronger than single high score
+- **AUTHORITATIVE** for hypothesis rankings (filters logograms, ensures multi-syllable words)
+
+### batch_pipeline.py
+
+- **2026-02-01 Fix**: Now filters single-syllables and pure logograms
+- Use `--verbose` to see filtering statistics
+- Check parity with hypothesis_tester.py before trusting results
+
+### corpus_auditor.py
+
+- **2026-02-01 Fix**: Now accepts `*NNN-XX` patterns as valid entity names
+- Only bare `*` is rejected
+- Verification rate should improve after fix
 
 ### kr_paradigm_validator.py
 
