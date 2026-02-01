@@ -626,6 +626,194 @@ class NegativeEvidenceAnalyzer:
 
         return analysis
 
+    def analyze_reading_contradictions(self, top_n: int = 50) -> dict:
+        """
+        Analyze reading contradictions across hypotheses.
+
+        For each high-frequency word, identifies:
+        - What each hypothesis predicts about the reading
+        - Where predictions contradict each other
+        - Which observations would be decisive
+
+        Args:
+            top_n: Number of top-frequency words to analyze
+
+        Returns:
+            Dictionary with contradiction matrix and decisive tests
+        """
+        self.log("Analyzing reading contradictions...")
+
+        word_freqs = self._extract_words_from_corpus()
+        if not word_freqs:
+            return {'error': 'No words extracted from corpus'}
+
+        # Sort by frequency and take top N
+        sorted_words = sorted(word_freqs.items(), key=lambda x: -x[1])[:top_n]
+
+        contradictions = {
+            'words_analyzed': len(sorted_words),
+            'contradiction_matrix': [],
+            'decisive_tests': [],
+            'summary': {
+                'total_contradictions': 0,
+                'decisive_observations': 0,
+            }
+        }
+
+        # Define prediction functions for each hypothesis
+        def greek_predicts(word: str) -> dict:
+            """What Greek hypothesis predicts about this word."""
+            word_upper = word.upper()
+            syllables = word_upper.split('-')
+            predictions = {'hypothesis': 'Greek', 'predictions': [], 'violations': []}
+
+            # Greek expects balanced vowels including /o/
+            vowels = [s[-1] for s in syllables if s and s[-1] in 'AEIOU']
+            o_count = sum(1 for v in vowels if v == 'O')
+            if len(vowels) > 0 and o_count == 0:
+                predictions['violations'].append('Missing expected /o/ vowel')
+
+            # Check for Greek morphology
+            if syllables:
+                final = syllables[-1]
+                if final in ['MI', 'SI', 'TI']:
+                    predictions['predictions'].append('May be verbal form (1/2/3sg)')
+                if final in ['O', 'OS', 'A']:
+                    predictions['predictions'].append('Nominal ending expected')
+
+            return predictions
+
+        def semitic_predicts(word: str) -> dict:
+            """What Semitic hypothesis predicts about this word."""
+            word_upper = word.upper()
+            syllables = word_upper.split('-')
+            predictions = {'hypothesis': 'Semitic', 'predictions': [], 'violations': []}
+
+            # Semitic expects triconsonantal roots
+            consonants = [s[0] for s in syllables if s and s[0] not in 'AEIOU']
+            if len(consonants) != 3:
+                predictions['violations'].append(f'Non-triconsonantal ({len(consonants)} consonants)')
+            else:
+                predictions['predictions'].append('Triconsonantal root pattern fits')
+
+            # Semitic should not have initial clusters
+            if len(syllables) > 0 and len(syllables[0]) > 2:
+                predictions['violations'].append('Possible initial cluster (Semitic forbids)')
+
+            return predictions
+
+        def luwian_predicts(word: str) -> dict:
+            """What Luwian hypothesis predicts about this word."""
+            word_upper = word.upper()
+            syllables = word_upper.split('-')
+            predictions = {'hypothesis': 'Luwian', 'predictions': [], 'violations': []}
+
+            # Check for Luwian particles and endings
+            if syllables:
+                if syllables[0] == 'A':
+                    predictions['predictions'].append('Initial a- may be conjunction')
+                if 'WA' in syllables:
+                    predictions['predictions'].append('Contains -wa- quotative particle')
+
+                final = syllables[-1]
+                if final in ['TI', 'NTI', 'TA', 'NTA']:
+                    predictions['predictions'].append(f'Verbal ending -{final.lower()}')
+                if final in ['SSA', 'NDA', 'JA']:
+                    predictions['predictions'].append(f'Nominal suffix -{final.lower()}')
+
+            return predictions
+
+        def pregreek_predicts(word: str) -> dict:
+            """What Pre-Greek hypothesis predicts (residual)."""
+            predictions = {'hypothesis': 'Pre-Greek', 'predictions': [], 'violations': []}
+            predictions['predictions'].append('Non-IE, non-Semitic vocabulary expected')
+            predictions['predictions'].append('May contain substrate phonology')
+            return predictions
+
+        # Analyze each word
+        for word, freq in sorted_words:
+            if '-' not in word:
+                continue
+
+            greek = greek_predicts(word)
+            semitic = semitic_predicts(word)
+            luwian = luwian_predicts(word)
+            pregreek = pregreek_predicts(word)
+
+            # Find contradictions
+            word_contradictions = []
+
+            # Greek vs Semitic: vowel patterns
+            greek_violations = len(greek['violations'])
+            semitic_violations = len(semitic['violations'])
+
+            if greek_violations > 0 and semitic_violations == 0:
+                word_contradictions.append({
+                    'type': 'structural',
+                    'hyp1': 'Greek',
+                    'hyp2': 'Semitic',
+                    'observation': f'{word} violates Greek expectations but fits Semitic',
+                    'decisive_for': 'Semitic'
+                })
+            elif semitic_violations > 0 and greek_violations == 0:
+                word_contradictions.append({
+                    'type': 'structural',
+                    'hyp1': 'Greek',
+                    'hyp2': 'Semitic',
+                    'observation': f'{word} fits Greek but violates Semitic expectations',
+                    'decisive_for': 'Greek'
+                })
+
+            # Greek vs Luwian: morphological patterns
+            greek_morph = [p for p in greek['predictions'] if 'verbal' in p.lower() or 'nominal' in p.lower()]
+            luwian_morph = [p for p in luwian['predictions'] if 'verbal' in p.lower() or 'nominal' in p.lower()]
+
+            if greek_morph and not luwian_morph:
+                word_contradictions.append({
+                    'type': 'morphological',
+                    'hyp1': 'Greek',
+                    'hyp2': 'Luwian',
+                    'observation': f'{word} shows Greek morphology, not Luwian',
+                    'decisive_for': 'Greek'
+                })
+            elif luwian_morph and not greek_morph:
+                word_contradictions.append({
+                    'type': 'morphological',
+                    'hyp1': 'Greek',
+                    'hyp2': 'Luwian',
+                    'observation': f'{word} shows Luwian morphology, not Greek',
+                    'decisive_for': 'Luwian'
+                })
+
+            if word_contradictions:
+                contradictions['contradiction_matrix'].append({
+                    'word': word,
+                    'frequency': freq,
+                    'contradictions': word_contradictions,
+                    'hypothesis_predictions': {
+                        'greek': greek,
+                        'semitic': semitic,
+                        'luwian': luwian,
+                        'pregreek': pregreek,
+                    }
+                })
+                contradictions['summary']['total_contradictions'] += len(word_contradictions)
+
+                # Add decisive tests
+                for c in word_contradictions:
+                    if c.get('decisive_for'):
+                        contradictions['decisive_tests'].append({
+                            'word': word,
+                            'test': c['observation'],
+                            'favors': c['decisive_for'],
+                        })
+                        contradictions['summary']['decisive_observations'] += 1
+
+        self.log(f"Found {contradictions['summary']['total_contradictions']} contradictions")
+        self.log(f"Identified {contradictions['summary']['decisive_observations']} decisive tests")
+
+        return contradictions
+
     def generate_overall_assessment(self, analyses: dict) -> dict:
         """Generate overall assessment of negative evidence."""
         assessment = {
@@ -703,6 +891,9 @@ class NegativeEvidenceAnalyzer:
         self.results['hypothesis_analyses']['pregreek'] = pregreek_analysis
         self.log(f"Pre-Greek score: {pregreek_analysis['overall_score']}")
 
+        print("Analyzing reading contradictions...")
+        self.results['contradictions'] = self.analyze_reading_contradictions(top_n=50)
+
         print("Generating overall assessment...")
         self.results['overall_assessment'] = self.generate_overall_assessment(
             self.results['hypothesis_analyses']
@@ -749,6 +940,21 @@ class NegativeEvidenceAnalyzer:
                 print(f"  [{hyp}] {f.get('pattern', f.get('observation', 'Unknown'))}")
                 if 'interpretation' in f:
                     print(f"    → {f['interpretation']}")
+
+        # Contradiction summary
+        contradictions = self.results.get('contradictions', {})
+        if contradictions.get('summary'):
+            summary = contradictions['summary']
+            print(f"\nContradiction Analysis:")
+            print(f"  Total contradictions found: {summary.get('total_contradictions', 0)}")
+            print(f"  Decisive observations: {summary.get('decisive_observations', 0)}")
+
+            # Show top decisive tests
+            decisive = contradictions.get('decisive_tests', [])[:5]
+            if decisive:
+                print("\n  Top Decisive Tests:")
+                for test in decisive:
+                    print(f"    • {test['word']}: favors {test['favors'].upper()}")
 
         # Key observations
         print("\nKey Observations:")

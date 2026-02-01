@@ -199,8 +199,11 @@ class CorpusAuditor:
             return False
         if self._is_logogram(token):
             return False
-        if token.startswith('"') or token.startswith('*'):
+        if token.startswith('"'):
             return False
+        if token == '*':  # Reject bare asterisk only
+            return False
+        # *NNN-XX patterns are valid entity names (undeciphered sign codes) - allow them
         return True
 
     def _extract_site(self, tablet_id: str) -> str:

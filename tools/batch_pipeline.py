@@ -295,6 +295,99 @@ class BatchPipeline:
         base = word.split('+')[0] if '+' in word else word
         return base.upper() in self.COMMODITY_LOGOGRAMS
 
+    def calculate_corpus_coverage(self) -> dict:
+        """
+        Calculate corpus coverage statistics by site, frequency tier, and overall.
+
+        Returns:
+            Dictionary with coverage metrics and recommendations for next analysis.
+        """
+        if not self.corpus:
+            return {'error': 'Corpus not loaded'}
+
+        # Count inscriptions and words by site
+        site_stats = defaultdict(lambda: {
+            'inscriptions': 0,
+            'words': 0,
+            'unique_words': set(),
+            'has_kuro': 0,
+        })
+
+        total_inscriptions = 0
+        total_words = 0
+        kuro_tablets = 0
+
+        for insc_id, data in self.corpus.get('inscriptions', {}).items():
+            if '_parse_error' in data:
+                continue
+
+            site = self._extract_site_code(insc_id)
+            site_stats[site]['inscriptions'] += 1
+            total_inscriptions += 1
+
+            words = data.get('transliteratedWords', [])
+            valid_words = [w for w in words if self._is_valid_word(w)]
+            site_stats[site]['words'] += len(valid_words)
+            site_stats[site]['unique_words'].update(w.upper() for w in valid_words)
+            total_words += len(valid_words)
+
+            if 'KU-RO' in words:
+                site_stats[site]['has_kuro'] += 1
+                kuro_tablets += 1
+
+        # Calculate analyzed coverage
+        analyzed_words = len(self.hypotheses_tested) if self.hypotheses_tested else 0
+
+        # Build coverage report
+        coverage = {
+            'total_inscriptions': total_inscriptions,
+            'total_words': total_words,
+            'words_analyzed': analyzed_words,
+            'overall_coverage_percent': round(analyzed_words / total_words * 100, 2) if total_words > 0 else 0,
+            'kuro_tablets': kuro_tablets,
+            'by_site': {},
+            'recommendations': [],
+        }
+
+        # Per-site statistics
+        for site, stats in sorted(site_stats.items(), key=lambda x: -x[1]['inscriptions']):
+            unique_count = len(stats['unique_words'])
+            # Estimate analyzed (intersection with hypotheses_tested)
+            analyzed_at_site = sum(1 for w in stats['unique_words']
+                                   if w in (self.hypotheses_tested or {}))
+
+            coverage['by_site'][site] = {
+                'inscriptions': stats['inscriptions'],
+                'words': stats['words'],
+                'unique_words': unique_count,
+                'analyzed': analyzed_at_site,
+                'coverage_percent': round(analyzed_at_site / unique_count * 100, 2) if unique_count > 0 else 0,
+                'kuro_tablets': stats['has_kuro'],
+            }
+
+        # Generate recommendations (priority sites with low coverage)
+        priority_sites = []
+        for site, stats in coverage['by_site'].items():
+            if stats['inscriptions'] >= 10 and stats['coverage_percent'] < 50:
+                priority_sites.append({
+                    'site': site,
+                    'inscriptions': stats['inscriptions'],
+                    'coverage': stats['coverage_percent'],
+                    'reason': 'Low coverage, significant corpus'
+                })
+
+        priority_sites.sort(key=lambda x: (-x['inscriptions'], x['coverage']))
+
+        coverage['recommendations'] = [
+            f"Priority: {s['site']} ({s['inscriptions']} inscriptions, {s['coverage']}% coverage)"
+            for s in priority_sites[:5]
+        ]
+
+        if not coverage['recommendations']:
+            coverage['recommendations'] = ['All major sites have adequate coverage']
+
+        return coverage
+
     # =========================================================================
     # STAGE 2: HYPOTHESIZE - Test against four hypotheses
     # =========================================================================
@@ -738,6 +831,11 @@ def main():
         help='Show what would be done without executing'
     )
     parser.add_argument(
+        '--coverage',
+        action='store_true',
+        help='Calculate and display corpus coverage statistics'
+    )
+    parser.add_argument(
         '--verbose', '-v',
         action='store_true',
         help='Show detailed progress'
@@ -746,6 +844,32 @@ def main():
     args = parser.parse_args()
 
     pipeline = BatchPipeline(verbose=args.verbose, dry_run=args.dry_run)
+
+    if args.coverage:
+        # Just show coverage statistics
+        if not pipeline.load_corpus(args.site):
+            return 1
+        if args.resume:
+            pipeline.load_checkpoint('hypothesize')
+        coverage = pipeline.calculate_corpus_coverage()
+        print("\n" + "=" * 60)
+        print("CORPUS COVERAGE ANALYSIS")
+        print("=" * 60)
+        print(f"\nTotal inscriptions: {coverage.get('total_inscriptions', 0)}")
+        print(f"Total words: {coverage.get('total_words', 0)}")
+        print(f"Words analyzed: {coverage.get('words_analyzed', 0)}")
+        print(f"Overall coverage: {coverage.get('overall_coverage_percent', 0)}%")
+        print(f"KU-RO tablets: {coverage.get('kuro_tablets', 0)}")
+        print("\nCoverage by Site:")
+        for site, stats in coverage.get('by_site', {}).items():
+            print(f"  {site:4s}: {stats['inscriptions']:4d} inscriptions, "
+                  f"{stats['unique_words']:4d} unique words, "
+                  f"{stats['coverage_percent']:5.1f}% analyzed")
+        print("\nRecommendations:")
+        for rec in coverage.get('recommendations', []):
+            print(f"  • {rec}")
+        print("=" * 60)
+        return 0
 
     if args.full:
         pipeline.run_full_pipeline(

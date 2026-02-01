@@ -203,10 +203,15 @@ class CorpusLookup:
 
     def search_exact(self, query: str, site_filter: str = None,
                      period_filter: str = None, context_size: int = 0) -> List[dict]:
-        """Search for exact word match."""
+        """Search for exact word match (case-insensitive)."""
         results = []
 
-        matches = self.word_index.get(query, [])
+        # Case-insensitive search: normalize query and search all matching keys
+        query_upper = query.upper()
+        matches = []
+        for indexed_word, entries in self.word_index.items():
+            if indexed_word.upper() == query_upper:
+                matches.extend(entries)
 
         for match in matches:
             # Apply filters

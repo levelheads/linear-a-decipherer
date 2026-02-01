@@ -15,7 +15,7 @@
 | High-Confidence Words | 86 (CERTAIN or PROBABLE) |
 | KU-RO Totals Verified | 4/35 (11.4%) via corpus_auditor.py |
 | Personal Names | 127 identified |
-| Best-Fit Model | Contact Language (**Luwian morphology dominant** + Semitic admin + Pre-Greek base) |
+| Best-Fit Model | **Undetermined substrate** with contact features (Luwian morphological influence + Semitic admin loans) |
 | Active Vectors | 5 (OPERATION BREAKTHROUGH) |
 
 **Tool Validation**: 2026-02-01 - All analyses re-run with proper tooling
