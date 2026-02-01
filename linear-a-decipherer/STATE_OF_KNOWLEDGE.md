@@ -2,7 +2,7 @@
 
 **Running synthesis of current understanding**
 
-**Last Updated**: 2026-01-31
+**Last Updated**: 2026-02-01
 
 ---
 
@@ -10,16 +10,28 @@
 
 | Metric | Value |
 |--------|-------|
-| **Corpus Analyzed** | All 4 major sites (HT, KH, ZA, PH) — regional comparison complete |
+| **Corpus Analyzed** | 12 inscriptions (0.70% of 1,721); all 4 major sites (HT, KH, ZA, PH) |
 | **Words Analyzed** | **47** high-frequency words (94% of Phase 2 target) |
-| **Confirmed Readings** | 2 CERTAIN + 4 HIGH + **27 PROBABLE** + 23 POSSIBLE |
+| **Confirmed Readings** | 2 CERTAIN + 6 HIGH + **27 PROBABLE** + 23 POSSIBLE |
 | **Translation Attempts** | **6 tablets** (HT 13, HT 9a, HT 9b, HT 88, **HT 28**, **HT 31**) |
 | **Personal Names Identified** | **127** (up from 53; 140% increase) |
-| **Active Hypotheses** | 3 active + 1 ELIMINATED (Proto-Greek) |
+| **Active Hypotheses** | 3 active + 1 weakest (Proto-Greek) |
 | **Best-Fit Model** | Contact Language (Pre-Greek base + Semitic admin + Luwian morphology) |
-| **Regional Validation** | KU-RO cross-site verified; KI-RO/SA-RA₂ HT-exclusive |
+| **Regional Validation** | KU-RO cross-site verified (HT, ZA, PH); KI-RO/SA-RA₂ HT-exclusive |
 | **Paradigms Discovered** | 4 (K-R + S-R + D-R + K-P) |
 | **Unique Signs (no Linear B)** | **123 signs** (874 attestations) — phonological evidence |
+
+### OPERATION MINOS III Status (2026-02-01)
+
+Active 3-track expansion:
+
+| Track | Focus | Status | Key Finding |
+|-------|-------|--------|-------------|
+| **A: Corpus Expansion** | 20 new inscriptions | 7/20 complete | KU-RO cross-site verified (ZA 15b) |
+| **B: Unique Signs** | Decode *301 | Phase B1 complete | 288 occ, 88.2% word-initial |
+| **C: Khania System** | Independent decode | Phase C1 complete | Zero K-R vocabulary CONFIRMED |
+
+**New Chronological Finding**: KU-RO dates to MMIII (c.1700-1600 BCE) via PH(?)31a, 200+ years earlier than primary HT attestations.
 
 ---
 
@@ -29,18 +41,18 @@
 
 **Status**: Undeciphered; no genetic affiliation confirmed
 
-**Working hypothesis**: Linear A records a **contact language** with multiple linguistic layers:
+**Working hypothesis**: Linear A records a **contact language** with multiple linguistic layers. This synthesis builds on proposals by Gordon (1966), Palmer (1958), Beekes (2014), and others:
 
-| Layer | Evidence | Confidence |
-|-------|----------|------------|
-| **Pre-Greek substrate** | Base vocabulary; toponym pa-i-to; low /o/ frequency | HIGH |
-| **Semitic administrative** | KU-RO = *kull* "total"; SA-RA₂ = *šarāku* "allocate" | PROBABLE |
-| **Luwian religious** | Particles in libation formulas (-wa-, -ja) | POSSIBLE |
-| **Proto-Greek** | WEAK - lacks Greek morphology, wrong vowel distribution | LOW |
+| Layer | Evidence | Confidence | Prior Scholarship |
+|-------|----------|------------|-------------------|
+| **Pre-Greek substrate** | Base vocabulary; toponym pa-i-to; low /o/ frequency | HIGH | Beekes (2014), Furnée (1972) |
+| **Semitic administrative** | KU-RO = *kull* "total"; SA-RA₂ = *šarāku* "allocate" | PROBABLE | Gordon (1966), Best (1972) |
+| **Luwian religious** | Particles in libation formulas (-wa-, -ja) | POSSIBLE | Palmer (1958), Finkelberg (1998) |
+| **Proto-Greek** | WEAK - lacks Greek morphology, wrong vowel distribution | LOW | Georgiev (1963), Mosenkis (2019) |
 
-**Key negative evidence against Proto-Greek**:
+**Key negative evidence against Proto-Greek** (consistent with prior scholarly observations):
 1. Low /o/ frequency (2.9% vs. Greek higher)
-2. KU-RO ≠ Linear B *to-so* for "total"
+2. KU-RO ≠ Linear B *to-so* for "total" — noted by Gordon (1966)
 3. No Greek case endings (-os, -on, -ōn)
 4. Only pa-i-to confirmed (likely Pre-Greek origin)
 5. **123 unique signs dropped** when Greeks adapted script (Greek has FEWER phonemes)
@@ -113,17 +125,19 @@ All confirmed via pictographic origin and/or Linear B equivalents.
 
 ## Hypothesis Scorecard
 
-**Updated 2026-01-31 (OPERATION MINOS Discrimination Matrix)**
+**Updated 2026-02-01 (OPERATION MINOS Discrimination Matrix)**
 
-| Hypothesis | Total Score | Rank | Verdict |
-|------------|-------------|------|---------|
-| **Semitic (loans)** | **+47.4** | **1** | STRONGEST - Best fit for administrative vocabulary |
-| **Luwian/Anatolian** | **+39.0** | 2 | Second - Strongest for suffix morphology (-JA, -WA-) |
-| **Pre-Greek Substrate** | **+23.5** | 3 | Third - Toponyms, divine names, base vocabulary |
-| **Proto-Greek** | **+7.25** | 4 | **ELIMINATED** - Critical phonological mismatch |
+Scores reflect synthesis of prior scholarship with corpus-wide quantitative verification. Each hypothesis was originally proposed by the scholars noted below.
 
-**Proto-Greek ELIMINATED as primary language hypothesis** (per HYPOTHESIS_DISCRIMINATION_MATRIX.md):
-- /o/ frequency: 3.9% observed vs 20% expected
+| Hypothesis | Total Score | Rank | Verdict | Key Proponents |
+|------------|-------------|------|---------|----------------|
+| **Semitic (loans)** | **+47.4** | **1** | STRONGEST - Best fit for administrative vocabulary | Gordon (1966), Best (1972) |
+| **Luwian/Anatolian** | **+39.0** | 2 | Second - Strongest for suffix morphology (-JA, -WA-) | Palmer (1958), Finkelberg (1998) |
+| **Pre-Greek Substrate** | **+23.5** | 3 | Third - Toponyms, divine names, base vocabulary | Beekes (2014), Furnée (1972) |
+| **Proto-Greek** | **+7.25** | 4 | **WEAKEST** - Critical phonological mismatch | Georgiev (1963), Mosenkis (2019) |
+
+**Proto-Greek assessed as WEAKEST** (consistent with prior scholarly observations):
+- /o/ frequency: 3.9% observed vs 20% expected — noted by multiple scholars
 - Greek case endings (-os, -oi, -ai, -es): 0% observed
 - Retain ONLY as post-1450 BCE loan contact layer
 
@@ -133,27 +147,30 @@ All confirmed via pictographic origin and/or Linear B equivalents.
 - Greek case endings (-os, -on, -oi, -ai, -es): 0% observed
 - No Greek morphological patterns detected
 
-### Hypothesis Details
+### Hypothesis Details (with Attribution)
 
-**Semitic (Akkadian/West Semitic)**
-- Strengths: KU-RO, SA-RA₂, -U ending pattern, trade network evidence
-- **NEW**: Vessel vocabulary confirms Semitic layer (SU-PU, KA-RO-PA₃, QA-PA₃)
+**Semitic (Akkadian/West Semitic)** — First proposed by Gordon (1966)
+- Strengths: KU-RO = *kull* (Gordon's original proposal), SA-RA₂, -U ending pattern, trade network evidence
+- **Project contribution**: Corpus-wide verification (39 KU-RO occurrences across 3 sites); vessel vocabulary confirmation (SU-PU, KA-RO-PA₃, QA-PA₃)
 - Weaknesses: No triconsonantal morphology; likely loans, not genetic
 - **HT-SPECIFIC**: May not apply to KH administrative tradition
 - Proponents: Gordon (1966), Best (1972)
 
-**Pre-Greek Substrate**
+**Pre-Greek Substrate** — Formalized by Beekes (2014)
 - Strengths: Toponym origins, vowel distribution, language isolate plausible
+- **Project contribution**: 123-sign phonological analysis; base layer systematization
 - Weaknesses: Unfalsifiable; no comparative data
 - Proponents: Beekes (2014), Furnée (1972)
 
-**Luwian/Anatolian**
+**Luwian/Anatolian** — First proposed by Palmer (1958)
 - Strengths: Particles (-wa-, -ja); Aegean contact; palatalized phonology
+- **Project contribution**: -JA suffix quantification (77 occurrences, 17 sites)
 - Weaknesses: No clear case morphology; limited vocabulary matches
 - Proponents: Palmer (1958), Finkelberg (1998)
 
-**Proto-Greek**
+**Proto-Greek** — Proposed by Georgiev (1963)
 - Strengths: Linear B scribal continuity
+- **Project contribution**: Quantitative scoring confirms weakest hypothesis (prior observations validated)
 - Weaknesses: Low /o/; no Greek morphology; KU-RO ≠ to-so
 - Proponents: Georgiev (1963), Mosenkis (2019)
 
@@ -353,21 +370,21 @@ KH (227 inscriptions) has **ZERO** functional equivalents to HT's administrative
 
 **15 analysis files created** via parallel agent execution:
 
-#### Major Findings
+#### Major Findings (Validated Prior Scholarship)
 
-1. **Proto-Greek ELIMINATED** (HYPOTHESIS_DISCRIMINATION_MATRIX.md)
+1. **Proto-Greek assessed as WEAKEST** (HYPOTHESIS_DISCRIMINATION_MATRIX.md)
    - Score: +7.25 (lowest of all hypotheses)
-   - /o/ frequency 3.9% vs expected 20%
+   - /o/ frequency 3.9% vs expected 20% — consistent with prior scholarly observations
    - Greek case endings: 0% observed
    - Recommendation: Retain only as late contact layer
 
-2. **Semitic STRONGEST for Administrative Layer** (+47.4)
-   - KU-RO = *kull* "total"
+2. **Semitic STRONGEST for Administrative Layer** (+47.4) — validates Gordon (1966)
+   - KU-RO = *kull* "total" — Gordon's original proposal, now corpus-verified
    - KI-RO = "deficit/partial"
-   - SA-RA₂ = Akkadian *šarāku* "allocate"
+   - SA-RA₂ = Akkadian *šarāku* "allocate" — novel interpretation by this project
 
-3. **Luwian STRONGEST for Suffix Morphology** (PHASE6_SUFFIXES.md)
-   - -JA (65 occ): Adjectival suffix like Luwian -iya
+3. **Luwian STRONGEST for Suffix Morphology** (PHASE6_SUFFIXES.md) — validates Palmer (1958)
+   - -JA (65 occ): Adjectival suffix like Luwian -iya — Palmer's proposal, quantified
    - -TE (56 occ): 3sg past like Luwian -ta
    - -TI (49 occ): 3sg present like Luwian -ti
    - **-U endings: Luwian best fit (64%), NOT Semitic** (correction to Phase 1)

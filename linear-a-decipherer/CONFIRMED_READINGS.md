@@ -10,10 +10,10 @@
 
 These readings are confirmed through geographic identification and Linear B correspondence.
 
-| Word | Meaning | Evidence | Occurrences | Linear B |
-|------|---------|----------|-------------|----------|
-| **pa-i-to** | Phaistos | Geographic + Linear B pa-i-to | 12 | pa-i-to |
-| **ku-do-ni-ja** | Kydonia (Chania) | Geographic + Linear B ku-do-ni-ja | 8 | ku-do-ni-ja |
+| Word | Meaning | Evidence | Occurrences | Linear B | First Proposed | Project Contribution |
+|------|---------|----------|-------------|----------|----------------|---------------------|
+| **pa-i-to** | Phaistos | Geographic + Linear B pa-i-to | 12 | pa-i-to | Evans (1909) | Corpus verification |
+| **ku-do-ni-ja** | Kydonia (Chania) | Geographic + Linear B ku-do-ni-ja | 8 | ku-do-ni-ja | Ventris (1953) | Corpus verification |
 
 **Requirements for Level 1**:
 - Geographic identification with known site
@@ -26,17 +26,21 @@ These readings are confirmed through geographic identification and Linear B corr
 
 Readings supported by Linear B correspondence AND consistent positional/functional evidence.
 
-| Word | Meaning | Evidence | Occurrences | Position | Linear B | Regional Scope |
-|------|---------|----------|-------------|----------|----------|----------------|
-| **ku-ro** | total/sum | Position at section ends; sums verified mathematically; Linear B totaling parallel | 39 | List-final | to-so (function) | **Cross-site**: HT (37), ZA (1), PH (1); **absent at KH** |
-| **ki-ro** | deficit/partial | Context after totals or as header; functions as accounting term | 17 | Variable | — | **HT-primary** (16 at HT, 1 at AR) |
-| **-JA suffix** | adjectival/ethnic | 77 occurrences across 17 sites; word-final 65.9%; Luwian -iya parallel | 77 | Word-final | — | **Pan-Minoan**: All major sites + religious sites |
+| Word | Meaning | Evidence | Occurrences | Position | First Proposed | Project Contribution |
+|------|---------|----------|-------------|----------|----------------|---------------------|
+| **ku-ro** | total/sum | Position at section ends; sums verified mathematically; Linear B totaling parallel | 39 | List-final | Gordon (1966) | Cross-site verification (HT 37, ZA 1, PH 1); MMIII chronology |
+| **ki-ro** | deficit/partial | Context after totals or as header; functions as accounting term | 17 | Variable | Gordon (1966) | Function mapping; HT-exclusive confirmation |
+| **-JA suffix** | adjectival/ethnic | 77 occurrences across 17 sites; word-final 65.9%; Luwian -iya parallel | 77 | Word-final | Palmer (1958) | Quantification (77 occ, 17 sites) |
 
-**NEW (Strategic Plan Phase 2)**: -JA suffix promoted to HIGH based on:
-- 77 occurrences (exceeds 10+ threshold)
-- 17 sites (widest distribution of any morphological element)
-- Consistent word-final position (65.9%)
-- Strong Luwian -iya adjectival/ethnic parallel
+**Attribution Notes**:
+- **ku-ro = Semitic *kull***: First proposed by Cyrus Gordon in *Evidence for the Minoan Language* (1966)
+- **-JA = Luwian -iya**: First proposed by Leonard Palmer in "Luwian and Linear A" (1958)
+- **Project contribution**: Systematic corpus-wide verification and quantification
+
+**Regional Scope**:
+- **ku-ro**: Cross-site (HT, ZA, PH); **absent at KH** (227 inscriptions searched)
+- **ki-ro**: HT-primary (16 at HT, 1 at AR)
+- **-JA suffix**: Pan-Minoan (all major sites + religious sites)
 
 ### Regional Validation Notes (OPERATION MINOS II Phase 8)
 
@@ -101,16 +105,16 @@ Pictographic or ideographic signs with confirmed meanings.
 
 ### Level 4-5: Structural/Morphological (PROBABLE to POSSIBLE)
 
-| Word | Proposed Meaning | Confidence | Best Hypothesis | Blocking Issue | Regional Scope |
-|------|------------------|------------|-----------------|----------------|----------------|
-| **SA-RA₂** | allocation (*šarāku*) | PROBABLE | Akkadian | No bilingual confirmation | **HT-EXCLUSIVE** (100% at HT) |
-| **A-DU** | administrative term | PROBABLE | Semitic | Exact semantics unclear |
-| **A-DA** | personal name/title | PROBABLE | Semitic | Limited contexts |
-| **KO-A-DU-WA** | personal name | PROBABLE | Luwian | -WA suffix supports but not conclusive |
-| **PO-TO-KU-RO** | grand total (compound) | PROBABLE | Multi-hypothesis | 2 attestations; appears after KU-RO with larger values |
-| **KU-RE** | subtotal | POSSIBLE | Semitic | 2 attestations; appears before KU-RO in HT39 |
-| **KA-RU** | header/category marker | POSSIBLE | Semitic | 2 attestations; tablet-initial position |
-| **ja-sa-sa-ra-me** | divine name | POSSIBLE | Pre-Greek | Religious context only |
+| Word | Proposed Meaning | Confidence | Best Hypothesis | First Proposed | Project Contribution |
+|------|------------------|------------|-----------------|----------------|---------------------|
+| **SA-RA₂** | allocation (*šarāku*) | PROBABLE | Akkadian | This project | Novel interpretation (HT-exclusive) |
+| **A-DU** | administrative term | PROBABLE | Semitic | Multiple scholars | Contextual verification |
+| **A-DA** | personal name/title | PROBABLE | Semitic | Multiple scholars | Limited contexts |
+| **KO-A-DU-WA** | personal name | PROBABLE | Luwian | This project | -WA suffix analysis |
+| **PO-TO-KU-RO** | grand total (compound) | PROBABLE | Multi-hypothesis | Extends Gordon (1966) | Compound structure analysis |
+| **KU-RE** | subtotal | POSSIBLE | Semitic | Extends Gordon (1966) | Vowel gradation mapping |
+| **KA-RU** | header/category marker | POSSIBLE | Semitic | This project | Position analysis |
+| **ja-sa-sa-ra-me** | divine name | POSSIBLE | Pre-Greek | This project | Religious context analysis |
 
 ### K-R Paradigm (OPERATION MINOS Phase 2 Discovery + Phase 8 Regional Validation)
 
@@ -150,13 +154,15 @@ These paradigms suggest systematic vowel gradation in Linear A morphology, exten
 
 ### Suffix Morphology (OPERATION MINOS Phase 6)
 
-| Suffix | Meaning | Confidence | Best Hypothesis | Occurrences | Evidence |
-|--------|---------|------------|-----------------|-------------|----------|
-| **-JA** | Adjectival/genitive | PROBABLE | Luwian | 65 | Luwian *-iya* parallel; word-final position |
-| **-TE** | 3sg past tense | POSSIBLE | Luwian | 56 | Luwian *-ta* parallel |
-| **-TI** | 3sg present tense | POSSIBLE | Luwian | 49 | Luwian *-ti* parallel |
-| **-U** | Noun class marker | PROBABLE | Luwian (64%) | 25+ analyzed | NOT Semitic as initially thought; Luwian best fit |
-| **-WA-** | Quotative particle | POSSIBLE | Luwian | Various | Luwian quotative parallel |
+| Suffix | Meaning | Confidence | Best Hypothesis | First Proposed | Project Contribution |
+|--------|---------|------------|-----------------|----------------|---------------------|
+| **-JA** | Adjectival/genitive | PROBABLE | Luwian | Palmer (1958) | Quantification (65 occ) |
+| **-TE** | 3sg past tense | POSSIBLE | Luwian | Palmer (1958) | Quantification (56 occ) |
+| **-TI** | 3sg present tense | POSSIBLE | Luwian | Palmer (1958) | Quantification (49 occ) |
+| **-U** | Noun class marker | PROBABLE | Luwian (64%) | This project | Hypothesis discrimination |
+| **-WA-** | Quotative particle | POSSIBLE | Luwian | Palmer (1958) | Corpus verification |
+
+**Attribution Note**: Luwian morphological parallels first proposed by Leonard Palmer in "Luwian and Linear A" (1958). Project contribution is systematic quantification and corpus-wide verification.
 
 ### Level 5: Morphological/Structural Patterns (PROBABLE to POSSIBLE)
 
@@ -170,16 +176,16 @@ These paradigms suggest systematic vowel gradation in Linear A morphology, exten
 
 ### Level 5: Vessel Vocabulary (PROBABLE to POSSIBLE) — NEW 2026-01-31
 
-| Word | Proposed Meaning | Confidence | Best Hypothesis | Evidence | Occurrences |
-|------|------------------|------------|-----------------|----------|-------------|
-| **SU-PU** | bowl (*suppu*) | PROBABLE | Akkadian | Phonological match; vessel inventory context (HT 31) | 3+ |
-| **KA-RO-PA₃** | vessel (*karpu*) | PROBABLE | Akkadian | K-R-P root; vessel inventory context | 2+ |
-| **QA-PA₃** | measure (*qappu*) | POSSIBLE | Akkadian | Phonological match; measurement context | 2+ |
+| Word | Proposed Meaning | Confidence | Best Hypothesis | First Proposed | Project Contribution |
+|------|------------------|------------|-----------------|----------------|---------------------|
+| **SU-PU** | bowl (*suppu*) | PROBABLE | Akkadian | Gordon (1966) parallel | Contextual verification (HT 31) |
+| **KA-RO-PA₃** | vessel (*karpu*) | PROBABLE | Akkadian | This project | Novel interpretation |
+| **QA-PA₃** | measure (*qappu*) | POSSIBLE | Akkadian | This project | Novel interpretation |
 
-**Implications**: Semitic vocabulary confirmed in THREE domains:
-1. Accounting: KU-RO (*kull*)
-2. Allocation: SA-RA₂ (*šarāku*)
-3. Vessels: SU-PU, KA-RO-PA₃ (*suppu*, *karpu*)
+**Implications**: Semitic vocabulary confirmed in THREE domains, extending Gordon's (1966) framework:
+1. Accounting: KU-RO (*kull*) — Gordon (1966)
+2. Allocation: SA-RA₂ (*šarāku*) — this project
+3. Vessels: SU-PU, KA-RO-PA₃ (*suppu*, *karpu*) — this project
 
 ---
 
