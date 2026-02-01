@@ -10,7 +10,7 @@
 
 | Metric | Value |
 |--------|-------|
-| Corpus Analyzed | 12 inscriptions (0.70% of 1,721) |
+| Corpus Analyzed | 14 inscriptions (0.81% of 1,721) |
 | Words Analyzed | 47 high-frequency words |
 | Confirmed Readings | 2 CERTAIN + 6 HIGH + 27 PROBABLE + 23 POSSIBLE |
 | Personal Names | 127 identified |
@@ -34,7 +34,7 @@
 | Word | Meaning | Occurrences | Evidence | First Proposed |
 |------|---------|-------------|----------|----------------|
 | **ku-ro** | total/sum | 39 | List-final; sums verified mathematically | Gordon (1966) |
-| **ki-ro** | deficit/partial | 17 | Context after totals; HT-exclusive | Gordon (1966) |
+| **ki-ro** | deficit/category marker | 17 | Multi-function: deficit OR header | Gordon (1966) |
 | **-JA suffix** | adjectival/ethnic | 77 | Word-final 65.9%; Luwian -iya parallel | Palmer (1958) |
 | **DA-MA-TE** | Demeter (deity) | 1 | Linear B cognate *da-ma-te*; peak sanctuary | — |
 | **A-TA-NA** | Athena (deity) | 2 | Linear B cognate *a-ta-na* | — |
@@ -48,12 +48,25 @@
 | OVI, CAP, SUS, BOS, VIR | Animals/Personnel | Pictographic + Linear B |
 | TELA, CYP | Materials | Linear B + context |
 
+#### OLE Variant Codes (GORILA Classification)
+
+| Logogram | Code | Likely Meaning |
+|----------|------|----------------|
+| OLE+U | *610 | Oil variant (most common) |
+| OLE+KI | *618 | Oil variant |
+| OLE+MI | *622 | Oil variant |
+| OLE+TU | *621 | Oil variant |
+| OLE+DI | *608 | Oil variant |
+
+**Source**: Salgarella (2020), citing GORILA classification
+
 ### Level 4-5: PROBABLE
 
 | Word | Meaning | Confidence | Best Hypothesis | First Proposed |
 |------|---------|------------|-----------------|----------------|
 | **SA-RA₂** | allocation (*šarāku*) | PROBABLE | Akkadian | This project |
 | **A-DU** | administrative term | PROBABLE | Semitic | Multiple |
+| **U-MI-NA-SI** | debt / '[s/he] owes' | POSSIBLE | Unknown | Younger (2024) |
 | **PO-TO-KU-RO** | grand total | PROBABLE | Multi-hypothesis | Extends Gordon |
 | **JA-SA-SA-RA-ME** | divine name | PROBABLE | Pre-Greek | This project |
 | **SU-PU** | bowl (*suppu*) | PROBABLE | Akkadian | This project |
@@ -69,6 +82,16 @@
 | KU-RO | Section total | 37 | Cross-site (HT, ZA, PH) |
 | KU-RE | Subtotal | 2 | HT-only |
 | KI-RO | Deficit/owed | 16 | **HT-EXCLUSIVE** |
+
+### Transaction Terms (Administrative Vocabulary)
+
+| Term | Proposed Meaning | Confidence | Source |
+|------|------------------|------------|--------|
+| KU-RO | total/sum | HIGH | Gordon (1966) |
+| KI-RO | deficit/category | HIGH | Gordon (1966) |
+| SA-RA₂ | allocation (*šarāku*) | PROBABLE | This project |
+| U-MI-NA-SI | debt / '[s/he] owes' | POSSIBLE | Younger (2024) |
+| A-DU | administrative term | PROBABLE | Multiple |
 
 ---
 
@@ -115,13 +138,24 @@
 | ID | Site | Confidence | Key Finding |
 |----|------|------------|-------------|
 | HT 13 | Hagia Triada | HIGH | ku-ro = total; wine distribution |
-| HT 28 | Hagia Triada | PROBABLE | 5 oil types; SA-RA₂ allocation |
+| HT 28 | Hagia Triada | HIGH | 5 oil types (*608-*622); SA-RA₂; JA-QI recurrent; U-MI-NA-SI |
 | HT 31 | Hagia Triada | POSSIBLE | Vessel inventory; Semitic vocabulary |
 | TY 3a | Tylissos | HIGH | 8 oil types; Semitic/Luwian mixed |
 | ZA 4, ZA 15 | Zakros | HIGH | KU-RO cross-site verified |
 | KH 5, KH 88 | Khania | MEDIUM | Zero K-R; CYP+E copper grades |
 | KN Zf 2 | Knossos | MEDIUM | 119 signs; longest inscription |
 | PH(?)31a | Phaistos | HIGH | KU-RO in MMIII (earliest) |
+| HT 117 | Hagia Triada | HIGH | KI-RO header function; KU-RO 10 verified |
+| HT 94 | Hagia Triada | HIGH | KU-RO+KI-RO co-occur; SA-RA₂ commodities |
+
+### Recurrent Personal Names (Cross-Tablet)
+
+| Name | Tablets | Interpretation |
+|------|---------|----------------|
+| JA-QI | HT 28a, HT 28b | Appears on both sides; official or recipient |
+| KU-PA₃-NU | PH, HT | Cross-site attestation |
+
+**Note**: See `data/personal_names_comprehensive.json` for full list of 127 identified names
 
 ### Major Thematic Investigations
 
@@ -129,10 +163,23 @@
 |-------|--------|-------------|
 | K-R Paradigm | Complete | U/I vowel polarity = total/deficit |
 | SA-RA₂ = *šarāku* | Complete | Akkadian "allocate"; HT-exclusive |
-| Libation Formulas | Complete | 5-position structure; JA-SA-SA-RA-ME divine |
+| Libation Formulas | Complete | **6-position structure** (Salgarella 2020); JA-SA-SA-RA-ME divine |
 | Khania System | Complete | Parallel copper trade admin; zero K-R |
 | Unique Signs | Complete | 123 signs dropped; pharyngeal/palatalized candidates |
 | Personal Names | Complete | 127 names; Demeter/Athena Minoan origins |
+
+### Libation Formula Structure (Salgarella Table 5)
+
+| Position | Function | Example |
+|----------|----------|---------|
+| First | Verb (main) | A-TA-I-*301-WA-JA |
+| Second | Place name | DA-MA-TE |
+| Third | Dedicant's name | (varies) |
+| Fourth | Object | A-SA-SA-RA-ME |
+| Fifth | Verb (subordinate) | — |
+| Sixth | Prepositional phrase | -TE "from" |
+
+**Note**: Two versions exist — "principal" (6 sequences) and "secondary" (3 sequences). Both share A/JA-SA-SA-RA-ME.
 
 ---
 
@@ -145,6 +192,32 @@
 | No Semitic triconsonantal morphology | Semitic = loans, not genetic |
 | KU-RO ≠ Linear B *to-so* | Different administrative vocabulary |
 | 123 unique signs | More phonemes than Greek |
+
+---
+
+## Unique Sign Analysis: *301
+
+**Status**: Phase B2 COMPLETE (phoneme candidates generated)
+
+| Metric | Value |
+|--------|-------|
+| Occurrences | 288 |
+| Word-initial | 88.2% |
+| Standalone + numeral | 82.6% |
+| Sites | 10 (HT dominant at 82.6%) |
+
+**Hybrid Sign Model**: *301 functions as BOTH logogram (commodity marker) AND syllabogram
+
+| Rank | Phoneme | IPA | Confidence | Linguistic Source |
+|------|---------|-----|------------|-------------------|
+| 1 | ḥa | [ħa] | PROBABLE | Semitic pharyngeal |
+| 2 | kya | [kʲa] | PROBABLE | Luwian palatalized |
+| 3 | ʿa | [ʕa] | POSSIBLE | West Semitic |
+| 4 | xa | [xa] | POSSIBLE | Multi-source |
+
+**Key Context**: A-TA-I-*301-WA-JA (libation formula, 11 occurrences)
+
+**Why Dropped in Linear B**: Represented phoneme(s) absent in Greek; logographic function obsolete
 
 ---
 
@@ -219,6 +292,20 @@ If these anchors change, dependent readings must be re-evaluated:
 - `archive/STATE_OF_KNOWLEDGE.md` - Full synthesis with all details
 - `archive/CONFIRMED_READINGS.md` - Complete readings with all annotations
 - `archive/ANALYSIS_INDEX.md` - Full analysis registry with file links
+
+---
+
+---
+
+## Key References
+
+| Author | Year | Work | Contribution |
+|--------|------|------|--------------|
+| Gordon | 1966 | *Evidence for the Minoan Language* | KU-RO = *kull* (Semitic "total") |
+| Palmer | 1958 | — | -JA suffix; Luwian morphology |
+| Beekes | 2014 | *Pre-Greek* | Substrate phonology |
+| Salgarella | 2020 | *Writing in Bronze Age Crete* | HT 28 structure; 6-position libation formula |
+| Younger | 2024 | *Linear A Texts: Introduction* | U-MI-NA-SI = 'debt/owes'; transcriptions |
 
 ---
 
