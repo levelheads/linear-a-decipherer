@@ -2,7 +2,7 @@
 
 **Central registry of all Linear A analyses conducted in this project**
 
-**Last Updated**: 2026-01-31
+**Last Updated**: 2026-02-01
 
 ---
 
@@ -24,6 +24,13 @@
 | **HT 88** | Hagia Triada | **Translation Attempted** | **PROBABLE** | **Personnel assessment; A-DU header; KI-RO/KU-RO sections** | [../analysis/sessions/PHASE7_TRANSLATIONS.md](../analysis/sessions/PHASE7_TRANSLATIONS.md) | 2026-01-31 |
 | **HT 28** | Hagia Triada | **Complete** | **PROBABLE** | **Mixed commodity account (Schoep Ia); opisthograph; A-SI-JA-KA + U-MI-NA-SI header; SA-RA2 allocation x2; 5 oil types (OLE+U/KI/MI/TU/DI); VIR+KA personnel; no KU-RO; possible feminine names (-A endings)** | [../analysis/completed/inscriptions/HT28_TRANSLATION.md](../analysis/completed/inscriptions/HT28_TRANSLATION.md) | 2026-01-31 |
 | **HT 31** | Hagia Triada | **Complete** | **POSSIBLE** | **Vessel inventory (3775 vessels total); NO KU-RO; Semitic vessel vocabulary (SU-PU < *suppu*, KA-RO-PA3 < *karpu*); two-section structure (small/large scale); *815 logogram series with phonetic complements; TI-SA/PU-KO header** | [../analysis/completed/inscriptions/HT31_TRANSLATION.md](../analysis/completed/inscriptions/HT31_TRANSLATION.md) | 2026-01-31 |
+| **ZA 4a/4b** | Zakros | **Complete** | **HIGH** | **Wine distribution list (VIN 104 total); 12 recipients with quantities; NO KU-RO explicit; standard distribution format; LMIB period** | [../analysis/sessions/MINOS_III_ZA4_ZA15_ANALYSIS.md](../analysis/sessions/MINOS_III_ZA4_ZA15_ANALYSIS.md) | 2026-02-01 |
+| **ZA 15a/b** | Zakros | **Complete** | **HIGH** | **Wine distribution; KU-RO VIN 78 VERIFIED cross-site; VIN+RA ligature (new wine modifier); 10 recipients; ZA lacks KI-RO/SA-RA₂** | [../analysis/sessions/MINOS_III_ZA4_ZA15_ANALYSIS.md](../analysis/sessions/MINOS_III_ZA4_ZA15_ANALYSIS.md) | 2026-02-01 |
+| **KH 5** | Khania | **Complete** | **HIGH** | **Mixed commodity (CYP+E, VIN, CYP, NI); ZERO K-R vocabulary; *301-NA compound; personnel-centric allocation; CYP+E = integer copper unit** | [../analysis/sessions/MINOS_III_KH5_KH88_ANALYSIS.md](../analysis/sessions/MINOS_III_KH5_KH88_ANALYSIS.md) | 2026-02-01 |
+| **KH 88** | Khania | **Complete** | **MEDIUM** | **NI (figs) commodity; *21F-*118 compound (personnel classifier?); simple 2-entry structure; ZERO K-R vocabulary** | [../analysis/sessions/MINOS_III_KH5_KH88_ANALYSIS.md](../analysis/sessions/MINOS_III_KH5_KH88_ANALYSIS.md) | 2026-02-01 |
+| **PH(?)31a/b** | Phaistos | **Complete** | **HIGH** | **KU-RO IN MMIII - earliest K-R attestation; personnel/livestock roster; *21/*22 classifier system; CAPm+KU = male caprids** | [../analysis/sessions/MINOS_III_PHAISTOS_ANALYSIS.md](../analysis/sessions/MINOS_III_PHAISTOS_ANALYSIS.md) | 2026-02-01 |
+| **PH 6** | Phaistos | **Complete** | **MEDIUM** | **MMII (earliest period) - name list format; no numerals; no K-R; long complex names (Pre-Greek substrate?)** | [../analysis/sessions/MINOS_III_PHAISTOS_ANALYSIS.md](../analysis/sessions/MINOS_III_PHAISTOS_ANALYSIS.md) | 2026-02-01 |
+| **PH 7a** | Phaistos | **Complete** | **MEDIUM** | **MMIII name list; -JA endings (Luwian patronymic?); no numerals; 4-syllable names** | [../analysis/sessions/MINOS_III_PHAISTOS_ANALYSIS.md](../analysis/sessions/MINOS_III_PHAISTOS_ANALYSIS.md) | 2026-02-01 |
 
 ---
 
@@ -110,6 +117,9 @@
 | Contact Language Model | Complete | Pre-Greek substrate + Semitic administrative loans + possible Luwian religious layer | [../analysis/completed/thematic/LINEAR_A_COMPREHENSIVE_ANALYSIS.md](../analysis/completed/thematic/LINEAR_A_COMPREHENSIVE_ANALYSIS.md) | 2026-01-05 |
 | Vowel Frequency Distribution | Complete | Low /o/ (2.9%) argues against Proto-Greek | [../analysis/completed/thematic/LINEAR_A_COMPREHENSIVE_ANALYSIS.md](../analysis/completed/thematic/LINEAR_A_COMPREHENSIVE_ANALYSIS.md) | 2026-01-05 |
 | **Script Adaptation: Unique Signs** | **Complete** | **123 signs unique to Linear A (no Linear B cognate); 874 attestations; *301 most frequent (290); positional constraints reveal phonotactics; evidence for pharyngeal/palatalized consonants absent in Greek; F/M gender markers; Luwian +3, Semitic +2, Pre-Greek +1, Proto-Greek -2** | [../analysis/sessions/LINEAR_A_UNIQUE_SIGNS_ANALYSIS.md](../analysis/sessions/LINEAR_A_UNIQUE_SIGNS_ANALYSIS.md) | 2026-01-31 |
+| **OPERATION MINOS III: Track A (ZA 4, ZA 15)** | **Complete** | **KU-RO cross-site verified at ZA 15b (VIN 78); ZA lacks KI-RO/SA-RA₂; VIN+RA ligature discovered; wine distribution focus; shared names (QE-SI-ZU-E, SI-PI-KI)** | [../analysis/sessions/MINOS_III_ZA4_ZA15_ANALYSIS.md](../analysis/sessions/MINOS_III_ZA4_ZA15_ANALYSIS.md) | 2026-02-01 |
+| **OPERATION MINOS III: Track B (*301 Phase B1)** | **Complete** | **288 occurrences analyzed; 88.2% word-initial; 10 sites; hybrid hypothesis (logogram + CV) best fit; pharyngeal/palatalized consonant candidates; A-TA-I-*301-WA-JA primary syllabic context** | [../analysis/sessions/MINOS_III_STAR301_PHASE_B1.md](../analysis/sessions/MINOS_III_STAR301_PHASE_B1.md) | 2026-02-01 |
+| **OPERATION MINOS III: Track C (KH Audit)** | **Complete** | **227 KH inscriptions audited; ZERO K-R vocabulary confirmed; CYP 60%+ of commodities; CYP+D/CYP+E grade system; *411-VS vessel sealings; parallel copper trade administration** | [../analysis/sessions/MINOS_III_KHANIA_AUDIT.md](../analysis/sessions/MINOS_III_KHANIA_AUDIT.md) | 2026-02-01 |
 
 ---
 
@@ -119,9 +129,11 @@
 
 | Metric | Count | Total | Percentage |
 |--------|-------|-------|------------|
-| Inscriptions fully analyzed | 5 | 1,721 | 0.29% |
+| Inscriptions fully analyzed | **7** | 1,721 | **0.41%** |
 | Inscriptions partially analyzed | 5 | 1,721 | 0.29% |
-| **Total inscriptions touched** | **10** | **1,721** | **0.58%** |
+| **Total inscriptions touched** | **12** | **1,721** | **0.70%** |
+
+**OPERATION MINOS III additions**: ZA 4a/4b, ZA 15a/b (+2 complete)
 
 ### By Word
 

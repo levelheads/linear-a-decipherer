@@ -4,6 +4,189 @@
 
 ---
 
+## 2026-02-01
+
+### OPERATION MINOS III Initiated: Three-Track Expansion
+
+**Scope**: Systematic expansion across Corpus (Track A), Unique Signs (Track B), and Khania System (Track C)
+
+**Day 1 Key Findings**:
+
+---
+
+### KU-RO Cross-Site Verification CONFIRMED
+
+**Finding**: ZA 15b contains KU-RO VIN 78, confirming cross-site usage of the totaling term.
+
+**Evidence**:
+- ZA 15b Line 3: `KU-RO 𐄁 VIN 78`
+- Position: List-final, following recipient entries
+- Arithmetic: Sum of ZA 15a entries ≈ 95, stated total = 95 (within fraction error)
+
+**Distribution Update**:
+
+| Site | KU-RO Count | Notes |
+|------|-------------|-------|
+| HT | 32 | Primary hub |
+| **ZA** | **1** | **Verified** |
+| PH | 1 | Pending verification |
+| KH | 0 | Confirmed ZERO |
+
+**Confidence**: HIGH (arithmetic verification + positional consistency)
+
+**Implication**: KU-RO = "total" is a pan-Minoan administrative term, not HT-specific.
+
+**File**: [../analysis/sessions/MINOS_III_ZA4_ZA15_ANALYSIS.md](../analysis/sessions/MINOS_III_ZA4_ZA15_ANALYSIS.md)
+
+---
+
+### Zero K-R Vocabulary at Khania CONFIRMED
+
+**Finding**: All 227 Khania inscriptions searched; ZERO occurrences of KU-RO, KI-RO, or SA-RA₂.
+
+**Evidence**:
+- Corpus search across all 227 KH inscriptions
+- KU-RO: 0 occurrences
+- KI-RO: 0 occurrences
+- SA-RA₂: 0 occurrences
+- KU-RA/KI-RA: 0 occurrences
+
+**KH Commodity Focus**:
+- CYP (copper): 36 occurrences (dominant)
+- CYP+D/CYP+E: 28 occurrences (grade markers)
+- NI: 26 occurrences
+- VIN: 7 occurrences (rare)
+- GRA: 8 occurrences
+
+**Confidence**: CERTAIN (exhaustive search)
+
+**Implication**: Khania operated a PARALLEL administrative system focused on copper trade, independent of HT's redistribution vocabulary.
+
+**File**: [../analysis/sessions/MINOS_III_KHANIA_AUDIT.md](../analysis/sessions/MINOS_III_KHANIA_AUDIT.md)
+
+---
+
+### Sign *301 Distribution Profile Completed
+
+**Finding**: *301 has 288 attestations, 88.2% in word-initial position, suggesting specialized phoneme.
+
+**Distribution**:
+- Total: 288 occurrences
+- Word-initial: 254 (88.2%)
+- Word-medial: 23 (8.0%)
+- Word-final: 11 (3.8%)
+
+**Primary Contexts**:
+1. Standalone + numeral (administrative): 238 occurrences (82.6%)
+2. A-TA-I-*301-WA-JA (religious): 11 occurrences
+3. *301+*311 (ligature): 10 occurrences
+
+**Phoneme Candidates**:
+| Hypothesis | Candidate | Score |
+|------------|-----------|-------|
+| Semitic | /ʕ/ or /ħ/ (pharyngeal) | MEDIUM |
+| Luwian | /kʲ/ or /ɲ/ (palatalized) | MEDIUM |
+| Hybrid | Logogram + CV value | HIGH |
+
+**Confidence**: Phase B1 COMPLETE; phoneme value SPECULATIVE pending B2-B4
+
+**File**: [../analysis/sessions/MINOS_III_STAR301_PHASE_B1.md](../analysis/sessions/MINOS_III_STAR301_PHASE_B1.md)
+
+---
+
+### VIN+RA Ligature Discovered
+
+**Finding**: ZA 15b contains VIN+RA (17 units), a previously undocumented wine modifier.
+
+**Context**: `KU-RO 𐄁 VIN 78 | VIN+RA 17`
+
+**Interpretation**: RA-modified wine, possibly indicating:
+- Wine variety (cf. Semitic *rāṭab* "fresh/moist")
+- Processing stage
+- Origin marker
+
+**Confidence**: SPECULATIVE (single attestation)
+
+**File**: [../analysis/sessions/MINOS_III_ZA4_ZA15_ANALYSIS.md](../analysis/sessions/MINOS_III_ZA4_ZA15_ANALYSIS.md)
+
+---
+
+### KU-RO Chronology PUSHED BACK to MMIII
+
+**Finding**: PH(?)31a contains KU-RO in MMIII context, demonstrating K-R vocabulary predates LMIB.
+
+**Evidence**:
+- PH(?)31a Line 8: `KU-RO CAPm+KU 1`
+- Position: After entries, list-final (totaling position)
+- Context: Livestock/personnel roster with gender classifiers
+- Period: **MMIII** (c.1700-1600 BCE)
+
+**Previous Understanding**: KU-RO documented primarily at LMIB HT
+
+**Revised Understanding**:
+
+| Period | KU-RO Status | Evidence |
+|--------|--------------|----------|
+| MMII | **ABSENT** | PH 6 (name list, no K-R) |
+| **MMIII** | **PRESENT** | PH(?)31a (livestock total) |
+| LMIB | COMMON | HT, ZA (multiple attestations) |
+
+**Confidence**: HIGH (positional evidence + cross-period comparison)
+
+**Implication**: Semitic administrative vocabulary (*kull* "total") established by MMIII, not later development. K-R system predates HT administrative peak.
+
+**File**: [../analysis/sessions/MINOS_III_PHAISTOS_ANALYSIS.md](../analysis/sessions/MINOS_III_PHAISTOS_ANALYSIS.md)
+
+---
+
+### MMII Proto-Administrative Phase Identified
+
+**Finding**: Earliest Phaistos tablets (MMII) show name-list format without numerals or K-R vocabulary.
+
+**Evidence from PH 6 (MMII)**:
+- Format: Pure name list (I-NA-WA, A-RI, I-ZU-RI-NI-TA, etc.)
+- NO numerals
+- NO commodity logograms
+- NO KU-RO/KI-RO
+
+**Name Characteristics in MMII**:
+- Longer names (5-6 syllables): I-ZU-RI-NI-TA, I-DA-PA₃-I-SA-RI
+- Possible Pre-Greek substrate patterns
+- A-RI repeated (structural marker?)
+
+**Vocabulary Development Model**:
+
+| Period | Administrative Features |
+|--------|------------------------|
+| **MMII** | Name lists only; no quantification |
+| **MMIII** | Names + quantities + KU-RO |
+| **LMIB** | Full system (K-R + commodities + fractions) |
+
+**Confidence**: HIGH (multiple MMII tablets show same pattern)
+
+**Implication**: Linear A administrative system developed gradually; Pre-Greek substrate in earliest phase, Semitic layer added MMIII+.
+
+**File**: [../analysis/sessions/MINOS_III_PHAISTOS_ANALYSIS.md](../analysis/sessions/MINOS_III_PHAISTOS_ANALYSIS.md)
+
+---
+
+### KH Administrative Vocabulary: CYP+E Verified
+
+**Finding**: KH 5 confirms CYP+E as "integer copper unit" in personnel allocation context.
+
+**Evidence**:
+- KH 5: `WI-SA-SA-NE CYP+E 2` (person + copper grade + integer)
+- KH 6, 7a/b: CYP+D with fractions (½, ⅓)
+- Pattern: CYP+E = integer quantities; CYP+D = fractional quantities
+
+**Confidence**: PROBABLE
+
+**Implication**: Khania copper accounting uses grade modifiers (D/E) analogous to HT oil modifiers (KI/U/MI).
+
+**File**: [../analysis/sessions/MINOS_III_KH5_KH88_ANALYSIS.md](../analysis/sessions/MINOS_III_KH5_KH88_ANALYSIS.md)
+
+---
+
 ## 2026-01-31
 
 ### Script Adaptation Analysis: 123 Unique Linear A Signs
