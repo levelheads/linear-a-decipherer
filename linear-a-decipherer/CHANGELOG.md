@@ -6,6 +6,61 @@
 
 ## 2026-02-01
 
+### Salgarella Integration: Sign Classification Framework (pp. 25-27)
+
+**Source**: Salgarella, E. (2020). *Aegean Scripts* / *Writing in Bronze Age Crete*. Cambridge University Press, pp. 19-21, 25-27.
+
+---
+
+#### MA-RU = "wool" (CONFIRMED Minoan Vocabulary)
+
+**Finding**: A 559 (MA+RU) is a complex/ligatured sign that phonetically spells *maru* = "wool" in Minoan.
+
+**Evidence**:
+- Salgarella (2020), p. 20: Cites *maru* as example of "monogram" — complex sign spelling a word
+- Linear B retained this as sign *145/LANA (wool logogram)
+- Greek borrowed as μαλλός /mallós/ "wool/fleece"
+- Attested in Hesiod *Works and Days* 234
+
+**Confidence**: HIGH (retained in Linear B; Greek borrowing attested)
+
+**Impact**: Added to KNOWLEDGE.md Level 2: HIGH readings
+
+**Note**: MA-RU also appears in HT 117 as personal name — context determines reading
+
+---
+
+#### Sign Classification Terminology Documented
+
+**New Definitions Added**:
+
+| Term | Definition | Example |
+|------|------------|---------|
+| **Ligatured** | Fused complex signs sharing graphic traits | A 559 = MA+RU |
+| **Juxtaposed** | Complex signs simply placed together | A 608 = OLE+DI |
+| **Monogram** | Complex sign whose components spell a word | MA+RU = "maru" |
+| **Klasmatogram** | Fractional/mathematical sign | J, E, F, K, L |
+| **Isolated signs** | Signs between punctuation with supra-structural function | (see Salgarella 2020: 52-4) |
+
+**GORILA Organization**: Simple → Complex → Fractional (now documented)
+
+**Gender Marking**: OVISf/OVISm notation for animal ideograms (female/male)
+
+**Location**: Added to references/sign_list.md
+
+---
+
+#### Knowledge Gaps Identified
+
+**Salgarella sections NOT yet extracted**:
+- Section 7: Linear A Readability
+- Section 9.3: Full Sign Classification Framework
+- pp. 42-149: Detailed sign classification discussion
+
+**Missing reference**: Salgarella 2022b (not in our bibliography — needs location)
+
+---
+
 ### Salgarella Integration: HT 28 Structure and Libation Formula Refinement
 
 **Source**: Salgarella, E. (2020/2024). *Writing in Bronze Age Crete*. Cambridge University Press, pp. 38, 44-45.

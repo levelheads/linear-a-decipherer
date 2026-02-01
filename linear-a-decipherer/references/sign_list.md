@@ -4,6 +4,38 @@ Core syllabary with phonetic values derived from Linear B cognates.
 
 > **⚠️ FIRST PRINCIPLE #3**: These phonetic values are ANCHORS at different confidence levels. Build outward from high-confidence values (Linear B cognates) before using uncertain extrapolations. See SKILL.md for full First Principles.
 
+## Sign Classification Terminology
+
+### By Form (GORILA Organization)
+
+Signs in GORILA are organized: simple → complex → fractional
+
+- **Simple signs**: Single graphic unit (e.g., AB 80/MA, AB 26/RU)
+- **Complex/Composite signs**: Combination of two or more simple signs
+  - **Ligatured**: Fused signs sharing graphic traits (e.g., A 559 = MA+RU)
+  - **Juxtaposed**: Simply placed together without fusion (e.g., A 608 = OLE+DI)
+
+### By Function
+
+- **Syllabograms**: Phonetic function (CV syllables)
+- **Ideograms/Logograms**: Represent concepts (commodities, personnel, etc.)
+- **Klasmatograms**: Fractional/mathematical value signs
+
+### Special Categories
+
+- **Monograms**: Complex signs whose phonetic components spell a word (e.g., A 559 = MA+RU = "maru" = wool)
+- **Isolated signs**: Signs appearing between dots/punctuation with potential supra-structural function (Salgarella 2020: 52-4, 299, 372)
+
+### Gender Marking (Animal Ideograms)
+
+- **OVISf**: Female sheep (f = feminine)
+- **OVISm**: Male sheep (m = masculine)
+- **CAPf/CAPm**: Female/male goat
+
+**Source**: Salgarella (2020) *Aegean Scripts*, pp. 19-21, 25-27
+
+---
+
 ## Syllabary Overview
 
 The Linear A syllabary consists of approximately **90 syllabographic signs** (phonetic) plus approximately **60 logograms** (semantic/ideographic) and **fraction signs**. The syllabographic signs follow a **CV (Consonant-Vowel)** structure with open syllables.
@@ -275,6 +307,18 @@ For detailed analysis methodology, see:
 For sign-level computational analysis (when available):
 - **data/signs.json** - Sign frequency, position, co-occurrence data
 - **tools/pattern_analysis/** - Automated Kober Method implementation
+
+## Confirmed Minoan→Greek Vocabulary
+
+Words with confirmed Minoan origin that were borrowed into Greek:
+
+| Minoan | Sign | Meaning | Greek | Linear B | Source |
+|--------|------|---------|-------|----------|--------|
+| *maru* | MA-RU (A 559) | wool | μαλλός /mallós/ "wool/fleece" | *145/LANA | Salgarella (2020) |
+
+**Note**: The Minoan wool term was retained as Linear B logogram *145/LANA, and borrowed into Greek as μαλλός. Hesiod (*Works and Days* 234) provides early Greek attestation.
+
+---
 
 ## Attribution
 

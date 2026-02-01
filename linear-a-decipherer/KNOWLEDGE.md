@@ -12,7 +12,7 @@
 |--------|-------|
 | Corpus Analyzed | 14 inscriptions (0.81% of 1,721) |
 | Words Analyzed | 47 high-frequency words |
-| Confirmed Readings | 2 CERTAIN + 6 HIGH + 27 PROBABLE + 23 POSSIBLE |
+| Confirmed Readings | 2 CERTAIN + 7 HIGH + 27 PROBABLE + 23 POSSIBLE |
 | Personal Names | 127 identified |
 | Best-Fit Model | Contact Language (Pre-Greek base + Semitic admin + Luwian morphology) |
 
@@ -35,6 +35,7 @@
 |------|---------|-------------|----------|----------------|
 | **ku-ro** | total/sum | 39 | List-final; sums verified mathematically | Gordon (1966) |
 | **ki-ro** | deficit/category marker | 17 | Multi-function: deficit OR header | Gordon (1966) |
+| **MA-RU (A 559)** | wool (*maru*) | — | Complex sign; Linear B *145/LANA retained from Minoan; Greek μαλλός /mallós/ "wool/fleece" | Salgarella (2020) |
 | **-JA suffix** | adjectival/ethnic | 77 | Word-final 65.9%; Luwian -iya parallel | Palmer (1958) |
 | **DA-MA-TE** | Demeter (deity) | 1 | Linear B cognate *da-ma-te*; peak sanctuary | — |
 | **A-TA-NA** | Athena (deity) | 2 | Linear B cognate *a-ta-na* | — |
@@ -304,7 +305,7 @@ If these anchors change, dependent readings must be re-evaluated:
 | Gordon | 1966 | *Evidence for the Minoan Language* | KU-RO = *kull* (Semitic "total") |
 | Palmer | 1958 | — | -JA suffix; Luwian morphology |
 | Beekes | 2014 | *Pre-Greek* | Substrate phonology |
-| Salgarella | 2020 | *Writing in Bronze Age Crete* | HT 28 structure; 6-position libation formula |
+| Salgarella | 2020 | *Aegean Scripts* | HT 28 structure; 6-position libation formula; MA-RU = wool; sign classification |
 | Younger | 2024 | *Linear A Texts: Introduction* | U-MI-NA-SI = 'debt/owes'; transcriptions |
 
 ---

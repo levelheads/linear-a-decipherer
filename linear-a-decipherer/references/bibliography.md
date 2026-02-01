@@ -152,6 +152,19 @@ Comprehensive bibliography of sources cited in the Linear A decipherment methodo
 
 ### Script Evolution
 
+**Salgarella, Ester.** 2020. *Aegean Scripts* (also published as *Writing in Bronze Age Crete*). Elements in the Archaeology of Europe. Cambridge: Cambridge University Press.
+**DOI**: 10.1017/9781108769631
+
+**Key content**:
+- pp. 19-21, 25-27: Sign classification (simple/complex, ligatured/juxtaposed, monograms)
+- p. 20: MA-RU (A 559) = *maru* "wool" (confirmed Minoan vocabulary)
+- pp. 38, 44-45: HT 28 structure; libation formula (Table 5)
+- pp. 52-4, 299, 372: Isolated signs and supra-structural function
+
+**Note**: Essential reference for sign classification terminology and confirmed Minoan vocabulary. Provides GORILA organization framework (simple → complex → fractional).
+
+---
+
 **Salgarella, Ester.** 2020. "Drawing Lines: A Study of the Relationship between Cretan Hieroglyphic and Linear A Scripts." *Kadmos* 59 (1-2): 1-44.
 **DOI**: 10.1515/kadmos-2020-0001
 
