@@ -30,7 +30,6 @@ from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Optional, Tuple
 from dataclasses import dataclass, asdict
-import math
 
 
 # Paths
@@ -467,7 +466,7 @@ class FalsificationSystem:
             print(f"  ⚠ Crossed from {result.threshold_crossed_from}")
 
         if result.notes:
-            print(f"  Notes:")
+            print("  Notes:")
             for note in result.notes:
                 print(f"    • {note}")
 
@@ -509,7 +508,7 @@ class FalsificationSystem:
 
         # Threshold history
         if report['threshold_history']:
-            print(f"\n  Recent Threshold Crossings:")
+            print("\n  Recent Threshold Crossings:")
             for crossing in report['threshold_history'][-5:]:
                 print(f"    • {crossing['hypothesis']}: {crossing['old_category']} → {crossing['new_category']} ({crossing['timestamp'][:10]})")
 

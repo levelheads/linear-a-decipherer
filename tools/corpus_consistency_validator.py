@@ -26,8 +26,8 @@ import sys
 import re
 from pathlib import Path
 from datetime import datetime
-from typing import Dict, List, Optional, Tuple
-from collections import defaultdict, Counter
+from typing import Dict, List, Optional
+from collections import Counter
 from dataclasses import dataclass, asdict
 
 
@@ -390,22 +390,22 @@ class CorpusConsistencyValidator:
             print(f"Sites missing: {', '.join(report.sites_missing)}")
         print(f"Periods: {', '.join(report.periods_found)}")
 
-        print(f"\nConsistency Metrics:")
+        print("\nConsistency Metrics:")
         print(f"  Positional: {report.positional_consistency:.1%}")
         print(f"  Contextual: {report.contextual_consistency:.1%}")
         print(f"  Functional: {report.functional_consistency:.1%}")
 
-        print(f"\nPosition Distribution:")
+        print("\nPosition Distribution:")
         for pos, count in sorted(report.position_distribution.items(), key=lambda x: -x[1]):
             pct = count / report.total_occurrences * 100
             print(f"  {pos}: {count} ({pct:.1f}%)")
 
-        print(f"\nContext Distribution:")
+        print("\nContext Distribution:")
         for ctx, count in sorted(report.context_distribution.items(), key=lambda x: -x[1]):
             pct = count / report.total_occurrences * 100
             print(f"  {ctx}: {count} ({pct:.1f}%)")
 
-        print(f"\nSite Distribution:")
+        print("\nSite Distribution:")
         for site, count in sorted(report.site_distribution.items(), key=lambda x: -x[1]):
             pct = count / report.total_occurrences * 100
             print(f"  {site}: {count} ({pct:.1f}%)")
@@ -417,11 +417,11 @@ class CorpusConsistencyValidator:
                 print(f"       → {a['implication']}")
 
         if report.reading_issues:
-            print(f"\n⚠️  READING VALIDATION ISSUES:")
+            print("\n⚠️  READING VALIDATION ISSUES:")
             for issue in report.reading_issues:
                 print(f"  • {issue}")
         elif report.reading_validated:
-            print(f"\n✓ Reading validation: PASSED")
+            print("\n✓ Reading validation: PASSED")
 
         print("\n" + "=" * 70)
 

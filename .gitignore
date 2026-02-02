@@ -29,6 +29,25 @@ __pycache__/
 *.so
 .Python
 *.egg-info/
+dist/
+build/
+.eggs/
+
+# Testing and coverage
+.coverage
+htmlcov/
+coverage.xml
+.pytest_cache/
+.tox/
+
+# Credentials and secrets (security)
+.env
+.env.*
+*.pem
+*.key
+*.crt
+secrets/
+credentials.json
 
 # Reference materials (large files stored locally, indexed in sources.md)
 reference texts/

@@ -33,11 +33,10 @@ Attribution:
 import json
 import argparse
 import sys
-import re
 from pathlib import Path
 from datetime import datetime
-from typing import Dict, List, Optional, Any, Tuple
-from dataclasses import dataclass, asdict, field
+from typing import Dict, List, Optional
+from dataclasses import dataclass, field
 import logging
 
 # Configure logging
@@ -790,7 +789,7 @@ def main():
     if args.lookup:
         insc = indexer.lookup_tablet(args.lookup)
         if insc:
-            print(f"\nTablet found:")
+            print("\nTablet found:")
             print_inscription(insc, args.verbose)
         else:
             print(f"\nTablet not found: {args.lookup}")
@@ -846,19 +845,19 @@ def main():
 
     elif args.stats:
         stats = indexer.get_statistics()
-        print(f"\nIndex Statistics:")
+        print("\nIndex Statistics:")
         print(f"  Total inscriptions: {stats['total_inscriptions']}")
         print(f"  Total signs: {stats['total_signs']}")
-        print(f"\nBy site:")
+        print("\nBy site:")
         for site, count in list(stats['by_site'].items())[:8]:
             print(f"  {site}: {count}")
-        print(f"\nBy volume:")
+        print("\nBy volume:")
         for vol, count in stats['by_volume'].items():
             print(f"  Volume {vol}: {count}")
-        print(f"\nBy type:")
+        print("\nBy type:")
         for t, count in stats['by_type'].items():
             print(f"  {t}: {count}")
-        print(f"\nBy period:")
+        print("\nBy period:")
         for p, count in stats['by_period'].items():
             print(f"  {p}: {count}")
 

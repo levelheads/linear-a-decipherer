@@ -32,7 +32,7 @@ import sys
 import re
 from pathlib import Path
 from datetime import datetime
-from typing import Dict, List, Optional, Tuple, Set
+from typing import Dict, List, Optional, Tuple
 from collections import defaultdict, Counter
 from dataclasses import dataclass, asdict
 
@@ -178,7 +178,7 @@ class PersonalNameAnalyzer:
             site = site_match.group(1) if site_match else 'UNKNOWN'
 
             for i, word in enumerate(words):
-                if not word or not '-' in word:
+                if not word or '-' not in word:
                     continue
 
                 # Skip numerals and pure logograms
@@ -635,16 +635,16 @@ class PersonalNameAnalyzer:
         print(f"Name probability: {name.name_probability:.1%}")
         print(f"Detection reason: {name.detection_reason}")
 
-        print(f"\nMorphology:")
+        print("\nMorphology:")
         print(f"  Root: {name.root}")
         print(f"  Prefixes: {name.prefixes or 'none'}")
         print(f"  Suffixes: {name.suffixes or 'none'}")
 
-        print(f"\nClassification:")
+        print("\nClassification:")
         print(f"  Name type: {name.name_type}")
         print(f"  Gender guess: {name.gender_guess}")
 
-        print(f"\nHypothesis Testing:")
+        print("\nHypothesis Testing:")
         for hyp in ['luwian', 'semitic', 'pregreek', 'greek']:
             fit = getattr(name, f'{hyp}_fit')
             score = fit.get('score', 0)

@@ -237,3 +237,121 @@ When working with Claude Code, the git workflow should be:
 4. **Session end** → Update knowledge management docs, then verify sync status
 
 The agent can call `python tools/git_manager.py sync` at any time to check repository status.
+
+---
+
+## Release Management
+
+### Version Format
+
+This project uses **semantic versioning** (MAJOR.MINOR.PATCH):
+
+| Component | When to Increment |
+|-----------|-------------------|
+| MAJOR | Breaking methodology changes, corpus schema changes |
+| MINOR | New tools, significant methodology updates, milestone analyses |
+| PATCH | Bug fixes, documentation updates, minor refinements |
+
+Current version is tracked in `CITATION.cff`.
+
+### Creating Releases
+
+**Tag a release** after significant milestones:
+
+```bash
+# 1. Ensure everything is committed and pushed
+python tools/git_manager.py sync
+
+# 2. Update version in CITATION.cff
+# version: 0.3.0
+
+# 3. Create annotated tag
+git tag -a v0.3.0 -m "Add quantitative methodology tools (Feb 2026)"
+
+# 4. Push tag to remote
+git push origin v0.3.0
+```
+
+### Release Triggers
+
+Create a new release when:
+
+| Trigger | Version Type |
+|---------|--------------|
+| New methodology framework | MINOR |
+| Major corpus milestone | MINOR |
+| Suite of new tools | MINOR |
+| Bug fixes only | PATCH |
+| Breaking changes | MAJOR |
+
+### GitHub Releases
+
+After creating a tag, create a GitHub Release:
+
+1. Go to repository → Releases → "Draft a new release"
+2. Select the tag you just pushed
+3. Title: `v0.3.0 - Quantitative Methodology Tools`
+4. Description: Extract relevant sections from CHANGELOG.md
+5. Publish release
+
+This creates a citable research snapshot for academic reference.
+
+### Release Notes Template
+
+```markdown
+## What's New
+
+- [Brief description of major changes]
+
+## Tools Added/Modified
+
+- `tool_name.py` - Description
+
+## Methodology Updates
+
+- [Key methodology changes]
+
+## Full Changelog
+
+See [CHANGELOG.md](linear-a-decipherer/CHANGELOG.md) for detailed history.
+```
+
+---
+
+## Pre-commit Hooks
+
+This project uses [pre-commit](https://pre-commit.com/) for automated checks.
+
+### Setup
+
+```bash
+# Install pre-commit
+pip install pre-commit
+
+# Install hooks in this repository
+pre-commit install
+
+# (Optional) Run on all files once
+pre-commit run --all-files
+```
+
+### What Gets Checked
+
+| Hook | Purpose |
+|------|---------|
+| check-added-large-files | Prevents files >500KB |
+| trailing-whitespace | Removes trailing spaces |
+| end-of-file-fixer | Ensures files end with newline |
+| check-yaml | Validates YAML syntax |
+| check-json | Validates JSON syntax |
+| check-ast | Validates Python syntax |
+| ruff | Python linting (advisory) |
+
+### Bypassing Hooks (Emergency Only)
+
+```bash
+# Skip all hooks for one commit
+git commit --no-verify -m "Emergency fix"
+```
+
+Use sparingly—hooks exist to maintain quality.

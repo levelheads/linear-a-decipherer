@@ -35,8 +35,8 @@ import argparse
 import sys
 from pathlib import Path
 from datetime import datetime
-from typing import Dict, List, Optional, Any, Tuple
-from dataclasses import dataclass, asdict, field
+from typing import Dict, List, Optional
+from dataclasses import dataclass, field
 import logging
 
 # Configure logging
@@ -1710,7 +1710,7 @@ def main():
     if args.query:
         sign = querier.query_sign(args.query)
         if sign:
-            print(f"\nSign found:")
+            print("\nSign found:")
             print_sign(sign, args.verbose)
         else:
             print(f"\nSign not found: {args.query}")
@@ -1733,7 +1733,7 @@ def main():
     elif args.compare:
         result = querier.compare_signs(args.compare[0], args.compare[1])
         if result.get('valid'):
-            print(f"\nSign Comparison:")
+            print("\nSign Comparison:")
             print(f"\n  Sign A: {result['sign_a']['ab_number']} ({result['sign_a']['phonetic_value']})")
             print(f"    Frequency: {result['sign_a']['frequency']}")
             print(f"    Sites: {', '.join(result['sign_a']['sites'])}")
@@ -1775,13 +1775,13 @@ def main():
 
     elif args.stats:
         stats = querier.get_statistics()
-        print(f"\nDatabase Statistics:")
+        print("\nDatabase Statistics:")
         print(f"  Total signs: {stats['total_signs']}")
         print(f"  Syllabograms: {stats['syllabograms']}")
         print(f"  Logograms: {stats['logograms']}")
         print(f"  Total attestations: {stats['total_attestations']}")
         print(f"  Sites covered: {', '.join(stats['sites_covered'])}")
-        print(f"\nConfidence breakdown:")
+        print("\nConfidence breakdown:")
         for conf, count in sorted(stats['confidence_breakdown'].items()):
             print(f"  {conf}: {count}")
 

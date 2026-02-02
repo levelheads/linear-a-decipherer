@@ -27,8 +27,8 @@ import sys
 from pathlib import Path
 from collections import defaultdict, deque
 from datetime import datetime
-from typing import Dict, List, Set, Tuple, Optional
-from dataclasses import dataclass, field
+from typing import Dict, List
+from dataclasses import dataclass
 
 
 # Paths
@@ -713,7 +713,7 @@ def main():
 
         print(f"\n{info['reading_id']} = '{info['meaning']}'")
         print(f"  Confidence: {info['confidence']} (max: {info['max_confidence']})")
-        print(f"\n  Dependencies:")
+        print("\n  Dependencies:")
         for dep in info['anchor_dependencies']:
             print(f"    ◆ {dep['id']} [{dep['confidence']}]")
             print(f"      {dep['name']}")

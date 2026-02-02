@@ -33,7 +33,7 @@ import re
 from pathlib import Path
 from collections import Counter, defaultdict
 from datetime import datetime
-from typing import Dict, List, Tuple, Set, Optional
+from typing import List, Optional
 
 
 # Paths
@@ -614,7 +614,7 @@ class KRParadigmValidator:
 
         # Complementary distribution
         cd = self.results.get('complementary_distribution', {})
-        print(f"\nComplementary Distribution Test:")
+        print("\nComplementary Distribution Test:")
         print(f"  Verdict: {cd.get('verdict', 'Unknown')}")
         print(f"  Confidence: {cd.get('confidence', 'Unknown')}")
         if cd.get('interpretation'):

@@ -24,7 +24,7 @@ import json
 import argparse
 import sys
 from pathlib import Path
-from collections import Counter, defaultdict
+from collections import Counter
 from datetime import datetime
 
 

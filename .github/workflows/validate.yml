@@ -1,0 +1,91 @@
+# CI Validation for Linear A Decipherment Project
+# Runs on pull requests to ensure methodology compliance
+
+name: Validate Research
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    name: Validate corpus and methodology
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generate corpus data
+        run: |
+          cd tools
+          python parse_lineara_corpus.py
+        continue-on-error: false
+
+      - name: Run corpus consistency validator
+        run: |
+          python tools/corpus_consistency_validator.py
+        continue-on-error: false
+
+      - name: Run integrated validator
+        run: |
+          python tools/integrated_validator.py
+        continue-on-error: false
+
+      - name: Validate JSON data files
+        run: |
+          python -c "
+          import json
+          import glob
+          import sys
+
+          errors = []
+          for f in glob.glob('data/*.json'):
+              try:
+                  with open(f) as fp:
+                      json.load(fp)
+              except json.JSONDecodeError as e:
+                  errors.append(f'{f}: {e}')
+
+          if errors:
+              print('JSON validation errors:')
+              for err in errors:
+                  print(f'  {err}')
+              sys.exit(1)
+          else:
+              print(f'Validated {len(glob.glob(\"data/*.json\"))} JSON files')
+          "
+
+  lint:
+    runs-on: ubuntu-latest
+    name: Lint Python
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install ruff
+        run: pip install ruff
+
+      - name: Run ruff linter
+        run: ruff check tools/
+        continue-on-error: true  # Advisory only, don't block PRs
+
+      - name: Check Python syntax
+        run: |
+          python -m py_compile tools/*.py
+        continue-on-error: false

@@ -28,9 +28,9 @@ import argparse
 import sys
 import re
 from pathlib import Path
-from collections import Counter, defaultdict
+from collections import Counter
 from datetime import datetime
-from typing import Dict, List, Tuple, Optional
+from typing import Dict, List
 
 
 # Paths
@@ -1539,7 +1539,7 @@ class HypothesisTester:
         print("\n" + "=" * 60)
         print("MULTI-HYPOTHESIS TEST SUMMARY")
         print("=" * 60)
-        print(f"Following First Principle #4: Test ALL hypotheses\n")
+        print("Following First Principle #4: Test ALL hypotheses\n")
 
         print("Hypothesis Support Summary:")
         for hyp, stats in self.results['hypothesis_summaries'].items():
@@ -1642,7 +1642,7 @@ def main():
                     meaning = cog.get('meaning', cog.get('interpretation', ''))
                     print(f"  - Cognate: {meaning}")
 
-        print(f"\nSYNTHESIS:")
+        print("\nSYNTHESIS:")
         print(f"  Best hypothesis: {analysis['synthesis']['best_hypothesis']}")
         print(f"  Max confidence: {analysis['synthesis']['max_confidence']}")
         if analysis['synthesis']['multi_hypothesis_support']:

@@ -24,12 +24,10 @@ Attribution:
 import json
 import argparse
 import sys
-import re
 from pathlib import Path
 from datetime import datetime
-from typing import Dict, List, Optional, Tuple
-from collections import defaultdict
-from dataclasses import dataclass, asdict
+from typing import Dict, List
+from dataclasses import dataclass
 
 
 # Paths
@@ -356,7 +354,7 @@ class ComparativeIntegrator:
                 with open(AKKADIAN_FILE, 'r', encoding='utf-8') as f:
                     cached = json.load(f)
                     self.akkadian.update(cached.get('terms', {}))
-                self.log(f"Loaded cached Akkadian data")
+                self.log("Loaded cached Akkadian data")
             except Exception as e:
                 self.log(f"Error loading Akkadian cache: {e}")
 
@@ -365,7 +363,7 @@ class ComparativeIntegrator:
                 with open(LUWIAN_FILE, 'r', encoding='utf-8') as f:
                     cached = json.load(f)
                     self.luwian.update(cached.get('morphemes', {}))
-                self.log(f"Loaded cached Luwian data")
+                self.log("Loaded cached Luwian data")
             except Exception as e:
                 self.log(f"Error loading Luwian cache: {e}")
 
@@ -619,7 +617,7 @@ class ComparativeIntegrator:
                 print(f"    {m.usage} (confidence: {m.confidence})")
 
         if result.recommendations:
-            print(f"\nRecommendations:")
+            print("\nRecommendations:")
             for r in result.recommendations:
                 print(f"  • {r}")
 

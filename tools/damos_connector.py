@@ -31,11 +31,10 @@ Attribution:
 
 import json
 import argparse
-import sys
 from pathlib import Path
 from datetime import datetime
-from typing import Dict, List, Optional, Any
-from dataclasses import dataclass, asdict, field
+from typing import Dict, List
+from dataclasses import dataclass, field
 import logging
 
 # Configure logging
@@ -859,7 +858,7 @@ def main():
         print(f"Verified with Linear B: {results['summary']['lb_verified']}")
         print(f"Verification rate: {results['summary']['verification_rate']}")
         print(f"Theophoric names: {results['summary']['theophoric_count']}")
-        print(f"\nVerified names:")
+        print("\nVerified names:")
         for v in results['verified_with_lb'][:10]:
             print(f"  {v['linear_a']}: {len(v['linear_b_attestations'])} LB attestations")
 

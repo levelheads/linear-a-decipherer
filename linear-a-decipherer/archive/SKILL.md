@@ -492,7 +492,7 @@ Monitor these for new developments:
 **Read in this order:**
 
 1. **`FIRST_PRINCIPLES.md`** - ⚠️ **MANDATORY FIRST READ** - The six inviolable principles governing all operations
-2. `references/methodology.md` - Decipherment methodology and autonomous protocols  
+2. `references/methodology.md` - Decipherment methodology and autonomous protocols
 3. `references/hypotheses.md` - The four linguistic hypothesis frameworks (required for Principle 4)
 4. `references/corpus.md` - Corpus structure, sites, key inscriptions (required for Principle 6)
 5. `references/sign_list.md` - Syllabary with phonetic values and anchor confidence levels

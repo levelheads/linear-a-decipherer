@@ -31,9 +31,8 @@ import argparse
 import sys
 import re
 from pathlib import Path
-from collections import Counter, defaultdict
 from datetime import datetime
-from typing import Dict, List, Optional, Tuple
+from typing import List
 
 
 # Paths
@@ -412,7 +411,7 @@ class InscriptionAnalyzer:
 
         lines.append(f"# Linear A Analysis: {md['inscription_id']}")
         lines.append(f"\n**Generated**: {md['analyzed']}")
-        lines.append(f"\n---\n")
+        lines.append("\n---\n")
 
         # Source Information
         lines.append("## Source Information")
@@ -496,7 +495,7 @@ class InscriptionAnalyzer:
         lines.append("- This is an automated analysis. Human verification recommended.")
         lines.append("- For full multi-hypothesis testing, run `hypothesis_tester.py` on specific words.")
         lines.append("- For corpus verification, run `corpus_lookup.py --verify` on specific words.")
-        lines.append(f"\n**Analysis Tool Version**: 1.0.0")
+        lines.append("\n**Analysis Tool Version**: 1.0.0")
 
         return '\n'.join(lines)
 

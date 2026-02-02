@@ -33,7 +33,7 @@ import sys
 import re
 from pathlib import Path
 from datetime import datetime
-from typing import Dict, List, Optional, Tuple, Set
+from typing import Dict, List, Optional, Tuple
 from collections import defaultdict, Counter
 from dataclasses import dataclass, asdict
 
@@ -571,7 +571,7 @@ class ParadigmDiscoverer:
         print(f"\nTotal occurrences: {paradigm.total_occurrences}")
 
         if paradigm.vowel_alternations:
-            print(f"\nVowel Alternations:")
+            print("\nVowel Alternations:")
             for alt in paradigm.vowel_alternations:
                 print(f"  Position {alt['position']}: {alt['alternation']}")
                 for key, val in alt.items():
@@ -579,16 +579,16 @@ class ParadigmDiscoverer:
                         print(f"    {key}: {', '.join(val)}")
 
         if paradigm.final_alternations:
-            print(f"\nFinal Syllable Alternations:")
+            print("\nFinal Syllable Alternations:")
             for alt in paradigm.final_alternations:
                 print(f"  -{alt['final']}: {', '.join(alt['words'])}")
 
         if paradigm.functional_differentiation:
-            print(f"\nFunctional Differentiation:")
+            print("\nFunctional Differentiation:")
             for word, func in paradigm.function_mapping.items():
                 print(f"  {word}: {func}")
 
-        print(f"\nEvidence Notes:")
+        print("\nEvidence Notes:")
         for note in paradigm.evidence_notes:
             print(f"  • {note}")
 

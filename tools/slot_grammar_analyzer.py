@@ -35,7 +35,7 @@ import re
 from pathlib import Path
 from collections import Counter, defaultdict
 from datetime import datetime
-from typing import Dict, List, Tuple, Optional, Set
+from typing import Dict, List, Set
 
 
 # Paths
@@ -1096,7 +1096,7 @@ class SlotGrammarAnalyzer:
             match_results, validation, self.results['hypothesis_ranking']
         )
 
-        print(f"\nBest Interpretation:")
+        print("\nBest Interpretation:")
         print(f"  Hypothesis: {self.results['best_interpretation']['best_hypothesis']} ({self.results['best_interpretation']['hypothesis_confidence']})")
         print(f"  Grammatical Role: {self.results['best_interpretation']['best_grammatical_role']} ({self.results['best_interpretation']['role_confidence']})")
 
@@ -1157,34 +1157,34 @@ class SlotGrammarAnalyzer:
 
         # Extraction summary
         slots = self.results.get('slots_extracted', {})
-        print(f"\nExtraction:")
+        print("\nExtraction:")
         print(f"  Commodity triplets: {slots.get('total_triplets', 0)}")
         print(f"  Unique slot words: {slots.get('unique_slot_words', 0)}")
 
         # Top suffixes
         suffixes = slots.get('slot_suffix_frequencies', {})
-        print(f"\nTop Final Syllables (potential case markers):")
+        print("\nTop Final Syllables (potential case markers):")
         for suffix, count in list(suffixes.items())[:10]:
             print(f"  -{suffix}: {count}")
 
         # Hypothesis ranking
-        print(f"\nHypothesis Ranking:")
+        print("\nHypothesis Ranking:")
         for i, hyp in enumerate(self.results.get('hypothesis_ranking', []), 1):
             print(f"  {i}. {hyp['hypothesis'].upper()}: {hyp['overall_score']:.4f}")
 
         # Discriminating patterns
-        print(f"\nTop Discriminating Patterns:")
+        print("\nTop Discriminating Patterns:")
         for dp in self.results.get('discriminating_patterns', [])[:5]:
             print(f"  -{dp['suffix']}: {dp['favors_hypothesis'].upper()} ({dp['word_count']} words, disc={dp['discrimination']:.3f})")
 
         # Best interpretation
         interp = self.results.get('best_interpretation', {})
-        print(f"\nBest Interpretation:")
+        print("\nBest Interpretation:")
         print(f"  Hypothesis: {interp.get('best_hypothesis', 'Unknown')} ({interp.get('hypothesis_confidence', 'Unknown')})")
         print(f"  Grammatical Role: {interp.get('best_grammatical_role', 'Unknown')} ({interp.get('role_confidence', 'Unknown')})")
 
         # First Principles
-        print(f"\nFirst Principles Verification:")
+        print("\nFirst Principles Verification:")
         for p, status in self.results.get('first_principles_verification', {}).items():
             print(f"  [{status}] {p}")
 

@@ -42,13 +42,13 @@ Alice Kober (1906-1950) established the foundational methodology:
 2. **Kober's Triplets** - Detecting inflection
    ```
    Pattern: Same root + three different endings
-   
+
    Example from Linear B:
    [root]-[X]     (nominative singular?)
    [root]-[Y]     (genitive singular?)
    [root]-[Z]     (dative singular?)
    ```
-   
+
    **For Linear A**: Search for recurring roots with variable endings
    - If found → language is inflected (IE, Semitic, Anatolian likely)
    - If not found → language may be isolating or agglutinative
@@ -320,6 +320,6 @@ Remember Kober's warning: "Mere lists of proposed phonetic values and derivation
 
 ## The Ventris Lesson
 
-Ventris himself believed Linear B encoded Etruscan until the very end. He was wrong about the language but right about the methodology. 
+Ventris himself believed Linear B encoded Etruscan until the very end. He was wrong about the language but right about the methodology.
 
 **Lesson for autonomous operation**: Follow the evidence even when it contradicts your working hypothesis. Be willing to abandon theories that don't fit the data.

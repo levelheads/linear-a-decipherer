@@ -34,7 +34,7 @@ for word, count in sorted(ht_syllabic.items(), key=lambda x: x[1], reverse=True)
     print(f'{word}: {count}')
 
 shared = set(ph_syllabic.keys()).intersection(set(ht_syllabic.keys()))
-print(f'\n=== SHARED SYLLABIC VOCABULARY ===')
+print('\n=== SHARED SYLLABIC VOCABULARY ===')
 print(f'PH unique: {len(ph_syllabic)}')
 print(f'HT unique: {len(ht_syllabic)}')
 print(f'Shared: {len(shared)}')

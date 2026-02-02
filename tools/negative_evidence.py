@@ -28,9 +28,8 @@ import json
 import argparse
 import sys
 from pathlib import Path
-from collections import Counter, defaultdict
+from collections import Counter
 from datetime import datetime
-from typing import Dict, List, Tuple, Optional
 import re
 
 # Paths
@@ -945,7 +944,7 @@ class NegativeEvidenceAnalyzer:
         contradictions = self.results.get('contradictions', {})
         if contradictions.get('summary'):
             summary = contradictions['summary']
-            print(f"\nContradiction Analysis:")
+            print("\nContradiction Analysis:")
             print(f"  Total contradictions found: {summary.get('total_contradictions', 0)}")
             print(f"  Decisive observations: {summary.get('decisive_observations', 0)}")
 

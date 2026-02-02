@@ -22,7 +22,6 @@ Output:
 
 import json
 import re
-import os
 from pathlib import Path
 from collections import Counter
 from datetime import datetime

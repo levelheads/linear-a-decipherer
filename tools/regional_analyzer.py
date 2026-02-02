@@ -33,7 +33,7 @@ import re
 from pathlib import Path
 from collections import Counter, defaultdict
 from datetime import datetime
-from typing import Dict, List, Tuple, Set, Optional
+from typing import Dict, List
 
 
 # Paths
@@ -536,7 +536,7 @@ class RegionalAnalyzer:
 
         # Overall findings
         findings = self.results.get('overall_findings', {})
-        print(f"\nOverall Findings:")
+        print("\nOverall Findings:")
         print(f"  Standardization level: {findings.get('standardization_level', 'Unknown')}")
         print(f"  K-R paradigm: {findings.get('kr_paradigm_consistency', 'Unknown')}")
 

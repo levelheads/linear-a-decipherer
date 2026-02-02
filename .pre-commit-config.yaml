@@ -1,0 +1,50 @@
+# Pre-commit hooks for Linear A Decipherment Project
+# Install: pip install pre-commit && pre-commit install
+# Run manually: pre-commit run --all-files
+
+repos:
+  # Standard pre-commit hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-added-large-files
+        args: ['--maxkb=500']
+        name: Check for large files
+      - id: trailing-whitespace
+        name: Trim trailing whitespace
+      - id: end-of-file-fixer
+        name: Fix end of files
+      - id: check-yaml
+        name: Validate YAML
+      - id: check-json
+        name: Validate JSON
+      - id: check-merge-conflict
+        name: Check for merge conflicts
+      - id: mixed-line-ending
+        args: ['--fix=lf']
+        name: Fix line endings
+
+  # Python syntax check
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-ast
+        name: Check Python syntax
+
+  # Python linting (advisory - does not block commits)
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.9
+    hooks:
+      - id: ruff
+        args: ['--fix', '--exit-zero']
+        name: Lint Python (ruff)
+        types: [python]
+        verbose: true
+
+# Configuration
+default_language_version:
+  python: python3
+
+# Skip hooks in CI if needed
+ci:
+  skip: []

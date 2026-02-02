@@ -42,8 +42,7 @@ import re
 import fnmatch
 from pathlib import Path
 from collections import defaultdict
-from datetime import datetime
-from typing import Dict, List, Optional, Tuple
+from typing import List
 
 
 # Paths

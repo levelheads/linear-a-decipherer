@@ -19,9 +19,7 @@ This script ensures project success by maintaining consistent version control.
 
 import subprocess
 import sys
-import json
 from pathlib import Path
-from datetime import datetime
 from typing import List, Tuple, Dict
 
 PROJECT_ROOT = Path(__file__).parent.parent
@@ -263,7 +261,7 @@ def generate_commit_summary() -> str:
         parts.append(f"Add/update {len(categories['analyses'])} analysis document(s)")
 
     if categories['docs']:
-        parts.append(f"Update documentation")
+        parts.append("Update documentation")
 
     summary = "; ".join(parts) if parts else "Update project files"
 

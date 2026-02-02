@@ -38,7 +38,6 @@ Attribution:
 import json
 import argparse
 import sys
-import os
 import ssl
 import urllib.request
 import urllib.error
@@ -2528,7 +2527,7 @@ def print_term(term_data: Dict, verbose: bool = False):
         print(f"    Usage: {term_data.get('usage', 'N/A')}")
         print(f"    Context: {term_data.get('context', 'N/A')}")
         if term_data.get('examples'):
-            print(f"    Examples:")
+            print("    Examples:")
             for ex in term_data['examples'][:3]:
                 print(f"      - {ex}")
         print(f"    Source: {term_data.get('source', 'N/A')}")
@@ -2694,14 +2693,14 @@ def main():
             return 1
 
         stats = connector.get_statistics()
-        print(f"\nVocabulary Statistics:")
+        print("\nVocabulary Statistics:")
         print(f"  Total terms: {stats['total_terms']}")
         print(f"  Categories: {len(stats['categories'])}")
         print(f"  Unique sources: {stats['unique_sources']}")
-        print(f"\nBy category:")
+        print("\nBy category:")
         for cat, n in sorted(stats['categories'].items()):
             print(f"  {cat}: {n}")
-        print(f"\nBy confidence:")
+        print("\nBy confidence:")
         for conf, n in sorted(stats['confidence_levels'].items()):
             print(f"  {conf}: {n}")
 
@@ -2744,7 +2743,7 @@ def main():
         print(f"\nProcessing {len(terms)} terms from {args.batch}...")
         results = connector.batch_verify_terms(terms)
 
-        print(f"\nBatch Verification Results:")
+        print("\nBatch Verification Results:")
         print(f"  Total terms: {results['total_terms']}")
         print(f"  High confidence: {results['statistics']['high']}")
         print(f"  Medium confidence: {results['statistics']['medium']}")
@@ -2752,7 +2751,7 @@ def main():
         print(f"  No match: {results['statistics']['none']}")
 
         if results['summary']['high_confidence']:
-            print(f"\nHigh confidence matches:")
+            print("\nHigh confidence matches:")
             for term in results['summary']['high_confidence']:
                 r = results['results'][term]
                 if r['akkadian_candidates']:
@@ -2766,7 +2765,7 @@ def main():
             print(f"\n  {term}")
             print(f"    Context: {data['context']}")
             if data['akkadian_candidates']:
-                print(f"    Akkadian candidates:")
+                print("    Akkadian candidates:")
                 for cand in data['akkadian_candidates']:
                     print(f"      - {cand['term']}: {cand['meaning']} [{cand.get('phonetic_match', 'N/A')}]")
             if data.get('notes'):
@@ -2788,17 +2787,17 @@ def main():
         print(f"Akkadian vocabulary size: {report['akkadian_vocabulary_size']}")
 
         stats = report['batch_results']['statistics']
-        print(f"\nMatch Statistics:")
+        print("\nMatch Statistics:")
         print(f"  High confidence: {stats['high']}")
         print(f"  Medium confidence: {stats['medium']}")
         print(f"  Low/speculative: {stats['low']}")
         print(f"  No match: {stats['none']}")
 
-        print(f"\nLimitations:")
+        print("\nLimitations:")
         for lim in report['limitations']:
             print(f"  - {lim}")
 
-        print(f"\nRecommendations:")
+        print("\nRecommendations:")
         for rec in report['recommendations']:
             print(f"  - {rec}")
 

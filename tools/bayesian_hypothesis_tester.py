@@ -36,8 +36,8 @@ import math
 from pathlib import Path
 from collections import Counter, defaultdict
 from datetime import datetime
-from typing import Dict, List, Tuple, Optional
-from dataclasses import dataclass, asdict, field
+from typing import Dict, List, Tuple
+from dataclasses import dataclass, asdict
 import re
 
 
@@ -606,7 +606,7 @@ class BayesianHypothesisTester:
             print(f"  {hyp:12} {prior:.2f} → {post:.3f} [{ci[0]:.2f}, {ci[1]:.2f}] {bar} {bf_str}")
 
         if result.multi_hypothesis_support and len(result.multi_hypothesis_support) > 1:
-            print(f"\nMulti-hypothesis support (code-switching model):")
+            print("\nMulti-hypothesis support (code-switching model):")
             for hyp, weight in sorted(result.multi_hypothesis_support.items(), key=lambda x: -x[1]):
                 print(f"  {hyp}: {weight:.1%}")
 

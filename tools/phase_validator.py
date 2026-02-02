@@ -600,7 +600,7 @@ def main():
         print(f"  Confidence: {claim.confidence.value}")
 
         if contradiction:
-            print(f"\n⚠️  CONTRADICTION DETECTED!")
+            print("\n⚠️  CONTRADICTION DETECTED!")
             print(f"  {contradiction.description}")
             print(f"  Resolution: {contradiction.resolution_guidance}")
 

@@ -32,12 +32,10 @@ import json
 import argparse
 import sys
 import re
-import os
 from pathlib import Path
-from collections import Counter, defaultdict
+from collections import defaultdict
 from datetime import datetime
-from typing import Dict, List, Optional, Tuple, Set
-import subprocess
+from typing import List, Optional
 
 
 # Paths
@@ -547,7 +545,7 @@ class BatchPipeline:
         partial = sum(1 for v in validations.values() if v['verdict'] == 'PARTIAL')
         weak = sum(1 for v in validations.values() if v['verdict'] == 'WEAK')
 
-        self.log(f"Validation complete:")
+        self.log("Validation complete:")
         self.log(f"  CONSISTENT: {consistent}")
         self.log(f"  PARTIAL: {partial}")
         self.log(f"  WEAK: {weak}")
@@ -659,11 +657,11 @@ class BatchPipeline:
             'recommendations': self._generate_recommendations(high_confidence),
         }
 
-        self.log(f"\nSynthesis complete:")
+        self.log("\nSynthesis complete:")
         self.log(f"  High confidence: {len(high_confidence)}")
         self.log(f"  Medium confidence: {len(medium_confidence)}")
         self.log(f"  Needs review: {len(needs_review)}")
-        self.log(f"\nHypothesis rankings:")
+        self.log("\nHypothesis rankings:")
         for hyp, data in hypothesis_rankings:
             self.log(f"  {hyp.upper()}: score={data['total_score']:.1f}, words={data['word_count']}")
 

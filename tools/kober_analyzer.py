@@ -31,8 +31,7 @@ import re
 from pathlib import Path
 from collections import Counter, defaultdict
 from datetime import datetime
-from typing import Dict, List, Tuple, Set
-import math
+from typing import Dict, List
 
 
 # Paths
@@ -658,7 +657,7 @@ class KoberAnalyzer:
         print("\n" + "=" * 60)
         print("KOBER METHOD PATTERN ANALYSIS")
         print("=" * 60)
-        print(f"Following First Principle #1: Let the data lead\n")
+        print("Following First Principle #1: Let the data lead\n")
 
         if not self.load_data():
             return False

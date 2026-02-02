@@ -28,7 +28,7 @@ import re
 from pathlib import Path
 from collections import defaultdict
 from datetime import datetime
-from typing import Dict, List, Optional, Tuple
+from typing import List, Optional
 
 
 # Paths
@@ -184,7 +184,7 @@ class SignReconciler:
             'total_unified': len(self.unified_signs),
         }
 
-        print(f"Mapping complete:")
+        print("Mapping complete:")
         print(f"  Syllabograms mapped: {stats['syllabograms_mapped']}")
         print(f"  Logograms: {stats['logograms_mapped']}")
         print(f"  Unmapped signs: {stats['unmapped_signs']}")
@@ -406,7 +406,7 @@ class SignReconciler:
             },
         }
 
-        print(f"\nValidation Summary:")
+        print("\nValidation Summary:")
         print(f"  Total sign occurrences: {total}")
         print(f"  Mapped: {total_mapped} ({total_mapped/total*100:.1f}%)" if total > 0 else "  Mapped: 0")
         print(f"  Unmapped: {total_unmapped} ({total_unmapped/total*100:.1f}%)" if total > 0 else "  Unmapped: 0")

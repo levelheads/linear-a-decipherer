@@ -144,7 +144,7 @@ class CorpusValidator:
             if stats_path.exists():
                 with open(stats_path, 'r', encoding='utf-8') as f:
                     self.statistics = json.load(f)
-                self.log(f"Loaded statistics")
+                self.log("Loaded statistics")
             else:
                 self.log("Statistics file not found (non-critical)", 'warning')
 
@@ -153,7 +153,7 @@ class CorpusValidator:
             if cognates_path.exists():
                 with open(cognates_path, 'r', encoding='utf-8') as f:
                     self.cognates = json.load(f)
-                self.log(f"Loaded cognates")
+                self.log("Loaded cognates")
             else:
                 self.log("Cognates file not found (non-critical)", 'warning')
 

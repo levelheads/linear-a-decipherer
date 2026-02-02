@@ -26,8 +26,8 @@ import re
 import sys
 from pathlib import Path
 from collections import defaultdict, Counter
-from typing import Dict, List, Tuple, Optional, Set
-from dataclasses import dataclass, field
+from typing import Dict, List, Tuple, Optional
+from dataclasses import dataclass
 from fractions import Fraction
 
 

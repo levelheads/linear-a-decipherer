@@ -35,7 +35,7 @@ import math
 from pathlib import Path
 from collections import Counter, defaultdict
 from datetime import datetime
-from typing import Dict, List, Tuple, Optional
+from typing import Dict, List, Tuple
 from dataclasses import dataclass, asdict
 
 
@@ -403,7 +403,7 @@ class RegionalWeighting:
         print("─" * 50)
         print(f"  Meaning: {weighted.meaning or 'Unknown'}")
         print(f"  Raw Confidence: {weighted.raw_confidence}")
-        print(f"\n  Site Distribution:")
+        print("\n  Site Distribution:")
         for site, count in sorted(weighted.site_distribution.site_counts.items(),
                                   key=lambda x: -x[1]):
             name = SITE_CODES.get(site, {}).get('name', site)
@@ -411,11 +411,11 @@ class RegionalWeighting:
         print(f"\n  Sites: {weighted.site_distribution.num_sites}")
         print(f"  HT Concentration: {weighted.site_distribution.ht_concentration:.1%}")
         print(f"  Diversity Score: {weighted.site_distribution.diversity_score:.2f}")
-        print(f"\n  Weights:")
+        print("\n  Weights:")
         print(f"    Regional: {weighted.regional_weight:.3f}")
         print(f"    Neg. Evidence Penalty: -{weighted.negative_evidence_penalty:.3f}")
         print(f"    Adjusted: {weighted.adjusted_weight:.3f}")
-        print(f"\n  Rationale:")
+        print("\n  Rationale:")
         for r in weighted.weight_rationale:
             print(f"    • {r}")
 
@@ -561,13 +561,13 @@ def main():
 
         # Top penalized words
         penalized = sorted(weighted_readings, key=lambda w: w.adjusted_weight)[:10]
-        print(f"\nMost Penalized Words:")
+        print("\nMost Penalized Words:")
         for w in penalized:
             print(f"  {w.word}: {w.adjusted_weight:.2f} (HT={w.site_distribution.ht_concentration:.0%})")
 
         # Top cross-site validated
         cross_site = sorted(weighted_readings, key=lambda w: -w.site_distribution.num_sites)[:10]
-        print(f"\nBest Cross-Site Validation:")
+        print("\nBest Cross-Site Validation:")
         for w in cross_site:
             sites = ', '.join(w.site_distribution.site_counts.keys())
             print(f"  {w.word}: {w.adjusted_weight:.2f} ({w.site_distribution.num_sites} sites: {sites})")

@@ -30,8 +30,8 @@ import sys
 from pathlib import Path
 from collections import Counter, defaultdict
 from datetime import datetime
-from typing import Dict, List, Tuple, Optional
-from dataclasses import dataclass, asdict, field
+from typing import Dict, List, Tuple
+from dataclasses import dataclass, asdict
 import re
 import math
 
@@ -380,7 +380,7 @@ class IntegratedValidator:
         threshold_cat = stages['threshold_category']
         if threshold_cat == 'ELIMINATED':
             base_conf = 'SPECULATIVE'
-            compliance_notes.append(f"Hypothesis eliminated by threshold (<5%)")
+            compliance_notes.append("Hypothesis eliminated by threshold (<5%)")
 
         # Apply anchor cap
         conf_order = ['SPECULATIVE', 'POSSIBLE', 'LOW', 'MEDIUM', 'PROBABLE', 'HIGH', 'CERTAIN']
@@ -581,35 +581,35 @@ class IntegratedValidator:
         print(f"INTEGRATED VALIDATION: {result.word}")
         print(f"{'='*70}")
 
-        print(f"\n[1] RAW HYPOTHESIS SCORES")
+        print("\n[1] RAW HYPOTHESIS SCORES")
         print(f"    Best: {result.raw_best_hypothesis} ({result.raw_support_pct}%)")
         for hyp, score in sorted(result.raw_scores.items(), key=lambda x: -x[1]):
             print(f"    {hyp:12} score: {score:.1f}")
 
-        print(f"\n[2] REGIONAL WEIGHTING")
+        print("\n[2] REGIONAL WEIGHTING")
         print(f"    Sites: {result.num_sites} | HT concentration: {result.ht_concentration:.0%}")
         print(f"    Weight: {result.regional_weight:.3f}")
         for r in result.regional_rationale[:3]:
             print(f"    • {r}")
 
-        print(f"\n[3] NEGATIVE EVIDENCE")
+        print("\n[3] NEGATIVE EVIDENCE")
         print(f"    Penalty: {result.negative_evidence_penalty:.3f}")
         for item in result.negative_evidence_items[:3]:
             print(f"    • {item}")
 
-        print(f"\n[4] FALSIFICATION THRESHOLD")
+        print("\n[4] FALSIFICATION THRESHOLD")
         print(f"    Adjusted %: {result.adjusted_pct:.1f}%")
         print(f"    Category: {result.threshold_category}")
         print(f"    → {result.threshold_interpretation[:60]}...")
 
-        print(f"\n[5] BAYESIAN ANALYSIS")
+        print("\n[5] BAYESIAN ANALYSIS")
         print(f"    Best: {result.bayesian_best} (P={result.bayesian_posteriors.get(result.bayesian_best, 0):.3f})")
         print(f"    95% CI: [{result.credible_interval_95[0]:.2f}, {result.credible_interval_95[1]:.2f}]")
         print(f"    Bayes Factor vs Isolate: {result.bayes_factor:.1f}")
         for hyp, post in sorted(result.bayesian_posteriors.items(), key=lambda x: -x[1])[:4]:
             print(f"    {hyp:12} P={post:.3f}")
 
-        print(f"\n[6] ANCHOR DEPENDENCIES")
+        print("\n[6] ANCHOR DEPENDENCIES")
         print(f"    Max confidence: {result.max_confidence_from_anchors}")
         if result.anchor_dependencies:
             print(f"    Depends on: {', '.join(result.anchor_dependencies[:3])}")
@@ -617,14 +617,14 @@ class IntegratedValidator:
             print(f"    ⚠ {w}")
 
         print(f"\n{'─'*70}")
-        print(f"FINAL ASSESSMENT")
+        print("FINAL ASSESSMENT")
         print(f"{'─'*70}")
         print(f"    {result.final_assessment}")
         print(f"    Confidence: {result.final_confidence}")
         compliant_str = "✓ YES" if result.methodology_compliant else "✗ NO"
         print(f"    Methodology Compliant: {compliant_str}")
         if result.compliance_notes:
-            print(f"    Notes:")
+            print("    Notes:")
             for note in result.compliance_notes:
                 print(f"      • {note}")
 
@@ -653,12 +653,12 @@ class IntegratedValidator:
             if count > 0:
                 print(f"  {cat:12} {count:4d}")
 
-        print(f"\nMethodology Compliance:")
+        print("\nMethodology Compliance:")
         print(f"  Compliant:     {summary['methodology_compliant']:4d} ({summary['compliance_rate']}%)")
         print(f"  Non-compliant: {summary['non_compliant']:4d}")
 
         if report['non_compliant_readings']:
-            print(f"\nTop Non-Compliant Issues:")
+            print("\nTop Non-Compliant Issues:")
             for item in report['non_compliant_readings'][:5]:
                 print(f"  {item['word']}: {item['issues'][0] if item['issues'] else 'Unknown'}")
 
