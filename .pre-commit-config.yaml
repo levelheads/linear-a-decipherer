@@ -5,41 +5,25 @@
 repos:
   # Standard pre-commit hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v6.0.0
     hooks:
       - id: check-added-large-files
         args: ['--maxkb=500']
-        name: Check for large files
       - id: trailing-whitespace
-        name: Trim trailing whitespace
       - id: end-of-file-fixer
-        name: Fix end of files
       - id: check-yaml
-        name: Validate YAML
       - id: check-json
-        name: Validate JSON
       - id: check-merge-conflict
-        name: Check for merge conflicts
       - id: mixed-line-ending
         args: ['--fix=lf']
-        name: Fix line endings
-
-  # Python syntax check
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
-    hooks:
       - id: check-ast
-        name: Check Python syntax
 
   # Python linting (advisory - does not block commits)
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.1.9
+    rev: v0.14.14
     hooks:
       - id: ruff
         args: ['--fix', '--exit-zero']
-        name: Lint Python (ruff)
-        types: [python]
-        verbose: true
 
 # Configuration
 default_language_version:
