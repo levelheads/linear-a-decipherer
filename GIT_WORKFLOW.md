@@ -355,3 +355,61 @@ git commit --no-verify -m "Emergency fix"
 ```
 
 Use sparingly—hooks exist to maintain quality.
+
+---
+
+## Release Checklist
+
+Complete before creating any release tag:
+
+```
+[ ] 1. CITATION.cff updated
+    - version: matches tag (e.g., "0.4.0")
+    - date-released: today's date
+
+[ ] 2. Pre-commit hooks current
+    - Run: pre-commit autoupdate
+    - Commit any updates
+
+[ ] 3. CHANGELOG.md has new version section
+
+[ ] 4. All changes committed
+    - git status shows clean
+
+[ ] 5. Tests pass
+    - pre-commit run --all-files
+
+[ ] 6. Tag AFTER committing release changes
+    - Commit first, tag second, push both
+
+If any box unchecked → DO NOT TAG
+```
+
+---
+
+## Pre-commit Hygiene Checklist
+
+Quarterly or before releases:
+
+```
+[ ] Run: pre-commit autoupdate
+[ ] Review .pre-commit-config.yaml for duplicates
+[ ] Test: pre-commit run --all-files
+```
+
+---
+
+## Plan Verification Checklist
+
+After implementing any plan:
+
+```
+For each file in plan:
+[ ] File exists
+[ ] Changes match plan
+[ ] No syntax errors
+
+Overall:
+[ ] All steps completed
+[ ] git status clean or staged
+```

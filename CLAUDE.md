@@ -13,5 +13,9 @@ Lookup: `linear-a-decipherer/references/*`
 Append: `linear-a-decipherer/CHANGELOG.md`
 Update: `linear-a-decipherer/KNOWLEDGE.md` (tables only)
 
+## For Git/Releases
+Read: `GIT_WORKFLOW.md` (procedures, checklists)
+Learn: `ENGINEERING_PRACTICES.md` (lessons learned)
+
 ## Core Rule
 > Every claim requires evidence. Every interpretation requires humility.

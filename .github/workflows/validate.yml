@@ -6,6 +6,7 @@ name: Validate Research
 on:
   push:
     branches: [main]
+    tags: ['v*']
   pull_request:
     branches: [main]
 
@@ -89,3 +90,42 @@ jobs:
         run: |
           python -m py_compile tools/*.py
         continue-on-error: false
+
+  release-validation:
+    runs-on: ubuntu-latest
+    name: Validate release tag
+    if: startsWith(github.ref, 'refs/tags/v')
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate CITATION.cff version matches tag
+        env:
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+        run: |
+          # Extract version from tag (v0.3.0 -> 0.3.0)
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          echo "Tag version: $TAG_VERSION"
+
+          # Extract version from CITATION.cff
+          if [ ! -f CITATION.cff ]; then
+            echo "ERROR: CITATION.cff not found"
+            exit 1
+          fi
+
+          CITATION_VERSION=$(grep -E '^version:' CITATION.cff | sed 's/version:[[:space:]]*//' | tr -d '"'"'")
+          echo "CITATION.cff version: $CITATION_VERSION"
+
+          # Compare versions
+          if [ "$TAG_VERSION" != "$CITATION_VERSION" ]; then
+            echo ""
+            echo "ERROR: Version mismatch!"
+            echo "  Tag version:         $TAG_VERSION"
+            echo "  CITATION.cff version: $CITATION_VERSION"
+            echo ""
+            echo "Fix: Update CITATION.cff version to '$TAG_VERSION' before tagging"
+            exit 1
+          fi
+
+          echo "SUCCESS: Versions match"

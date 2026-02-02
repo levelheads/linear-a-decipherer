@@ -7,20 +7,24 @@ Provides consistent git workflow management:
 - Pre-commit validation
 - Commit message formatting
 - Push verification
+- Release preparation
 
 Usage:
     python tools/git_manager.py status      # Check current state
     python tools/git_manager.py pre-commit  # Validate before committing
     python tools/git_manager.py summary     # Generate commit summary
     python tools/git_manager.py sync        # Full sync check
+    python tools/git_manager.py release     # Pre-release checklist
 
 This script ensures project success by maintaining consistent version control.
 """
 
 import subprocess
 import sys
+import re
+from datetime import date
 from pathlib import Path
-from typing import List, Tuple, Dict
+from typing import List, Tuple, Dict, Optional
 
 PROJECT_ROOT = Path(__file__).parent.parent
 
@@ -340,6 +344,136 @@ def sync_check():
     print("=" * 60)
 
 
+def parse_citation_cff() -> Optional[Dict[str, str]]:
+    """Parse CITATION.cff and return version and date-released."""
+    citation_path = PROJECT_ROOT / 'CITATION.cff'
+    if not citation_path.exists():
+        return None
+
+    content = citation_path.read_text()
+    result = {}
+
+    # Extract version
+    version_match = re.search(r'^version:\s*["\']?([^"\'\n]+)["\']?', content, re.MULTILINE)
+    if version_match:
+        result['version'] = version_match.group(1).strip()
+
+    # Extract date-released
+    date_match = re.search(r'^date-released:\s*["\']?([^"\'\n]+)["\']?', content, re.MULTILINE)
+    if date_match:
+        result['date-released'] = date_match.group(1).strip()
+
+    return result if result else None
+
+
+def release_check():
+    """Pre-release checklist and validation."""
+    print("=" * 60)
+    print("RELEASE CHECKLIST")
+    print("=" * 60)
+    print()
+
+    issues = []
+    warnings = []
+
+    # Check 1: CITATION.cff exists and has valid format
+    print("Checking CITATION.cff...")
+    citation = parse_citation_cff()
+    if citation is None:
+        issues.append("CITATION.cff not found or invalid")
+        print("  ✗ CITATION.cff not found or invalid")
+    else:
+        if 'version' in citation:
+            print(f"  ✓ version: {citation['version']}")
+        else:
+            issues.append("CITATION.cff missing 'version' field")
+            print("  ✗ Missing 'version' field")
+
+        if 'date-released' in citation:
+            today = date.today().isoformat()
+            if citation['date-released'] != today:
+                warnings.append(f"date-released is {citation['date-released']}, today is {today}")
+                print(f"  ⚠ date-released: {citation['date-released']} (today: {today})")
+            else:
+                print(f"  ✓ date-released: {citation['date-released']}")
+        else:
+            issues.append("CITATION.cff missing 'date-released' field")
+            print("  ✗ Missing 'date-released' field")
+
+    print()
+
+    # Check 2: Uncommitted changes
+    print("Checking for uncommitted changes...")
+    status = get_status()
+    if status['has_uncommitted']:
+        parts = []
+        if status['staged']:
+            parts.append(f"{len(status['staged'])} staged")
+        if status['modified']:
+            parts.append(f"{len(status['modified'])} modified")
+        if status['untracked']:
+            parts.append(f"{len(status['untracked'])} untracked")
+        issues.append(f"Uncommitted changes: {', '.join(parts)}")
+        print(f"  ✗ Uncommitted changes: {', '.join(parts)}")
+    else:
+        print("  ✓ Working directory clean")
+
+    print()
+
+    # Check 3: Pre-commit hooks
+    print("Pre-commit hook reminder...")
+    print("  → Run 'pre-commit autoupdate' before releases")
+    print("  → Run 'pre-commit run --all-files' to verify")
+
+    print()
+
+    # Print full checklist
+    print("=" * 60)
+    print("FULL RELEASE CHECKLIST")
+    print("=" * 60)
+    print("""
+[ ] 1. CITATION.cff updated
+    - version: matches tag (e.g., "0.4.0")
+    - date-released: today's date
+
+[ ] 2. Pre-commit hooks current
+    - Run: pre-commit autoupdate
+    - Commit any updates
+
+[ ] 3. CHANGELOG.md has new version section
+
+[ ] 4. All changes committed
+    - git status shows clean
+
+[ ] 5. Tests pass
+    - pre-commit run --all-files
+
+[ ] 6. Tag AFTER committing release changes
+    - Commit first, tag second, push both
+
+If any box unchecked → DO NOT TAG
+""")
+
+    # Summary
+    print("=" * 60)
+    if issues:
+        print("✗ ISSUES FOUND - fix before releasing:")
+        for issue in issues:
+            print(f"  - {issue}")
+    else:
+        print("✓ Basic checks passed")
+
+    if warnings:
+        print()
+        print("⚠ WARNINGS:")
+        for warning in warnings:
+            print(f"  - {warning}")
+
+    print("=" * 60)
+
+    return len(issues) == 0
+
+
 def main():
     if len(sys.argv) < 2:
         print("Usage: python tools/git_manager.py <command>")
@@ -349,6 +483,7 @@ def main():
         print("  pre-commit  - Run pre-commit checks")
         print("  summary     - Generate commit message summary")
         print("  sync        - Full synchronization check")
+        print("  release     - Pre-release checklist")
         return 1
 
     command = sys.argv[1]
@@ -362,6 +497,9 @@ def main():
         generate_commit_summary()
     elif command == 'sync':
         sync_check()
+    elif command == 'release':
+        success = release_check()
+        return 0 if success else 1
     else:
         print(f"Unknown command: {command}")
         return 1
