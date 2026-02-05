@@ -55,7 +55,7 @@ The system operates under six inviolable principles derived from Alice Kober's m
 
 **Violating any principle invalidates the analysis.**
 
-See [FIRST_PRINCIPLES.md](linear-a-decipherer/FIRST_PRINCIPLES.md) for pre-flight checklists and verification procedures.
+See [METHODOLOGY.md](linear-a-decipherer/METHODOLOGY.md) for pre-flight checklists and verification procedures.
 
 ---
 
@@ -74,7 +74,7 @@ See [FIRST_PRINCIPLES.md](linear-a-decipherer/FIRST_PRINCIPLES.md) for pre-fligh
 | DA-MA-TE | Demeter (deity) | 1 | HIGH | Multiple scholars | Corpus verification |
 | A-TA-NA | Athena (deity) | 2 | HIGH | Multiple scholars | Corpus verification |
 
-**Full registry**: [CONFIRMED_READINGS.md](linear-a-decipherer/CONFIRMED_READINGS.md)
+**Full registry**: [KNOWLEDGE.md](linear-a-decipherer/KNOWLEDGE.md#confirmed-readings)
 
 ### Hypothesis Discrimination Results
 
@@ -119,20 +119,21 @@ This discovery provides new sign sequences for pattern analysis and confirms dua
 ```
 linear-a-decipherer/
 ├── linear-a-decipherer/      # Core methodology & knowledge management
-│   ├── FIRST_PRINCIPLES.md   # Six inviolable principles (READ FIRST)
-│   ├── STATE_OF_KNOWLEDGE.md # Current research synthesis
-│   ├── CONFIRMED_READINGS.md # Secure interpretations
-│   ├── FINDINGS_LOG.md       # Chronological discoveries
+│   ├── METHODOLOGY.md        # Six inviolable principles (READ FIRST)
+│   ├── KNOWLEDGE.md          # Current state: readings, hypotheses, anchors
+│   ├── CHANGELOG.md          # Chronological discovery journal
 │   ├── ANALYSIS_INDEX.md     # Registry of all analyses
-│   └── references/           # Methodology, hypotheses, sign list
+│   ├── LESSONS_LEARNED.md    # Project methodology insights
+│   └── references/           # Bibliography, hypotheses, sign list
 │
 ├── analysis/                 # Research outputs
+│   ├── active/               # Current operation analyses
 │   ├── completed/            # Finished inscription/thematic analyses
-│   └── sessions/             # 47 session logs (OPERATION MINOS, etc.)
+│   └── archive/              # Historical phase analyses
 │
-├── tools/                    # 25 Python analysis scripts
+├── tools/                    # 32 Python analysis scripts
 ├── external/lineara/         # Corpus data (git submodule)
-├── data/                     # Generated JSON files (gitignored)
+├── data/                     # Generated JSON files
 └── templates/                # Document templates
 ```
 

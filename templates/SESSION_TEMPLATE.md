@@ -120,9 +120,8 @@
 ### Documents to Update After This Session
 
 - [ ] ANALYSIS_INDEX.md - Add new analyses
-- [ ] FINDINGS_LOG.md - Record discoveries
-- [ ] CONFIRMED_READINGS.md - Update if readings promoted
-- [ ] STATE_OF_KNOWLEDGE.md - If major understanding changed
+- [ ] KNOWLEDGE.md - Update readings, hypotheses, or anchors if changed
+- [ ] CHANGELOG.md - Record discoveries (chronological log)
 - [ ] LESSONS_LEARNED.md - If methodology refined
 
 ---

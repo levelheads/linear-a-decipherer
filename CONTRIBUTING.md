@@ -7,8 +7,8 @@ Thank you for your interest in contributing to this research project. Linear A r
 **All contributions MUST comply with the Six First Principles.**
 
 Before contributing, read and understand:
-- `linear-a-decipherer/FIRST_PRINCIPLES.md` (MANDATORY)
-- `linear-a-decipherer/SKILL.md` (operational procedures)
+- `linear-a-decipherer/METHODOLOGY.md` (MANDATORY - six principles, checklists)
+- `linear-a-decipherer/KNOWLEDGE.md` (current state of research)
 
 ### The Six First Principles
 

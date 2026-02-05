@@ -170,6 +170,9 @@ class AnchorTracker:
                 data = json.load(f)
 
             data['readings'] = self.readings
+            # Ensure metadata exists before updating
+            if 'metadata' not in data:
+                data['metadata'] = {}
             data['metadata']['last_updated'] = datetime.now().isoformat()
 
             with open(DEPENDENCIES_FILE, 'w', encoding='utf-8') as f:

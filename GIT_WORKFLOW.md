@@ -218,12 +218,11 @@ After analysis work, update these files before committing:
 | Document | When to Update |
 |----------|----------------|
 | `linear-a-decipherer/ANALYSIS_INDEX.md` | After each analysis (add entry) |
-| `linear-a-decipherer/FINDINGS_LOG.md` | When discoveries are made |
-| `linear-a-decipherer/CONFIRMED_READINGS.md` | When readings reach HIGH+ confidence |
-| `linear-a-decipherer/STATE_OF_KNOWLEDGE.md` | After major findings |
+| `linear-a-decipherer/KNOWLEDGE.md` | When readings, hypotheses, or anchors change |
+| `linear-a-decipherer/CHANGELOG.md` | When discoveries are made (chronological log) |
 | `linear-a-decipherer/LESSONS_LEARNED.md` | When methodology is refined |
 
-Session logs should be created using `templates/SESSION_TEMPLATE.md` and saved to `analysis/sessions/`.
+**Note**: KNOWLEDGE.md consolidates confirmed readings and state of knowledge. CHANGELOG.md serves as the findings journal.
 
 ---
 

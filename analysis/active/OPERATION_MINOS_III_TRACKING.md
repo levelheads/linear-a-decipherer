@@ -2,7 +2,7 @@
 
 **Status**: ACTIVE
 **Started**: 2026-02-01
-**Last Updated**: 2026-02-01
+**Last Updated**: 2026-02-05
 
 ---
 
@@ -51,18 +51,20 @@ Building on OPERATION MINOS I-II achievements (Proto-Greek eliminated, contact l
 
 ### Wave 2 (Expansion) - STARTED 2026-02-05
 
+**Note**: Items 11-19 are rapid corpus verifications with key findings documented below. Full deep-dive writeups created only for inscriptions yielding novel discoveries (IO Za 2).
+
 | # | Inscription | Site | Signs | Status | Analysis File | Key Finding |
 |---|-------------|------|-------|--------|---------------|-------------|
 | 10 | IO Za 2 | Iouktas | 45 | **COMPLETE** | [MINOS_III_WAVE2_IOZa2_ANALYSIS.md](MINOS_III_WAVE2_IOZa2_ANALYSIS.md) | 6-position libation formula; JA-SA-SA-RA-ME divine name |
-| 11 | HT 85a | Hagia Triada | 35 | **COMPLETE** | — | **KU-RO 66 VERIFIED (EXACT)** |
-| 12 | HT 122a/b | Hagia Triada | 55 | **COMPLETE** | — | **PO-TO-KU-RO 97**; section KU-RO 65+31 |
-| 13 | KH 6 | Khania | 53 | **COMPLETE** | — | CYP+D fractional copper; ZERO K-R |
-| 14 | KH 7a | Khania | 49 | **COMPLETE** | — | CYP+D AND CYP+E together; VIR+*313b personnel |
-| 15 | ZA 10b | Zakros | 39 | **COMPLETE** | — | 12 entries; no KU-RO; DU-RE-ZA-SE toponym? |
-| 16 | PK Za 11 | Palaikastro | 25 | **COMPLETE** | — | Libation formula; DI-KI-TE toponym; SA-SA-RA-ME |
-| 17 | HT 95a | Hagia Triada | 21 | **COMPLETE** | — | GRA distribution; DA-DU-MA-TA header; no KU-RO |
-| 18 | SY Za 4 | Kato Symi | 5 | **COMPLETE** | — | A-TA-I-*301-WA-JA libation formula confirmed |
-| 19 | KH 11 | Khania | 43 | **COMPLETE** | — | Mixed CYP+VIN; *301+1; extensive fractions |
+| 11 | HT 85a | Hagia Triada | 35 | **VERIFIED** | (inline) | **KU-RO 66 VERIFIED (EXACT)** |
+| 12 | HT 122a/b | Hagia Triada | 55 | **VERIFIED** | (inline) | **PO-TO-KU-RO 97**; section KU-RO 65+31 |
+| 13 | KH 6 | Khania | 53 | **VERIFIED** | (inline) | CYP+D fractional copper; ZERO K-R |
+| 14 | KH 7a | Khania | 49 | **VERIFIED** | (inline) | CYP+D AND CYP+E together; VIR+*313b personnel |
+| 15 | ZA 10b | Zakros | 39 | **VERIFIED** | (inline) | 12 entries; no KU-RO; DU-RE-ZA-SE toponym? |
+| 16 | PK Za 11 | Palaikastro | 25 | **VERIFIED** | (inline) | Libation formula; DI-KI-TE toponym; SA-SA-RA-ME |
+| 17 | HT 95a | Hagia Triada | 21 | **VERIFIED** | (inline) | GRA distribution; DA-DU-MA-TA header; no KU-RO |
+| 18 | SY Za 4 | Kato Symi | 5 | **VERIFIED** | (inline) | A-TA-I-*301-WA-JA libation formula confirmed |
+| 19 | KH 11 | Khania | 43 | **VERIFIED** | (inline) | Mixed CYP+VIN; *301+1; extensive fractions |
 | 20 | PH 5 | Phaistos | 35 | **DATA GAP** | — | Transcription not indexed; GORILA Vol 3 p.212 |
 
 ### Wave 1 Metrics
@@ -407,20 +409,21 @@ Building on OPERATION MINOS I-II achievements (Proto-Greek eliminated, contact l
 
 | Document | Update Trigger | Status |
 |----------|----------------|--------|
-| ANALYSIS_INDEX.md | After each inscription | PENDING |
-| FINDINGS_LOG.md | After discoveries | PENDING |
-| CONFIRMED_READINGS.md | HIGH+ readings | PENDING |
-| STATE_OF_KNOWLEDGE.md | Major synthesis | PENDING |
-| LESSONS_LEARNED.md | Methodology refinements | PENDING |
+| ANALYSIS_INDEX.md | After each inscription | UPDATED 2026-02-05 |
+| KNOWLEDGE.md | Readings, hypotheses, anchors | UPDATED 2026-02-05 |
+| CHANGELOG.md | After discoveries | UPDATED 2026-02-05 |
+| LESSONS_LEARNED.md | Methodology refinements | CURRENT |
+
+**Note**: FINDINGS_LOG.md, CONFIRMED_READINGS.md, and STATE_OF_KNOWLEDGE.md have been consolidated into KNOWLEDGE.md and CHANGELOG.md.
 
 ---
 
 ## Related Documents
 
-- [FIRST_PRINCIPLES.md](../../linear-a-decipherer/FIRST_PRINCIPLES.md) - Pre/post analysis checklists
-- [ANALYSIS_INDEX.md](../../linear-a-decipherer/ANALYSIS_INDEX.md) - Central registry
-- [CONFIRMED_READINGS.md](../../linear-a-decipherer/CONFIRMED_READINGS.md) - Secure interpretations
-- [STATE_OF_KNOWLEDGE.md](../../linear-a-decipherer/STATE_OF_KNOWLEDGE.md) - Current synthesis
+- [METHODOLOGY.md](../../linear-a-decipherer/METHODOLOGY.md) - Six principles, pre/post analysis checklists
+- [KNOWLEDGE.md](../../linear-a-decipherer/KNOWLEDGE.md) - Current state: readings, hypotheses, anchors
+- [ANALYSIS_INDEX.md](../../linear-a-decipherer/ANALYSIS_INDEX.md) - Central registry of all analyses
+- [CHANGELOG.md](../../linear-a-decipherer/CHANGELOG.md) - Chronological discovery journal
 
 ---
 
