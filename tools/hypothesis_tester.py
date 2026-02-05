@@ -231,45 +231,89 @@ PREGREEK_MARKERS = {
     # Characteristic consonant clusters (cannot occur in PIE)
     'nth': {'type': 'cluster', 'significance': 'HIGH', 'examples': ['Korinthos', 'labyrinth', 'Zakynthos']},
     'ss': {'type': 'cluster', 'significance': 'HIGH', 'examples': ['Knossos', 'Parnassos', 'Tylissos']},
+    'kt': {'type': 'cluster', 'significance': 'HIGH', 'examples': ['nektar', 'plektron']},
+    'pt': {'type': 'cluster', 'significance': 'HIGH', 'examples': ['kryptos', 'Aigyptos']},
     'mn': {'type': 'cluster', 'significance': 'MEDIUM', 'examples': ['Amnissos', 'Hymettus']},
-    'nd': {'type': 'cluster', 'significance': 'MEDIUM', 'examples': []},
-    'tt': {'type': 'cluster', 'significance': 'MEDIUM', 'examples': ['Brettia']},
-    'mb': {'type': 'cluster', 'significance': 'MEDIUM', 'examples': []},
-    'gd': {'type': 'cluster', 'significance': 'LOW', 'examples': []},
+    'nd': {'type': 'cluster', 'significance': 'MEDIUM', 'examples': ['Lindos', 'Myndos']},
+    'tt': {'type': 'cluster', 'significance': 'MEDIUM', 'examples': ['Brettia', 'Attica']},
+    'mb': {'type': 'cluster', 'significance': 'MEDIUM', 'examples': ['ambrosia', 'kombos']},
+    'ng': {'type': 'cluster', 'significance': 'MEDIUM', 'examples': ['sphinga', 'syrinx']},
+    'gd': {'type': 'cluster', 'significance': 'LOW', 'examples': ['Aigdai']},
+    'rr': {'type': 'cluster', 'significance': 'MEDIUM', 'examples': ['Pyrrhos', 'tyrrhos']},
+    'll': {'type': 'cluster', 'significance': 'MEDIUM', 'examples': ['Phyllos', 'thallein']},
 
-    # Characteristic suffixes
+    # Characteristic suffixes (Beekes 2014)
     'assos': {'type': 'suffix', 'significance': 'HIGH', 'examples': ['Parnassos', 'Halicarnassos']},
     'inthos': {'type': 'suffix', 'significance': 'HIGH', 'examples': ['Korinthos', 'Zakynthos', 'labyrinth']},
     'issos': {'type': 'suffix', 'significance': 'HIGH', 'examples': ['Tylissos', 'Knossos']},
-    'ene': {'type': 'suffix', 'significance': 'MEDIUM', 'examples': ['Athene', 'Mykene']},
-    'ene': {'type': 'suffix', 'significance': 'MEDIUM', 'examples': ['Peirene']},
+    'ene': {'type': 'suffix', 'significance': 'MEDIUM', 'examples': ['Athene', 'Mykene', 'Peirene']},
+    'aia': {'type': 'suffix', 'significance': 'MEDIUM', 'examples': ['Achaia', 'Arkadia']},
+    'issa': {'type': 'suffix', 'significance': 'HIGH', 'examples': ['basilissa', 'melissa']},
+    'andr': {'type': 'suffix', 'significance': 'MEDIUM', 'examples': ['Kassandra', 'Alexandros']},
 
     # Toponymic suffixes
-    'ara': {'type': 'toponym_suffix', 'significance': 'MEDIUM', 'examples': []},
+    'ara': {'type': 'toponym_suffix', 'significance': 'MEDIUM', 'examples': ['Megara', 'Kamara']},
     'ssa': {'type': 'toponym_suffix', 'significance': 'HIGH', 'examples': ['Larissa', 'Mykalessos']},
     'na': {'type': 'toponym_suffix', 'significance': 'MEDIUM', 'examples': ['Athena', 'Mykena']},
+
+    # Initial clusters unusual in PIE (Beekes 2014)
+    'gn': {'type': 'initial_cluster', 'significance': 'LOW', 'examples': ['gnosis', 'gnome']},
+    'kn': {'type': 'initial_cluster', 'significance': 'LOW', 'examples': ['knemos', 'knide']},
+    'ps': {'type': 'initial_cluster', 'significance': 'MEDIUM', 'examples': ['psykhe', 'psalmos']},
+    'ks': {'type': 'initial_cluster', 'significance': 'MEDIUM', 'examples': ['xenos', 'xylon']},
 }
 
 PREGREEK_VOCABULARY = {
-    # Plants and agriculture (HIGH - borrowed into Greek)
-    'elaia': {'meaning': 'olive', 'confidence': 'MEDIUM', 'source': 'Beekes'},
-    'ampelos': {'meaning': 'vine', 'confidence': 'MEDIUM', 'source': 'Beekes'},
-    'kitharos': {'meaning': 'lyre', 'confidence': 'MEDIUM', 'source': 'Beekes'},
-    'labyrinthos': {'meaning': 'labyrinth', 'confidence': 'HIGH', 'source': 'Beekes'},
-    'thalassa': {'meaning': 'sea', 'confidence': 'HIGH', 'source': 'Beekes'},
-    'kolossos': {'meaning': 'statue', 'confidence': 'MEDIUM', 'source': 'Beekes'},
+    # NOTE: These are GREEK words with hypothesized Pre-Greek substrate etymology (Beekes 2014).
+    # Used for PHONOLOGICAL PATTERN matching, not direct vocabulary correspondence.
+    # No Level 1/2 anchors currently support Pre-Greek hypothesis directly.
+    # Confidence ratings indicate strength of substrate etymology claim, not Linear A match confidence.
+    #
+    # Flora - agricultural substrate terms (Beekes 2014)
+    'elaia': {'meaning': 'olive', 'confidence': 'HIGH', 'source': 'Beekes'},
+    'ampelos': {'meaning': 'vine', 'confidence': 'HIGH', 'source': 'Beekes'},
+    'kissos': {'meaning': 'ivy', 'confidence': 'HIGH', 'source': 'Beekes'},
+    'kyparissos': {'meaning': 'cypress', 'confidence': 'HIGH', 'source': 'Beekes'},
+    'erebinthos': {'meaning': 'chickpea', 'confidence': 'HIGH', 'source': 'Beekes'},
+    'selinon': {'meaning': 'celery', 'confidence': 'MEDIUM', 'source': 'Beekes'},
+    'mintha': {'meaning': 'mint', 'confidence': 'MEDIUM', 'source': 'Beekes'},
+    'daphnē': {'meaning': 'laurel', 'confidence': 'MEDIUM', 'source': 'Beekes'},
+    'sykē': {'meaning': 'fig tree', 'confidence': 'MEDIUM', 'source': 'Beekes'},
+    'melon': {'meaning': 'apple/fruit', 'confidence': 'LOW', 'source': 'Beekes'},
 
-    # Metals and crafts
+    # Fauna
+    'leon': {'meaning': 'lion', 'confidence': 'MEDIUM', 'source': 'Beekes'},
+    'pardalis': {'meaning': 'leopard', 'confidence': 'MEDIUM', 'source': 'Beekes'},
+
+    # Sea and landscape
+    'thalassa': {'meaning': 'sea', 'confidence': 'HIGH', 'source': 'Beekes'},
+    'labyrinthos': {'meaning': 'labyrinth', 'confidence': 'HIGH', 'source': 'Beekes'},
+    'plinthos': {'meaning': 'brick', 'confidence': 'MEDIUM', 'source': 'Beekes'},
+    'kolossos': {'meaning': 'statue', 'confidence': 'MEDIUM', 'source': 'Beekes'},
+    'pyrgos': {'meaning': 'tower', 'confidence': 'MEDIUM', 'source': 'Beekes'},
+
+    # Technology/materials/crafts
     'kassiteros': {'meaning': 'tin', 'confidence': 'MEDIUM', 'source': 'Furnée'},
     'khalybos': {'meaning': 'steel/iron', 'confidence': 'LOW', 'source': 'Furnée'},
+    'khalix': {'meaning': 'pebble/limestone', 'confidence': 'MEDIUM', 'source': 'Beekes'},
+    'asaminthos': {'meaning': 'bathtub', 'confidence': 'HIGH', 'source': 'Beekes'},
+    'depas': {'meaning': 'cup/goblet', 'confidence': 'MEDIUM', 'source': 'Beekes'},
+    'kitharos': {'meaning': 'lyre', 'confidence': 'MEDIUM', 'source': 'Beekes'},
+    'chiton': {'meaning': 'tunic', 'confidence': 'MEDIUM', 'source': 'Beekes'},
 
     # Religious/ritual
     'thymos': {'meaning': 'spirit, soul (possibly)', 'confidence': 'LOW', 'source': 'Beekes'},
-    'daphnē': {'meaning': 'laurel', 'confidence': 'MEDIUM', 'source': 'Beekes'},
+    'theos': {'meaning': 'god (possibly substrate)', 'confidence': 'LOW', 'source': 'Beekes'},
+    'hieros': {'meaning': 'sacred', 'confidence': 'LOW', 'source': 'Beekes'},
 
     # Personal names/theonyms
     'Ariadne': {'meaning': 'personal name (Pre-Greek)', 'confidence': 'MEDIUM', 'source': 'Beekes'},
     'Athene': {'meaning': 'goddess name (Pre-Greek)', 'confidence': 'HIGH', 'source': 'Beekes'},
+    'Hermēs': {'meaning': 'god name (Pre-Greek)', 'confidence': 'MEDIUM', 'source': 'Beekes'},
+
+    # Food/cooking
+    'plakous': {'meaning': 'flat cake/slab', 'confidence': 'LOW', 'source': 'Beekes'},
+    'maza': {'meaning': 'barley cake', 'confidence': 'MEDIUM', 'source': 'Beekes'},
 }
 
 # Pre-Greek phonological rules (characteristics that distinguish from IE)
@@ -991,8 +1035,9 @@ class HypothesisTester:
             })
             result['score'] += 2
 
-        # G-R pattern (ki-ro possibly *gara "diminish")
-        if consonants in ['KR', 'GR']:
+        # G-R pattern only (ki-ro possibly *gara "diminish")
+        # NOTE: Use elif to avoid double-scoring KR which was already scored above
+        elif consonants == 'GR':
             result['evidence'].append({
                 'type': 'cognate',
                 'observation': 'G-R skeleton',
@@ -1463,27 +1508,49 @@ class HypothesisTester:
             'supported_count': len(supported),
             'supported_hypotheses': supported,
             'multi_hypothesis_support': len(supported) > 1,
-            'max_confidence': self._determine_confidence(supported, best_score),
+            'max_confidence': self._determine_confidence(supported, best_score, frequency),
         }
 
         return analysis
 
-    def _determine_confidence(self, supported: List[str], best_score: float) -> str:
+    def _determine_confidence(self, supported: List[str], best_score: float,
+                              frequency: int = 1) -> str:
         """
-        Determine maximum confidence based on First Principles.
+        Determine maximum confidence based on First Principles and frequency.
 
+        Frequency gating (per METHODOLOGY.md):
+        - Hapax legomenon (freq=1) → Max: POSSIBLE
+        - Low frequency (freq 2-3) → Max: PROBABLE
+        - Higher frequency → No cap
+
+        Hypothesis support:
         - Single-hypothesis support → Max: PROBABLE
         - Multi-hypothesis support → Can be CERTAIN
         - No support → SPECULATIVE
         """
-        if len(supported) >= 2:
-            return 'CERTAIN' if best_score >= 3 else 'PROBABLE'
-        elif len(supported) == 1:
-            return 'PROBABLE'  # Single-hypothesis cap
-        elif best_score >= 1:
-            return 'POSSIBLE'
+        # Frequency-based confidence cap (METHODOLOGY.md line 101-108)
+        if frequency == 1:
+            confidence_cap = 'POSSIBLE'  # Hapax: never above POSSIBLE
+        elif frequency <= 3:
+            confidence_cap = 'PROBABLE'  # Low-freq: cap at PROBABLE
         else:
-            return 'SPECULATIVE'
+            confidence_cap = 'CERTAIN'  # Higher freq: no cap
+
+        # Compute raw confidence from hypothesis support
+        if len(supported) >= 2:
+            raw = 'CERTAIN' if best_score >= 3 else 'PROBABLE'
+        elif len(supported) == 1:
+            raw = 'PROBABLE'  # Single-hypothesis cap
+        elif best_score >= 1:
+            raw = 'POSSIBLE'
+        else:
+            raw = 'SPECULATIVE'
+
+        # Apply frequency cap
+        confidence_order = ['SPECULATIVE', 'POSSIBLE', 'PROBABLE', 'CERTAIN']
+        cap_idx = confidence_order.index(confidence_cap)
+        raw_idx = confidence_order.index(raw)
+        return confidence_order[min(raw_idx, cap_idx)]
 
     def test_corpus(self, min_frequency: int = 3):
         """

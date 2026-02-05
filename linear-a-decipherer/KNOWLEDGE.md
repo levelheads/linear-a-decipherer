@@ -13,7 +13,7 @@
 | Corpus Processed | 1,721 inscriptions (100%) |
 | Detailed Analyses | **300/1,721 inscriptions (17.43% coverage)** |
 | Words Tested | **248 words** (freq >= 2) via batch_pipeline.py |
-| High-Confidence Words | **114** (42 CERTAIN/PROBABLE + CONSISTENT) |
+| High-Confidence Words | **42** (CERTAIN/PROBABLE + CONSISTENT via batch_pipeline.py) |
 | KU-RO Totals Verified | 7/35 (20%) via corpus_auditor.py |
 | Personal Names | 127 identified |
 | Best-Fit Model | **Undetermined substrate** with contact features (Luwian morphological influence + Semitic admin loans) |
@@ -135,7 +135,7 @@
 
 | Word | Meaning | Occurrences | Vowel Pattern | Sites |
 |------|---------|-------------|---------------|-------|
-| **SA-RA₂** | allocation (*šarāku*) | 18 | A-A | HT |
+| **SA-RA₂** | allocation (*šarāku*) | 20 | A-A | HT |
 | SA-RU | S-R variant | 6 | A-U | HT, ZA |
 | SA-RO | S-R variant | 4 | A-O | HT |
 | SI-RU | S-R variant | 4 | I-U | HT, TY |
@@ -201,7 +201,7 @@
 | **Proto-Greek** | **-15.0** | /o/ at 3.9% (expected 20%); Greek case endings absent |
 | Luwian | +3.5 | None critical |
 | Semitic | 0.0 | Triconsonantal morphology absent |
-| Pre-Greek | 0.0 | Methodology limitations |
+| Pre-Greek | 0.0 | Methodology limitations (no Level 1/2 anchors; phonological matching only) |
 
 ### Legacy Results (2026-02-01)
 
@@ -218,6 +218,8 @@
 1. **Luwian DOMINANT** (35.1% Bayesian posterior) - morphological particles (-JA, WA, U) more pervasive than recognized
 2. **Proto-Greek ELIMINATED** (2.8% posterior, max 6.4%) - below 5% falsification threshold
 3. **Domain-specific layering**: Admin vocabulary favors Semitic; overall corpus favors Luwian
+
+**Note on Scoring Methods**: Bayesian posterior (35.1% Luwian) and batch_pipeline raw scores (Semitic 687.7 vs Luwian 278.5) are NOT directly comparable. Bayesian uses calibrated priors and word-count support; batch_pipeline sums per-word evidence scores where Semitic tests have higher maximum scores per word. Both confirm the domain-specific layering pattern.
 
 ### Untested Hypotheses (Proposed in Literature)
 

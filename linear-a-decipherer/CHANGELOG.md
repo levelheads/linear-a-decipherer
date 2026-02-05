@@ -4,6 +4,61 @@
 
 ---
 
+## 2026-02-05 (Tool Quality Fixes)
+
+### Hypothesis Tester Remediation
+
+**Purpose**: Fix scoring bugs and methodology gaps before further corpus expansion.
+
+#### Fix 1: K-R Double-Matching Bug (CRITICAL)
+
+**File**: `tools/hypothesis_tester.py` lines 994-1002
+
+**Problem**: KI-RO/KU-RO matched BOTH K-R pattern (+2) AND G-R pattern (+1), receiving +3 instead of +2.
+
+**Solution**: Changed second condition from `if consonants in ['KR', 'GR']` to `elif consonants == 'GR'` to prevent double-scoring.
+
+**Impact**: 53 K-R words (KU-RO: 37, KI-RO: 16) now have accurate Semitic scores.
+
+#### Fix 2: Pre-Greek Markers Expansion (HIGH)
+
+**File**: `tools/hypothesis_tester.py` PREGREEK_MARKERS
+
+**Before**: 14 markers
+**After**: 26 markers (added kt, pt, ng, rr, ll, aia, issa, andr, gn, kn, ps, ks)
+
+**Sources**: Beekes (2014) "Pre-Greek"
+
+#### Fix 3: Pre-Greek Vocabulary Expansion (HIGH)
+
+**File**: `tools/hypothesis_tester.py` PREGREEK_VOCABULARY
+
+**Before**: 13 vocabulary items
+**After**: 32 vocabulary items (added flora: kissos, kyparissos, erebinthos, selinon, mintha, sykē, melon; fauna: leon, pardalis; technology: khalix, asaminthos, depas, chiton; religious: theos, hieros, Hermēs; food: plakous, maza)
+
+**Sources**: Beekes (2014) attestations
+
+#### Fix 4: Frequency Gating in Confidence (HIGH)
+
+**File**: `tools/hypothesis_tester.py` _determine_confidence()
+
+**Problem**: No verification of METHODOLOGY.md anchor rules for frequency-based confidence caps.
+
+**Solution**: Added frequency parameter with caps:
+- Hapax (freq=1) → Max: POSSIBLE
+- Low frequency (freq 2-3) → Max: PROBABLE
+- Higher frequency → No cap
+
+#### Fix 5: Hapax Cap in Pipeline (MEDIUM)
+
+**File**: `tools/batch_pipeline.py` lines 619-624
+
+**Problem**: Hapax words could appear in high-confidence lists despite methodology prohibition.
+
+**Solution**: Added `freq >= 2` check before categorizing as high confidence.
+
+---
+
 ## 2026-02-05 (Corpus Expansion Attempt)
 
 ### Target: 10% → 25% Coverage — ACHIEVED 17.43%

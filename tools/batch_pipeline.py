@@ -616,7 +616,9 @@ class BatchPipeline:
                 'sites': validation.get('sites', []),
             }
 
-            if confidence in ['CERTAIN', 'PROBABLE'] and verdict == 'CONSISTENT':
+            # High confidence requires freq >= 2 (exclude hapax legomena per METHODOLOGY.md)
+            freq = entry['frequency']
+            if confidence in ['CERTAIN', 'PROBABLE'] and verdict == 'CONSISTENT' and freq >= 2:
                 high_confidence.append(entry)
             elif confidence in ['PROBABLE', 'POSSIBLE'] or verdict == 'PARTIAL':
                 medium_confidence.append(entry)
