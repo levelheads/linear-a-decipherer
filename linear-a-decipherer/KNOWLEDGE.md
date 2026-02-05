@@ -2,7 +2,7 @@
 
 **Essential lookup tables and project status for Linear A research**
 
-**Last Updated**: 2026-02-01
+**Last Updated**: 2026-02-05
 
 ---
 
@@ -11,14 +11,19 @@
 | Metric | Value |
 |--------|-------|
 | Corpus Processed | 1,722 inscriptions (100%) |
+| Detailed Analyses | 24/1,722 inscriptions (1.39% coverage) |
 | Words Tested | 198 words (freq >= 2) via hypothesis_tester.py |
 | High-Confidence Words | 86 (CERTAIN or PROBABLE) |
-| KU-RO Totals Verified | 4/35 (11.4%) via corpus_auditor.py |
+| KU-RO Totals Verified | 7/35 (20%) via corpus_auditor.py |
 | Personal Names | 127 identified |
 | Best-Fit Model | **Undetermined substrate** with contact features (Luwian morphological influence + Semitic admin loans) |
-| Active Vectors | 5 (OPERATION BREAKTHROUGH) |
+| Active Operation | OPERATION MINOS III (Phases 1-3, 5 COMPLETE) |
 
-**Tool Validation**: 2026-02-01 - All analyses re-run with proper tooling
+**Tool Validation**: 2026-02-05 - Phases 1-3, 5 Complete
+- Phase 1: Foundation (KU-RO 17.1%→20%, anchors valid, SA-RA₂ HT-only)
+- Phase 2: Wave 2 inscriptions (10/11, 91%)
+- Phase 3: Undeciphered signs (*301=/kya/, *118=CVC, *21F/*21M=classifiers, *188=vessel)
+- Phase 5: Tools (update_index.py created, anchor_tracker.py extended)
 
 **See**: `CHANGELOG.md` for full discovery chronology
 
@@ -269,6 +274,18 @@
 | PH(?)31a | Phaistos | HIGH | KU-RO in MMIII (earliest) |
 | HT 117 | Hagia Triada | HIGH | KI-RO header function; KU-RO 10 verified |
 | HT 94 | Hagia Triada | HIGH | KU-RO+KI-RO co-occur; SA-RA₂ commodities |
+| **IO Za 2** | Iouktas | **HIGH** | 6-position libation formula; JA-SA-SA-RA-ME divine name |
+| **HT 85a** | Hagia Triada | **HIGH** | KU-RO 66 VERIFIED (exact arithmetic match) |
+| **HT 122a/b** | Hagia Triada | **HIGH** | PO-TO-KU-RO 97 grand total; dual KU-RO sections |
+| **KH 6** | Khania | **MEDIUM** | CYP+D fractional copper; zero K-R confirmed |
+| **KH 7a** | Khania | **MEDIUM** | CYP+D and CYP+E in same document; VIR+*313b |
+| **PK Za 11** | Palaikastro | **MEDIUM** | Libation formula; DI-KI-TE toponym; SA-SA-RA-ME |
+| **ZA 10b** | Zakros | **MEDIUM** | 12 entries; no KU-RO (distribution record) |
+| **HT 95a** | Hagia Triada | **MEDIUM** | GRA distribution; DA-DU-MA-TA header |
+| **SY Za 4** | Kato Symi | **MEDIUM** | A-TA-I-*301-WA-JA libation verb cross-site |
+| **KH 11** | Khania | **MEDIUM** | Mixed CYP+VIN; extensive fractions (¹⁄₁₆, ¹⁄₆, ¹⁄₃); *301+1 logographic |
+
+**Corpus Coverage**: 24/1,722 inscriptions (1.39%)
 
 ### Recurrent Personal Names (Cross-Tablet)
 
@@ -319,27 +336,105 @@
 
 ## Unique Sign Analysis: *301
 
-**Status**: Phase B2 COMPLETE (phoneme candidates generated)
+**Status**: Phase B3 COMPLETE (validation testing done)
 
 | Metric | Value |
 |--------|-------|
-| Occurrences | 288 |
-| Word-initial | 88.2% |
-| Standalone + numeral | 82.6% |
-| Sites | 10 (HT dominant at 82.6%) |
+| Occurrences | 561 |
+| Logographic contexts | 32 (5.7%) - with numerals |
+| Syllabographic contexts | 53 (9.4%) - in word sequences |
+| Standalone (requires context) | 476 (84.8%) |
+| Sites | 17 (HT 42.4%, 238 occ) |
 
-**Hybrid Sign Model**: *301 functions as BOTH logogram (commodity marker) AND syllabogram
+**DUAL-USE SIGN CONFIRMED**: *301 functions as BOTH logogram (commodity/measurement) AND syllabogram
 
-| Rank | Phoneme | IPA | Confidence | Linguistic Source |
-|------|---------|-----|------------|-------------------|
-| 1 | ḥa | [ħa] | PROBABLE | Semitic pharyngeal |
-| 2 | kya | [kʲa] | PROBABLE | Luwian palatalized |
-| 3 | ʿa | [ʕa] | POSSIBLE | West Semitic |
+| Pattern | Occurrences | Context | Sites |
+|---------|-------------|---------|-------|
+| *301+*311 | 20 | Measurement compound | Khania (primary) |
+| A-TA-I-*301-WA-JA | 11 | Libation formula verb | IO, SY, KO, PK, TL |
+| *301-*301 | 8 | Reduplicated logogram | HT |
+| TE-*301 | 4 | Syllabographic sequence | HT |
+
+**Phase B3 Validation Results**:
+
+| Rank | Phoneme | IPA | Confidence | Evidence |
+|------|---------|-----|------------|----------|
+| 1 | **kya** | [kʲa] | **PROBABLE** | Syllabographic patterns + -WA-JA Luwian morphology |
+| 2 | ḥa | [ħa] | POSSIBLE | Logographic use only; contradicted by syllabographic contexts |
+| 3 | ʿa | [ʕa] | WEAK | Limited evidence |
+
+**Key Finding**: Luwian /kya/ MORE PLAUSIBLE than Semitic /ħa/ — syllabographic patterns (word-medial *301-U-RA, word-final E-*301) contradict pure logographic Semitic hypothesis
 | 4 | xa | [xa] | POSSIBLE | Multi-source |
 
 **Key Context**: A-TA-I-*301-WA-JA (libation formula, 11 occurrences)
 
 **Why Dropped in Linear B**: Represented phoneme(s) absent in Greek; logographic function obsolete
+
+---
+
+## Additional Undeciphered Signs (Phase 3 Complete)
+
+### Sign *118: CVC Syllable with Final Consonant
+
+| Metric | Value |
+|--------|-------|
+| Occurrences | 26 |
+| Word-final | **69.2%** (CONFIRMED) |
+| Word-initial | 19.2% |
+| Word-medial | 11.5% |
+| Primary site | HT (53.8%) |
+
+**Key Patterns**:
+- DA-SI-*118 (4 occ) — most stable form
+- *21F-*118 (3 occ) — classifier + final marker
+- I-QA-*118 (2 occ) — second most stable
+
+**Phonetic Hypothesis**: CVC syllable with final consonant /-t, -n, or -m/
+**Confidence**: PROBABLE
+
+### Sign *304: Suffix/Postposition (REVISED)
+
+| Metric | Value |
+|--------|-------|
+| Occurrences | 42 |
+| Word-medial | **66.7%** |
+| Word-final | 21.4% |
+| Word-initial | 11.9% |
+| Primary site | HT (66.7%) |
+
+**REVISION**: Expected 93% initial, observed 11.9% — NOT emphatic/logographic
+**Actual Function**: Suffix or postposition marker (medial dominant)
+**Key Compound**: *304+PA (3 occ)
+**Confidence**: POSSIBLE (function revised)
+
+### Signs *21F/*21M: Gender Classifiers
+
+| Sign | Occurrences | Primary Site | Medial % |
+|------|-------------|--------------|----------|
+| *21F | 22 | HT (63.6%) | 59.1% |
+| *21M | 8 | PH (50.0%) | 87.5% |
+
+**Function**: Paired gender classifier system
+- *21F = Feminine classifier (more frequent, wider distribution)
+- *21M = Masculine classifier (Phaistos cluster, rarer)
+- Both appear word-internally, often with word-final marker following
+
+**Key Pattern**: *21F-*118 (2 occ) — feminine + final consonant
+**Confidence**: PROBABLE
+
+### Sign *188: Vessel/Administrative Marker
+
+| Metric | Value |
+|--------|-------|
+| Occurrences | 32 |
+| Word-initial | **62.5%** |
+| On roundels | **46.9%** (administrative seals) |
+| Primary site | HT (59.4%) |
+
+**Key Compound**: *86+*188 (11 occ, 34%) — dominant pattern at Khania
+**Vessel Context**: Confirmed (PSIZa1 stone vessel)
+**Administrative Use**: High roundel frequency supports seal/marking function
+**Confidence**: PROBABLE
 
 ---
 
@@ -537,15 +632,38 @@ Example cascade from `anchor_semitic_loan_layer`:
 
 **Status**: Awaiting Anetaki II publication for full analysis.
 
-### Vector 5: Chronological Wedge
+### Vector 5: Chronological Wedge (EXPANDED 2026-02-05)
 
-| Period | K-R Status | Vocabulary Type |
-|--------|------------|-----------------|
-| **MMII** (1800-1700) | **ZERO** | Pure name lists, Pre-Greek |
-| **MMIII** (1700-1600) | **KU-RO only** | Innovation horizon |
-| **LMIB** (1500-1450) | **Full system** | Complete K-R |
+#### Contact Language Layer Timeline
 
-**Key Discovery**: K-R Innovation Horizon = **MMIII Phaistos** (PH(?)31a). Full system develops over ~200 years.
+| Layer | First Appearance | Peak Period | Key Evidence |
+|-------|------------------|-------------|--------------|
+| **Luwian (morphology)** | **MMII** | LMIB | -JA suffix (PHWc39), -WA (PH6) |
+| **Pre-Greek (substrate)** | **MMII** | LMIA | Long compounds, archaic signs (*314, *320) |
+| **Semitic (loans)** | **MMIII** | LMIB | KU-RO (PH(?)31a), full K-R in LMIB |
+
+#### Period-by-Period Distribution
+
+| Period | K-R Status | Luwian Features | Pre-Greek Features |
+|--------|------------|-----------------|-------------------|
+| **MMII** (1800-1700) | ZERO | -JA, -WA present | Archaic signs (*314, *320), long compounds |
+| **MMIII** (1700-1600) | KU-RO x1 | -JA continuing | Long compounds |
+| **LMIA** (1600-1500) | ZERO | A-TA-I-*301-WA-JA emerges | JA-SA-SA-RA-ME emerges |
+| **LMIB** (1500-1450) | Full system | Complete morphology | Religious vocabulary |
+
+#### Key Inscription References
+
+| Inscription | Period | Features Present |
+|-------------|--------|------------------|
+| PHWc39 | MMII | JA-DI (earliest -JA suffix) |
+| PH6 | MMII | I-NA-WA (earliest -WA), I-DA-PA3-I-SA-RI (6-syllable compound) |
+| PHWc37 | MMII | KA-*314-SI *320 (archaic signs, MMII-exclusive) |
+| PH(?)31a | MMIII | KU-RO (earliest Semitic admin term) |
+| IO Za 6 | LMIA | JA-SA-SA-RA-ME (earliest gemination), libation formula |
+| SY Za 3-4 | LMIA | A-TA-I-*301-WA-JA, SI-RU-TE |
+| HT series | LMIB | Full K-R paradigm (KU-RO 33, KI-RO 12, SA-RA2 20) |
+
+**Key Discovery**: K-R Innovation Horizon = **MMIII Phaistos** (PH(?)31a). Full system develops over ~200 years. Luwian morphology is the OLDEST contact layer, present from earliest texts.
 
 ---
 

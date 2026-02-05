@@ -10,11 +10,32 @@ This tool addresses the methodological critique:
 fails for one anchor, what else collapses?"
 
 Usage:
+    # Simulate cascade effects (no changes applied)
     python tools/anchor_tracker.py --cascade anchor_semitic_loan_layer --to QUESTIONED
+
+    # Auto-cascade: propagate confidence changes automatically
+    python tools/anchor_tracker.py --cascade anchor_semitic_loan_layer --to DEMOTED --auto-cascade
+
+    # Auto-cascade with alerts when readings drop below MEDIUM
+    python tools/anchor_tracker.py --cascade anchor_kuro_total --to QUESTIONED \
+        --auto-cascade --alert-threshold MEDIUM
+
+    # Enforce anchor hierarchy constraints on all readings
+    python tools/anchor_tracker.py --enforce-hierarchy
+
+    # Other commands
     python tools/anchor_tracker.py --register SA-RA₂ --depends-on anchor_semitic_loan_layer
     python tools/anchor_tracker.py --validate
     python tools/anchor_tracker.py --graph
     python tools/anchor_tracker.py --reading KU-RO
+
+New Features (2026-02):
+    --auto-cascade: Automatically propagate confidence changes when an anchor
+                    is questioned/demoted/rejected. Updates all dependent readings.
+    --alert-threshold LEVEL: Output warnings when readings drop below specified
+                             confidence level (SPECULATIVE|POSSIBLE|LOW|MEDIUM|PROBABLE|HIGH|CERTAIN)
+    --enforce-hierarchy: Ensure all readings respect anchor hierarchy constraints
+                         (Levels 1-6 per METHODOLOGY.md Part 2)
 
 Attribution:
     Part of Linear A Decipherment Project
@@ -57,6 +78,24 @@ class CascadeResult:
     total_affected: int
     cascade_depth: int
     warnings: List[str]
+    applied: bool = False  # True if changes were actually applied
+
+
+# Anchor hierarchy levels (METHODOLOGY.md Part 2)
+# Level 1: Confirmed toponyms (CERTAIN)
+# Level 2: Linear B cognates + position (HIGH)
+# Level 3: Clear logograms (HIGH)
+# Level 4: Structural patterns (MEDIUM)
+# Level 5: Morphological patterns (LOW-MEDIUM)
+# Level 6: Lexical matches (LOW)
+ANCHOR_LEVEL_MAX_CONFIDENCE = {
+    1: 'CERTAIN',
+    2: 'HIGH',
+    3: 'HIGH',
+    4: 'MEDIUM',
+    5: 'MEDIUM',  # LOW-MEDIUM, use MEDIUM as upper bound
+    6: 'LOW',
+}
 
 
 @dataclass
@@ -80,11 +119,12 @@ class AnchorTracker:
     - Some readings support other anchors (feedback)
     """
 
-    def __init__(self, verbose: bool = False):
+    def __init__(self, verbose: bool = False, alert_threshold: str = None):
         self.verbose = verbose
         self.anchors = {}
         self.readings = {}
         self.cascade_rules = []
+        self.alert_threshold = alert_threshold  # Confidence level for alerts
 
         # Dependency graph
         self.anchor_to_readings = defaultdict(set)  # anchor -> set of readings
@@ -160,7 +200,6 @@ class AnchorTracker:
 
         # Find minimum anchor confidence
         min_rank = float('inf')
-        min_anchor = None
 
         for anchor_id in anchor_ids:
             anchor = self.anchors.get(anchor_id, {})
@@ -168,7 +207,6 @@ class AnchorTracker:
             rank = self.get_confidence_rank(confidence)
             if rank < min_rank:
                 min_rank = rank
-                min_anchor = anchor_id
 
         if min_rank == float('inf'):
             return 'SPECULATIVE'
@@ -307,6 +345,224 @@ class AnchorTracker:
             cascade_depth=max_depth,
             warnings=warnings
         )
+
+    def auto_cascade_propagate(self, anchor_id: str, new_status: str) -> CascadeResult:
+        """
+        Automatically propagate confidence changes when an anchor is questioned.
+
+        This extends cascade_from_anchor by actually applying the changes:
+        1. Computes cascade effects
+        2. Updates reading confidences (cannot exceed weakest anchor)
+        3. Generates alerts for readings below threshold
+        4. Saves changes to disk
+
+        Args:
+            anchor_id: The anchor being questioned/demoted/rejected
+            new_status: QUESTIONED, DEMOTED, or REJECTED
+
+        Returns:
+            CascadeResult with applied=True and affected readings updated
+        """
+        # First compute the cascade (simulation)
+        result = self.cascade_from_anchor(anchor_id, new_status)
+
+        if not result.affected_readings and not result.affected_anchors:
+            return result
+
+        # Apply confidence changes to readings
+        alerts = []
+        for affected in result.affected_readings:
+            reading_id = affected['reading_id']
+            new_conf = affected['new_confidence']
+
+            if reading_id in self.readings:
+                old_conf = self.readings[reading_id].get('confidence', 'SPECULATIVE')
+
+                # Update the reading confidence
+                self.readings[reading_id]['confidence'] = new_conf
+                self.readings[reading_id]['cascade_note'] = (
+                    f"Auto-cascaded {datetime.now().strftime('%Y-%m-%d')}: "
+                    f"{old_conf} → {new_conf} (anchor {anchor_id} {new_status})"
+                )
+
+                # Check alert threshold
+                if self.alert_threshold:
+                    if self.get_confidence_rank(new_conf) < self.get_confidence_rank(self.alert_threshold):
+                        alerts.append(
+                            f"ALERT: {reading_id} dropped to {new_conf} "
+                            f"(below threshold {self.alert_threshold})"
+                        )
+
+        # Add alerts to warnings
+        result.warnings.extend(alerts)
+        result.applied = True
+
+        return result
+
+    def get_anchor_level_max_confidence(self, anchor_id: str) -> str:
+        """
+        Get the maximum confidence allowed by an anchor's hierarchy level.
+
+        Per METHODOLOGY.md Part 2:
+        - Level 1: CERTAIN (confirmed toponyms)
+        - Level 2-3: HIGH (Linear B cognates, logograms)
+        - Level 4-5: MEDIUM (structural/morphological patterns)
+        - Level 6: LOW (lexical matches)
+        """
+        anchor = self.anchors.get(anchor_id, {})
+        level = anchor.get('level', 6)  # Default to lowest level
+        return ANCHOR_LEVEL_MAX_CONFIDENCE.get(level, 'LOW')
+
+    def enforce_anchor_hierarchy_constraints(self) -> List[Dict]:
+        """
+        Ensure all readings respect their anchor hierarchy constraints.
+
+        Readings cannot exceed:
+        1. Their weakest anchor's confidence
+        2. Their anchor level's maximum confidence
+
+        Returns:
+            List of readings that were adjusted
+        """
+        adjustments = []
+
+        for reading_id, reading in self.readings.items():
+            current_conf = reading.get('confidence', 'SPECULATIVE')
+            current_rank = self.get_confidence_rank(current_conf)
+
+            # Find the constraining anchor (weakest or lowest level)
+            anchor_ids = reading.get('depends_on', [])
+            if not anchor_ids:
+                continue
+
+            min_allowed_rank = float('inf')
+            constraining_anchor = None
+            constraint_reason = None
+
+            for anchor_id in anchor_ids:
+                anchor = self.anchors.get(anchor_id, {})
+
+                # Check anchor's own confidence
+                anchor_conf = anchor.get('confidence', 'SPECULATIVE')
+                anchor_rank = self.get_confidence_rank(anchor_conf)
+
+                # Check anchor's level max
+                level_max = self.get_anchor_level_max_confidence(anchor_id)
+                level_rank = self.get_confidence_rank(level_max)
+
+                # Use the more restrictive of the two
+                effective_rank = min(anchor_rank, level_rank)
+
+                if effective_rank < min_allowed_rank:
+                    min_allowed_rank = effective_rank
+                    constraining_anchor = anchor_id
+                    if anchor_rank <= level_rank:
+                        constraint_reason = f"anchor confidence ({anchor_conf})"
+                    else:
+                        constraint_reason = f"level {anchor.get('level', '?')} max ({level_max})"
+
+            # Check if reading exceeds constraint
+            if current_rank > min_allowed_rank and min_allowed_rank != float('inf'):
+                new_conf = CONFIDENCE_LEVELS[min_allowed_rank]
+
+                adjustments.append({
+                    'reading_id': reading_id,
+                    'old_confidence': current_conf,
+                    'new_confidence': new_conf,
+                    'constraining_anchor': constraining_anchor,
+                    'reason': constraint_reason
+                })
+
+                # Apply the adjustment
+                self.readings[reading_id]['confidence'] = new_conf
+                self.readings[reading_id]['max_confidence'] = new_conf
+                self.readings[reading_id]['cascade_note'] = (
+                    f"Hierarchy constraint {datetime.now().strftime('%Y-%m-%d')}: "
+                    f"capped by {constraining_anchor} ({constraint_reason})"
+                )
+
+        return adjustments
+
+    def generate_cascade_report(self, result: CascadeResult, include_hierarchy: bool = True) -> str:
+        """
+        Generate a detailed text report of cascade effects.
+
+        Args:
+            result: The CascadeResult to report on
+            include_hierarchy: Whether to include anchor hierarchy level info
+
+        Returns:
+            Formatted report string
+        """
+        lines = []
+        lines.append("=" * 70)
+        lines.append("CASCADE CONFIDENCE PROPAGATION REPORT")
+        lines.append("=" * 70)
+        lines.append(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        lines.append(f"Applied: {'YES' if result.applied else 'NO (simulation only)'}")
+        lines.append("")
+
+        # Anchor info
+        anchor = self.anchors.get(result.anchor_id, {})
+        lines.append(f"Anchor: {result.anchor_id}")
+        lines.append(f"  Name: {anchor.get('name', 'Unknown')}")
+        if include_hierarchy:
+            level = anchor.get('level', '?')
+            level_max = ANCHOR_LEVEL_MAX_CONFIDENCE.get(level, 'N/A')
+            lines.append(f"  Hierarchy Level: {level} (max confidence: {level_max})")
+        lines.append(f"  Status Change: → {result.new_status}")
+        lines.append("")
+
+        # Summary
+        lines.append("SUMMARY")
+        lines.append("-" * 40)
+        lines.append(f"  Total readings affected: {len(result.affected_readings)}")
+        lines.append(f"  Downstream anchors affected: {len(result.affected_anchors)}")
+        lines.append(f"  Maximum cascade depth: {result.cascade_depth}")
+        lines.append("")
+
+        # Warnings and alerts
+        if result.warnings:
+            lines.append("WARNINGS & ALERTS")
+            lines.append("-" * 40)
+            for warning in result.warnings:
+                lines.append(f"  * {warning}")
+            lines.append("")
+
+        # Affected readings by confidence change
+        if result.affected_readings:
+            lines.append("AFFECTED READINGS")
+            lines.append("-" * 40)
+
+            # Group by confidence change type
+            demoted = [r for r in result.affected_readings if r['new_confidence'] != r['current_confidence']]
+            unchanged = [r for r in result.affected_readings if r['new_confidence'] == r['current_confidence']]
+
+            if demoted:
+                lines.append(f"\n  Demoted ({len(demoted)}):")
+                for r in sorted(demoted, key=lambda x: -self.get_confidence_rank(x['current_confidence'])):
+                    lines.append(f"    {r['reading_id']}: {r['current_confidence']} → {r['new_confidence']}")
+                    lines.append(f"      Meaning: {r['meaning']}")
+
+            if unchanged:
+                lines.append(f"\n  Unchanged ({len(unchanged)}):")
+                for r in unchanged[:5]:  # Show first 5
+                    lines.append(f"    {r['reading_id']}: {r['current_confidence']} (already at or below)")
+                if len(unchanged) > 5:
+                    lines.append(f"    ... and {len(unchanged) - 5} more")
+
+        # Downstream anchors
+        if result.affected_anchors:
+            lines.append("\nDOWNSTREAM ANCHORS (review recommended)")
+            lines.append("-" * 40)
+            for a in result.affected_anchors:
+                lines.append(f"  {a['anchor_id']}: {a['name']}")
+                lines.append(f"    Current: {a['current_confidence']}")
+
+        lines.append("")
+        lines.append("=" * 70)
+
+        return '\n'.join(lines)
 
     def register_reading(self, reading_id: str, depends_on: List[str],
                         meaning: str = "", confidence: str = "SPECULATIVE") -> bool:
@@ -608,6 +864,23 @@ def main():
         help='New status for cascade analysis'
     )
     parser.add_argument(
+        '--auto-cascade',
+        action='store_true',
+        help='Automatically propagate confidence changes (use with --cascade)'
+    )
+    parser.add_argument(
+        '--alert-threshold',
+        type=str,
+        choices=CONFIDENCE_LEVELS,
+        metavar='LEVEL',
+        help='Output warnings when readings drop below this confidence level'
+    )
+    parser.add_argument(
+        '--enforce-hierarchy',
+        action='store_true',
+        help='Enforce anchor hierarchy constraints on all readings'
+    )
+    parser.add_argument(
         '--register', '-r',
         type=str,
         metavar='READING_ID',
@@ -663,9 +936,13 @@ def main():
     print("LINEAR A ANCHOR DEPENDENCY TRACKER")
     print("=" * 70)
 
-    tracker = AnchorTracker(verbose=args.verbose)
+    tracker = AnchorTracker(verbose=args.verbose, alert_threshold=args.alert_threshold)
     if not tracker.load_data():
         return 1
+
+    # Show alert threshold if set
+    if args.alert_threshold:
+        print(f"Alert threshold: {args.alert_threshold}")
 
     if args.list_anchors:
         print("\nRegistered Anchors:")
@@ -678,8 +955,36 @@ def main():
         return 0
 
     if args.cascade:
-        result = tracker.cascade_from_anchor(args.cascade, args.to)
-        tracker.print_cascade_report(result)
+        if args.auto_cascade:
+            # Auto-cascade: compute AND apply changes
+            result = tracker.auto_cascade_propagate(args.cascade, args.to)
+            print(tracker.generate_cascade_report(result, include_hierarchy=True))
+
+            if result.applied and result.affected_readings:
+                # Save the changes
+                tracker.save_data()
+                print(f"\nChanges applied and saved to {DEPENDENCIES_FILE}")
+        else:
+            # Simulation only (existing behavior)
+            result = tracker.cascade_from_anchor(args.cascade, args.to)
+            tracker.print_cascade_report(result)
+            print("\nNote: Use --auto-cascade to apply these changes")
+        return 0
+
+    if args.enforce_hierarchy:
+        print("\nEnforcing anchor hierarchy constraints...")
+        adjustments = tracker.enforce_anchor_hierarchy_constraints()
+
+        if adjustments:
+            print(f"\nAdjusted {len(adjustments)} readings:\n")
+            for adj in adjustments:
+                print(f"  {adj['reading_id']}: {adj['old_confidence']} → {adj['new_confidence']}")
+                print(f"    Constrained by: {adj['constraining_anchor']} ({adj['reason']})")
+
+            tracker.save_data()
+            print(f"\nChanges saved to {DEPENDENCIES_FILE}")
+        else:
+            print("\nAll readings comply with hierarchy constraints.")
         return 0
 
     if args.register:

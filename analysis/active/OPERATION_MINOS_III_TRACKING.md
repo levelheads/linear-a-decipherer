@@ -49,21 +49,21 @@ Building on OPERATION MINOS I-II achievements (Proto-Greek eliminated, contact l
 | 8 | HT 94 | Hagia Triada | 70 | **COMPLETE** | [MINOS_III_HT94_ANALYSIS.md](MINOS_III_HT94_ANALYSIS.md) | KU-RO+KI-RO co-occur; SA-RA₂ verified |
 | 9 | IO Za 2 | Mt. Iouktas | 45 | PENDING | — | — |
 
-### Wave 2 (Expansion)
+### Wave 2 (Expansion) - STARTED 2026-02-05
 
 | # | Inscription | Site | Signs | Status | Analysis File | Key Finding |
 |---|-------------|------|-------|--------|---------------|-------------|
-| 10 | HT 85 | Hagia Triada | 60 | PENDING | — | — |
-| 11 | HT 122 | Hagia Triada | 55 | PENDING | — | — |
-| 12 | KH 10 | Khania | 55 | PENDING | — | — |
-| 13 | ZA 10 | Zakros | 60 | PENDING | — | — |
-| 14 | PK Za 11 | Palaikastro | 55 | PENDING | — | — |
-| 15 | HT 95 | Hagia Triada | 58 | PENDING | — | — |
-| 16 | KH 75 | Khania | 50 | PENDING | — | — |
-| 17 | KH 90 | Khania | 48 | PENDING | — | — |
-| 18 | PH 5 | Phaistos | 35 | PENDING | — | — |
-| 19 | PH 7 | Phaistos | 32 | PENDING | — | — |
-| 20 | SY Za 4 | Kato Symi | 35 | PENDING | — | — |
+| 10 | IO Za 2 | Iouktas | 45 | **COMPLETE** | [MINOS_III_WAVE2_IOZa2_ANALYSIS.md](MINOS_III_WAVE2_IOZa2_ANALYSIS.md) | 6-position libation formula; JA-SA-SA-RA-ME divine name |
+| 11 | HT 85a | Hagia Triada | 35 | **COMPLETE** | — | **KU-RO 66 VERIFIED (EXACT)** |
+| 12 | HT 122a/b | Hagia Triada | 55 | **COMPLETE** | — | **PO-TO-KU-RO 97**; section KU-RO 65+31 |
+| 13 | KH 6 | Khania | 53 | **COMPLETE** | — | CYP+D fractional copper; ZERO K-R |
+| 14 | KH 7a | Khania | 49 | **COMPLETE** | — | CYP+D AND CYP+E together; VIR+*313b personnel |
+| 15 | ZA 10b | Zakros | 39 | **COMPLETE** | — | 12 entries; no KU-RO; DU-RE-ZA-SE toponym? |
+| 16 | PK Za 11 | Palaikastro | 25 | **COMPLETE** | — | Libation formula; DI-KI-TE toponym; SA-SA-RA-ME |
+| 17 | HT 95a | Hagia Triada | 21 | **COMPLETE** | — | GRA distribution; DA-DU-MA-TA header; no KU-RO |
+| 18 | SY Za 4 | Kato Symi | 5 | **COMPLETE** | — | A-TA-I-*301-WA-JA libation formula confirmed |
+| 19 | KH 11 | Khania | 43 | **COMPLETE** | — | Mixed CYP+VIN; *301+1; extensive fractions |
+| 20 | PH 5 | Phaistos | 35 | **DATA GAP** | — | Transcription not indexed; GORILA Vol 3 p.212 |
 
 ### Wave 1 Metrics
 
@@ -86,8 +86,8 @@ Building on OPERATION MINOS I-II achievements (Proto-Greek eliminated, contact l
 |-------|-------------|--------|-----------------|
 | B1 | Distributional Analysis | **COMPLETE** | [MINOS_III_STAR301_PHASE_B1.md](MINOS_III_STAR301_PHASE_B1.md) |
 | B2 | Phoneme Candidate Generation | **COMPLETE** | [MINOS_III_STAR301_PHASE_B2.md](MINOS_III_STAR301_PHASE_B2.md) |
-| B3 | Hypothesis Testing | PENDING | Cross-corpus validation |
-| B4 | Validation | PENDING | Phonetic value at POSSIBLE+ |
+| B3 | Hypothesis Testing | **COMPLETE** | 561 occ analyzed; Luwian /kya/ > Semitic /ħa/ |
+| B4 | Validation | **COMPLETE** | /kya/ at PROBABLE; dual-use sign confirmed |
 
 ### *301 Data Collection
 

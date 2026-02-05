@@ -2,8 +2,8 @@
 
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 ![Inscriptions](https://img.shields.io/badge/Inscriptions-1%2C721-blue)
-![Tools](https://img.shields.io/badge/Analysis%20Tools-28-green)
-![Readings](https://img.shields.io/badge/Confirmed%20Readings-56-orange)
+![Tools](https://img.shields.io/badge/Analysis%20Tools-32-green)
+![Readings](https://img.shields.io/badge/High%20Confidence%20Readings-86-orange)
 
 A rigorous methodology system for analyzing undeciphered Minoan Bronze Age inscriptions (c.1800-1450 BCE) from Crete.
 
@@ -163,16 +163,16 @@ python tools/parse_lineara_corpus.py
 
 ### Quick Start
 
-1. **Read First Principles**: [FIRST_PRINCIPLES.md](linear-a-decipherer/FIRST_PRINCIPLES.md)
-2. **Review Current State**: [STATE_OF_KNOWLEDGE.md](linear-a-decipherer/STATE_OF_KNOWLEDGE.md)
-3. **Check What's Done**: [ANALYSIS_INDEX.md](linear-a-decipherer/ANALYSIS_INDEX.md)
-4. **See Example Analysis**: [HT13_QUICK_START.md](linear-a-decipherer/examples/HT13_QUICK_START.md)
+1. **Project Overview**: [PROJECT_REVIEW.md](PROJECT_REVIEW.md) — comprehensive review of goals, strategy, and progress
+2. **Read First Principles**: [METHODOLOGY.md](linear-a-decipherer/METHODOLOGY.md) — six inviolable principles
+3. **Review Current State**: [KNOWLEDGE.md](linear-a-decipherer/KNOWLEDGE.md) — current readings and hypothesis scores
+4. **See Example Analysis**: [HT13_ANALYSIS.md](linear-a-decipherer/examples/HT13_ANALYSIS.md)
 
 ---
 
 ## Analysis Tools
 
-The project includes 28 Python analysis scripts organized by function (stdlib-only, no external dependencies):
+The project includes 32 Python analysis scripts organized by function (stdlib-only, no external dependencies):
 
 ### Core Analysis
 
