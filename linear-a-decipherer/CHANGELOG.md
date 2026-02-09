@@ -4,6 +4,75 @@
 
 ---
 
+## 2026-02-09 (Post-Fix Validation Run)
+
+### Full Pipeline Re-Run After Feb 5-6 Bug Fixes
+
+**Purpose**: Validate the 7 bug fixes committed Feb 5-6 (commits `b44a656`, `c190ec9`, `fa10c93`) through end-to-end corpus re-analysis.
+
+#### Procedure
+
+1. Backed up pre-fix data files for comparison
+2. Corpus validation: **PASSED** (0 critical errors, 8 warnings)
+3. K-R spot-check: KU-RO, KI-RO, SA-RA₂ individually verified — `elif` fix confirmed, frequency gating active
+4. Full hypothesis tester re-run: 198 words (freq >= 2)
+5. Full batch pipeline re-run: 248 words, all 4 stages
+6. Integrated validator: 160 words validated through full pipeline
+7. Before/after comparison completed
+
+#### Results: Hypothesis Tester
+
+| Metric | Pre-Fix | Post-Fix | Delta |
+|--------|---------|----------|-------|
+| Semitic net score | — | -7.0 | 7 K-R words lost 1.0 each |
+| Pre-Greek supported | 3 (1.5%) | 4 (2.0%) | +1 word |
+| Luwian supported | 60 (30.3%) | 60 (30.3%) | unchanged |
+| Proto-Greek supported | 5 (2.5%) | 5 (2.5%) | unchanged |
+
+**Confidence Changes**: 10 words demoted CERTAIN → PROBABLE (A-KA-RU, A-MA, A-MI, A-NE, A-RA, A-RI, A-RU, A-TI-KA-A-DU-KO-MI, KA-RU, KU-RA). 0 promotions.
+
+**K-R Paradigm Words**:
+- KU-RO: score 5.35 → 4.35, confidence CERTAIN (maintained)
+- KI-RO: score 5.35 → 4.35, confidence PROBABLE (maintained)
+- SA-RA₂: unchanged (not affected by K-R fix)
+
+**Pre-Greek Gains**: A-MI (+1.5), A-RI (+1.5), TA-I-AROM (+1.0) — due to expanded markers/vocabulary
+
+#### Results: Batch Pipeline
+
+| Metric | Pre-Fix | Post-Fix | Delta |
+|--------|---------|----------|-------|
+| High confidence | 42 | 42 | unchanged |
+| Medium confidence | 181 | 181 | unchanged |
+| Needs review | 25 | 25 | unchanged |
+| Semitic score | 687.7 | 687.7 | unchanged |
+| Luwian score | 278.5 | 278.5 | unchanged |
+
+Batch pipeline results were robust: per-word score changes did not cascade into tier reclassifications.
+
+#### Results: Integrated Validator
+
+- 160 words validated through full methodology pipeline
+- Methodology compliance: 6/160 (3.8%) fully compliant
+- Most words capped at SPECULATIVE by anchor constraints (expected behavior)
+- KU-RO achieved PROBABLE through integrated validation (highest)
+- No broken references in reading_dependencies.json
+
+#### Verification Summary
+
+- [x] All data files regenerated with post-fix tools
+- [x] Before/after comparison documented
+- [x] No regressions (KU-RO CERTAIN, KI-RO PROBABLE, PA-I-TO PROBABLE maintained)
+- [x] Methodology compliance confirmed via integrated_validator
+- [x] KNOWLEDGE.md tables updated
+- [x] Pre-Greek expansion from 1.5% → 2.0% (1 word gained)
+
+#### Key Finding
+
+The fixes were **conservative**: 10 confidence demotions, 0 promotions, 0 best-hypothesis reassignments. The batch pipeline tier structure was completely stable. This validates that the pre-fix results were directionally correct despite the scoring bugs.
+
+---
+
 ## 2026-02-05 (Tool Quality Fixes)
 
 ### Hypothesis Tester Remediation

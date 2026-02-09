@@ -2,7 +2,7 @@
 
 **Essential lookup tables and project status for Linear A research**
 
-**Last Updated**: 2026-02-05
+**Last Updated**: 2026-02-09
 
 ---
 
@@ -203,23 +203,26 @@
 | Semitic | 0.0 | Triconsonantal morphology absent |
 | Pre-Greek | 0.0 | Methodology limitations (no Level 1/2 anchors; phonological matching only) |
 
-### Legacy Results (2026-02-01)
+### Legacy Results (Validated 2026-02-09)
 
-**Method**: `hypothesis_tester.py` on 198 words (freq >= 2), 1,722 inscriptions
+**Method**: `hypothesis_tester.py` on 198 words (freq >= 2), 1,721 inscriptions
+**Validated**: Full re-run after K-R double-matching fix, Pre-Greek expansion, frequency gating
 
 | Hypothesis | Support % | Words | Rank |
 |------------|-----------|-------|------|
 | **Luwian/Anatolian** | **30.3%** | 60 | **1** |
 | Semitic (loans) | 17.7% | 35 | 2 |
 | Proto-Greek | 2.5% | 5 | 3 |
-| Pre-Greek Substrate | 1.5% | 3 | 4 |
+| Pre-Greek Substrate | 2.0% | 4 | 4 |
 
 **Critical Findings**:
 1. **Luwian DOMINANT** (35.1% Bayesian posterior) - morphological particles (-JA, WA, U) more pervasive than recognized
 2. **Proto-Greek ELIMINATED** (2.8% posterior, max 6.4%) - below 5% falsification threshold
 3. **Domain-specific layering**: Admin vocabulary favors Semitic; overall corpus favors Luwian
+4. **Pre-Greek expanded** (2.0%, up from 1.5%) - marker/vocabulary expansion detected 1 additional word
+5. **Confidence recalibration** (2026-02-09): 10 words demoted CERTAIN→PROBABLE after K-R fix + frequency gating
 
-**Note on Scoring Methods**: Bayesian posterior (35.1% Luwian) and batch_pipeline raw scores (Semitic 687.7 vs Luwian 278.5) are NOT directly comparable. Bayesian uses calibrated priors and word-count support; batch_pipeline sums per-word evidence scores where Semitic tests have higher maximum scores per word. Both confirm the domain-specific layering pattern.
+**Note on Scoring Methods**: Bayesian posterior (35.1% Luwian) and batch_pipeline raw scores (Semitic 687.7 vs Luwian 278.5) are NOT directly comparable. Bayesian uses calibrated priors and word-count support; batch_pipeline sums per-word evidence scores where Semitic tests have higher maximum scores per word. Both confirm the domain-specific layering pattern. Batch scores validated 2026-02-09 after K-R fix; unchanged from pre-fix (fix affected per-word scores but not tier classifications).
 
 ### Untested Hypotheses (Proposed in Literature)
 
