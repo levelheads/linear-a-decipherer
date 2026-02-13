@@ -213,7 +213,7 @@ def build_metric_updates() -> dict[str, tuple[str, str | None]]:
 
 
 def update_last_updated(content: str) -> tuple[str, bool]:
-    replacement = f"**Last Updated**: {date.today().isoformat()}  "
+    replacement = f"**Last Updated**: {date.today().isoformat()}"
     updated = re.sub(
         r"^\*\*Last Updated\*\*:\s*.*$",
         replacement,
