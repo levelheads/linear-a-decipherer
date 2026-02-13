@@ -8,7 +8,8 @@ Thank you for your interest in contributing to this research project. Linear A r
 
 Before contributing, read and understand:
 - `linear-a-decipherer/METHODOLOGY.md` (MANDATORY - six principles, checklists)
-- `linear-a-decipherer/KNOWLEDGE.md` (current state of research)
+- `linear-a-decipherer/MASTER_STATE.md` (canonical current operational status)
+- `linear-a-decipherer/KNOWLEDGE.md` (reference tables and synthesis details)
 
 ### The Six First Principles
 

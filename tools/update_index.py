@@ -541,6 +541,9 @@ class IndexGenerator:
 
         content = f"""# Analysis Index
 
+> **Index role**: This file is an analysis registry, not the canonical live status board.
+> For current operational truth, use `linear-a-decipherer/MASTER_STATE.md`.
+
 **Central registry of all Linear A analyses conducted in this project**
 
 **Last Updated**: {now}
@@ -670,13 +673,15 @@ class IndexScanner:
         Returns:
             Exit code (0 for success)
         """
-        print("=" * 60)
-        print("LINEAR A ANALYSIS INDEX UPDATER")
-        print("=" * 60)
+        if not json_output:
+            print("=" * 60)
+            print("LINEAR A ANALYSIS INDEX UPDATER")
+            print("=" * 60)
 
         # Scan directories
         entries = self.scan_directories()
-        print(f"\nFound {len(entries)} inscription entries")
+        if not json_output:
+            print(f"\nFound {len(entries)} inscription entries")
 
         if not entries:
             print("No analysis entries found.")
@@ -699,6 +704,7 @@ class IndexScanner:
             for entry in output['entries']:
                 entry.pop('file_path', None)
             print(json.dumps(output, indent=2, ensure_ascii=False))
+            return 0
         else:
             # Generate markdown
             content = self.generator.generate_full_index()

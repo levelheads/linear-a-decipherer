@@ -6,11 +6,13 @@ Linear A decipherment research. **Undeciphered** - evidence-based methodology on
 Read: `linear-a-decipherer/METHODOLOGY.md`
 
 ## During Analysis
-Query: `linear-a-decipherer/KNOWLEDGE.md`
+Query current state: `linear-a-decipherer/MASTER_STATE.md`
+Query reference tables: `linear-a-decipherer/KNOWLEDGE.md`
 Lookup: `linear-a-decipherer/references/*`
 
 ## After Analysis
 Append: `linear-a-decipherer/CHANGELOG.md`
+Update: `linear-a-decipherer/MASTER_STATE.md` (current metrics/status only)
 Update: `linear-a-decipherer/KNOWLEDGE.md` (tables only)
 
 ## For Git/Releases

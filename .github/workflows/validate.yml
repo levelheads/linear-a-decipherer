@@ -32,14 +32,24 @@ jobs:
           python parse_lineara_corpus.py
         continue-on-error: false
 
+      - name: Generate hypothesis results for validators
+        run: |
+          python tools/hypothesis_tester.py --all --min-freq 2
+        continue-on-error: false
+
       - name: Run corpus consistency validator
         run: |
-          python tools/corpus_consistency_validator.py
+          python tools/corpus_consistency_validator.py --all --min-freq 5 --output data/consistency_validation.json
         continue-on-error: false
 
       - name: Run integrated validator
         run: |
-          python tools/integrated_validator.py
+          python tools/integrated_validator.py --all --output data/integrated_results.json
+        continue-on-error: false
+
+      - name: Run master state guard
+        run: |
+          python tools/master_state_guard.py
         continue-on-error: false
 
       - name: Validate JSON data files
@@ -100,32 +110,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Validate CITATION.cff version matches tag
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run strict release gate
         env:
           GITHUB_REF_NAME: ${{ github.ref_name }}
         run: |
-          # Extract version from tag (v0.3.0 -> 0.3.0)
-          TAG_VERSION="${GITHUB_REF_NAME#v}"
-          echo "Tag version: $TAG_VERSION"
-
-          # Extract version from CITATION.cff
-          if [ ! -f CITATION.cff ]; then
-            echo "ERROR: CITATION.cff not found"
-            exit 1
-          fi
-
-          CITATION_VERSION=$(grep -E '^version:' CITATION.cff | sed 's/version:[[:space:]]*//' | tr -d '"'"'")
-          echo "CITATION.cff version: $CITATION_VERSION"
-
-          # Compare versions
-          if [ "$TAG_VERSION" != "$CITATION_VERSION" ]; then
-            echo ""
-            echo "ERROR: Version mismatch!"
-            echo "  Tag version:         $TAG_VERSION"
-            echo "  CITATION.cff version: $CITATION_VERSION"
-            echo ""
-            echo "Fix: Update CITATION.cff version to '$TAG_VERSION' before tagging"
-            exit 1
-          fi
-
-          echo "SUCCESS: Versions match"
+          python tools/release_gate.py --tag "$GITHUB_REF_NAME"

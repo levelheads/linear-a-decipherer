@@ -1,5 +1,8 @@
 # Current State of Knowledge
 
+> **Operational note**: This file is now a reference knowledge base (readings, hypotheses, and supporting tables).
+> Canonical current operations and metrics live in `linear-a-decipherer/MASTER_STATE.md`.
+
 **Essential lookup tables and project status for Linear A research**
 
 **Last Updated**: 2026-02-09

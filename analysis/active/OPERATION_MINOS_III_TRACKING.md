@@ -1,5 +1,8 @@
 # OPERATION MINOS III: Systematic Expansion
 
+> **Historical operation log**: this document preserves operation history as of its last update.
+> Canonical current operations and metrics are maintained in `linear-a-decipherer/MASTER_STATE.md`.
+
 **Status**: ACTIVE
 **Started**: 2026-02-01
 **Last Updated**: 2026-02-05

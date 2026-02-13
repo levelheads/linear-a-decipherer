@@ -52,3 +52,10 @@ See GIT_WORKFLOW.md for:
 - Release Checklist
 - Pre-commit Hygiene Checklist
 - Plan Verification Checklist
+
+## Canonical State Practice
+
+Current operational truth (metrics, active campaigns, release readiness) must be
+maintained in `linear-a-decipherer/MASTER_STATE.md`.
+
+Historical detail belongs in `linear-a-decipherer/CHANGELOG.md`.

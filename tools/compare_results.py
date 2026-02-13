@@ -16,7 +16,8 @@ from pathlib import Path
 from collections import defaultdict
 
 # File paths
-BASE = Path("/Users/home/AI/Disciplines/Deciphering Ancient Languages/data")
+PROJECT_ROOT = Path(__file__).parent.parent
+BASE = PROJECT_ROOT / "data"
 
 HYPO_PRE  = BASE / "hypothesis_results_prefix.json"
 HYPO_POST = BASE / "hypothesis_results.json"

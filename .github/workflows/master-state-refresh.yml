@@ -1,0 +1,74 @@
+name: Refresh Master State
+
+on:
+  schedule:
+    - cron: "17 9 * * 1" # Mondays at 09:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh-master-state:
+    runs-on: ubuntu-latest
+    name: Weekly MASTER_STATE refresh
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Generate metric artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/parse_lineara_corpus.py
+
+          # validate_corpus.py returns 2 when warnings exist (non-critical); allow that.
+          if ! python tools/validate_corpus.py; then
+            rc=$?
+            if [ "$rc" -ne 2 ]; then
+              exit "$rc"
+            fi
+          fi
+
+          python tools/hypothesis_tester.py --all --min-freq 2
+          python tools/batch_pipeline.py --full
+          python tools/extended_corpus_analyzer.py --all
+          python tools/integrated_validator.py --all --output data/integrated_results.json
+
+      - name: Refresh canonical metrics
+        run: |
+          python tools/refresh_master_state.py --write
+          python tools/master_state_guard.py
+
+      - name: Create Pull Request (if changed)
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: automation/master-state-refresh
+          delete-branch: true
+          title: "Docs: refresh MASTER_STATE metrics snapshot"
+          commit-message: "Docs: refresh MASTER_STATE metrics snapshot"
+          body: |
+            Automated weekly refresh of canonical metrics in `linear-a-decipherer/MASTER_STATE.md`.
+
+            Trigger:
+            - Scheduled run (`master-state-refresh.yml`) or manual dispatch.
+
+            Generated with:
+            - `tools/parse_lineara_corpus.py`
+            - `tools/validate_corpus.py`
+            - `tools/hypothesis_tester.py --all --min-freq 2`
+            - `tools/batch_pipeline.py --full`
+            - `tools/extended_corpus_analyzer.py --all`
+            - `tools/integrated_validator.py --all --output data/integrated_results.json`
+            - `tools/refresh_master_state.py --write`
+          add-paths: |
+            linear-a-decipherer/MASTER_STATE.md

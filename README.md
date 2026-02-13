@@ -2,8 +2,10 @@
 
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 ![Inscriptions](https://img.shields.io/badge/Inscriptions-1%2C721-blue)
-![Tools](https://img.shields.io/badge/Analysis%20Tools-32-green)
-![Readings](https://img.shields.io/badge/High%20Confidence%20Readings-86-orange)
+![Current State](https://img.shields.io/badge/Current%20State-MASTER__STATE.md-blue)
+
+> **Canonical current-state file**: `linear-a-decipherer/MASTER_STATE.md`
+> Use it for active metrics, campaign status, promotion gates, and release readiness.
 
 A rigorous methodology system for analyzing undeciphered Minoan Bronze Age inscriptions (c.1800-1450 BCE) from Crete.
 
@@ -120,7 +122,7 @@ This discovery provides new sign sequences for pattern analysis and confirms dua
 linear-a-decipherer/
 ├── linear-a-decipherer/      # Core methodology & knowledge management
 │   ├── METHODOLOGY.md        # Six inviolable principles (READ FIRST)
-│   ├── KNOWLEDGE.md          # Current state: readings, hypotheses, anchors
+│   ├── KNOWLEDGE.md          # Reference tables: readings, hypotheses, anchors
 │   ├── CHANGELOG.md          # Chronological discovery journal
 │   ├── ANALYSIS_INDEX.md     # Registry of all analyses
 │   ├── LESSONS_LEARNED.md    # Project methodology insights
@@ -131,7 +133,7 @@ linear-a-decipherer/
 │   ├── completed/            # Finished inscription/thematic analyses
 │   └── archive/              # Historical phase analyses
 │
-├── tools/                    # 32 Python analysis scripts
+├── tools/                    # 41 Python analysis scripts
 ├── external/lineara/         # Corpus data (git submodule)
 ├── data/                     # Generated JSON files
 └── templates/                # Document templates
@@ -164,16 +166,17 @@ python tools/parse_lineara_corpus.py
 
 ### Quick Start
 
-1. **Project Overview**: [PROJECT_REVIEW.md](PROJECT_REVIEW.md) — comprehensive review of goals, strategy, and progress
-2. **Read First Principles**: [METHODOLOGY.md](linear-a-decipherer/METHODOLOGY.md) — six inviolable principles
-3. **Review Current State**: [KNOWLEDGE.md](linear-a-decipherer/KNOWLEDGE.md) — current readings and hypothesis scores
-4. **See Example Analysis**: [HT13_ANALYSIS.md](linear-a-decipherer/examples/HT13_ANALYSIS.md)
+1. **Current Program State**: [MASTER_STATE.md](linear-a-decipherer/MASTER_STATE.md) — canonical current metrics and campaign status
+2. **Project Overview**: [PROJECT_REVIEW.md](PROJECT_REVIEW.md) — historical strategic review
+3. **Read First Principles**: [METHODOLOGY.md](linear-a-decipherer/METHODOLOGY.md) — six inviolable principles
+4. **Reference Knowledge Tables**: [KNOWLEDGE.md](linear-a-decipherer/KNOWLEDGE.md)
+5. **See Example Analysis**: [HT13_ANALYSIS.md](linear-a-decipherer/examples/HT13_ANALYSIS.md)
 
 ---
 
 ## Analysis Tools
 
-The project includes 32 Python analysis scripts organized by function (stdlib-only, no external dependencies):
+The project includes 41 Python analysis scripts organized by function (stdlib-only, no external dependencies):
 
 ### Core Analysis
 

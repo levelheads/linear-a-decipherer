@@ -217,12 +217,13 @@ After analysis work, update these files before committing:
 
 | Document | When to Update |
 |----------|----------------|
+| `linear-a-decipherer/MASTER_STATE.md` | For any current metric/status/campaign changes (**canonical**) |
 | `linear-a-decipherer/ANALYSIS_INDEX.md` | After each analysis (add entry) |
 | `linear-a-decipherer/KNOWLEDGE.md` | When readings, hypotheses, or anchors change |
 | `linear-a-decipherer/CHANGELOG.md` | When discoveries are made (chronological log) |
 | `linear-a-decipherer/LESSONS_LEARNED.md` | When methodology is refined |
 
-**Note**: KNOWLEDGE.md consolidates confirmed readings and state of knowledge. CHANGELOG.md serves as the findings journal.
+**Note**: `MASTER_STATE.md` is canonical for current operations. `CHANGELOG.md` is the historical narrative.
 
 ---
 
@@ -371,6 +372,9 @@ Complete before creating any release tag:
     - Commit any updates
 
 [ ] 3. CHANGELOG.md has new version section
+
+[ ] 3b. MASTER_STATE.md updated
+    - Current metrics and release readiness snapshot refreshed
 
 [ ] 4. All changes committed
     - git status shows clean

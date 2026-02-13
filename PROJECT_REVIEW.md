@@ -1,5 +1,8 @@
 # Linear A Decipherment Project: Comprehensive Review
 
+> **Historical strategic snapshot (not canonical current state).**
+> For active metrics, operational status, promotion gates, and release readiness, use `linear-a-decipherer/MASTER_STATE.md`.
+
 ## Executive Summary
 
 This is a rigorous, methodology-first research project for the systematic decipherment of Linear A, the undeciphered Bronze Age Minoan script. The project distinguishes itself through **explicit uncertainty quantification**, **tool-enforced methodology**, and **evidence-based reasoning chains**.

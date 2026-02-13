@@ -13,7 +13,7 @@
 # sphinx>=5.0.0
 # sphinx-rtd-theme>=1.0.0
 #
-# Note: All 27 tools in the tools/ directory run with stdlib only.
+# Note: All tools in the tools/ directory run with stdlib only.
 # This intentional design ensures:
 #   - Easy installation on any system with Python 3.8+
 #   - No dependency conflicts
