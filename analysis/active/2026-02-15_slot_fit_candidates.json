@@ -1,0 +1,299 @@
+{
+  "generated": "2026-02-15",
+  "method": "slot_fit_substitution_search_v2",
+  "ritual_inscription_count": 9,
+  "si_ru_te_predecessors": {
+    "<START>": 1,
+    "I-PI-NA-MA": 5,
+    "SE-KA-NA-SI": 1
+  },
+  "si_ru_te_next": {
+    "I-DI": 1,
+    "<END>": 5,
+    "TA-NA-RA-TE-U-TI-NU": 1
+  },
+  "ranked_candidates": [
+    {
+      "candidate": "I-PI-NA-MA",
+      "slot_fit_score": 0.975,
+      "before_si_ru_te": 5,
+      "after_u_na_ka_na": 3,
+      "after_ja_sa_sa_ra_me": 0,
+      "after_a_ta_i_301_wa_ja": 0,
+      "ritual_occurrences": 5,
+      "total_occurrences": 6,
+      "ritual_ratio": 0.833,
+      "admin_ratio": 0.0,
+      "site_count": 5,
+      "sites": [
+        "Apodoulou",
+        "Iouktas",
+        "Kophinas",
+        "Troullos",
+        "Vrysinas"
+      ]
+    },
+    {
+      "candidate": "U-NA-KA-NA-SI",
+      "slot_fit_score": 0.33,
+      "before_si_ru_te": 0,
+      "after_u_na_ka_na": 0,
+      "after_ja_sa_sa_ra_me": 3,
+      "after_a_ta_i_301_wa_ja": 0,
+      "ritual_occurrences": 4,
+      "total_occurrences": 4,
+      "ritual_ratio": 1.0,
+      "admin_ratio": 0.0,
+      "site_count": 3,
+      "sites": [
+        "Iouktas",
+        "Kophinas",
+        "Palaikastro"
+      ]
+    },
+    {
+      "candidate": "SE-KA-NA-SI",
+      "slot_fit_score": 0.25,
+      "before_si_ru_te": 1,
+      "after_u_na_ka_na": 0,
+      "after_ja_sa_sa_ra_me": 0,
+      "after_a_ta_i_301_wa_ja": 1,
+      "ritual_occurrences": 1,
+      "total_occurrences": 1,
+      "ritual_ratio": 1.0,
+      "admin_ratio": 0.0,
+      "site_count": 1,
+      "sites": [
+        "Syme"
+      ]
+    },
+    {
+      "candidate": "U-NA-KA-NA",
+      "slot_fit_score": 0.21,
+      "before_si_ru_te": 0,
+      "after_u_na_ka_na": 0,
+      "after_ja_sa_sa_ra_me": 1,
+      "after_a_ta_i_301_wa_ja": 0,
+      "ritual_occurrences": 1,
+      "total_occurrences": 1,
+      "ritual_ratio": 1.0,
+      "admin_ratio": 0.0,
+      "site_count": 1,
+      "sites": [
+        "Troullos"
+      ]
+    },
+    {
+      "candidate": "JA-DI-KI-TU",
+      "slot_fit_score": 0.16,
+      "before_si_ru_te": 0,
+      "after_u_na_ka_na": 0,
+      "after_ja_sa_sa_ra_me": 0,
+      "after_a_ta_i_301_wa_ja": 1,
+      "ritual_occurrences": 1,
+      "total_occurrences": 1,
+      "ritual_ratio": 1.0,
+      "admin_ratio": 0.0,
+      "site_count": 1,
+      "sites": [
+        "Iouktas"
+      ]
+    },
+    {
+      "candidate": "TU-RU-SA",
+      "slot_fit_score": 0.16,
+      "before_si_ru_te": 0,
+      "after_u_na_ka_na": 0,
+      "after_ja_sa_sa_ra_me": 0,
+      "after_a_ta_i_301_wa_ja": 1,
+      "ritual_occurrences": 1,
+      "total_occurrences": 1,
+      "ritual_ratio": 1.0,
+      "admin_ratio": 0.0,
+      "site_count": 1,
+      "sites": [
+        "Kophinas"
+      ]
+    },
+    {
+      "candidate": "O-SU-QA-RE",
+      "slot_fit_score": 0.16,
+      "before_si_ru_te": 0,
+      "after_u_na_ka_na": 0,
+      "after_ja_sa_sa_ra_me": 0,
+      "after_a_ta_i_301_wa_ja": 1,
+      "ritual_occurrences": 1,
+      "total_occurrences": 1,
+      "ritual_ratio": 1.0,
+      "admin_ratio": 0.0,
+      "site_count": 1,
+      "sites": [
+        "Troullos"
+      ]
+    },
+    {
+      "candidate": "TA-NU-NI-KI-NA",
+      "slot_fit_score": 0.06,
+      "before_si_ru_te": 0,
+      "after_u_na_ka_na": 0,
+      "after_ja_sa_sa_ra_me": 1,
+      "after_a_ta_i_301_wa_ja": 0,
+      "ritual_occurrences": 0,
+      "total_occurrences": 1,
+      "ritual_ratio": 0.0,
+      "admin_ratio": 0.0,
+      "site_count": 1,
+      "sites": [
+        "Platanos"
+      ]
+    },
+    {
+      "candidate": "JA-JA",
+      "slot_fit_score": 0.02,
+      "before_si_ru_te": 0,
+      "after_u_na_ka_na": 0,
+      "after_ja_sa_sa_ra_me": 0,
+      "after_a_ta_i_301_wa_ja": 1,
+      "ritual_occurrences": 0,
+      "total_occurrences": 2,
+      "ritual_ratio": 0.0,
+      "admin_ratio": 0.0,
+      "site_count": 2,
+      "sites": [
+        "Palaikastro",
+        "Syme"
+      ]
+    },
+    {
+      "candidate": "JA-TI-*321",
+      "slot_fit_score": 0.01,
+      "before_si_ru_te": 0,
+      "after_u_na_ka_na": 0,
+      "after_ja_sa_sa_ra_me": 0,
+      "after_a_ta_i_301_wa_ja": 1,
+      "ritual_occurrences": 0,
+      "total_occurrences": 1,
+      "ritual_ratio": 0.0,
+      "admin_ratio": 0.0,
+      "site_count": 1,
+      "sites": [
+        "Iouktas"
+      ]
+    },
+    {
+      "candidate": "A-DI-KI-TE",
+      "slot_fit_score": 0.01,
+      "before_si_ru_te": 0,
+      "after_u_na_ka_na": 0,
+      "after_ja_sa_sa_ra_me": 0,
+      "after_a_ta_i_301_wa_ja": 1,
+      "ritual_occurrences": 0,
+      "total_occurrences": 1,
+      "ritual_ratio": 0.0,
+      "admin_ratio": 0.0,
+      "site_count": 1,
+      "sites": [
+        "Palaikastro"
+      ]
+    },
+    {
+      "candidate": "I-DA-MI",
+      "slot_fit_score": 0.01,
+      "before_si_ru_te": 0,
+      "after_u_na_ka_na": 0,
+      "after_ja_sa_sa_ra_me": 0,
+      "after_a_ta_i_301_wa_ja": 1,
+      "ritual_occurrences": 0,
+      "total_occurrences": 1,
+      "ritual_ratio": 0.0,
+      "admin_ratio": 0.0,
+      "site_count": 1,
+      "sites": [
+        "Syme"
+      ]
+    },
+    {
+      "candidate": "JA-SU-MA-TU-OLIV",
+      "slot_fit_score": 0.01,
+      "before_si_ru_te": 0,
+      "after_u_na_ka_na": 0,
+      "after_ja_sa_sa_ra_me": 0,
+      "after_a_ta_i_301_wa_ja": 1,
+      "ritual_occurrences": 0,
+      "total_occurrences": 1,
+      "ritual_ratio": 0.0,
+      "admin_ratio": 0.0,
+      "site_count": 1,
+      "sites": [
+        "Syme"
+      ]
+    },
+    {
+      "candidate": "JA-I-NWA-ZA",
+      "slot_fit_score": 0.01,
+      "before_si_ru_te": 0,
+      "after_u_na_ka_na": 0,
+      "after_ja_sa_sa_ra_me": 0,
+      "after_a_ta_i_301_wa_ja": 1,
+      "ritual_occurrences": 0,
+      "total_occurrences": 1,
+      "ritual_ratio": 0.0,
+      "admin_ratio": 0.0,
+      "site_count": 1,
+      "sites": [
+        "Syme"
+      ]
+    }
+  ],
+  "slot_rows": [
+    {
+      "inscription": "IOZa14",
+      "site": "Iouktas",
+      "prev2": "<START>",
+      "prev": "<START>",
+      "next": "I-DI"
+    },
+    {
+      "inscription": "VRYZa1",
+      "site": "Vrysinas",
+      "prev2": "<START>",
+      "prev": "I-PI-NA-MA",
+      "next": "<END>"
+    },
+    {
+      "inscription": "IOZa2",
+      "site": "Iouktas",
+      "prev2": "U-NA-KA-NA-SI",
+      "prev": "I-PI-NA-MA",
+      "next": "TA-NA-RA-TE-U-TI-NU"
+    },
+    {
+      "inscription": "IOZa15",
+      "site": "Iouktas",
+      "prev2": "<START>",
+      "prev": "I-PI-NA-MA",
+      "next": "<END>"
+    },
+    {
+      "inscription": "TLZa1",
+      "site": "Troullos",
+      "prev2": "U-NA-KA-NA",
+      "prev": "I-PI-NA-MA",
+      "next": "<END>"
+    },
+    {
+      "inscription": "SYZa3",
+      "site": "Syme",
+      "prev2": "A-TA-I-*301-WA-JA",
+      "prev": "SE-KA-NA-SI",
+      "next": "<END>"
+    },
+    {
+      "inscription": "KOZa1",
+      "site": "Kophinas",
+      "prev2": "U-NA-KA-NA-SI",
+      "prev": "I-PI-NA-MA",
+      "next": "<END>"
+    }
+  ]
+}
