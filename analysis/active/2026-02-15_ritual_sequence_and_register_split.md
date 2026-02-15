@@ -106,6 +106,26 @@ Interpretation: `*304` is currently the strongest sign-level structural result i
 
 ---
 
+## Result 4: Terminal-Marker Behavior Around `SI-RU-TE`
+
+Targeted lookup for possible terminal alternatives:
+
+- `TA-NA-RA-TE-U-TI-NU`: 1 occurrence (IOZa2), directly after `SI-RU-TE`
+- `I-DI`: 1 occurrence (IOZa14), directly after `SI-RU-TE`
+
+`SI-RU-TE` next-token distribution (content tokens):
+
+- `<END>`: **5**
+- `TA-NA-RA-TE-U-TI-NU`: **1**
+- `I-DI`: **1**
+
+Interpretation:
+
+- `SI-RU-TE` is primarily terminal, but in IOZ it can introduce a second terminal segment.
+- `TA-NA-RA-TE-U-TI-NU` and `I-DI` behave as likely **post-`SI-RU-TE` supplements** rather than independent openers.
+
+---
+
 ## Confidence Impact
 
 1. `SI-RU-TE`: keep at **PROBABLE** with explicit note that it is a ritual terminal formula component.
