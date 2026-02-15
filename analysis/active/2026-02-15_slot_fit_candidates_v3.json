@@ -1,0 +1,122 @@
+{
+  "metadata": {
+    "generated_utc": "2026-02-15T05:15:35Z",
+    "version": "v3",
+    "ritual_inscription_count": 9,
+    "ritual_inscriptions": [
+      "IOZa14",
+      "IOZa15",
+      "IOZa2",
+      "IOZa9",
+      "KOZa1",
+      "PKZa27",
+      "SYZa3",
+      "TLZa1",
+      "VRYZa1"
+    ]
+  },
+  "target_slot": "[X] -> SI-RU-TE",
+  "feature_definition": {
+    "direct_pre_si_ru_te_count": "How often X directly precedes SI-RU-TE",
+    "direct_pre_si_ru_te_share": "direct_pre / total SI-RU-TE",
+    "after_u_na_ka_na_count": "How often X appears immediately after U-NA-KA-NA(-SI)",
+    "after_ja_sa_sa_ra_me_count": "How often X appears immediately after JA-SA-SA-RA-ME",
+    "ritual_ratio": "ritual occurrences / total occurrences",
+    "site_count": "number of site codes where X appears",
+    "admin_share": "share of X in HT/KH/TY inscriptions (penalty)"
+  },
+  "score_formula_v3": "0.45*pre_norm + 0.15*pre_share + 0.10*after_u_norm + 0.10*after_j_norm + 0.10*ritual_ratio + 0.10*site_norm + 0.05*pre_site_spread - 0.20*admin_share",
+  "candidates_ranked": [
+    {
+      "word": "I-PI-NA-MA",
+      "score_v3": 0.88,
+      "role": "direct_slot_filler",
+      "frequency_total": 6,
+      "direct_pre_si_ru_te_count": 5,
+      "direct_pre_si_ru_te_share": 0.714,
+      "after_u_na_ka_na_count": 3,
+      "after_ja_sa_sa_ra_me_count": 0,
+      "ritual_ratio": 0.833,
+      "site_count": 5,
+      "sites": [
+        "APZ",
+        "IOZ",
+        "KOZ",
+        "TLZ",
+        "VRYZ"
+      ],
+      "pre_slot_site_count": 4,
+      "cooccurs_with_si_ru_te_in_ritual_inscriptions": 5,
+      "admin_share": 0.0
+    },
+    {
+      "word": "U-NA-KA-NA-SI",
+      "score_v3": 0.26,
+      "role": "upstream_chain_anchor",
+      "frequency_total": 4,
+      "direct_pre_si_ru_te_count": 0,
+      "direct_pre_si_ru_te_share": 0.0,
+      "after_u_na_ka_na_count": 0,
+      "after_ja_sa_sa_ra_me_count": 3,
+      "ritual_ratio": 1.0,
+      "site_count": 3,
+      "sites": [
+        "IOZ",
+        "KOZ",
+        "PKZ"
+      ],
+      "pre_slot_site_count": 0,
+      "cooccurs_with_si_ru_te_in_ritual_inscriptions": 2,
+      "admin_share": 0.0
+    },
+    {
+      "word": "SE-KA-NA-SI",
+      "score_v3": 0.241,
+      "role": "direct_slot_filler",
+      "frequency_total": 1,
+      "direct_pre_si_ru_te_count": 1,
+      "direct_pre_si_ru_te_share": 0.143,
+      "after_u_na_ka_na_count": 0,
+      "after_ja_sa_sa_ra_me_count": 0,
+      "ritual_ratio": 1.0,
+      "site_count": 1,
+      "sites": [
+        "SYZ"
+      ],
+      "pre_slot_site_count": 1,
+      "cooccurs_with_si_ru_te_in_ritual_inscriptions": 1,
+      "admin_share": 0.0
+    },
+    {
+      "word": "U-NA-KA-NA",
+      "score_v3": 0.153,
+      "role": "upstream_chain_anchor",
+      "frequency_total": 1,
+      "direct_pre_si_ru_te_count": 0,
+      "direct_pre_si_ru_te_share": 0.0,
+      "after_u_na_ka_na_count": 0,
+      "after_ja_sa_sa_ra_me_count": 1,
+      "ritual_ratio": 1.0,
+      "site_count": 1,
+      "sites": [
+        "TLZ"
+      ],
+      "pre_slot_site_count": 0,
+      "cooccurs_with_si_ru_te_in_ritual_inscriptions": 1,
+      "admin_share": 0.0
+    }
+  ],
+  "summary": {
+    "top_direct_slot_filler": "I-PI-NA-MA",
+    "direct_pre_distribution": {
+      "I-PI-NA-MA": 5,
+      "<START>": 1,
+      "SE-KA-NA-SI": 1
+    },
+    "notes": [
+      "I-PI-NA-MA remains dominant direct filler.",
+      "SE-KA-NA-SI remains singleton but structurally valid substitution.",
+      "U-NA-KA-NA(-SI) scores as upstream anchor, not direct filler."
+    ]
+  }
+}

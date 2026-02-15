@@ -1,0 +1,69 @@
+{
+  "metadata": {
+    "generated_utc": "2026-02-15T05:15:35Z",
+    "version": "v1",
+    "word": "I-PI-NA-MA"
+  },
+  "evidence_inputs": {
+    "slot_binding": {
+      "direct_pre_si_ru_te_count": 5,
+      "si_ru_te_total": 7,
+      "direct_pre_share": 0.714,
+      "substitution_candidate": {
+        "word": "SE-KA-NA-SI",
+        "attested_pre_si_ru_te_count": 1,
+        "name_probability": 0.5
+      }
+    },
+    "distributional_profile": {
+      "frequency_total": 6,
+      "ritual_ratio": 0.833,
+      "site_count": 5,
+      "sites": [
+        "APZ",
+        "IOZ",
+        "KOZ",
+        "TLZ",
+        "VRYZ"
+      ],
+      "admin_share": 0.0
+    },
+    "onomastic_signal": {
+      "personal_name_probability": 0.45,
+      "source": "tools/personal_name_analyzer.py --analyze I-PI-NA-MA",
+      "detection_reason": "4 syllables; frequency 6; theophoric element MA"
+    },
+    "consistency_and_promotion": {
+      "positional_consistency": 0.3333333333333333,
+      "functional_consistency": 0.41666666666666663,
+      "promotion_decision": "HOLD",
+      "failed_required_gates": [
+        "cross_corpus_consistency"
+      ],
+      "hold_reason": "validated=True, positional=0.333, functional=0.417, sites=5, rule=min>=0.55 and max>=0.70"
+    },
+    "integrated_model_snapshot": {
+      "final_confidence": "PROBABLE",
+      "threshold_category": "STRONG",
+      "bayesian_best": "luwian",
+      "bayes_factor": 1.244
+    }
+  },
+  "semantic_model_posteriors": {
+    "personal_name": 0.359,
+    "ritual_title_or_epithet": 0.383,
+    "verbal_predicate": 0.171,
+    "administrative_or_commodity_operator": 0.087
+  },
+  "decision": {
+    "best_model": "ritual_title_or_epithet",
+    "resolution": "unresolved_between_name_and_title",
+    "recommendation": "retain_hold",
+    "working_gloss": "ritual participant designation immediately before SI-RU-TE (name/title unresolved)"
+  },
+  "required_to_clear_hold": [
+    "At least one additional non-SYZ substitution in SLOT -> SI-RU-TE position",
+    "Raise functional consistency above 0.55 threshold in promotion gate",
+    "Demonstrate whether APZa2 usage is same semantic class as ritual chain attestations"
+  ]
+}

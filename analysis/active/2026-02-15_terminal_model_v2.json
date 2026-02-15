@@ -1,0 +1,70 @@
+{
+  "metadata": {
+    "generated_utc": "2026-02-15T05:15:35Z",
+    "version": "v2",
+    "source": "data/corpus.json (content-token normalized)"
+  },
+  "target": "SI-RU-TE",
+  "global_transition_distribution": {
+    "TA-NA-RA-TE-U-TI-NU": 1,
+    "I-DI": 1,
+    "<END>": 5
+  },
+  "global_probabilities": {
+    "terminal_end_probability": 0.714,
+    "extension_probability": 0.286
+  },
+  "conditional_on_preceding_token": {
+    "I-PI-NA-MA": {
+      "TA-NA-RA-TE-U-TI-NU": 1,
+      "<END>": 4
+    },
+    "<START>": {
+      "I-DI": 1
+    },
+    "SE-KA-NA-SI": {
+      "<END>": 1
+    }
+  },
+  "site_conditioning": {
+    "IOZ": {
+      "si_ru_te_occurrences": 3,
+      "terminal_end_count": 1,
+      "terminal_end_probability": 0.333,
+      "extensions": {
+        "TA-NA-RA-TE-U-TI-NU": 1,
+        "I-DI": 1
+      }
+    },
+    "non_IOZ": {
+      "si_ru_te_occurrences": 4,
+      "terminal_end_count": 4,
+      "terminal_end_probability": 1.0,
+      "extensions": {}
+    }
+  },
+  "extension_attestations": [
+    {
+      "inscription": "IOZa2",
+      "site_code": "IOZ",
+      "support": "Stone vessel",
+      "preceding_token": "I-PI-NA-MA",
+      "extension_token": "TA-NA-RA-TE-U-TI-NU"
+    },
+    {
+      "inscription": "IOZa14",
+      "site_code": "IOZ",
+      "support": "Stone vessel",
+      "preceding_token": "<START>",
+      "extension_token": "I-DI"
+    }
+  ],
+  "constrained_grammar": {
+    "core": "[A-TA-I-*301-WA-JA]? [JA-SA-SA-RA-ME]? [U-NA-KA-NA-SI|U-NA-KA-NA]? [I-PI-NA-MA|SE-KA-NA-SI]? SI-RU-TE",
+    "extension": "<END> | TA-NA-RA-TE-U-TI-NU | I-DI",
+    "constraints": [
+      "TA-NA-RA-TE-U-TI-NU and I-DI are currently attested only at IOZ",
+      "Outside IOZ, SI-RU-TE is always terminal in current corpus"
+    ]
+  }
+}

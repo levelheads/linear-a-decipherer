@@ -1,0 +1,492 @@
+{
+  "metadata": {
+    "generated_utc": "2026-02-15T05:15:35Z",
+    "version": "v2",
+    "sources": [
+      "data/corpus.json",
+      "data/contextual_formulas_min2.json",
+      "data/integrated_results.json",
+      "data/consistency_validation.json",
+      "data/promotion_decisions.json"
+    ],
+    "normalization": "content tokens = hyphenated transliterations only (line breaks/logograms/numerals removed)"
+  },
+  "focus_words": [
+    "JA-SA-SA-RA-ME",
+    "U-NA-KA-NA-SI",
+    "U-NA-KA-NA",
+    "I-PI-NA-MA",
+    "SE-KA-NA-SI",
+    "SI-RU-TE"
+  ],
+  "si_ru_te_profile": {
+    "total_occurrences": 7,
+    "site_distribution": {
+      "IOZ": 3,
+      "KOZ": 1,
+      "SYZ": 1,
+      "TLZ": 1,
+      "VRYZ": 1
+    },
+    "support_distribution": {
+      "Stone vessel": 7
+    },
+    "preceding_token_distribution": {
+      "I-PI-NA-MA": 5,
+      "<START>": 1,
+      "SE-KA-NA-SI": 1
+    },
+    "following_token_distribution": {
+      "TA-NA-RA-TE-U-TI-NU": 1,
+      "I-DI": 1,
+      "<END>": 5
+    },
+    "terminality": {
+      "terminal_count": 5,
+      "terminal_ratio": 0.714,
+      "extension_count": 2,
+      "extension_ratio": 0.286,
+      "extension_terms": {
+        "TA-NA-RA-TE-U-TI-NU": 1,
+        "I-DI": 1
+      }
+    },
+    "attestation_rows": [
+      {
+        "inscription": "IOZa2",
+        "site_code": "IOZ",
+        "site": "Iouktas",
+        "support": "Stone vessel",
+        "preceding_token": "I-PI-NA-MA",
+        "token": "SI-RU-TE",
+        "following_token": "TA-NA-RA-TE-U-TI-NU",
+        "sequence": [
+          "A-TA-I-*301-WA-JA",
+          "JA-DI-KI-TU",
+          "JA-SA-SA-RA-ME",
+          "U-NA-KA-NA-SI",
+          "I-PI-NA-MA",
+          "SI-RU-TE",
+          "TA-NA-RA-TE-U-TI-NU"
+        ]
+      },
+      {
+        "inscription": "IOZa14",
+        "site_code": "IOZ",
+        "site": "Iouktas",
+        "support": "Stone vessel",
+        "preceding_token": "<START>",
+        "token": "SI-RU-TE",
+        "following_token": "I-DI",
+        "sequence": [
+          "SI-RU-TE",
+          "I-DI"
+        ]
+      },
+      {
+        "inscription": "IOZa15",
+        "site_code": "IOZ",
+        "site": "Iouktas",
+        "support": "Stone vessel",
+        "preceding_token": "I-PI-NA-MA",
+        "token": "SI-RU-TE",
+        "following_token": "<END>",
+        "sequence": [
+          "I-PI-NA-MA",
+          "SI-RU-TE"
+        ]
+      },
+      {
+        "inscription": "KOZa1",
+        "site_code": "KOZ",
+        "site": "Kophinas",
+        "support": "Stone vessel",
+        "preceding_token": "I-PI-NA-MA",
+        "token": "SI-RU-TE",
+        "following_token": "<END>",
+        "sequence": [
+          "A-TA-I-*301-WA-JA",
+          "TU-RU-SA",
+          "DU-*314-RE",
+          "I-DA-A",
+          "U-NA-KA-NA-SI",
+          "I-PI-NA-MA",
+          "SI-RU-TE"
+        ]
+      },
+      {
+        "inscription": "SYZa3",
+        "site_code": "SYZ",
+        "site": "Syme",
+        "support": "Stone vessel",
+        "preceding_token": "SE-KA-NA-SI",
+        "token": "SI-RU-TE",
+        "following_token": "<END>",
+        "sequence": [
+          "A-TA-I-*301-WA-JA",
+          "SE-KA-NA-SI",
+          "SI-RU-TE"
+        ]
+      },
+      {
+        "inscription": "TLZa1",
+        "site_code": "TLZ",
+        "site": "Troullos",
+        "support": "Stone vessel",
+        "preceding_token": "I-PI-NA-MA",
+        "token": "SI-RU-TE",
+        "following_token": "<END>",
+        "sequence": [
+          "A-TA-I-*301-WA-JA",
+          "O-SU-QA-RE",
+          "JA-SA-SA-RA-ME",
+          "U-NA-KA-NA",
+          "I-PI-NA-MA",
+          "SI-RU-TE"
+        ]
+      },
+      {
+        "inscription": "VRYZa1",
+        "site_code": "VRYZ",
+        "site": "Vrysinas",
+        "support": "Stone vessel",
+        "preceding_token": "I-PI-NA-MA",
+        "token": "SI-RU-TE",
+        "following_token": "<END>",
+        "sequence": [
+          "I-PI-NA-MA",
+          "SI-RU-TE"
+        ]
+      }
+    ]
+  },
+  "ritual_chain_inscriptions": {
+    "count": 9,
+    "inscriptions": [
+      "IOZa14",
+      "IOZa15",
+      "IOZa2",
+      "IOZa9",
+      "KOZa1",
+      "PKZa27",
+      "SYZa3",
+      "TLZa1",
+      "VRYZa1"
+    ],
+    "state_counts": {
+      "full_chain": 2,
+      "pre_terminal_chain": 2,
+      "terminal_only": 1,
+      "slot_plus_terminal": 4
+    },
+    "state_rows": [
+      {
+        "inscription": "IOZa2",
+        "site_code": "IOZ",
+        "support": "Stone vessel",
+        "state": "full_chain",
+        "contains": {
+          "A-TA-I-*301-WA-JA": true,
+          "JA-SA-SA-RA-ME": true,
+          "U-NA-KA-NA-SI": true,
+          "U-NA-KA-NA": false,
+          "SI-RU-TE": true,
+          "I-PI-NA-MA": true,
+          "SE-KA-NA-SI": false
+        },
+        "tokens": [
+          "A-TA-I-*301-WA-JA",
+          "JA-DI-KI-TU",
+          "JA-SA-SA-RA-ME",
+          "U-NA-KA-NA-SI",
+          "I-PI-NA-MA",
+          "SI-RU-TE",
+          "TA-NA-RA-TE-U-TI-NU"
+        ]
+      },
+      {
+        "inscription": "IOZa9",
+        "site_code": "IOZ",
+        "support": "Stone vessel",
+        "state": "pre_terminal_chain",
+        "contains": {
+          "A-TA-I-*301-WA-JA": false,
+          "JA-SA-SA-RA-ME": true,
+          "U-NA-KA-NA-SI": true,
+          "U-NA-KA-NA": false,
+          "SI-RU-TE": false,
+          "I-PI-NA-MA": false,
+          "SE-KA-NA-SI": false
+        },
+        "tokens": [
+          "JA-SA-SA-RA-ME",
+          "U-NA-KA-NA-SI"
+        ]
+      },
+      {
+        "inscription": "IOZa14",
+        "site_code": "IOZ",
+        "support": "Stone vessel",
+        "state": "terminal_only",
+        "contains": {
+          "A-TA-I-*301-WA-JA": false,
+          "JA-SA-SA-RA-ME": false,
+          "U-NA-KA-NA-SI": false,
+          "U-NA-KA-NA": false,
+          "SI-RU-TE": true,
+          "I-PI-NA-MA": false,
+          "SE-KA-NA-SI": false
+        },
+        "tokens": [
+          "SI-RU-TE",
+          "I-DI"
+        ]
+      },
+      {
+        "inscription": "IOZa15",
+        "site_code": "IOZ",
+        "support": "Stone vessel",
+        "state": "slot_plus_terminal",
+        "contains": {
+          "A-TA-I-*301-WA-JA": false,
+          "JA-SA-SA-RA-ME": false,
+          "U-NA-KA-NA-SI": false,
+          "U-NA-KA-NA": false,
+          "SI-RU-TE": true,
+          "I-PI-NA-MA": true,
+          "SE-KA-NA-SI": false
+        },
+        "tokens": [
+          "I-PI-NA-MA",
+          "SI-RU-TE"
+        ]
+      },
+      {
+        "inscription": "KOZa1",
+        "site_code": "KOZ",
+        "support": "Stone vessel",
+        "state": "slot_plus_terminal",
+        "contains": {
+          "A-TA-I-*301-WA-JA": true,
+          "JA-SA-SA-RA-ME": false,
+          "U-NA-KA-NA-SI": true,
+          "U-NA-KA-NA": false,
+          "SI-RU-TE": true,
+          "I-PI-NA-MA": true,
+          "SE-KA-NA-SI": false
+        },
+        "tokens": [
+          "A-TA-I-*301-WA-JA",
+          "TU-RU-SA",
+          "DU-*314-RE",
+          "I-DA-A",
+          "U-NA-KA-NA-SI",
+          "I-PI-NA-MA",
+          "SI-RU-TE"
+        ]
+      },
+      {
+        "inscription": "SYZa3",
+        "site_code": "SYZ",
+        "support": "Stone vessel",
+        "state": "slot_plus_terminal",
+        "contains": {
+          "A-TA-I-*301-WA-JA": true,
+          "JA-SA-SA-RA-ME": false,
+          "U-NA-KA-NA-SI": false,
+          "U-NA-KA-NA": false,
+          "SI-RU-TE": true,
+          "I-PI-NA-MA": false,
+          "SE-KA-NA-SI": true
+        },
+        "tokens": [
+          "A-TA-I-*301-WA-JA",
+          "SE-KA-NA-SI",
+          "SI-RU-TE"
+        ]
+      },
+      {
+        "inscription": "TLZa1",
+        "site_code": "TLZ",
+        "support": "Stone vessel",
+        "state": "full_chain",
+        "contains": {
+          "A-TA-I-*301-WA-JA": true,
+          "JA-SA-SA-RA-ME": true,
+          "U-NA-KA-NA-SI": false,
+          "U-NA-KA-NA": true,
+          "SI-RU-TE": true,
+          "I-PI-NA-MA": true,
+          "SE-KA-NA-SI": false
+        },
+        "tokens": [
+          "A-TA-I-*301-WA-JA",
+          "O-SU-QA-RE",
+          "JA-SA-SA-RA-ME",
+          "U-NA-KA-NA",
+          "I-PI-NA-MA",
+          "SI-RU-TE"
+        ]
+      },
+      {
+        "inscription": "VRYZa1",
+        "site_code": "VRYZ",
+        "support": "Stone vessel",
+        "state": "slot_plus_terminal",
+        "contains": {
+          "A-TA-I-*301-WA-JA": false,
+          "JA-SA-SA-RA-ME": false,
+          "U-NA-KA-NA-SI": false,
+          "U-NA-KA-NA": false,
+          "SI-RU-TE": true,
+          "I-PI-NA-MA": true,
+          "SE-KA-NA-SI": false
+        },
+        "tokens": [
+          "I-PI-NA-MA",
+          "SI-RU-TE"
+        ]
+      },
+      {
+        "inscription": "PKZa27",
+        "site_code": "PKZ",
+        "support": "Stone vessel",
+        "state": "pre_terminal_chain",
+        "contains": {
+          "A-TA-I-*301-WA-JA": false,
+          "JA-SA-SA-RA-ME": true,
+          "U-NA-KA-NA-SI": true,
+          "U-NA-KA-NA": false,
+          "SI-RU-TE": false,
+          "I-PI-NA-MA": false,
+          "SE-KA-NA-SI": false
+        },
+        "tokens": [
+          "JA-SA-SA-RA-ME",
+          "U-NA-KA-NA-SI"
+        ]
+      }
+    ]
+  },
+  "formula_evidence": [
+    {
+      "formula": "I-PI-NA-MA SI-RU-TE",
+      "length": 2,
+      "occurrences": 5,
+      "is_libation_related": true,
+      "inscriptions": [
+        "IOZa15",
+        "IOZa2",
+        "KOZa1",
+        "TLZa1",
+        "VRYZa1"
+      ]
+    },
+    {
+      "formula": "JA-SA-SA-RA-ME U-NA-KA-NA-SI",
+      "length": 2,
+      "occurrences": 3,
+      "is_libation_related": true,
+      "inscriptions": [
+        "IOZa2",
+        "IOZa9",
+        "PKZa27"
+      ]
+    },
+    {
+      "formula": "U-NA-KA-NA-SI I-PI-NA-MA",
+      "length": 2,
+      "occurrences": 2,
+      "is_libation_related": true,
+      "inscriptions": [
+        "IOZa2",
+        "KOZa1"
+      ]
+    },
+    {
+      "formula": "U-NA-KA-NA-SI I-PI-NA-MA SI-RU-TE",
+      "length": 3,
+      "occurrences": 2,
+      "is_libation_related": true,
+      "inscriptions": [
+        "IOZa2",
+        "KOZa1"
+      ]
+    }
+  ],
+  "register_split": {
+    "ritual_term_set": [
+      "A-TA-I-*301-WA-JA",
+      "I-PI-NA-MA",
+      "JA-SA-SA-RA-ME",
+      "SE-KA-NA-SI",
+      "SI-RU-TE",
+      "U-NA-KA-NA",
+      "U-NA-KA-NA-SI"
+    ],
+    "a_du_occurrence_count": 10,
+    "a_du_site_distribution": {
+      "HT": 7,
+      "KH": 2,
+      "TY": 1
+    },
+    "inscriptions_with_a_du_and_ritual_terms": [],
+    "separation_supported": true
+  },
+  "status_snapshot": {
+    "I-PI-NA-MA": {
+      "integrated": {
+        "final_confidence": "PROBABLE",
+        "threshold_category": "STRONG",
+        "bayesian_best": "luwian",
+        "bayes_factor": 1.244,
+        "adjusted_pct": 43.12
+      },
+      "consistency": {
+        "positional_consistency": 0.3333333333333333,
+        "contextual_consistency": 0.5,
+        "functional_consistency": 0.41666666666666663
+      },
+      "promotion": {
+        "decision": "HOLD",
+        "failed_required": [
+          "cross_corpus_consistency"
+        ]
+      }
+    },
+    "SI-RU-TE": {
+      "integrated": {
+        "final_confidence": "PROBABLE",
+        "threshold_category": "MODERATE",
+        "bayesian_best": "luwian",
+        "bayes_factor": 1.01,
+        "adjusted_pct": 21.56
+      },
+      "consistency": {
+        "positional_consistency": 0.5714285714285714,
+        "contextual_consistency": 1.0,
+        "functional_consistency": 0.7857142857142857
+      },
+      "promotion": {
+        "decision": "APPROVE"
+      }
+    },
+    "U-NA-KA-NA-SI": {
+      "integrated": {
+        "final_confidence": "SPECULATIVE",
+        "threshold_category": "STRONG",
+        "bayesian_best": "luwian",
+        "bayes_factor": 2.264,
+        "adjusted_pct": 40.53
+      },
+      "consistency": {
+        "positional_consistency": null,
+        "contextual_consistency": null,
+        "functional_consistency": null
+      },
+      "promotion": {
+        "decision": null
+      }
+    }
+  }
+}
