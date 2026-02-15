@@ -36,6 +36,11 @@ from pathlib import Path
 from collections import defaultdict
 from datetime import datetime
 from typing import List, Optional
+from word_filter_contract import (
+    CONTRACT_VERSION,
+    is_hypothesis_eligible_word,
+    normalize_word_token,
+)
 
 
 # Paths
@@ -74,6 +79,7 @@ class BatchPipeline:
             'words_analyzed': 0,
             'high_confidence_findings': 0,
             'coverage_percent': 0.0,
+            'word_filter_contract': CONTRACT_VERSION,
         }
 
         # Ensure checkpoint directory exists
@@ -196,7 +202,7 @@ class BatchPipeline:
                 if not self._is_valid_word(word):
                     continue
 
-                word_upper = word.upper()
+                word_upper = normalize_word_token(word)
                 word_data[word_upper]['frequency'] += 1
                 word_data[word_upper]['sites'].add(site)
 
@@ -230,10 +236,15 @@ class BatchPipeline:
         self.stats['words_total'] = len(word_data)
         self.stats['words_above_threshold'] = len(self.words_discovered)
 
-        # Count logograms for transparency (these are in word_data but excluded from words_discovered)
-        logogram_count = sum(1 for w in word_data if self._is_logogram(w))
-        single_syllable_count = sum(1 for w in word_data
-                                     if re.match(r'^[A-Z*\d\[\]]+$', w) and '-' not in w and not self._is_logogram(w))
+        # Count excluded buckets for transparency against total raw tokens.
+        logogram_count = sum(
+            1 for w in word_data
+            if self._is_logogram(w)
+        )
+        single_syllable_count = sum(
+            1 for w in word_data
+            if '-' not in w and not self._is_logogram(w)
+        )
 
         self.log(f"Discovered {len(self.words_discovered)} words with freq >= {min_frequency}")
         self.log(f"Total unique words: {len(word_data)}")
@@ -256,37 +267,8 @@ class BatchPipeline:
     }
 
     def _is_valid_word(self, word: str) -> bool:
-        """Check if word is valid for hypothesis analysis.
-
-        Filters out:
-        - Punctuation and empty strings
-        - Pure numerals and fractions
-        - Pure logograms (uppercase-only without hyphens: OLIV, GRA, VIN)
-        - Single-syllables without hyphens (KU, KA, SI) - too short to discriminate
-        - Damaged/uncertain markers (𐝫)
-
-        Keeps:
-        - Multi-syllable words with hyphens (KU-RO, SA-RA₂)
-        - Ligatures with phonetic complements (OLE+KI)
-        """
-        if not word or word in ['\n', '|', '—', '𐄁', '']:
-            return False
-
-        # Skip numerals
-        if re.match(r'^[\d\s.¹²³⁴⁵⁶⁷⁸⁹⁰/₀₁₂₃₄₅₆₇₈○◎—|]+$', word):
-            return False
-
-        # Skip pure logograms (uppercase-only without hyphens)
-        # This matches: OLIV, GRA, VIN, KU, KA, SI, etc.
-        # But keeps: KU-RO, OLE+KI (has special chars)
-        if re.match(r'^[A-Z*\d\[\]]+$', word) and '-' not in word:
-            return False
-
-        # Skip damaged/uncertain markers
-        if word.startswith('𐝫'):
-            return False
-
-        return True
+        """Check if word is valid for hypothesis analysis using shared contract."""
+        return is_hypothesis_eligible_word(word)
 
     def _is_logogram(self, word: str) -> bool:
         """Check if word is a commodity logogram."""
@@ -586,6 +568,12 @@ class BatchPipeline:
             'pregreek': {'total_score': 0, 'word_count': 0, 'best_words': []},
             'protogreek': {'total_score': 0, 'word_count': 0, 'best_words': []},
         }
+        best_assignment_counts = {
+            'luwian': 0,
+            'semitic': 0,
+            'pregreek': 0,
+            'protogreek': 0,
+        }
 
         # Categorize findings
         high_confidence = []
@@ -600,8 +588,13 @@ class BatchPipeline:
             for hyp, score in scores.items():
                 if hyp in hypothesis_support:
                     hypothesis_support[hyp]['total_score'] += score
-                    if score > 1.5:
-                        hypothesis_support[hyp]['word_count'] += 1
+            # Count support using hypothesis_tester synthesis verdict thresholds.
+            for hyp in hyp_data.get('supported_hypotheses', []):
+                if hyp in hypothesis_support:
+                    hypothesis_support[hyp]['word_count'] += 1
+            best_hypothesis = hyp_data.get('best_hypothesis')
+            if best_hypothesis in best_assignment_counts:
+                best_assignment_counts[best_hypothesis] += 1
 
             # Categorize by confidence
             confidence = validation.get('max_confidence', 'SPECULATIVE')
@@ -650,6 +643,7 @@ class BatchPipeline:
                     'rank': idx + 1,
                     'total_score': round(data['total_score'], 2),
                     'words_supporting': data['word_count'],
+                    'best_assignments': best_assignment_counts.get(hyp, 0),
                 }
                 for idx, (hyp, data) in enumerate(hypothesis_rankings)
             },

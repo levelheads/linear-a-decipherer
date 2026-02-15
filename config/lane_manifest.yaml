@@ -60,7 +60,7 @@
         },
         {
           "name": "Parity check",
-          "cmd": "python3 tools/tool_parity_checker.py --output data/tool_parity_report.json"
+          "cmd": "python3 tools/tool_parity_checker.py --output data/tool_parity_report.json --fail-on-high"
         }
       ],
       "required_artifacts": [

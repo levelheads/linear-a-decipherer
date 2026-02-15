@@ -17,7 +17,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -44,6 +44,7 @@ class ToolSummary:
     best_hypothesis_counts: dict[str, int]
     best_hypothesis_pct: dict[str, float]
     confidence_counts: dict[str, int]
+    supported_hypothesis_counts: dict[str, int] = field(default_factory=dict)
 
 
 def _load_json(path: Path) -> dict[str, Any]:
@@ -92,11 +93,22 @@ def summarize_hypothesis_results(path: Path, payload: dict[str, Any]) -> ToolSum
     if total_words == 0:
         total_words = int(metadata.get("words_tested", 0) or 0)
 
-    support_counts: dict[str, int] = {}
+    supported_counts: dict[str, int] = {}
     summaries = payload.get("hypothesis_summaries", {})
     for hypothesis in HYPOTHESES:
         hypothesis_data = summaries.get(hypothesis, {})
-        support_counts[hypothesis] = int(hypothesis_data.get("supported", 0) or 0)
+        supported_counts[hypothesis] = int(hypothesis_data.get("supported", 0) or 0)
+
+    best_counts: dict[str, int] = {hypothesis: 0 for hypothesis in HYPOTHESES}
+    if isinstance(word_analyses, dict):
+        for row in word_analyses.values():
+            synthesis = row.get("synthesis", {})
+            best = _normalize_hypothesis(synthesis.get("best_hypothesis"))
+            if best in best_counts:
+                best_counts[best] += 1
+    else:
+        # Fallback for malformed payloads: use supported counts.
+        best_counts = supported_counts.copy()
 
     confidence_counts: dict[str, int] = {}
     if isinstance(word_analyses, dict):
@@ -105,15 +117,16 @@ def summarize_hypothesis_results(path: Path, payload: dict[str, Any]) -> ToolSum
             confidence = _as_confidence(synthesis.get("max_confidence"))
             confidence_counts[confidence] = confidence_counts.get(confidence, 0) + 1
 
-    best_pct = {h: _pct(support_counts.get(h, 0), total_words) for h in HYPOTHESES}
+    best_pct = {h: _pct(best_counts.get(h, 0), total_words) for h in HYPOTHESES}
     return ToolSummary(
         name="hypothesis_results",
         path=str(path),
         generated=metadata.get("generated"),
         words_considered=total_words,
-        best_hypothesis_counts=support_counts,
+        best_hypothesis_counts=best_counts,
         best_hypothesis_pct=best_pct,
         confidence_counts=dict(sorted(confidence_counts.items())),
+        supported_hypothesis_counts=supported_counts,
     )
 
 
@@ -122,29 +135,38 @@ def summarize_batch_results(path: Path, payload: dict[str, Any]) -> ToolSummary:
     total_words = int(summary.get("total_words_analyzed", 0) or 0)
 
     rankings = payload.get("hypothesis_rankings", {})
-    support_counts: dict[str, int] = {}
+    best_counts: dict[str, int] = {}
+    supported_counts: dict[str, int] = {}
     for hypothesis in HYPOTHESES:
         row = rankings.get(hypothesis, {})
-        support_counts[hypothesis] = int(row.get("words_supporting", 0) or 0)
+        best_counts[hypothesis] = int(row.get("best_assignments", 0) or 0)
+        supported_counts[hypothesis] = int(row.get("words_supporting", 0) or 0)
+
+    # Fallback when ranking metadata is absent.
+    if sum(best_counts.values()) == 0:
+        best_counts = {hypothesis: 0 for hypothesis in HYPOTHESES}
+        merged_rows = _merge_batch_rows(payload)
+        for row in merged_rows:
+            best = _normalize_hypothesis(row.get("best_hypothesis"))
+            if best in best_counts:
+                best_counts[best] += 1
 
     confidence_counts: dict[str, int] = {}
-    for key in ("high_confidence_findings", "medium_confidence_findings", "needs_review"):
-        rows = payload.get(key, [])
-        if not isinstance(rows, list):
-            continue
-        for row in rows:
-            confidence = _as_confidence(row.get("confidence"))
-            confidence_counts[confidence] = confidence_counts.get(confidence, 0) + 1
+    merged_rows = _merge_batch_rows(payload)
+    for row in merged_rows:
+        confidence = _as_confidence(row.get("confidence"))
+        confidence_counts[confidence] = confidence_counts.get(confidence, 0) + 1
 
-    best_pct = {h: _pct(support_counts.get(h, 0), total_words) for h in HYPOTHESES}
+    best_pct = {h: _pct(best_counts.get(h, 0), total_words) for h in HYPOTHESES}
     return ToolSummary(
         name="batch_analysis_results",
         path=str(path),
         generated=payload.get("generated"),
         words_considered=total_words,
-        best_hypothesis_counts=support_counts,
+        best_hypothesis_counts=best_counts,
         best_hypothesis_pct=best_pct,
         confidence_counts=dict(sorted(confidence_counts.items())),
+        supported_hypothesis_counts=supported_counts,
     )
 
 
@@ -280,8 +302,20 @@ def classify_severity(
     comparisons: list[dict[str, Any]],
     threshold_delta: float,
 ) -> dict[str, Any]:
+    # For guardrail severity, focus on cross-pipeline disagreements.
+    # integrated_raw_best vs integrated_bayesian_best is an internal model contrast,
+    # not an inter-tool parity defect.
+    comparisons_for_severity = [
+        row
+        for row in comparisons
+        if {row.get("source_a"), row.get("source_b")}
+        != {"integrated_raw_best", "integrated_bayesian_best"}
+    ]
     max_delta = max((row["delta_pct"] for row in deltas), default=0.0)
-    max_mismatch = max((row["mismatch_rate"] for row in comparisons), default=0.0)
+    max_mismatch = max(
+        (row["mismatch_rate"] for row in comparisons_for_severity),
+        default=0.0,
+    )
 
     level = "LOW"
     rationale: list[str] = []
@@ -394,6 +428,11 @@ def main() -> int:
         action="store_true",
         help="Suppress console summary and only write JSON",
     )
+    parser.add_argument(
+        "--fail-on-high",
+        action="store_true",
+        help="Exit non-zero if computed parity severity is HIGH",
+    )
     args = parser.parse_args()
 
     if args.threshold_delta <= 0:
@@ -484,6 +523,8 @@ def main() -> int:
             print("Rationale:")
             for item in severity["rationale"]:
                 print(f"  - {item}")
+    if args.fail_on_high and severity["level"] == "HIGH":
+        return 1
     return 0
 
 

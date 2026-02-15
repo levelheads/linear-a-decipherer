@@ -30,6 +30,18 @@
 
 ## Task-Based Workflows
 
+### Shared Word Filter Contract
+
+Hypothesis-facing pipelines now share one eligibility contract (`tools/word_filter_contract.py`):
+- include only hypothesis-eligible hyphenated lexical tokens
+- exclude numerals/fractions, non-word separators, and damaged markers
+- exclude non-hyphen logogram/symbol tokens
+
+This contract is applied by:
+- `hypothesis_tester.py`
+- `batch_pipeline.py`
+- `integrated_validator.py`
+
 ### "I want to analyze a specific inscription"
 
 **Example**: Analyze HT 13

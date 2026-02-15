@@ -133,7 +133,7 @@ linear-a-decipherer/
 │   ├── completed/            # Finished inscription/thematic analyses
 │   └── archive/              # Historical phase analyses
 │
-├── tools/                    # 44 Python analysis scripts
+├── tools/                    # 46 Python analysis scripts
 ├── external/lineara/         # Corpus data (git submodule)
 ├── data/                     # Generated JSON files
 └── templates/                # Document templates
@@ -176,7 +176,7 @@ python tools/parse_lineara_corpus.py
 
 ## Analysis Tools
 
-The project includes 44 Python analysis scripts organized by function (stdlib-only, no external dependencies):
+The project includes 46 Python analysis scripts organized by function (stdlib-only, no external dependencies):
 
 ### Core Analysis
 
@@ -226,6 +226,7 @@ The project includes 44 Python analysis scripts organized by function (stdlib-on
 | `promotion_board_runner.py` | Promotion packet + gate decision generator for candidate readings |
 | `lane_orchestrator.py` | Lane-based command orchestration with structured handoff JSON output |
 | `dependency_trace_resolver.py` | Pre-check and optional auto-resolution for dependency-trace promotion gaps |
+| `word_filter_contract.py` | Shared lexical eligibility/normalization contract for hypothesis pipelines |
 
 ### Usage Examples
 

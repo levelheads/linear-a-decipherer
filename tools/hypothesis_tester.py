@@ -31,6 +31,11 @@ from pathlib import Path
 from collections import Counter
 from datetime import datetime
 from typing import Dict, List
+from word_filter_contract import (
+    CONTRACT_VERSION,
+    is_hypothesis_eligible_word,
+    normalize_word_token,
+)
 
 
 # Paths
@@ -656,6 +661,7 @@ class HypothesisTester:
             'metadata': {
                 'generated': None,
                 'method': 'Four-Hypothesis Testing (First Principle #4)',
+                'word_filter_contract': CONTRACT_VERSION,
             },
             'word_analyses': {},
             'corpus_statistics': {},
@@ -840,7 +846,7 @@ class HypothesisTester:
         return semantic_fields
 
     def extract_words(self) -> Dict[str, int]:
-        """Extract all words with frequencies from corpus."""
+        """Extract all words with frequencies from corpus using shared contract."""
         word_freq = Counter()
 
         for insc_id, data in self.corpus['inscriptions'].items():
@@ -849,18 +855,9 @@ class HypothesisTester:
 
             transliterated = data.get('transliteratedWords', [])
             for word in transliterated:
-                if not word or word in ['\n', '𐄁', '', '—', '≈']:
+                if not is_hypothesis_eligible_word(word):
                     continue
-                # Skip numerals
-                if re.match(r'^[\d\s.¹²³⁴⁵⁶⁷⁸⁹⁰/₀₁₂₃₄₅₆₇₈○◎—|]+$', word):
-                    continue
-                # Skip pure logograms
-                if re.match(r'^[A-Z*\d+\[\]]+$', word) and '-' not in word:
-                    continue
-                if word.startswith('𐝫'):
-                    continue
-
-                word_freq[word] += 1
+                word_freq[normalize_word_token(word)] += 1
 
         return dict(word_freq)
 

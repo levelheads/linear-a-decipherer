@@ -32,6 +32,8 @@ REQUIRED_ARTIFACTS = {
     "reading_dependencies": DATA_DIR / "reading_dependencies.json",
     "anchors": DATA_DIR / "anchors.json",
 }
+PARITY_REPORT = DATA_DIR / "tool_parity_report.json"
+DEPENDENCY_TRACE_REPORT = DATA_DIR / "dependency_trace_report.json"
 
 CONFIDENCE_ORDER = [
     "SPECULATIVE",
@@ -149,6 +151,11 @@ def main() -> int:
         action="store_true",
         help="Fail immediately if required artifacts are missing",
     )
+    parser.add_argument(
+        "--allow-provisional-trace",
+        action="store_true",
+        help="Allow PROBABLE+ promotions when dependency trace source is provisional",
+    )
     args = parser.parse_args()
 
     candidate = args.candidate.strip()
@@ -171,6 +178,8 @@ def main() -> int:
     integrated_data = _load_json(REQUIRED_ARTIFACTS["integrated_results"]) or {}
     dependency_data = _load_json(REQUIRED_ARTIFACTS["reading_dependencies"]) or {}
     anchor_data = _load_json(REQUIRED_ARTIFACTS["anchors"]) or {}
+    parity_data = _load_json(PARITY_REPORT) or {}
+    dependency_trace_data = _load_json(DEPENDENCY_TRACE_REPORT) or {}
 
     hypothesis_entry = _find_dict_entry_casefold(
         hypothesis_data.get("word_analyses", {}), candidate
@@ -178,6 +187,7 @@ def main() -> int:
     consistency_entry = _find_dict_entry_casefold(consistency_data.get("words", {}), candidate)
     integrated_entry = _find_word_in_list(integrated_data.get("all_results", []), candidate)
     dependency_entry = _find_dict_entry_casefold(dependency_data.get("readings", {}), candidate)
+    dependency_trace_entry = _find_word_in_list(dependency_trace_data.get("checks", []), candidate)
     anchors = anchor_data.get("anchors", {})
 
     current_confidence = "SPECULATIVE"
@@ -205,6 +215,26 @@ def main() -> int:
         anchor_dependencies = integrated_entry.get("anchor_dependencies", []) or []
     if not anchor_dependencies and dependency_entry:
         anchor_dependencies = dependency_entry.get("depends_on", []) or []
+
+    dependency_trace_source = "none"
+    dependency_trace_status = "unknown"
+    if dependency_trace_entry:
+        dependency_trace_source = str(dependency_trace_entry.get("trace_source", "none")).lower()
+        dependency_trace_status = str(dependency_trace_entry.get("status", "unknown")).lower()
+    elif dependency_entry and anchor_dependencies:
+        sources = dependency_entry.get("evidence_sources", []) if isinstance(dependency_entry, dict) else []
+        if isinstance(sources, list) and "dependency_trace_resolver.py --write" in sources:
+            dependency_trace_source = "provisional"
+        else:
+            dependency_trace_source = "existing"
+        dependency_trace_status = "complete"
+
+    parity_level = str(
+        parity_data.get("severity", {}).get(
+            "level",
+            parity_data.get("summary", {}).get("status", "UNKNOWN"),
+        )
+    ).upper()
 
     threshold_category = str(integrated_entry.get("threshold_category", "")) if integrated_entry else ""
     methodology_compliant = bool(integrated_entry.get("methodology_compliant")) if integrated_entry else False
@@ -246,6 +276,11 @@ def main() -> int:
         passed=(not direct_anchor_contradiction and not eliminated_flag),
         evidence=f"dependency_warnings={len(dependency_warnings)}, threshold={threshold_category or 'unknown'}",
     )
+    gate_results["parity_guard"] = _gate(
+        required=True,
+        passed=(parity_level != "HIGH"),
+        evidence=f"parity_level={parity_level}",
+    )
     gate_results["multi_hypothesis_run"] = _gate(
         required=True,
         passed=four_hypothesis_present,
@@ -271,6 +306,12 @@ def main() -> int:
         required=True,
         passed=bool(anchor_dependencies),
         evidence=f"anchor_dependencies={len(anchor_dependencies)}",
+        notes=f"trace_source={dependency_trace_source}, trace_status={dependency_trace_status}",
+    )
+    gate_results["provisional_trace_review"] = _gate(
+        required=target_confidence in ("PROBABLE", "HIGH", "CERTAIN"),
+        passed=(dependency_trace_source != "provisional" or args.allow_provisional_trace),
+        evidence=f"trace_source={dependency_trace_source}, allow_override={args.allow_provisional_trace}",
     )
     gate_results["negative_evidence_statement"] = _gate(
         required=True,
@@ -309,7 +350,7 @@ def main() -> int:
         evidence=f"methodology_compliant={methodology_compliant}",
     )
 
-    required_gate_ids = ["required_inputs_present", "no_direct_anchor_contradiction"]
+    required_gate_ids = ["required_inputs_present", "no_direct_anchor_contradiction", "parity_guard"]
     if increasing:
         if target_confidence in ("POSSIBLE", "MEDIUM"):
             required_gate_ids.extend(["multi_hypothesis_run"])
@@ -320,6 +361,7 @@ def main() -> int:
                     "cross_corpus_consistency",
                     "integrated_validation",
                     "dependency_trace",
+                    "provisional_trace_review",
                     "negative_evidence_statement",
                 ]
             )
@@ -330,6 +372,7 @@ def main() -> int:
                     "cross_corpus_consistency",
                     "integrated_validation",
                     "dependency_trace",
+                    "provisional_trace_review",
                     "negative_evidence_statement",
                     "regional_concentration_addressed",
                     "multi_anchor_support",
@@ -344,6 +387,7 @@ def main() -> int:
                     "cross_corpus_consistency",
                     "integrated_validation",
                     "dependency_trace",
+                    "provisional_trace_review",
                     "negative_evidence_statement",
                     "regional_concentration_addressed",
                     "multi_anchor_support",
@@ -404,9 +448,12 @@ def main() -> int:
             "integrated_entry_found": bool(integrated_entry),
             "dependency_entry_found": bool(dependency_entry),
             "anchor_dependencies": anchor_dependencies,
+            "dependency_trace_source": dependency_trace_source,
+            "dependency_trace_status": dependency_trace_status,
             "threshold_category": threshold_category,
             "final_confidence": final_confidence,
             "methodology_compliant": methodology_compliant,
+            "parity_level": parity_level,
             "ht_concentration": ht_concentration,
             "num_sites": num_sites,
             "sites_found": sites_found,
@@ -507,12 +554,14 @@ Use this packet for any confidence promotion or demotion proposal.
 - Site concentration (HT): {ht_concentration:.3f}
 - Period spread: {(consistency_entry or {}).get('periods_found', []) if consistency_entry else 'Not available'}
 - Regional weighting impact: {(integrated_entry or {}).get('regional_weight', 'Not available')}
+- Parity status: {parity_level}
 
 ## 6. Anchor and Dependency Check
 
 {chr(10).join(anchor_lines)}
 - Weakest dependency: {(integrated_entry or {}).get('max_confidence_from_anchors', 'Unknown')}
 - Cascade risk if questioned: {"; ".join(dependency_warnings) if dependency_warnings else "No cascade warnings"}
+- Dependency trace source: {dependency_trace_source} (status: {dependency_trace_status})
 
 ## 7. Gate Checklist
 

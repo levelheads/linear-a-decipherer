@@ -37,6 +37,7 @@ HYPOTHESIS_TO_ANCHORS = {
     "pregreek": ["anchor_toponym_phaistos"],
     "protogreek": ["anchor_linear_b_comparison"],
 }
+PROVISIONAL_MARKER = "dependency_trace_resolver.py --write"
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -110,8 +111,12 @@ def classify_candidate(
     best_hypothesis = normalize_hypothesis(row.get("raw_best_hypothesis"))
     entry = readings.get(word)
     depends_on = []
+    evidence_sources: list[str] = []
     if isinstance(entry, dict):
         depends_on = entry.get("depends_on", [])
+        raw_sources = entry.get("evidence_sources", [])
+        if isinstance(raw_sources, list):
+            evidence_sources = [str(item) for item in raw_sources]
     if not isinstance(depends_on, list):
         depends_on = []
 
@@ -126,10 +131,13 @@ def classify_candidate(
 
     if has_valid_trace:
         status = "complete"
+        trace_source = "provisional" if PROVISIONAL_MARKER in evidence_sources else "existing"
     elif resolvable:
         status = "resolvable"
+        trace_source = "none"
     else:
         status = "unresolved"
+        trace_source = "none"
 
     return {
         "word": word,
@@ -138,6 +146,7 @@ def classify_candidate(
         "existing_depends_on": depends_on,
         "missing_anchor_refs": missing_anchor_refs,
         "status": status,
+        "trace_source": trace_source,
         "suggested_depends_on": suggested,
         "methodology_compliant": bool(row.get("methodology_compliant")),
         "threshold_category": row.get("threshold_category"),
@@ -174,9 +183,8 @@ def apply_resolution(
     sources = existing.get("evidence_sources", [])
     if not isinstance(sources, list):
         sources = []
-    marker = "dependency_trace_resolver.py --write"
-    if marker not in sources:
-        sources.append(marker)
+    if PROVISIONAL_MARKER not in sources:
+        sources.append(PROVISIONAL_MARKER)
     existing["evidence_sources"] = sources
     readings[word] = existing
     return True
@@ -279,6 +287,11 @@ def main() -> int:
         "complete": sum(1 for c in checks if c["status"] == "complete"),
         "resolvable": sum(1 for c in checks if c["status"] == "resolvable"),
         "unresolved": sum(1 for c in checks if c["status"] == "unresolved"),
+        "trace_sources": {
+            "existing": sum(1 for c in checks if c.get("trace_source") == "existing"),
+            "provisional": sum(1 for c in checks if c.get("trace_source") == "provisional"),
+            "none": sum(1 for c in checks if c.get("trace_source") == "none"),
+        },
         "write_count": write_count,
     }
 
@@ -309,6 +322,12 @@ def main() -> int:
     print(f"Complete: {summary['complete']}")
     print(f"Resolvable: {summary['resolvable']}")
     print(f"Unresolved: {summary['unresolved']}")
+    print(
+        "Trace sources: "
+        f"existing={summary['trace_sources']['existing']}, "
+        f"provisional={summary['trace_sources']['provisional']}, "
+        f"none={summary['trace_sources']['none']}"
+    )
     if args.write:
         print(f"Writes applied: {summary['write_count']}")
         print(f"Updated dependencies: {Path(args.dependencies).expanduser().resolve()}")

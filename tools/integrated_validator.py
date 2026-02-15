@@ -34,6 +34,11 @@ from typing import Dict, List, Tuple
 from dataclasses import dataclass, asdict
 import re
 import math
+from word_filter_contract import (
+    CONTRACT_VERSION,
+    is_hypothesis_eligible_word,
+    normalize_word_token,
+)
 
 
 # Paths
@@ -508,8 +513,8 @@ class IntegratedValidator:
             if '_parse_error' in data:
                 continue
             for word in data.get('transliteratedWords', []):
-                if word and '-' in word and word not in ['\n', '𐄁', '']:
-                    word_freq[word.upper()] += 1
+                if is_hypothesis_eligible_word(word):
+                    word_freq[normalize_word_token(word)] += 1
 
         results = []
         for word, freq in word_freq.most_common():
@@ -540,6 +545,7 @@ class IntegratedValidator:
             'metadata': {
                 'generated': datetime.now().isoformat(),
                 'method': 'Integrated Validation Pipeline',
+                'word_filter_contract': CONTRACT_VERSION,
                 'stages': [
                     '1. Raw hypothesis scores',
                     '2. Regional weighting',
