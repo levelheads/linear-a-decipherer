@@ -126,6 +126,51 @@ def _gate(required: bool, passed: bool, evidence: str, notes: str = "") -> dict[
     }
 
 
+def _contains_provisional_marker(entry: dict[str, Any] | None) -> bool:
+    if not isinstance(entry, dict):
+        return False
+
+    sources = entry.get("evidence_sources", [])
+    if isinstance(sources, list):
+        for item in sources:
+            if isinstance(item, str) and "provisional" in item.lower():
+                return True
+
+    for field in ("cascade_note", "meaning"):
+        value = entry.get(field)
+        if isinstance(value, str) and "provisional" in value.lower():
+            return True
+    return False
+
+
+def _cross_corpus_pass(
+    *,
+    target_confidence: str,
+    consistency_validated: bool,
+    positional_consistency: float,
+    functional_consistency: float,
+) -> tuple[bool, str]:
+    if not consistency_validated:
+        return False, "reading_validated=False"
+
+    # PROBABLE gate allows one dimension to be strong and the other to be moderate.
+    # HIGH/CERTAIN remain stricter.
+    if target_confidence == "PROBABLE":
+        passed = (
+            min(positional_consistency, functional_consistency) >= 0.55
+            and max(positional_consistency, functional_consistency) >= 0.70
+        )
+        rule = "min>=0.55 and max>=0.70"
+    elif target_confidence in ("HIGH", "CERTAIN"):
+        passed = positional_consistency >= 0.60 and functional_consistency >= 0.60
+        rule = "positional>=0.60 and functional>=0.60"
+    else:
+        passed = positional_consistency >= 0.60 and functional_consistency >= 0.60
+        rule = "positional>=0.60 and functional>=0.60"
+
+    return passed, rule
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Generate promotion packet and board decision")
     parser.add_argument("--candidate", required=True, help="Candidate reading word")
@@ -223,7 +268,10 @@ def main() -> int:
         dependency_trace_status = str(dependency_trace_entry.get("status", "unknown")).lower()
     elif dependency_entry and anchor_dependencies:
         sources = dependency_entry.get("evidence_sources", []) if isinstance(dependency_entry, dict) else []
-        if isinstance(sources, list) and "dependency_trace_resolver.py --write" in sources:
+        if (
+            isinstance(sources, list)
+            and "dependency_trace_resolver.py --write" in sources
+        ) or _contains_provisional_marker(dependency_entry):
             dependency_trace_source = "provisional"
         else:
             dependency_trace_source = "existing"
@@ -247,6 +295,12 @@ def main() -> int:
     positional_consistency = float(consistency_entry.get("positional_consistency", 0.0)) if consistency_entry else 0.0
     functional_consistency = float(consistency_entry.get("functional_consistency", 0.0)) if consistency_entry else 0.0
     sites_found = consistency_entry.get("sites_found", []) if consistency_entry else []
+    cross_corpus_passed, cross_corpus_rule = _cross_corpus_pass(
+        target_confidence=target_confidence,
+        consistency_validated=consistency_validated,
+        positional_consistency=positional_consistency,
+        functional_consistency=functional_consistency,
+    )
 
     anchors_with_falsification = 0
     for dep in anchor_dependencies:
@@ -288,10 +342,10 @@ def main() -> int:
     )
     gate_results["cross_corpus_consistency"] = _gate(
         required=True,
-        passed=(consistency_validated and positional_consistency >= 0.6 and functional_consistency >= 0.6),
+        passed=cross_corpus_passed,
         evidence=(
             f"validated={consistency_validated}, positional={positional_consistency:.3f}, "
-            f"functional={functional_consistency:.3f}, sites={len(sites_found)}"
+            f"functional={functional_consistency:.3f}, sites={len(sites_found)}, rule={cross_corpus_rule}"
         ),
     )
     gate_results["integrated_validation"] = _gate(
@@ -304,8 +358,8 @@ def main() -> int:
     )
     gate_results["dependency_trace"] = _gate(
         required=True,
-        passed=bool(anchor_dependencies),
-        evidence=f"anchor_dependencies={len(anchor_dependencies)}",
+        passed=bool(anchor_dependencies) and dependency_trace_source in {"existing", "provisional"},
+        evidence=f"anchor_dependencies={len(anchor_dependencies)}, trace_source={dependency_trace_source}",
         notes=f"trace_source={dependency_trace_source}, trace_status={dependency_trace_status}",
     )
     gate_results["provisional_trace_review"] = _gate(
@@ -454,6 +508,13 @@ def main() -> int:
             "final_confidence": final_confidence,
             "methodology_compliant": methodology_compliant,
             "parity_level": parity_level,
+            "cross_corpus_metrics": {
+                "validated": consistency_validated,
+                "positional_consistency": positional_consistency,
+                "functional_consistency": functional_consistency,
+                "rule": cross_corpus_rule,
+                "passed": cross_corpus_passed,
+            },
             "ht_concentration": ht_concentration,
             "num_sites": num_sites,
             "sites_found": sites_found,

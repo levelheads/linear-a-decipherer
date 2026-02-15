@@ -55,7 +55,7 @@
         },
         {
           "name": "Dependency trace pre-check",
-          "cmd": "python3 tools/dependency_trace_resolver.py --top 25 --output data/dependency_trace_report.json",
+          "cmd": "python3 tools/dependency_trace_resolver.py --top 25 --require-complete --output data/dependency_trace_report.json",
           "allow_failure": true
         },
         {

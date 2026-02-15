@@ -35,6 +35,12 @@ from collections import Counter, defaultdict
 from datetime import datetime
 from typing import Dict, List
 
+from site_normalization import (
+    CONTRACT_VERSION as SITE_CONTRACT_VERSION,
+    build_site_totals,
+    normalize_site,
+)
+
 
 # Paths
 PROJECT_ROOT = Path(__file__).parent.parent
@@ -84,6 +90,7 @@ class RegionalAnalyzer:
                 'generated': None,
                 'method': 'Regional Variation Analysis',
                 'principle': 'First Principle #6: Cross-Corpus Consistency',
+                'site_normalization_contract': SITE_CONTRACT_VERSION,
             },
             'site_summaries': {},
             'vocabulary_comparisons': {},
@@ -92,6 +99,7 @@ class RegionalAnalyzer:
             'shared_vocabulary': {},
             'overall_findings': {},
         }
+        self.corpus_site_totals = {}
 
     def log(self, message: str):
         """Print message if verbose mode enabled."""
@@ -104,24 +112,20 @@ class RegionalAnalyzer:
             corpus_path = DATA_DIR / "corpus.json"
             with open(corpus_path, 'r', encoding='utf-8') as f:
                 self.corpus = json.load(f)
+            self.corpus_site_totals = build_site_totals(self.corpus.get('inscriptions', {}))
             print(f"Loaded corpus: {len(self.corpus['inscriptions'])} inscriptions")
             return True
         except Exception as e:
             print(f"Error loading corpus: {e}")
             return False
 
-    def _get_site_code(self, inscription_id: str) -> str:
+    def _get_site_code(self, inscription_id: str, data: dict) -> str:
         """Extract site code from inscription ID."""
-        # Handle different ID formats
-        match = re.match(r'^([A-Z]+)', inscription_id)
-        if match:
-            code = match.group(1)
-            # Map to canonical site code
-            for canonical, variants in SITE_MAPPINGS.items():
-                if code in variants:
-                    return canonical
-            return code
-        return 'UNKNOWN'
+        site_code, _ = normalize_site(
+            site_value=data.get('site') if isinstance(data, dict) else None,
+            inscription_id=inscription_id,
+        )
+        return site_code
 
     def _is_valid_word(self, word: str) -> bool:
         """Check if word is valid for analysis (not numeral, logogram-only, etc.)."""
@@ -142,7 +146,7 @@ class RegionalAnalyzer:
         """Check if word contains syllabic signs (has hyphens)."""
         return '-' in word and self._is_valid_word(word)
 
-    def extract_site_vocabulary(self, site_code: str) -> Dict[str, int]:
+    def extract_site_vocabulary(self, site_code: str) -> tuple[Dict[str, int], int]:
         """
         Extract vocabulary for a specific site.
 
@@ -151,14 +155,12 @@ class RegionalAnalyzer:
         word_freq = Counter()
         inscription_count = 0
 
-        site_variants = SITE_MAPPINGS.get(site_code, [site_code])
-
         for insc_id, data in self.corpus.get('inscriptions', {}).items():
             if '_parse_error' in data:
                 continue
 
             # Check if inscription belongs to this site
-            insc_site = self._get_site_code(insc_id)
+            insc_site = self._get_site_code(insc_id, data)
             if insc_site != site_code:
                 continue
 
@@ -170,7 +172,7 @@ class RegionalAnalyzer:
                     word_freq[word] += 1
 
         self.log(f"Site {site_code}: {inscription_count} inscriptions, {len(word_freq)} unique words")
-        return dict(word_freq)
+        return dict(word_freq), inscription_count
 
     def extract_all_site_vocabularies(self, sites: List[str] = None):
         """Extract vocabulary for all specified sites."""
@@ -179,15 +181,21 @@ class RegionalAnalyzer:
 
         print("\nExtracting site vocabularies...")
         for site in sites:
-            vocab = self.extract_site_vocabulary(site)
+            vocab, inscription_count = self.extract_site_vocabulary(site)
             self.site_vocabularies[site] = vocab
 
             # Store summary
+            site_total = int(self.corpus_site_totals.get(site, {}).get('inscriptions_total', 0) or 0)
+            coverage_pct = round((inscription_count / site_total) * 100, 2) if site_total else 0.0
+            site_name = self.corpus_site_totals.get(site, {}).get('site_name', SITE_FULL_NAMES.get(site, site))
             self.results['site_summaries'][site] = {
-                'name': SITE_FULL_NAMES.get(site, site),
+                'name': site_name,
                 'unique_words': len(vocab),
                 'total_tokens': sum(vocab.values()),
                 'syllabic_words': len([w for w in vocab if '-' in w]),
+                'inscriptions_analyzed': inscription_count,
+                'inscriptions_total': site_total,
+                'coverage_percent': coverage_pct,
                 'top_words': dict(Counter(vocab).most_common(20)),
             }
 

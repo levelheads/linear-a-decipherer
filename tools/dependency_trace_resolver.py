@@ -218,6 +218,11 @@ def main() -> int:
         help="Exit non-zero when unresolved candidates remain",
     )
     parser.add_argument(
+        "--require-complete",
+        action="store_true",
+        help="Exit non-zero unless every checked candidate has existing complete trace",
+    )
+    parser.add_argument(
         "--integrated",
         default=str(DEFAULT_INTEGRATED),
         help="Path to integrated results JSON",
@@ -294,6 +299,7 @@ def main() -> int:
         },
         "write_count": write_count,
     }
+    summary["incomplete"] = summary["total_checked"] - summary["complete"]
 
     report = {
         "metadata": {
@@ -301,6 +307,7 @@ def main() -> int:
             "method": "dependency trace pre-check",
             "write_mode": args.write,
             "strict_mode": args.strict,
+            "require_complete": args.require_complete,
             "input_files": {
                 "integrated": str(Path(args.integrated).expanduser().resolve()),
                 "dependencies": str(Path(args.dependencies).expanduser().resolve()),
@@ -309,6 +316,9 @@ def main() -> int:
         },
         "summary": summary,
         "checks": checks,
+        "resolvable_candidates": [c for c in checks if c["status"] == "resolvable"],
+        "unresolved_candidates": [c for c in checks if c["status"] == "unresolved"],
+        "missing_trace_candidates": [c for c in checks if c.get("trace_source") == "none"],
     }
 
     output_path = Path(args.output).expanduser().resolve()
@@ -322,6 +332,7 @@ def main() -> int:
     print(f"Complete: {summary['complete']}")
     print(f"Resolvable: {summary['resolvable']}")
     print(f"Unresolved: {summary['unresolved']}")
+    print(f"Incomplete: {summary['incomplete']}")
     print(
         "Trace sources: "
         f"existing={summary['trace_sources']['existing']}, "
@@ -334,6 +345,12 @@ def main() -> int:
     print(f"Report: {output_path}")
 
     if args.strict and summary["unresolved"] > 0:
+        return 1
+    if args.require_complete and (
+        summary["incomplete"] > 0
+        or summary["trace_sources"]["provisional"] > 0
+        or summary["trace_sources"]["none"] > 0
+    ):
         return 1
     return 0
 

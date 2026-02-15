@@ -30,6 +30,8 @@ from typing import Dict, List, Optional
 from collections import Counter
 from dataclasses import dataclass, asdict
 
+from site_normalization import normalize_site
+
 
 # Paths
 PROJECT_ROOT = Path(__file__).parent.parent
@@ -44,6 +46,7 @@ class Occurrence:
     inscription_id: str
     site: str
     site_full: str
+    site_raw: str
     period: str
     support: str
     position: int           # Position in inscription
@@ -166,14 +169,16 @@ class CorpusConsistencyValidator:
                     else:
                         line_pos = 'middle'
 
-                    # Extract site code from inscription ID
-                    site_match = re.match(r'^([A-Z]+)', insc_id)
-                    site_code = site_match.group(1) if site_match else 'UNKNOWN'
+                    site_code, site_name = normalize_site(
+                        site_value=data.get('site'),
+                        inscription_id=insc_id,
+                    )
 
                     occ = Occurrence(
                         inscription_id=insc_id,
                         site=site_code,
-                        site_full=self.site_name_map.get(site_code, site_code),
+                        site_full=site_name,
+                        site_raw=str(data.get('site', '') or ''),
                         period=data.get('context', 'UNKNOWN'),
                         support=data.get('support', 'UNKNOWN'),
                         position=i,
@@ -216,9 +221,9 @@ class CorpusConsistencyValidator:
             )
 
         # Analyze distributions
-        sites_found = list(set(o.site for o in occurrences))
+        sites_found = sorted(set(o.site for o in occurrences))
         sites_missing = [s for s in self.major_sites if s not in sites_found]
-        periods_found = list(set(o.period for o in occurrences))
+        periods_found = sorted(set(o.period for o in occurrences))
 
         # Position distribution
         position_dist = Counter(o.line_position for o in occurrences)

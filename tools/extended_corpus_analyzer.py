@@ -28,6 +28,12 @@ from collections import Counter, defaultdict
 from datetime import datetime
 from typing import List
 
+from site_normalization import (
+    CONTRACT_VERSION as SITE_CONTRACT_VERSION,
+    build_site_totals,
+    normalize_site,
+)
+
 PROJECT_ROOT = Path(__file__).parent.parent
 DATA_DIR = PROJECT_ROOT / "data"
 ANALYSIS_DIR = PROJECT_ROOT / "analysis"
@@ -57,10 +63,12 @@ class ExtendedCorpusAnalyzer:
             'metadata': {
                 'generated': None,
                 'target': 'Corpus expansion (batch analysis)',
+                'site_normalization_contract': SITE_CONTRACT_VERSION,
             },
             'inscriptions_analyzed': [],
             'word_frequencies': Counter(),
             'site_coverage': {},
+            'site_normalized_coverage': {},
             'hypothesis_summary': {},
             'new_findings': [],
         }
@@ -93,8 +101,10 @@ class ExtendedCorpusAnalyzer:
             return -1  # Skip already analyzed
 
         # Site priority
-        site = re.match(r'^([A-Z]+)', insc_id)
-        site_code = site.group(1) if site else ''
+        site_code, _ = normalize_site(
+            site_value=data.get('site'),
+            inscription_id=insc_id,
+        )
 
         if site_code in ['KH']:
             score += 100  # Khania highest priority
@@ -169,12 +179,16 @@ class ExtendedCorpusAnalyzer:
         has_libation = any('JA-SA-SA-RA' in w or 'A-TA-I-*301' in w for w in meaningful)
 
         # Site extraction
-        site_match = re.match(r'^([A-Z]+)', insc_id)
-        site = site_match.group(1) if site_match else 'UNKNOWN'
+        site_code, site_name = normalize_site(
+            site_value=data.get('site'),
+            inscription_id=insc_id,
+        )
 
         analysis = {
             'id': insc_id,
-            'site': site,
+            'site': site_code,
+            'site_name': site_name,
+            'site_raw': data.get('site', ''),
             'word_count': len(meaningful),
             'unique_words': len(set(meaningful)),
             'words': meaningful,
@@ -209,8 +223,18 @@ class ExtendedCorpusAnalyzer:
         print(f"Selected {len(selected)} inscriptions for analysis")
 
         # Analyze each inscription
-        site_stats = defaultdict(lambda: {'count': 0, 'kuro': 0, 'kiro': 0, 'words': 0})
+        site_stats = defaultdict(
+            lambda: {
+                'site_code': '',
+                'site_name': '',
+                'count': 0,
+                'kuro': 0,
+                'kiro': 0,
+                'words': 0,
+            }
+        )
         all_words = Counter()
+        corpus_site_totals = build_site_totals(self.corpus.get('inscriptions', {}))
 
         for i, insc_id in enumerate(selected):
             analysis = self.analyze_inscription(insc_id)
@@ -220,6 +244,8 @@ class ExtendedCorpusAnalyzer:
 
                 # Aggregate stats
                 site = analysis['site']
+                site_stats[site]['site_code'] = site
+                site_stats[site]['site_name'] = analysis.get('site_name', site)
                 site_stats[site]['count'] += 1
                 site_stats[site]['words'] += analysis['word_count']
                 if analysis['markers']['has_kuro']:
@@ -236,7 +262,29 @@ class ExtendedCorpusAnalyzer:
 
         # Summary
         self.results['word_frequencies'] = dict(all_words.most_common(100))
-        self.results['site_coverage'] = dict(site_stats)
+
+        site_coverage = {}
+        for site_code, stats in sorted(site_stats.items()):
+            total_entry = corpus_site_totals.get(site_code, {})
+            inscriptions_total = int(total_entry.get('inscriptions_total', 0) or 0)
+            coverage_pct = (
+                round((stats['count'] / inscriptions_total) * 100, 2)
+                if inscriptions_total
+                else 0.0
+            )
+            site_coverage[site_code] = {
+                'site_code': site_code,
+                'site_name': stats['site_name'] or total_entry.get('site_name', site_code),
+                'count': stats['count'],
+                'kuro': stats['kuro'],
+                'kiro': stats['kiro'],
+                'words': stats['words'],
+                'inscriptions_analyzed': stats['count'],
+                'inscriptions_total': inscriptions_total,
+                'coverage_percent': coverage_pct,
+            }
+        self.results['site_coverage'] = site_coverage
+        self.results['site_normalized_coverage'] = site_coverage
 
         # Calculate coverage - ONLY count inscriptions actually in this analysis
         # Note: ALREADY_ANALYZED is used for deduplication, not cumulative tracking
@@ -331,7 +379,8 @@ class ExtendedCorpusAnalyzer:
         print("\nSite Coverage:")
         for site, stats in sorted(self.results.get('site_coverage', {}).items()):
             print(f"  {site}: {stats['count']} inscriptions, "
-                  f"KU-RO={stats['kuro']}, KI-RO={stats['kiro']}")
+                  f"KU-RO={stats['kuro']}, KI-RO={stats['kiro']}, "
+                  f"coverage={stats.get('coverage_percent', 0)}%")
 
         print("\nTop Words:")
         for word, freq in list(self.results.get('word_frequencies', {}).items())[:15]:

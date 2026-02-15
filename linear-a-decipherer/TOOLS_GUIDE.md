@@ -25,6 +25,7 @@
 | **Generate promotion packet** | **promotion_board_runner.py** | integrated_validator.py, corpus_consistency_validator.py |
 | **Run lane orchestration** | **lane_orchestrator.py** | config/lane_manifest.yaml |
 | **Pre-check dependency trace** | **dependency_trace_resolver.py** | promotion_board_runner.py |
+| **Normalize site names/codes** | **site_normalization.py** | extended_corpus_analyzer.py, regional_analyzer.py |
 
 ---
 
@@ -41,6 +42,18 @@ This contract is applied by:
 - `hypothesis_tester.py`
 - `batch_pipeline.py`
 - `integrated_validator.py`
+
+### Shared Site Normalization Contract
+
+Corpus-facing pipelines now share one site normalization contract (`tools/site_normalization.py`):
+- normalize inscription ID site prefixes and full site names to canonical site codes
+- provide canonical code + full-name pairing for reporting artifacts
+- prevent mismatches between corpus full names and analysis short codes
+
+This contract is applied by:
+- `extended_corpus_analyzer.py`
+- `regional_analyzer.py`
+- `corpus_consistency_validator.py`
 
 ### "I want to analyze a specific inscription"
 
