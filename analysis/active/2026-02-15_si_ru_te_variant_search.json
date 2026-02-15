@@ -1,0 +1,316 @@
+{
+  "generated": "2026-02-15",
+  "objective": "test productivity of SE-KA-NA-SI as pre-SI-RU-TE slot variant",
+  "unique_ru_te_variants": [
+    "SI-RU-TE"
+  ],
+  "si_ru_te_instances": [
+    {
+      "inscription": "IOZa2",
+      "site": "Iouktas",
+      "prev2": "U-NA-KA-NA-SI",
+      "prev": "I-PI-NA-MA",
+      "next": "TA-NA-RA-TE-U-TI-NU",
+      "line_tokens": [
+        "A-TA-I-*301-WA-JA",
+        "JA-DI-KI-TU",
+        "JA-SA-SA-RA-ME",
+        "U-NA-KA-NA-SI",
+        "I-PI-NA-MA",
+        "SI-RU-TE",
+        "TA-NA-RA-TE-U-TI-NU",
+        "I"
+      ]
+    },
+    {
+      "inscription": "IOZa14",
+      "site": "Iouktas",
+      "prev2": "<START>",
+      "prev": "<START>",
+      "next": "I-DI",
+      "line_tokens": [
+        "SI-RU-TE",
+        "I-DI"
+      ]
+    },
+    {
+      "inscription": "IOZa15",
+      "site": "Iouktas",
+      "prev2": "<START>",
+      "prev": "I-PI-NA-MA",
+      "next": "<END>",
+      "line_tokens": [
+        "I-PI-NA-MA",
+        "SI-RU-TE"
+      ]
+    },
+    {
+      "inscription": "KOZa1",
+      "site": "Kophinas",
+      "prev2": "U-NA-KA-NA-SI",
+      "prev": "I-PI-NA-MA",
+      "next": "<END>",
+      "line_tokens": [
+        "A-TA-I-*301-WA-JA",
+        "TU-RU-SA",
+        "DU-*314-RE",
+        "I-DA-A",
+        "U-NA-KA-NA-SI",
+        "I-PI-NA-MA",
+        "SI-RU-TE"
+      ]
+    },
+    {
+      "inscription": "SYZa3",
+      "site": "Syme",
+      "prev2": "A-TA-I-*301-WA-JA",
+      "prev": "SE-KA-NA-SI",
+      "next": "<END>",
+      "line_tokens": [
+        "A-TA-I-*301-WA-JA",
+        "SE-KA-NA-SI",
+        "SI-RU-TE"
+      ]
+    },
+    {
+      "inscription": "TLZa1",
+      "site": "Troullos",
+      "prev2": "U-NA-KA-NA",
+      "prev": "I-PI-NA-MA",
+      "next": "<END>",
+      "line_tokens": [
+        "A-TA-I-*301-WA-JA",
+        "O-SU-QA-RE",
+        "JA-SA-SA-RA-ME",
+        "U-NA-KA-NA",
+        "I-PI-NA-MA",
+        "SI-RU-TE"
+      ]
+    },
+    {
+      "inscription": "VRYZa1",
+      "site": "Vrysinas",
+      "prev2": "<START>",
+      "prev": "I-PI-NA-MA",
+      "next": "<END>",
+      "line_tokens": [
+        "I-PI-NA-MA",
+        "SI-RU-TE"
+      ]
+    }
+  ],
+  "si_ru_te_predecessor_distribution": {
+    "I-PI-NA-MA": 5,
+    "<START>": 1,
+    "SE-KA-NA-SI": 1
+  },
+  "si_ru_te_successor_distribution": {
+    "TA-NA-RA-TE-U-TI-NU": 1,
+    "I-DI": 1,
+    "<END>": 5
+  },
+  "a_ta_i_301_wa_ja_inscriptions": [
+    {
+      "inscription": "IOZa2",
+      "site": "Iouktas",
+      "len": 8,
+      "tokens": [
+        "A-TA-I-*301-WA-JA",
+        "JA-DI-KI-TU",
+        "JA-SA-SA-RA-ME",
+        "U-NA-KA-NA-SI",
+        "I-PI-NA-MA",
+        "SI-RU-TE",
+        "TA-NA-RA-TE-U-TI-NU",
+        "I"
+      ],
+      "tail": [
+        "I-PI-NA-MA",
+        "SI-RU-TE",
+        "TA-NA-RA-TE-U-TI-NU",
+        "I"
+      ]
+    },
+    {
+      "inscription": "IOZa3",
+      "site": "Iouktas",
+      "len": 2,
+      "tokens": [
+        "A-TA-I-*301-WA-JA",
+        "AU"
+      ],
+      "tail": [
+        "A-TA-I-*301-WA-JA",
+        "AU"
+      ]
+    },
+    {
+      "inscription": "IOZa7",
+      "site": "Iouktas",
+      "len": 2,
+      "tokens": [
+        "A-TA-I-*301-WA-JA",
+        "JA-TI-*321"
+      ],
+      "tail": [
+        "A-TA-I-*301-WA-JA",
+        "JA-TI-*321"
+      ]
+    },
+    {
+      "inscription": "KOZa1",
+      "site": "Kophinas",
+      "len": 7,
+      "tokens": [
+        "A-TA-I-*301-WA-JA",
+        "TU-RU-SA",
+        "DU-*314-RE",
+        "I-DA-A",
+        "U-NA-KA-NA-SI",
+        "I-PI-NA-MA",
+        "SI-RU-TE"
+      ],
+      "tail": [
+        "I-DA-A",
+        "U-NA-KA-NA-SI",
+        "I-PI-NA-MA",
+        "SI-RU-TE"
+      ]
+    },
+    {
+      "inscription": "PKZa12",
+      "site": "Palaikastro",
+      "len": 9,
+      "tokens": [
+        "A-TA-I-*301-WA-JA",
+        "A-DI-KI-TE",
+        "SI",
+        "RA-ME",
+        "A-NE",
+        "U-NA-RU-KA-JA-SI",
+        "A-PA-DU-PA",
+        "JA",
+        "JA-PA-QA"
+      ],
+      "tail": [
+        "U-NA-RU-KA-JA-SI",
+        "A-PA-DU-PA",
+        "JA",
+        "JA-PA-QA"
+      ]
+    },
+    {
+      "inscription": "SYZa1",
+      "site": "Syme",
+      "len": 3,
+      "tokens": [
+        "A-TA-I-*301-WA-JA",
+        "I-DA-MI",
+        "JA"
+      ],
+      "tail": [
+        "A-TA-I-*301-WA-JA",
+        "I-DA-MI",
+        "JA"
+      ]
+    },
+    {
+      "inscription": "SYZa2",
+      "site": "Syme",
+      "len": 5,
+      "tokens": [
+        "A-TA-I-*301-WA-JA",
+        "JA-SU-MA-TU-OLIV",
+        "1",
+        "U-NA-KA-NA-SI-OLE",
+        "A-JA"
+      ],
+      "tail": [
+        "JA-SU-MA-TU-OLIV",
+        "1",
+        "U-NA-KA-NA-SI-OLE",
+        "A-JA"
+      ]
+    },
+    {
+      "inscription": "SYZa3",
+      "site": "Syme",
+      "len": 3,
+      "tokens": [
+        "A-TA-I-*301-WA-JA",
+        "SE-KA-NA-SI",
+        "SI-RU-TE"
+      ],
+      "tail": [
+        "A-TA-I-*301-WA-JA",
+        "SE-KA-NA-SI",
+        "SI-RU-TE"
+      ]
+    },
+    {
+      "inscription": "SYZa4",
+      "site": "Syme",
+      "len": 3,
+      "tokens": [
+        "A-TA-I-*301-WA-JA",
+        "JA-I-NWA-ZA",
+        "PA₃-NI-WI"
+      ],
+      "tail": [
+        "A-TA-I-*301-WA-JA",
+        "JA-I-NWA-ZA",
+        "PA₃-NI-WI"
+      ]
+    },
+    {
+      "inscription": "SYZa8",
+      "site": "Syme",
+      "len": 2,
+      "tokens": [
+        "A-TA-I-*301-WA-JA",
+        "JA-JA"
+      ],
+      "tail": [
+        "A-TA-I-*301-WA-JA",
+        "JA-JA"
+      ]
+    },
+    {
+      "inscription": "TLZa1",
+      "site": "Troullos",
+      "len": 6,
+      "tokens": [
+        "A-TA-I-*301-WA-JA",
+        "O-SU-QA-RE",
+        "JA-SA-SA-RA-ME",
+        "U-NA-KA-NA",
+        "I-PI-NA-MA",
+        "SI-RU-TE"
+      ],
+      "tail": [
+        "JA-SA-SA-RA-ME",
+        "U-NA-KA-NA",
+        "I-PI-NA-MA",
+        "SI-RU-TE"
+      ]
+    }
+  ],
+  "truncated_chain_candidates": [
+    {
+      "inscription": "IOZa9",
+      "site": "Iouktas",
+      "tokens": [
+        "JA-SA-SA-RA-ME",
+        "U-NA-KA-NA-SI"
+      ]
+    },
+    {
+      "inscription": "PKZa27",
+      "site": "Palaikastro",
+      "tokens": [
+        "JA-SA-SA-RA-ME",
+        "U-NA-KA-NA-SI"
+      ]
+    }
+  ]
+}
