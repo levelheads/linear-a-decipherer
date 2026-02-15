@@ -21,6 +21,9 @@
 | **Audit corpus structure** | **corpus_auditor.py** | — |
 | **Verify KU-RO totals** | **corpus_auditor.py --totals** | — |
 | **Find function words** | **corpus_auditor.py --function-word** | — |
+| **Check tool drift/parity** | **tool_parity_checker.py** | integrated_validator.py |
+| **Generate promotion packet** | **promotion_board_runner.py** | integrated_validator.py, corpus_consistency_validator.py |
+| **Run lane orchestration** | **lane_orchestrator.py** | config/lane_manifest.yaml |
 
 ---
 
@@ -180,6 +183,37 @@
    - Numerical patterns
 
 3. **Document differences in STATE_OF_KNOWLEDGE.md**
+
+---
+
+### "I want to run multi-lane execution with handoff artifacts"
+
+**Example**: Run lanes A, B, and F for governance + validation checks
+
+**Steps**:
+1. **Preview lane execution plan**
+   ```bash
+   python3 tools/lane_orchestrator.py --lane A,B,F --dry-run
+   ```
+
+2. **Run selected lanes**
+   ```bash
+   python3 tools/lane_orchestrator.py --lane A,B,F
+   ```
+
+3. **Review handoff report**
+   - Output: `data/lane_handoffs/YYYY-MM-DD.json`
+   - Confirm command status, artifact presence, and required reviewer lane
+
+4. **Run parity check before promotion decisions**
+   ```bash
+   python3 tools/tool_parity_checker.py --output data/tool_parity_report.json
+   ```
+
+5. **Generate promotion packet for candidate**
+   ```bash
+   python3 tools/promotion_board_runner.py --candidate KU-RO --target-confidence HIGH
+   ```
 
 ---
 

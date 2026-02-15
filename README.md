@@ -133,7 +133,7 @@ linear-a-decipherer/
 │   ├── completed/            # Finished inscription/thematic analyses
 │   └── archive/              # Historical phase analyses
 │
-├── tools/                    # 41 Python analysis scripts
+├── tools/                    # 44 Python analysis scripts
 ├── external/lineara/         # Corpus data (git submodule)
 ├── data/                     # Generated JSON files
 └── templates/                # Document templates
@@ -176,7 +176,7 @@ python tools/parse_lineara_corpus.py
 
 ## Analysis Tools
 
-The project includes 41 Python analysis scripts organized by function (stdlib-only, no external dependencies):
+The project includes 44 Python analysis scripts organized by function (stdlib-only, no external dependencies):
 
 ### Core Analysis
 
@@ -218,6 +218,14 @@ The project includes 41 Python analysis scripts organized by function (stdlib-on
 | `oracc_connector.py` | [ORACC](http://oracc.org) | Akkadian/Sumerian comparative data |
 | `damos_connector.py` | [DĀMOS](https://damos.hf.uio.no) | Linear B database |
 
+### Orchestration and Governance
+
+| Tool | Description |
+|------|-------------|
+| `tool_parity_checker.py` | Cross-artifact drift detection (hypothesis vs batch vs integrated) |
+| `promotion_board_runner.py` | Promotion packet + gate decision generator for candidate readings |
+| `lane_orchestrator.py` | Lane-based command orchestration with structured handoff JSON output |
+
 ### Usage Examples
 
 ```bash
@@ -234,7 +242,7 @@ python tools/kr_paradigm_validator.py --all
 python tools/corpus_lookup.py --report ku-ro
 
 # Run negative evidence analysis
-python tools/negative_evidence.py --all
+python tools/negative_evidence.py --hypothesis all
 ```
 
 **Full tool guide**: [TOOLS_GUIDE.md](linear-a-decipherer/TOOLS_GUIDE.md)

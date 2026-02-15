@@ -2,7 +2,7 @@
 
 **Canonical operational source of truth for active status, metrics, campaigns, and release readiness.**
 
-**Last Updated**: 2026-02-13
+**Last Updated**: 2026-02-15
 **Scope**: Current state only (not full historical narrative)
 **Historical log**: `linear-a-decipherer/CHANGELOG.md`
 
@@ -34,7 +34,7 @@ If any other file conflicts with this one, this file wins.
 | Integrated validated words | 160 | `data/integrated_results.json` (run 2026-02-13) |
 | Methodology compliance | 6/160 (3.8%) | `data/integrated_results.json` (run 2026-02-13) |
 | Corpus validation status | PASS with 8 warnings, 0 critical errors | `data/validation_report.json` |
-| Tool count (Python scripts) | 41 | `tools/*.py` |
+| Tool count (Python scripts) | 44 | `tools/*.py` |
 | Current release version | v0.4.1 | `CITATION.cff`, local tags |
 
 ---

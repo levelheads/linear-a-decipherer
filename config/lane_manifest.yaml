@@ -1,0 +1,244 @@
+{
+  "schema_version": 1,
+  "manifest_name": "linear-a-lane-manifest",
+  "description": "Lane contracts for orchestrated weekly execution",
+  "lanes": [
+    {
+      "lane_id": "A",
+      "owner": "SSOT + Governance",
+      "mission": "Protect canonical-state integrity and documentation governance",
+      "commands": [
+        {
+          "name": "Master state guard",
+          "cmd": "python3 tools/master_state_guard.py"
+        },
+        {
+          "name": "Master state refresh check",
+          "cmd": "python3 tools/refresh_master_state.py --check",
+          "allow_failure": true
+        },
+        {
+          "name": "Analysis index preview",
+          "cmd": "python3 tools/update_index.py"
+        }
+      ],
+      "required_artifacts": [
+        "linear-a-decipherer/MASTER_STATE.md",
+        "linear-a-decipherer/ANALYSIS_INDEX.md"
+      ],
+      "merge_gate": "SSOT guard checks pass and canonical docs remain consistent",
+      "fallback": "Run targeted doc drift audit and refresh canonical metrics",
+      "handoff": {
+        "confidence_impact": "No direct reading confidence changes; governance hardening only.",
+        "dependencies_affected": [
+          "MASTER_STATE.md",
+          "ANALYSIS_INDEX.md"
+        ],
+        "open_risks": [
+          "Legacy docs may still contain stale numeric snapshots."
+        ],
+        "required_reviewer_lane": "F"
+      }
+    },
+    {
+      "lane_id": "B",
+      "owner": "Validation + Quality Gates",
+      "mission": "Enforce promotion evidence completeness and methodology gates",
+      "commands": [
+        {
+          "name": "Consistency validation",
+          "cmd": "python3 tools/corpus_consistency_validator.py --all --min-freq 5 --output data/consistency_validation.json"
+        },
+        {
+          "name": "Integrated validation",
+          "cmd": "python3 tools/integrated_validator.py --all --output data/integrated_results.json"
+        },
+        {
+          "name": "Parity check",
+          "cmd": "python3 tools/tool_parity_checker.py --output data/tool_parity_report.json"
+        }
+      ],
+      "required_artifacts": [
+        "data/consistency_validation.json",
+        "data/integrated_results.json",
+        "data/tool_parity_report.json"
+      ],
+      "merge_gate": "All required reports present and no unresolved critical contradiction",
+      "fallback": "Hold promotions, rerun with verbose logs, and escalate drift findings",
+      "handoff": {
+        "confidence_impact": "Potential confidence holds/demotions based on gate outcomes.",
+        "dependencies_affected": [
+          "data/hypothesis_results.json",
+          "data/consistency_validation.json",
+          "data/integrated_results.json"
+        ],
+        "open_risks": [
+          "Parity mismatches can invalidate promotion decisions."
+        ],
+        "required_reviewer_lane": "A"
+      }
+    },
+    {
+      "lane_id": "C",
+      "owner": "Script Asymmetry",
+      "mission": "Advance sign-function hypotheses for high-leverage signs",
+      "commands": [
+        {
+          "name": "Function word audit for *304",
+          "cmd": "python3 tools/corpus_auditor.py --function-word \"*304\""
+        },
+        {
+          "name": "Attestation report for *21F",
+          "cmd": "python3 tools/corpus_lookup.py \"*21F\" --output data/star21f_report.json"
+        },
+        {
+          "name": "Attestation report for *118",
+          "cmd": "python3 tools/corpus_lookup.py \"*118\" --output data/star118_report.json"
+        },
+        {
+          "name": "Paradigm discovery refresh",
+          "cmd": "python3 tools/paradigm_discoverer.py --discover --output data/discovered_paradigms.json"
+        }
+      ],
+      "required_artifacts": [
+        "data/star21f_report.json",
+        "data/star118_report.json",
+        "data/discovered_paradigms.json"
+      ],
+      "merge_gate": "Sign hypotheses include cross-corpus evidence and anchor checks",
+      "fallback": "Mark findings as speculative and reroute through lane B validation",
+      "handoff": {
+        "confidence_impact": "May promote sign-function hypotheses from speculative to possible.",
+        "dependencies_affected": [
+          "data/discovered_paradigms.json",
+          "analysis/active"
+        ],
+        "open_risks": [
+          "Single-site concentration can inflate confidence without penalties."
+        ],
+        "required_reviewer_lane": "D"
+      }
+    },
+    {
+      "lane_id": "D",
+      "owner": "Language Asymmetry",
+      "mission": "Stress-test language-layer hypotheses under adversarial scoring",
+      "commands": [
+        {
+          "name": "Hypothesis refresh",
+          "cmd": "python3 tools/hypothesis_tester.py --all --min-freq 2 --output data/hypothesis_results.json"
+        },
+        {
+          "name": "Bayesian corpus run",
+          "cmd": "python3 tools/bayesian_hypothesis_tester.py --corpus --min-freq 2 --output data/bayesian_results.json"
+        },
+        {
+          "name": "Negative evidence run",
+          "cmd": "python3 tools/negative_evidence.py --hypothesis all --output data/negative_evidence_report.json"
+        },
+        {
+          "name": "Regional weighting run",
+          "cmd": "python3 tools/regional_weighting.py --all --min-freq 2 --output data/regional_weighting.json"
+        }
+      ],
+      "required_artifacts": [
+        "data/hypothesis_results.json",
+        "data/bayesian_results.json",
+        "data/negative_evidence_report.json",
+        "data/regional_weighting.json"
+      ],
+      "merge_gate": "Language-layer claims remain consistent across raw, Bayesian, and negative-evidence checks",
+      "fallback": "Freeze promotions and mark contested readings for re-analysis",
+      "handoff": {
+        "confidence_impact": "Can demote unsupported hypothesis claims based on negative evidence.",
+        "dependencies_affected": [
+          "data/hypothesis_results.json",
+          "data/bayesian_results.json"
+        ],
+        "open_risks": [
+          "Model assumptions in priors can bias posterior ranking."
+        ],
+        "required_reviewer_lane": "B"
+      }
+    },
+    {
+      "lane_id": "E",
+      "owner": "Throughput Engine",
+      "mission": "Expand coverage while balancing site representation",
+      "commands": [
+        {
+          "name": "Batch pipeline coverage snapshot",
+          "cmd": "python3 tools/batch_pipeline.py --coverage"
+        },
+        {
+          "name": "Extended corpus analysis",
+          "cmd": "python3 tools/extended_corpus_analyzer.py --all --output data/extended_corpus_analysis.json"
+        },
+        {
+          "name": "Regional analysis refresh",
+          "cmd": "python3 tools/regional_analyzer.py --all --output data/regional_analysis.json"
+        }
+      ],
+      "required_artifacts": [
+        "data/extended_corpus_analysis.json",
+        "data/regional_analysis.json"
+      ],
+      "merge_gate": "Coverage report updated with explicit site-bias context",
+      "fallback": "Switch to mixed-site reduced batch and re-run with stricter balancing",
+      "handoff": {
+        "confidence_impact": "Broadens evidence base for promotion-ready candidates.",
+        "dependencies_affected": [
+          "data/extended_corpus_analysis.json",
+          "data/regional_analysis.json"
+        ],
+        "open_risks": [
+          "Throughput gains may degrade quality if gate checks are bypassed."
+        ],
+        "required_reviewer_lane": "B"
+      }
+    },
+    {
+      "lane_id": "F",
+      "owner": "Release + Process Excellence",
+      "mission": "Enforce release integrity and process discipline",
+      "commands": [
+        {
+          "name": "Release gate check",
+          "cmd": "python3 tools/release_gate.py",
+          "allow_failure": true
+        },
+        {
+          "name": "Release audit (local/network)",
+          "cmd": "python3 tools/release_audit.py",
+          "allow_failure": true
+        },
+        {
+          "name": "Git status snapshot",
+          "cmd": "python3 tools/git_manager.py status"
+        },
+        {
+          "name": "Master state guard",
+          "cmd": "python3 tools/master_state_guard.py"
+        }
+      ],
+      "required_artifacts": [
+        "CITATION.cff",
+        ".github/workflows/validate.yml",
+        "tools/release_gate.py"
+      ],
+      "merge_gate": "Release checks and canonical state guard pass without critical errors",
+      "fallback": "Block release path and resolve CITATION/tag/SSOT inconsistencies",
+      "handoff": {
+        "confidence_impact": "No direct confidence changes; release-readiness enforcement only.",
+        "dependencies_affected": [
+          "CITATION.cff",
+          ".github/workflows/validate.yml"
+        ],
+        "open_risks": [
+          "Network-restricted environments can leave release audits partial."
+        ],
+        "required_reviewer_lane": "A"
+      }
+    }
+  ]
+}
