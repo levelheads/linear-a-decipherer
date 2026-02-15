@@ -1,0 +1,122 @@
+{
+  "metadata": {
+    "generated_utc": "2026-02-15T05:20:01Z",
+    "task": "Task 1 wildcard substitution hunt for SLOT -> SI-RU-TE",
+    "normalization": "hyphenated content tokens only"
+  },
+  "results": {
+    "si_ru_te_total": 7,
+    "predecessor_distribution_all": {
+      "I-PI-NA-MA": 5,
+      "<START>": 1,
+      "SE-KA-NA-SI": 1
+    },
+    "predecessor_distribution_non_syz": {
+      "I-PI-NA-MA": 5,
+      "<START>": 1
+    },
+    "predecessor_distribution_syz": {
+      "SE-KA-NA-SI": 1
+    },
+    "attestation_rows": [
+      {
+        "inscription": "IOZa2",
+        "site_code": "IOZ",
+        "support": "Stone vessel",
+        "prev": "I-PI-NA-MA",
+        "next": "TA-NA-RA-TE-U-TI-NU",
+        "tokens": [
+          "A-TA-I-*301-WA-JA",
+          "JA-DI-KI-TU",
+          "JA-SA-SA-RA-ME",
+          "U-NA-KA-NA-SI",
+          "I-PI-NA-MA",
+          "SI-RU-TE",
+          "TA-NA-RA-TE-U-TI-NU"
+        ]
+      },
+      {
+        "inscription": "IOZa14",
+        "site_code": "IOZ",
+        "support": "Stone vessel",
+        "prev": "<START>",
+        "next": "I-DI",
+        "tokens": [
+          "SI-RU-TE",
+          "I-DI"
+        ]
+      },
+      {
+        "inscription": "IOZa15",
+        "site_code": "IOZ",
+        "support": "Stone vessel",
+        "prev": "I-PI-NA-MA",
+        "next": "<END>",
+        "tokens": [
+          "I-PI-NA-MA",
+          "SI-RU-TE"
+        ]
+      },
+      {
+        "inscription": "KOZa1",
+        "site_code": "KOZ",
+        "support": "Stone vessel",
+        "prev": "I-PI-NA-MA",
+        "next": "<END>",
+        "tokens": [
+          "A-TA-I-*301-WA-JA",
+          "TU-RU-SA",
+          "DU-*314-RE",
+          "I-DA-A",
+          "U-NA-KA-NA-SI",
+          "I-PI-NA-MA",
+          "SI-RU-TE"
+        ]
+      },
+      {
+        "inscription": "SYZa3",
+        "site_code": "SYZ",
+        "support": "Stone vessel",
+        "prev": "SE-KA-NA-SI",
+        "next": "<END>",
+        "tokens": [
+          "A-TA-I-*301-WA-JA",
+          "SE-KA-NA-SI",
+          "SI-RU-TE"
+        ]
+      },
+      {
+        "inscription": "TLZa1",
+        "site_code": "TLZ",
+        "support": "Stone vessel",
+        "prev": "I-PI-NA-MA",
+        "next": "<END>",
+        "tokens": [
+          "A-TA-I-*301-WA-JA",
+          "O-SU-QA-RE",
+          "JA-SA-SA-RA-ME",
+          "U-NA-KA-NA",
+          "I-PI-NA-MA",
+          "SI-RU-TE"
+        ]
+      },
+      {
+        "inscription": "VRYZa1",
+        "site_code": "VRYZ",
+        "support": "Stone vessel",
+        "prev": "I-PI-NA-MA",
+        "next": "<END>",
+        "tokens": [
+          "I-PI-NA-MA",
+          "SI-RU-TE"
+        ]
+      }
+    ],
+    "ru_te_variant_hits_excluding_si_ru_te": []
+  },
+  "conclusion": {
+    "new_non_syz_substitution_found": false,
+    "summary": "No additional non-SYZ direct slot filler before SI-RU-TE was found. Non-SYZ predecessor set remains {I-PI-NA-MA, <START>} while SYZ preserves singleton SE-KA-NA-SI substitution.",
+    "next_capture_target": "Search newly added corpus increments for ... X SI-RU-TE where X != I-PI-NA-MA in non-SYZ contexts."
+  }
+}

@@ -1,0 +1,208 @@
+{
+  "metadata": {
+    "generated_utc": "2026-02-15T05:21:53Z",
+    "candidate": "I-PI-NA-MA",
+    "purpose": "Micro-promotion clearance thresholds after ritual-slot analysis"
+  },
+  "current_gate_state": {
+    "decision": "HOLD",
+    "failed_required_gates": [
+      "cross_corpus_consistency"
+    ],
+    "cross_corpus_rule": "min(positional,functional)>=0.55 and max(positional,functional)>=0.70",
+    "current_metrics": {
+      "positional_consistency": 0.3333333333333333,
+      "contextual_consistency": 0.5,
+      "functional_consistency": 0.41666666666666663
+    },
+    "cross_corpus_evidence": "validated=True, positional=0.333, functional=0.417, sites=5, rule=min>=0.55 and max>=0.70"
+  },
+  "new_supporting_evidence": {
+    "slot_fit_v3": {
+      "score": 0.88,
+      "direct_pre_si_ru_te_count": 5,
+      "direct_pre_si_ru_te_share": 0.714,
+      "site_count": 5
+    },
+    "apza2_parity": {
+      "classification": "contextual_outlier_vs_ritual_chain",
+      "homograph_risk": "medium"
+    }
+  },
+  "clearance_scenarios": {
+    "scenario_A_keep_all_attestations_single_lexeme": {
+      "description": "Treat APZa2 as same lexical item and add new ritual-consistent attestations.",
+      "minimum_new_aligned_occurrences_to_pass_cross_corpus_gate": 6,
+      "simulation_table": [
+        {
+          "new_aligned_occurrences": 0,
+          "positional_consistency": 0.333,
+          "contextual_consistency": 0.5,
+          "functional_consistency": 0.417,
+          "cross_corpus_rule_passed": false
+        },
+        {
+          "new_aligned_occurrences": 1,
+          "positional_consistency": 0.429,
+          "contextual_consistency": 0.571,
+          "functional_consistency": 0.5,
+          "cross_corpus_rule_passed": false
+        },
+        {
+          "new_aligned_occurrences": 2,
+          "positional_consistency": 0.5,
+          "contextual_consistency": 0.625,
+          "functional_consistency": 0.562,
+          "cross_corpus_rule_passed": false
+        },
+        {
+          "new_aligned_occurrences": 3,
+          "positional_consistency": 0.556,
+          "contextual_consistency": 0.667,
+          "functional_consistency": 0.611,
+          "cross_corpus_rule_passed": false
+        },
+        {
+          "new_aligned_occurrences": 4,
+          "positional_consistency": 0.6,
+          "contextual_consistency": 0.7,
+          "functional_consistency": 0.65,
+          "cross_corpus_rule_passed": false
+        },
+        {
+          "new_aligned_occurrences": 5,
+          "positional_consistency": 0.636,
+          "contextual_consistency": 0.727,
+          "functional_consistency": 0.682,
+          "cross_corpus_rule_passed": false
+        },
+        {
+          "new_aligned_occurrences": 6,
+          "positional_consistency": 0.667,
+          "contextual_consistency": 0.75,
+          "functional_consistency": 0.708,
+          "cross_corpus_rule_passed": true
+        },
+        {
+          "new_aligned_occurrences": 7,
+          "positional_consistency": 0.692,
+          "contextual_consistency": 0.769,
+          "functional_consistency": 0.731,
+          "cross_corpus_rule_passed": true
+        },
+        {
+          "new_aligned_occurrences": 8,
+          "positional_consistency": 0.714,
+          "contextual_consistency": 0.786,
+          "functional_consistency": 0.75,
+          "cross_corpus_rule_passed": true
+        },
+        {
+          "new_aligned_occurrences": 9,
+          "positional_consistency": 0.733,
+          "contextual_consistency": 0.8,
+          "functional_consistency": 0.767,
+          "cross_corpus_rule_passed": true
+        },
+        {
+          "new_aligned_occurrences": 10,
+          "positional_consistency": 0.75,
+          "contextual_consistency": 0.812,
+          "functional_consistency": 0.781,
+          "cross_corpus_rule_passed": true
+        }
+      ]
+    },
+    "scenario_B_split_apza2_as_contextual_homograph_then_retest": {
+      "description": "Temporarily separate APZa2 token class from ritual-chain class and then add aligned attestations.",
+      "minimum_new_aligned_occurrences_to_pass_cross_corpus_gate": 4,
+      "simulation_table": [
+        {
+          "new_aligned_occurrences": 0,
+          "positional_consistency": 0.4,
+          "contextual_consistency": 0.6,
+          "functional_consistency": 0.5,
+          "cross_corpus_rule_passed": false
+        },
+        {
+          "new_aligned_occurrences": 1,
+          "positional_consistency": 0.5,
+          "contextual_consistency": 0.667,
+          "functional_consistency": 0.583,
+          "cross_corpus_rule_passed": false
+        },
+        {
+          "new_aligned_occurrences": 2,
+          "positional_consistency": 0.571,
+          "contextual_consistency": 0.714,
+          "functional_consistency": 0.643,
+          "cross_corpus_rule_passed": false
+        },
+        {
+          "new_aligned_occurrences": 3,
+          "positional_consistency": 0.625,
+          "contextual_consistency": 0.75,
+          "functional_consistency": 0.688,
+          "cross_corpus_rule_passed": false
+        },
+        {
+          "new_aligned_occurrences": 4,
+          "positional_consistency": 0.667,
+          "contextual_consistency": 0.778,
+          "functional_consistency": 0.722,
+          "cross_corpus_rule_passed": true
+        },
+        {
+          "new_aligned_occurrences": 5,
+          "positional_consistency": 0.7,
+          "contextual_consistency": 0.8,
+          "functional_consistency": 0.75,
+          "cross_corpus_rule_passed": true
+        },
+        {
+          "new_aligned_occurrences": 6,
+          "positional_consistency": 0.727,
+          "contextual_consistency": 0.818,
+          "functional_consistency": 0.773,
+          "cross_corpus_rule_passed": true
+        },
+        {
+          "new_aligned_occurrences": 7,
+          "positional_consistency": 0.75,
+          "contextual_consistency": 0.833,
+          "functional_consistency": 0.792,
+          "cross_corpus_rule_passed": true
+        },
+        {
+          "new_aligned_occurrences": 8,
+          "positional_consistency": 0.769,
+          "contextual_consistency": 0.846,
+          "functional_consistency": 0.808,
+          "cross_corpus_rule_passed": true
+        },
+        {
+          "new_aligned_occurrences": 9,
+          "positional_consistency": 0.786,
+          "contextual_consistency": 0.857,
+          "functional_consistency": 0.821,
+          "cross_corpus_rule_passed": true
+        },
+        {
+          "new_aligned_occurrences": 10,
+          "positional_consistency": 0.8,
+          "contextual_consistency": 0.867,
+          "functional_consistency": 0.833,
+          "cross_corpus_rule_passed": true
+        }
+      ]
+    }
+  },
+  "recommended_board_threshold": {
+    "required_before_resubmission": [
+      "At least 6 new aligned ritual attestations if APZa2 remains in same lexical class",
+      "Or at least 4 new aligned ritual attestations if APZa2 is separated as contextual homograph",
+      "At least one new non-SYZ substitution candidate before SI-RU-TE (X != I-PI-NA-MA)"
+    ],
+    "rationale": "This directly targets failed cross_corpus_consistency while preserving ritual-slot findings."
+  }
+}

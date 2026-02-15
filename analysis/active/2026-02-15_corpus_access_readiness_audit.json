@@ -1,0 +1,261 @@
+{
+  "metadata": {
+    "generated_utc": "2026-02-15T05:25:31Z",
+    "purpose": "Project setup / corpus access readiness for next decipherment tests"
+  },
+  "core_corpus_access": {
+    "inscriptions_total": 1721,
+    "submodule_status": "eb9afc70104aed41dc740ebd05bf7e677fb48ffe external/lineara (heads/master)",
+    "source": "lineara.xyz (https://github.com/mwenge/lineara.xyz)",
+    "upstream": [
+      "GORILA (Godart & Olivier)",
+      "George Douros",
+      "John Younger"
+    ],
+    "parse_errors_flagged": 0,
+    "empty_transliterated_records": 9,
+    "empty_transliterated_ids": [
+      "HTWc3023",
+      "MOZb2?",
+      "MOZb3?",
+      "PETSWc",
+      "ZAZb39",
+      "KNsceau",
+      "KE6",
+      "ZOZa1",
+      "KNZg57b"
+    ],
+    "unique_site_codes": 89,
+    "top_site_codes": [
+      [
+        "HTW",
+        893
+      ],
+      [
+        "HT",
+        199
+      ],
+      [
+        "KHW",
+        121
+      ],
+      [
+        "KH",
+        104
+      ],
+      [
+        "PH",
+        45
+      ],
+      [
+        "ZA",
+        44
+      ],
+      [
+        "KNZ",
+        32
+      ],
+      [
+        "PKZ",
+        23
+      ],
+      [
+        "HTZ",
+        18
+      ],
+      [
+        "MA",
+        17
+      ],
+      [
+        "PHW",
+        17
+      ],
+      [
+        "IOZ",
+        16
+      ]
+    ],
+    "supports": {
+      "Tablet": 393,
+      "Nodule": 886,
+      "Sealing": 12,
+      "Roundel": 151,
+      "Clay vessel": 74,
+      "Graffito": 3,
+      "Metal object": 23,
+      "Stone object": 19,
+      "Stone vessel": 107,
+      "Lames (short thin tablet)": 18,
+      "Inked inscription": 9,
+      "Architecture": 6,
+      "3-sided bar": 5,
+      "4-sided bar": 5,
+      "Label": 3,
+      "Loom weight": 1,
+      "Triton": 1,
+      "clay vessel": 2,
+      "ivory object": 3
+    },
+    "period_top": [
+      [
+        "LMIB",
+        1310
+      ],
+      [
+        "",
+        331
+      ],
+      [
+        "MMII",
+        27
+      ],
+      [
+        "LMIA",
+        20
+      ],
+      [
+        "LMI",
+        10
+      ],
+      [
+        "MMIII",
+        8
+      ],
+      [
+        "MMIIIB",
+        7
+      ],
+      [
+        "LMIIIA",
+        4
+      ],
+      [
+        "Geometric",
+        1
+      ],
+      [
+        "LBI",
+        1
+      ],
+      [
+        "MMIIIA",
+        1
+      ],
+      [
+        "MMIA",
+        1
+      ]
+    ]
+  },
+  "analysis_coverage": {
+    "extended_coverage_percent": 29.05,
+    "extended_total_analyzed": 500,
+    "extended_total_corpus": 1721,
+    "ht_cluster_share_of_corpus": 0.645,
+    "ht_site_coverage": {
+      "site_code": "HT",
+      "site_name": "Haghia Triada",
+      "count": 44,
+      "kuro": 28,
+      "kiro": 12,
+      "words": 484,
+      "inscriptions_analyzed": 44,
+      "inscriptions_total": 1110,
+      "coverage_percent": 3.96
+    },
+    "kh_site_coverage": {
+      "site_code": "KH",
+      "site_name": "Khania",
+      "count": 221,
+      "kuro": 0,
+      "kiro": 0,
+      "words": 638,
+      "inscriptions_analyzed": 221,
+      "inscriptions_total": 226,
+      "coverage_percent": 97.79
+    },
+    "ioz_site_coverage": {
+      "site_code": "IOZ",
+      "site_name": "Iouktas",
+      "count": 5,
+      "kuro": 0,
+      "kiro": 0,
+      "words": 13,
+      "inscriptions_analyzed": 5,
+      "inscriptions_total": 16,
+      "coverage_percent": 31.25
+    }
+  },
+  "comparative_access": {
+    "sigla_static_signs": 84,
+    "sigla_sites_covered": [
+      "HT",
+      "IO",
+      "KH",
+      "KN",
+      "PH",
+      "PS",
+      "SY",
+      "ZA"
+    ],
+    "damos_vocab_total": 35,
+    "damos_cognate_words": 231,
+    "oracc_terms_total": 104,
+    "oracc_generated": "2026-01-31T18:35:50.493401",
+    "gorila_index_inscriptions": 166
+  },
+  "data_quality": {
+    "validation_critical_errors": 0,
+    "validation_warnings": 8,
+    "warning_sample": [
+      {
+        "message": "Potential duplicate content: HT154jb, KH69, KH70",
+        "context": "Hash: 𐝫|\n|𐝫|\n|𐝫..."
+      },
+      {
+        "message": "Potential duplicate content: HT154m, PH18b, PH29b",
+        "context": "Hash: 𐝫|\n|𐝫..."
+      },
+      {
+        "message": "Potential duplicate content: HTW231b, HTWc3013",
+        "context": "Hash: *188..."
+      },
+      {
+        "message": "Potential duplicate content: HTW231d, HTW231e, HTW231f",
+        "context": "Hash: None..."
+      },
+      {
+        "message": "Potential duplicate content: HTWa1001, HTWa1002, HTWa1003",
+        "context": "Hash: DA-KA..."
+      },
+      {
+        "message": "9 inscriptions missing 'transliteratedWords' field"
+      },
+      {
+        "message": "331 inscriptions missing 'context' field"
+      },
+      {
+        "message": "3 inscriptions missing 'site' field"
+      }
+    ],
+    "missing_context_count": 331,
+    "missing_site_count": 3
+  },
+  "readiness_assessment": {
+    "ready_for_further_local_testing": true,
+    "verdict": "sufficient_for_next_analysis_cycle_with_known_gaps",
+    "blocking_gaps": [
+      "No new non-SYZ ritual-slot substitutions in current corpus; decipherment acceleration now depends on new attestations or alternate targets.",
+      "Context metadata missing for 331 inscriptions, weakening chronology-conditioned tests.",
+      "HT-cluster dominance remains high; diversification is needed for robust cross-site inference.",
+      "Comparative connectors rely on static dictionaries or optional network fetches; live refresh path is limited in offline environments."
+    ],
+    "recommended_actions": [
+      "Run a scheduled corpus refresh workflow (submodule update -> parse_lineara_corpus -> validate_corpus) at sprint start.",
+      "Create a remediation table for missing context/site/empty transliteration records and mark exclusion policy explicitly for validators.",
+      "Prioritize non-HT and ritual-support inscriptions in expansion queue to maximize substitution discovery signal.",
+      "Add a cached comparative refresh job that re-builds ORACC/SigLA/DAMOS artifacts into versioned snapshots."
+    ]
+  }
+}

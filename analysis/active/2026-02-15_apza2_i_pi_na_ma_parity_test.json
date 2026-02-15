@@ -1,0 +1,83 @@
+{
+  "target": "I-PI-NA-MA",
+  "total_occurrences": 6,
+  "ritual_group_occurrences": 5,
+  "apza2_occurrences": 1,
+  "ritual_group_summary": {
+    "directly_precedes_si_ru_te": 5,
+    "direct_precede_ratio": 1.0,
+    "prev_distribution": {
+      "U-NA-KA-NA-SI": 2,
+      "<START>": 2,
+      "U-NA-KA-NA": 1
+    },
+    "next_distribution": {
+      "SI-RU-TE": 5
+    }
+  },
+  "apza2_profile": {
+    "inscription": "APZa2",
+    "site_code": "APZ",
+    "support": "Stone vessel",
+    "position": 1,
+    "prev": "NA-SI",
+    "next": "I-KU-PA₃-NA-TU-NA-TE",
+    "tokens": [
+      "NA-SI",
+      "I-PI-NA-MA",
+      "I-KU-PA₃-NA-TU-NA-TE",
+      "PI-MI-NA-TE",
+      "I-NA-JA-RE-TA"
+    ],
+    "marker_count": 0,
+    "is_ritual_chain_context": false,
+    "directly_precedes_si_ru_te": false
+  },
+  "set_similarity_to_ritual_group": [
+    {
+      "inscription": "IOZa15",
+      "jaccard": 0.167,
+      "shared_tokens": [
+        "I-PI-NA-MA"
+      ]
+    },
+    {
+      "inscription": "VRYZa1",
+      "jaccard": 0.167,
+      "shared_tokens": [
+        "I-PI-NA-MA"
+      ]
+    },
+    {
+      "inscription": "TLZa1",
+      "jaccard": 0.1,
+      "shared_tokens": [
+        "I-PI-NA-MA"
+      ]
+    },
+    {
+      "inscription": "IOZa2",
+      "jaccard": 0.091,
+      "shared_tokens": [
+        "I-PI-NA-MA"
+      ]
+    },
+    {
+      "inscription": "KOZa1",
+      "jaccard": 0.091,
+      "shared_tokens": [
+        "I-PI-NA-MA"
+      ]
+    }
+  ],
+  "parity_decision": {
+    "classification": "contextual_outlier_vs_ritual_chain",
+    "same_lexical_item_confidence": "medium",
+    "homograph_risk": "medium",
+    "rationale": [
+      "APZa2 instance does not precede SI-RU-TE, unlike 5/5 ritual-group instances.",
+      "APZa2 lacks ritual marker bundle and appears in a distinct local sequence.",
+      "String identity and stone-vessel support still allow same lexical item with broader function."
+    ]
+  }
+}
