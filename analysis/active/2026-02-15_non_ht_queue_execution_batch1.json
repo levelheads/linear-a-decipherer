@@ -1,0 +1,161 @@
+{
+  "metadata": {
+    "generated_utc": "2026-02-15T05:48:04Z",
+    "batch": "non_ht_ritual_queue_batch1",
+    "target_count": 6,
+    "completed_count": 6
+  },
+  "inputs": {
+    "queue_artifact": "analysis/active/2026-02-15_non_ht_ritual_priority_queue.json",
+    "analysis_reports": [
+      "analysis/active/2026-02-15_QUEUE_IOZa2_ANALYSIS.md",
+      "analysis/active/2026-02-15_QUEUE_IOZa15_ANALYSIS.md",
+      "analysis/active/2026-02-15_QUEUE_VRYZa1_ANALYSIS.md",
+      "analysis/active/2026-02-15_QUEUE_IOZa14_ANALYSIS.md",
+      "analysis/active/2026-02-15_QUEUE_APZa2_ANALYSIS.md",
+      "analysis/active/2026-02-15_QUEUE_SYZa4_ANALYSIS.md"
+    ]
+  },
+  "results": [
+    {
+      "inscription": "IOZa2",
+      "priority_score": 33,
+      "marker_count": 5,
+      "markers": [
+        "A-TA-I-*301-WA-JA",
+        "I-PI-NA-MA",
+        "JA-SA-SA-RA-ME",
+        "SI-RU-TE",
+        "U-NA-KA-NA-SI"
+      ],
+      "document_type": "religious_libation",
+      "anchor_count": 4,
+      "period": "",
+      "support": "Stone vessel",
+      "transliteration_lines": [
+        "Line 1: A-TA-I-*301-WA-JA 𐄁 JA-DI-KI-TU 𐄁 JA-SA-SA-RA-ME 𐄁 U-NA-KA-NA-SI 𐄁 I-PI-NA-MA 𐄁",
+        "Line 2: SI-RU-TE 𐄁 TA-NA-RA-TE-U-TI-NU 𐄁 I 𐄁"
+      ],
+      "batch_status": "completed",
+      "summary_findings": [
+        "Full ritual chain present including post-terminal TA-NA-RA-TE-U-TI-NU extension."
+      ]
+    },
+    {
+      "inscription": "IOZa15",
+      "priority_score": 21,
+      "marker_count": 2,
+      "markers": [
+        "I-PI-NA-MA",
+        "SI-RU-TE"
+      ],
+      "document_type": "religious_libation",
+      "anchor_count": 1,
+      "period": "",
+      "support": "Stone vessel",
+      "transliteration_lines": [
+        "Line 1: I-PI-NA-MA 𐄁 SI-RU-TE"
+      ],
+      "batch_status": "completed",
+      "summary_findings": [
+        "Minimal two-token ritual closure I-PI-NA-MA -> SI-RU-TE confirmed."
+      ]
+    },
+    {
+      "inscription": "VRYZa1",
+      "priority_score": 21,
+      "marker_count": 2,
+      "markers": [
+        "I-PI-NA-MA",
+        "SI-RU-TE"
+      ],
+      "document_type": "religious_libation",
+      "anchor_count": 1,
+      "period": "",
+      "support": "Stone vessel",
+      "transliteration_lines": [
+        "Line 1: I-PI-NA-MA",
+        "Line 2: SI-RU-TE 𐄁"
+      ],
+      "batch_status": "completed",
+      "summary_findings": [
+        "Minimal two-token ritual closure I-PI-NA-MA -> SI-RU-TE confirmed."
+      ]
+    },
+    {
+      "inscription": "IOZa14",
+      "priority_score": 15,
+      "marker_count": 1,
+      "markers": [
+        "SI-RU-TE"
+      ],
+      "document_type": "religious_libation",
+      "anchor_count": 1,
+      "period": "",
+      "support": "Stone vessel",
+      "transliteration_lines": [
+        "Line 1: SI-RU-TE 𐄁 I-DI"
+      ],
+      "batch_status": "completed",
+      "summary_findings": [
+        "Terminal starts at SI-RU-TE and takes IOZ-specific extension I-DI."
+      ]
+    },
+    {
+      "inscription": "APZa2",
+      "priority_score": 13,
+      "marker_count": 1,
+      "markers": [
+        "I-PI-NA-MA"
+      ],
+      "document_type": "text_document",
+      "anchor_count": 3,
+      "period": "",
+      "support": "Stone vessel",
+      "transliteration_lines": [
+        "Line 1: NA-SI 𐄁 I-PI-NA-MA 𐄁 I-KU-PA₃-NA-TU-NA-TE",
+        "Line 2: PI-MI-NA-TE 𐄁 I-NA-JA-RE-TA 𐄁 QA 𐄁"
+      ],
+      "batch_status": "completed",
+      "summary_findings": [
+        "Classified as text_document; I-PI-NA-MA appears outside ritual-chain marker bundle."
+      ]
+    },
+    {
+      "inscription": "SYZa4",
+      "priority_score": 9,
+      "marker_count": 1,
+      "markers": [
+        "A-TA-I-*301-WA-JA"
+      ],
+      "document_type": "religious_libation",
+      "anchor_count": 0,
+      "period": "LMIA",
+      "support": "Stone vessel",
+      "transliteration_lines": [
+        "Line 1: A-TA-I-*301-WA-JA 𐄁 JA-I-NWA-ZA 𐄁 PA₃-NI-WI"
+      ],
+      "batch_status": "completed",
+      "summary_findings": [
+        "A-TA-I-*301-WA-JA attested without SI-RU-TE in this text."
+      ]
+    }
+  ],
+  "batch_conclusions": [
+    "Ritual terminal structure remains stable across new queue analyses.",
+    "No new non-SYZ substitution filler discovered in this batch.",
+    "APZa2 remains the primary contextual outlier for I-PI-NA-MA semantics."
+  ],
+  "next_batch_candidates": [
+    "TLZa1",
+    "KOZa1",
+    "SYZa3",
+    "IOZa9",
+    "PKZa27",
+    "IOZa3",
+    "PKZa12",
+    "PSZa2",
+    "IOZa6",
+    "IOZa7"
+  ]
+}
