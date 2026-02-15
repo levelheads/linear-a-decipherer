@@ -1,0 +1,562 @@
+{
+  "metadata": {
+    "generated_utc": "2026-02-15T05:30:49Z",
+    "purpose": "Non-HT ritual-priority extraction queue for substitution and chain tests",
+    "selection_rules": [
+      "Exclude HT-cluster inscriptions (HT/HTW/HTZ)",
+      "Require at least one ritual marker token",
+      "Prioritize SI-RU-TE and full-chain marker bundles",
+      "Boost non-analyzed and Stone vessel candidates"
+    ]
+  },
+  "summary": {
+    "candidate_count": 20,
+    "new_candidates_not_in_extended_set": 6,
+    "top_sites": {
+      "IOZ": 7,
+      "SYZ": 5,
+      "PKZ": 2,
+      "TLZ": 1,
+      "KOZ": 1,
+      "VRYZ": 1,
+      "APZ": 1,
+      "PSZ": 1,
+      "PLZ": 1
+    }
+  },
+  "top_priority_candidates": [
+    {
+      "inscription": "IOZa2",
+      "site_code": "IOZ",
+      "site": "Iouktas",
+      "support": "Stone vessel",
+      "period": "",
+      "markers": [
+        "A-TA-I-*301-WA-JA",
+        "I-PI-NA-MA",
+        "JA-SA-SA-RA-ME",
+        "SI-RU-TE",
+        "U-NA-KA-NA-SI"
+      ],
+      "marker_count": 5,
+      "in_extended_analyzed_set": false,
+      "missing_context": true,
+      "priority_score": 33,
+      "tokens": [
+        "A-TA-I-*301-WA-JA",
+        "JA-DI-KI-TU",
+        "JA-SA-SA-RA-ME",
+        "U-NA-KA-NA-SI",
+        "I-PI-NA-MA",
+        "SI-RU-TE",
+        "TA-NA-RA-TE-U-TI-NU"
+      ]
+    },
+    {
+      "inscription": "TLZa1",
+      "site_code": "TLZ",
+      "site": "Troullos",
+      "support": "Stone vessel",
+      "period": "",
+      "markers": [
+        "A-TA-I-*301-WA-JA",
+        "I-PI-NA-MA",
+        "JA-SA-SA-RA-ME",
+        "SI-RU-TE",
+        "U-NA-KA-NA"
+      ],
+      "marker_count": 5,
+      "in_extended_analyzed_set": true,
+      "missing_context": true,
+      "priority_score": 29,
+      "tokens": [
+        "A-TA-I-*301-WA-JA",
+        "O-SU-QA-RE",
+        "JA-SA-SA-RA-ME",
+        "U-NA-KA-NA",
+        "I-PI-NA-MA",
+        "SI-RU-TE"
+      ]
+    },
+    {
+      "inscription": "KOZa1",
+      "site_code": "KOZ",
+      "site": "Kophinas",
+      "support": "Stone vessel",
+      "period": "",
+      "markers": [
+        "A-TA-I-*301-WA-JA",
+        "I-PI-NA-MA",
+        "SI-RU-TE",
+        "U-NA-KA-NA-SI"
+      ],
+      "marker_count": 4,
+      "in_extended_analyzed_set": true,
+      "missing_context": true,
+      "priority_score": 23,
+      "tokens": [
+        "A-TA-I-*301-WA-JA",
+        "TU-RU-SA",
+        "DU-*314-RE",
+        "I-DA-A",
+        "U-NA-KA-NA-SI",
+        "I-PI-NA-MA",
+        "SI-RU-TE"
+      ]
+    },
+    {
+      "inscription": "IOZa15",
+      "site_code": "IOZ",
+      "site": "Iouktas",
+      "support": "Stone vessel",
+      "period": "",
+      "markers": [
+        "I-PI-NA-MA",
+        "SI-RU-TE"
+      ],
+      "marker_count": 2,
+      "in_extended_analyzed_set": false,
+      "missing_context": true,
+      "priority_score": 21,
+      "tokens": [
+        "I-PI-NA-MA",
+        "SI-RU-TE"
+      ]
+    },
+    {
+      "inscription": "VRYZa1",
+      "site_code": "VRYZ",
+      "site": "Vrysinas",
+      "support": "Stone vessel",
+      "period": "",
+      "markers": [
+        "I-PI-NA-MA",
+        "SI-RU-TE"
+      ],
+      "marker_count": 2,
+      "in_extended_analyzed_set": false,
+      "missing_context": true,
+      "priority_score": 21,
+      "tokens": [
+        "I-PI-NA-MA",
+        "SI-RU-TE"
+      ]
+    },
+    {
+      "inscription": "SYZa3",
+      "site_code": "SYZ",
+      "site": "Syme",
+      "support": "Stone vessel",
+      "period": "LMIA",
+      "markers": [
+        "A-TA-I-*301-WA-JA",
+        "SE-KA-NA-SI",
+        "SI-RU-TE"
+      ],
+      "marker_count": 3,
+      "in_extended_analyzed_set": true,
+      "missing_context": false,
+      "priority_score": 16,
+      "tokens": [
+        "A-TA-I-*301-WA-JA",
+        "SE-KA-NA-SI",
+        "SI-RU-TE"
+      ]
+    },
+    {
+      "inscription": "IOZa14",
+      "site_code": "IOZ",
+      "site": "Iouktas",
+      "support": "Stone vessel",
+      "period": "",
+      "markers": [
+        "SI-RU-TE"
+      ],
+      "marker_count": 1,
+      "in_extended_analyzed_set": false,
+      "missing_context": true,
+      "priority_score": 15,
+      "tokens": [
+        "SI-RU-TE",
+        "I-DI"
+      ]
+    },
+    {
+      "inscription": "APZa2",
+      "site_code": "APZ",
+      "site": "Apodoulou",
+      "support": "Stone vessel",
+      "period": "",
+      "markers": [
+        "I-PI-NA-MA"
+      ],
+      "marker_count": 1,
+      "in_extended_analyzed_set": false,
+      "missing_context": true,
+      "priority_score": 13,
+      "tokens": [
+        "NA-SI",
+        "I-PI-NA-MA",
+        "I-KU-PA₃-NA-TU-NA-TE",
+        "PI-MI-NA-TE",
+        "I-NA-JA-RE-TA"
+      ]
+    },
+    {
+      "inscription": "IOZa9",
+      "site_code": "IOZ",
+      "site": "Iouktas",
+      "support": "Stone vessel",
+      "period": "",
+      "markers": [
+        "JA-SA-SA-RA-ME",
+        "U-NA-KA-NA-SI"
+      ],
+      "marker_count": 2,
+      "in_extended_analyzed_set": true,
+      "missing_context": true,
+      "priority_score": 12,
+      "tokens": [
+        "JA-SA-SA-RA-ME",
+        "U-NA-KA-NA-SI"
+      ]
+    },
+    {
+      "inscription": "PKZa27",
+      "site_code": "PKZ",
+      "site": "Palaikastro",
+      "support": "Stone vessel",
+      "period": "",
+      "markers": [
+        "JA-SA-SA-RA-ME",
+        "U-NA-KA-NA-SI"
+      ],
+      "marker_count": 2,
+      "in_extended_analyzed_set": true,
+      "missing_context": true,
+      "priority_score": 12,
+      "tokens": [
+        "JA-SA-SA-RA-ME",
+        "U-NA-KA-NA-SI"
+      ]
+    },
+    {
+      "inscription": "SYZa4",
+      "site_code": "SYZ",
+      "site": "Syme",
+      "support": "Stone vessel",
+      "period": "LMIA",
+      "markers": [
+        "A-TA-I-*301-WA-JA"
+      ],
+      "marker_count": 1,
+      "in_extended_analyzed_set": false,
+      "missing_context": false,
+      "priority_score": 9,
+      "tokens": [
+        "A-TA-I-*301-WA-JA",
+        "JA-I-NWA-ZA",
+        "PA₃-NI-WI"
+      ]
+    },
+    {
+      "inscription": "IOZa3",
+      "site_code": "IOZ",
+      "site": "Iouktas",
+      "support": "Stone vessel",
+      "period": "",
+      "markers": [
+        "A-TA-I-*301-WA-JA"
+      ],
+      "marker_count": 1,
+      "in_extended_analyzed_set": true,
+      "missing_context": true,
+      "priority_score": 6,
+      "tokens": [
+        "A-TA-I-*301-WA-JA"
+      ]
+    },
+    {
+      "inscription": "PKZa12",
+      "site_code": "PKZ",
+      "site": "Palaikastro",
+      "support": "Stone vessel",
+      "period": "",
+      "markers": [
+        "A-TA-I-*301-WA-JA"
+      ],
+      "marker_count": 1,
+      "in_extended_analyzed_set": true,
+      "missing_context": true,
+      "priority_score": 6,
+      "tokens": [
+        "A-TA-I-*301-WA-JA",
+        "A-DI-KI-TE",
+        "RA-ME",
+        "A-NE",
+        "U-NA-RU-KA-JA-SI",
+        "A-PA-DU-PA",
+        "JA-PA-QA"
+      ]
+    },
+    {
+      "inscription": "PSZa2",
+      "site_code": "PSZ",
+      "site": "Psykhro",
+      "support": "Stone vessel",
+      "period": "",
+      "markers": [
+        "JA-SA-SA-RA-ME"
+      ],
+      "marker_count": 1,
+      "in_extended_analyzed_set": true,
+      "missing_context": true,
+      "priority_score": 6,
+      "tokens": [
+        "RE-I-KE",
+        "TA-NA-I-*301-TI",
+        "𐄌-JA-TI",
+        "JA-SA-SA-RA-ME"
+      ]
+    },
+    {
+      "inscription": "IOZa6",
+      "site_code": "IOZ",
+      "site": "Iouktas",
+      "support": "Stone vessel",
+      "period": "LMIA",
+      "markers": [
+        "JA-SA-SA-RA-ME"
+      ],
+      "marker_count": 1,
+      "in_extended_analyzed_set": true,
+      "missing_context": false,
+      "priority_score": 5,
+      "tokens": [
+        "TA-NA-I-*301-U-TI-NU",
+        "I-NA-TA-I-ZU-DI-SI-KA",
+        "JA-SA-SA-RA-ME"
+      ]
+    },
+    {
+      "inscription": "IOZa7",
+      "site_code": "IOZ",
+      "site": "Iouktas",
+      "support": "Stone vessel",
+      "period": "LMI",
+      "markers": [
+        "A-TA-I-*301-WA-JA"
+      ],
+      "marker_count": 1,
+      "in_extended_analyzed_set": true,
+      "missing_context": false,
+      "priority_score": 5,
+      "tokens": [
+        "A-TA-I-*301-WA-JA",
+        "JA-TI-*321"
+      ]
+    },
+    {
+      "inscription": "SYZa1",
+      "site_code": "SYZ",
+      "site": "Syme",
+      "support": "Stone vessel",
+      "period": "MMIIIB",
+      "markers": [
+        "A-TA-I-*301-WA-JA"
+      ],
+      "marker_count": 1,
+      "in_extended_analyzed_set": true,
+      "missing_context": false,
+      "priority_score": 5,
+      "tokens": [
+        "A-TA-I-*301-WA-JA",
+        "I-DA-MI"
+      ]
+    },
+    {
+      "inscription": "SYZa2",
+      "site_code": "SYZ",
+      "site": "Syme",
+      "support": "Stone vessel",
+      "period": "LMI",
+      "markers": [
+        "A-TA-I-*301-WA-JA"
+      ],
+      "marker_count": 1,
+      "in_extended_analyzed_set": true,
+      "missing_context": false,
+      "priority_score": 5,
+      "tokens": [
+        "A-TA-I-*301-WA-JA",
+        "JA-SU-MA-TU-OLIV",
+        "U-NA-KA-NA-SI-OLE",
+        "A-JA"
+      ]
+    },
+    {
+      "inscription": "SYZa8",
+      "site_code": "SYZ",
+      "site": "Syme",
+      "support": "Stone vessel",
+      "period": "LMIA",
+      "markers": [
+        "A-TA-I-*301-WA-JA"
+      ],
+      "marker_count": 1,
+      "in_extended_analyzed_set": true,
+      "missing_context": false,
+      "priority_score": 5,
+      "tokens": [
+        "A-TA-I-*301-WA-JA",
+        "JA-JA"
+      ]
+    },
+    {
+      "inscription": "PLZf1",
+      "site_code": "PLZ",
+      "site": "Platanos",
+      "support": "Metal object",
+      "period": "",
+      "markers": [
+        "JA-SA-SA-RA-ME"
+      ],
+      "marker_count": 1,
+      "in_extended_analyzed_set": true,
+      "missing_context": true,
+      "priority_score": 4,
+      "tokens": [
+        "WI-TE-JA-MU",
+        "U-QE-TI",
+        "JA-SA-SA-RA-ME",
+        "TA-NU-NI-KI-NA",
+        "NI-NU-NI"
+      ]
+    }
+  ],
+  "new_only_candidates": [
+    {
+      "inscription": "IOZa2",
+      "site_code": "IOZ",
+      "site": "Iouktas",
+      "support": "Stone vessel",
+      "period": "",
+      "markers": [
+        "A-TA-I-*301-WA-JA",
+        "I-PI-NA-MA",
+        "JA-SA-SA-RA-ME",
+        "SI-RU-TE",
+        "U-NA-KA-NA-SI"
+      ],
+      "marker_count": 5,
+      "in_extended_analyzed_set": false,
+      "missing_context": true,
+      "priority_score": 33,
+      "tokens": [
+        "A-TA-I-*301-WA-JA",
+        "JA-DI-KI-TU",
+        "JA-SA-SA-RA-ME",
+        "U-NA-KA-NA-SI",
+        "I-PI-NA-MA",
+        "SI-RU-TE",
+        "TA-NA-RA-TE-U-TI-NU"
+      ]
+    },
+    {
+      "inscription": "IOZa15",
+      "site_code": "IOZ",
+      "site": "Iouktas",
+      "support": "Stone vessel",
+      "period": "",
+      "markers": [
+        "I-PI-NA-MA",
+        "SI-RU-TE"
+      ],
+      "marker_count": 2,
+      "in_extended_analyzed_set": false,
+      "missing_context": true,
+      "priority_score": 21,
+      "tokens": [
+        "I-PI-NA-MA",
+        "SI-RU-TE"
+      ]
+    },
+    {
+      "inscription": "VRYZa1",
+      "site_code": "VRYZ",
+      "site": "Vrysinas",
+      "support": "Stone vessel",
+      "period": "",
+      "markers": [
+        "I-PI-NA-MA",
+        "SI-RU-TE"
+      ],
+      "marker_count": 2,
+      "in_extended_analyzed_set": false,
+      "missing_context": true,
+      "priority_score": 21,
+      "tokens": [
+        "I-PI-NA-MA",
+        "SI-RU-TE"
+      ]
+    },
+    {
+      "inscription": "IOZa14",
+      "site_code": "IOZ",
+      "site": "Iouktas",
+      "support": "Stone vessel",
+      "period": "",
+      "markers": [
+        "SI-RU-TE"
+      ],
+      "marker_count": 1,
+      "in_extended_analyzed_set": false,
+      "missing_context": true,
+      "priority_score": 15,
+      "tokens": [
+        "SI-RU-TE",
+        "I-DI"
+      ]
+    },
+    {
+      "inscription": "APZa2",
+      "site_code": "APZ",
+      "site": "Apodoulou",
+      "support": "Stone vessel",
+      "period": "",
+      "markers": [
+        "I-PI-NA-MA"
+      ],
+      "marker_count": 1,
+      "in_extended_analyzed_set": false,
+      "missing_context": true,
+      "priority_score": 13,
+      "tokens": [
+        "NA-SI",
+        "I-PI-NA-MA",
+        "I-KU-PA₃-NA-TU-NA-TE",
+        "PI-MI-NA-TE",
+        "I-NA-JA-RE-TA"
+      ]
+    },
+    {
+      "inscription": "SYZa4",
+      "site_code": "SYZ",
+      "site": "Syme",
+      "support": "Stone vessel",
+      "period": "LMIA",
+      "markers": [
+        "A-TA-I-*301-WA-JA"
+      ],
+      "marker_count": 1,
+      "in_extended_analyzed_set": false,
+      "missing_context": false,
+      "priority_score": 9,
+      "tokens": [
+        "A-TA-I-*301-WA-JA",
+        "JA-I-NWA-ZA",
+        "PA₃-NI-WI"
+      ]
+    }
+  ]
+}

@@ -34,7 +34,7 @@ If any other file conflicts with this one, this file wins.
 | Integrated validated words | 160 | `data/integrated_results.json` (run 2026-02-15) |
 | Methodology compliance | 16/160 (10.0%) | `data/integrated_results.json` (run 2026-02-15) |
 | Corpus validation status | PASS with 8 warnings, 0 critical errors | `data/validation_report.json` |
-| Tool count (Python scripts) | 47 | `tools/*.py` |
+| Tool count (Python scripts) | 48 | `tools/*.py` |
 | Current release version | v0.4.1 | `CITATION.cff`, local tags |
 
 ---

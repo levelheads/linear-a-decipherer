@@ -133,7 +133,7 @@ linear-a-decipherer/
 │   ├── completed/            # Finished inscription/thematic analyses
 │   └── archive/              # Historical phase analyses
 │
-├── tools/                    # 47 Python analysis scripts
+├── tools/                    # 48 Python analysis scripts
 ├── external/lineara/         # Corpus data (git submodule)
 ├── data/                     # Generated JSON files
 └── templates/                # Document templates
@@ -176,7 +176,7 @@ python tools/parse_lineara_corpus.py
 
 ## Analysis Tools
 
-The project includes 47 Python analysis scripts organized by function (stdlib-only, no external dependencies):
+The project includes 48 Python analysis scripts organized by function (stdlib-only, no external dependencies):
 
 ### Core Analysis
 

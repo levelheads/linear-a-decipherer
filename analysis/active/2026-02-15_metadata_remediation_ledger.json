@@ -1,0 +1,1595 @@
+{
+  "metadata": {
+    "generated_utc": "2026-02-15T05:30:49Z",
+    "purpose": "Metadata/transliteration remediation ledger for corpus readiness",
+    "sources": [
+      "data/corpus.json",
+      "data/extended_corpus_analysis.json",
+      "data/validation_report.json"
+    ]
+  },
+  "summary": {
+    "missing_context_count": 331,
+    "missing_site_count": 3,
+    "empty_transliterated_count": 9,
+    "validation_warning_count": 8
+  },
+  "missing_context": {
+    "by_site_code": {
+      "IOZ": 11,
+      "VRYZ": 3,
+      "TLZ": 1,
+      "KOZ": 1,
+      "APZ": 3,
+      "PKZ": 23,
+      "PSZ": 1,
+      "SYZ": 2,
+      "PLZ": 1,
+      "KANZ": 1,
+      "KYZ": 1,
+      "LACHZ": 1,
+      "NEZ": 1,
+      "ZA": 39,
+      "ZOZ": 1,
+      "ANZ": 1,
+      "CR": 1,
+      "CRZ": 3,
+      "DRAZ": 1,
+      "FOZ": 1,
+      "GO": 2,
+      "GOW": 2,
+      "HSZ": 1,
+      "INZ": 1,
+      "KAMZ": 1,
+      "KAZ": 1,
+      "KE": 1,
+      "KEZ": 2,
+      "KH": 22,
+      "KNZ": 24,
+      "KO": 1,
+      "LAZ": 1,
+      "MA": 16,
+      "MARGW": 1,
+      "MAW": 1,
+      "MAZ": 2,
+      "MILZ": 4,
+      "MIZ": 2,
+      "MOZ": 3,
+      "MYZ": 3,
+      "PA": 1,
+      "PE": 2,
+      "PETSW": 1,
+      "PEW": 2,
+      "PEZ": 2,
+      "PORZ": 1,
+      "PYR": 1,
+      "PYRW": 1,
+      "SAMW": 1,
+      "SEZ": 1,
+      "SIZ": 1,
+      "SKOZ": 1,
+      "SKZ": 1,
+      "TELZ": 1,
+      "THEZ": 9,
+      "THE": 6,
+      "TIZ": 1,
+      "TRAZ": 1,
+      "TROZ": 2,
+      "TRYZ": 1,
+      "TY": 3,
+      "ZAZ": 2,
+      "ZO": 1,
+      "ARGZ": 1,
+      "ARKH": 6,
+      "ARZ": 2,
+      "KHW": 23,
+      "KHZ": 1,
+      "KN": 13,
+      "KNW": 10,
+      "PH": 36,
+      "PHZ": 2,
+      "PK": 1,
+      "TYW": 1,
+      "TYZ": 1,
+      "ZAW": 3
+    },
+    "top_priority": [
+      {
+        "inscription": "IOZa2",
+        "site_code": "IOZ",
+        "site": "Iouktas",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 5,
+        "markers": [
+          "A-TA-I-*301-WA-JA",
+          "I-PI-NA-MA",
+          "JA-SA-SA-RA-ME",
+          "SI-RU-TE",
+          "U-NA-KA-NA-SI"
+        ],
+        "priority_score": 14,
+        "proposed_action": "fill_context_period"
+      },
+      {
+        "inscription": "IOZa15",
+        "site_code": "IOZ",
+        "site": "Iouktas",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 2,
+        "markers": [
+          "I-PI-NA-MA",
+          "SI-RU-TE"
+        ],
+        "priority_score": 14,
+        "proposed_action": "fill_context_period"
+      },
+      {
+        "inscription": "VRYZa1",
+        "site_code": "VRYZ",
+        "site": "Vrysinas",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 2,
+        "markers": [
+          "I-PI-NA-MA",
+          "SI-RU-TE"
+        ],
+        "priority_score": 14,
+        "proposed_action": "fill_context_period"
+      },
+      {
+        "inscription": "IOZa14",
+        "site_code": "IOZ",
+        "site": "Iouktas",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 1,
+        "markers": [
+          "SI-RU-TE"
+        ],
+        "priority_score": 14,
+        "proposed_action": "fill_context_period"
+      },
+      {
+        "inscription": "TLZa1",
+        "site_code": "TLZ",
+        "site": "Troullos",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": true,
+        "marker_count": 5,
+        "markers": [
+          "A-TA-I-*301-WA-JA",
+          "I-PI-NA-MA",
+          "JA-SA-SA-RA-ME",
+          "SI-RU-TE",
+          "U-NA-KA-NA"
+        ],
+        "priority_score": 12,
+        "proposed_action": "fill_context_period"
+      },
+      {
+        "inscription": "KOZa1",
+        "site_code": "KOZ",
+        "site": "Kophinas",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": true,
+        "marker_count": 4,
+        "markers": [
+          "A-TA-I-*301-WA-JA",
+          "I-PI-NA-MA",
+          "SI-RU-TE",
+          "U-NA-KA-NA-SI"
+        ],
+        "priority_score": 12,
+        "proposed_action": "fill_context_period"
+      },
+      {
+        "inscription": "APZa2",
+        "site_code": "APZ",
+        "site": "Apodoulou",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 1,
+        "markers": [
+          "I-PI-NA-MA"
+        ],
+        "priority_score": 11,
+        "proposed_action": "fill_context_period"
+      },
+      {
+        "inscription": "IOZa9",
+        "site_code": "IOZ",
+        "site": "Iouktas",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": true,
+        "marker_count": 2,
+        "markers": [
+          "JA-SA-SA-RA-ME",
+          "U-NA-KA-NA-SI"
+        ],
+        "priority_score": 9,
+        "proposed_action": "fill_context_period"
+      },
+      {
+        "inscription": "PKZa27",
+        "site_code": "PKZ",
+        "site": "Palaikastro",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": true,
+        "marker_count": 2,
+        "markers": [
+          "JA-SA-SA-RA-ME",
+          "U-NA-KA-NA-SI"
+        ],
+        "priority_score": 9,
+        "proposed_action": "fill_context_period"
+      },
+      {
+        "inscription": "IOZa3",
+        "site_code": "IOZ",
+        "site": "Iouktas",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": true,
+        "marker_count": 1,
+        "markers": [
+          "A-TA-I-*301-WA-JA"
+        ],
+        "priority_score": 9,
+        "proposed_action": "fill_context_period"
+      },
+      {
+        "inscription": "PKZa12",
+        "site_code": "PKZ",
+        "site": "Palaikastro",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": true,
+        "marker_count": 1,
+        "markers": [
+          "A-TA-I-*301-WA-JA"
+        ],
+        "priority_score": 9,
+        "proposed_action": "fill_context_period"
+      },
+      {
+        "inscription": "PSZa2",
+        "site_code": "PSZ",
+        "site": "Psykhro",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": true,
+        "marker_count": 1,
+        "markers": [
+          "JA-SA-SA-RA-ME"
+        ],
+        "priority_score": 9,
+        "proposed_action": "fill_context_period"
+      },
+      {
+        "inscription": "APZa<3>",
+        "site_code": "APZ",
+        "site": "Apodoulou",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 7,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "IOZa11",
+        "site_code": "IOZ",
+        "site": "Iouktas",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 7,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "IOZa13",
+        "site_code": "IOZ",
+        "site": "Iouktas",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 7,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "IOZa4",
+        "site_code": "IOZ",
+        "site": "Iouktas",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 7,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "IOZa5",
+        "site_code": "IOZ",
+        "site": "Iouktas",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 7,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "IOZa<1>",
+        "site_code": "IOZ",
+        "site": "Iouktas",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 7,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "PKZa11",
+        "site_code": "PKZ",
+        "site": "Palaikastro",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 7,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "SYZa5",
+        "site_code": "SYZ",
+        "site": "Syme",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 7,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "PLZf1",
+        "site_code": "PLZ",
+        "site": "Platanos",
+        "support": "Metal object",
+        "in_extended_analyzed_set": true,
+        "marker_count": 1,
+        "markers": [
+          "JA-SA-SA-RA-ME"
+        ],
+        "priority_score": 6,
+        "proposed_action": "fill_context_period"
+      },
+      {
+        "inscription": "KANZa1",
+        "site_code": "KANZ",
+        "site": "Kannia",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 6,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "KYZa2",
+        "site_code": "KYZ",
+        "site": "Kythera",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 6,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "LACHZa1",
+        "site_code": "LACHZ",
+        "site": "Larani",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 6,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "NEZa1",
+        "site_code": "NEZ",
+        "site": "Nerokurou",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 6,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "ZA10b",
+        "site_code": "ZA",
+        "site": "Zakros",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 6,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "ZOZa1",
+        "site_code": "ZOZ",
+        "site": "Zominthos",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 6,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "APZa1",
+        "site_code": "APZ",
+        "site": "Apodoulou",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": true,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 5,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "IOZa16",
+        "site_code": "IOZ",
+        "site": "Iouktas",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": true,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 5,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "PKZa10",
+        "site_code": "PKZ",
+        "site": "Palaikastro",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": true,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 5,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "PKZa14",
+        "site_code": "PKZ",
+        "site": "Palaikastro",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": true,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 5,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "PKZa15",
+        "site_code": "PKZ",
+        "site": "Palaikastro",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": true,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 5,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "PKZa16",
+        "site_code": "PKZ",
+        "site": "Palaikastro",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": true,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 5,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "PKZa17",
+        "site_code": "PKZ",
+        "site": "Palaikastro",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": true,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 5,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "PKZa18",
+        "site_code": "PKZ",
+        "site": "Palaikastro",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": true,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 5,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "PKZa20",
+        "site_code": "PKZ",
+        "site": "Palaikastro",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": true,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 5,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "PKZa28",
+        "site_code": "PKZ",
+        "site": "Palaikastro",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": true,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 5,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "PKZa4",
+        "site_code": "PKZ",
+        "site": "Palaikastro",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": true,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 5,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "PKZa8",
+        "site_code": "PKZ",
+        "site": "Palaikastro",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": true,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 5,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "PKZa9",
+        "site_code": "PKZ",
+        "site": "Palaikastro",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": true,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 5,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "SYZb7",
+        "site_code": "SYZ",
+        "site": "Syme",
+        "support": "Clay vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 5,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "VRYZb2",
+        "site_code": "VRYZ",
+        "site": "Vrysinas",
+        "support": "clay vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 5,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "VRYZb3",
+        "site_code": "VRYZ",
+        "site": "Vrysinas",
+        "support": "clay vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 5,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "ANZb1",
+        "site_code": "ANZ",
+        "site": "",
+        "support": "Clay vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "CR(?)Zf1",
+        "site_code": "CR",
+        "site": "Crete",
+        "support": "Metal object",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "CRZf5",
+        "site_code": "CRZ",
+        "site": "Crete",
+        "support": "Metal object",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "CRZg3",
+        "site_code": "CRZ",
+        "site": "Crete",
+        "support": "Stone object",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "CRZg4",
+        "site_code": "CRZ",
+        "site": "Crete",
+        "support": "Stone object",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "DRAZg1",
+        "site_code": "DRAZ",
+        "site": "",
+        "support": "Stone object",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "FOZc1",
+        "site_code": "FOZ",
+        "site": "Fourni",
+        "support": "Inked inscription",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "GO2r",
+        "site_code": "GO",
+        "site": "Gournia",
+        "support": "Tablet",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "GO2v",
+        "site_code": "GO",
+        "site": "Gournia",
+        "support": "Tablet",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "GOWc1a",
+        "site_code": "GOW",
+        "site": "Gournia",
+        "support": "Roundel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "GOWc1b",
+        "site_code": "GOW",
+        "site": "Gournia",
+        "support": "Roundel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "HSZg1",
+        "site_code": "HSZ",
+        "site": "Haghios Stehanos",
+        "support": "Stone object",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "INZb1",
+        "site_code": "INZ",
+        "site": "",
+        "support": "Clay vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "KAMZb1",
+        "site_code": "KAMZ",
+        "site": "Kamilari",
+        "support": "Clay vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "KAZf1",
+        "site_code": "KAZ",
+        "site": "Kardamoutsa",
+        "support": "Metal object",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "KE6",
+        "site_code": "KE",
+        "site": "Kea",
+        "support": "Tablet",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "KEZb6",
+        "site_code": "KEZ",
+        "site": "Kea",
+        "support": "Clay vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "KEZb7",
+        "site_code": "KEZ",
+        "site": "Kea",
+        "support": "Clay vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "KH7a",
+        "site_code": "KH",
+        "site": "Khania",
+        "support": "Tablet",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "KH88",
+        "site_code": "KH",
+        "site": "Khania",
+        "support": "Tablet",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "KNZa17",
+        "site_code": "KNZ",
+        "site": "Knossos",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": true,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "KNZa18",
+        "site_code": "KNZ",
+        "site": "Knossos",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": true,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "KNZa19",
+        "site_code": "KNZ",
+        "site": "Knossos",
+        "support": "Stone vessel",
+        "in_extended_analyzed_set": true,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "KO(?)Zf2",
+        "site_code": "KO",
+        "site": "Kophinas",
+        "support": "Metal object",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "LAZb1(bis)",
+        "site_code": "LAZ",
+        "site": "Larani",
+        "support": "Clay vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MA10a",
+        "site_code": "MA",
+        "site": "Malia",
+        "support": "4-sided bar",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MA10b",
+        "site_code": "MA",
+        "site": "Malia",
+        "support": "4-sided bar",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MA10c",
+        "site_code": "MA",
+        "site": "Malia",
+        "support": "4-sided bar",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MA10d",
+        "site_code": "MA",
+        "site": "Malia",
+        "support": "4-sided bar",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MA1a",
+        "site_code": "MA",
+        "site": "Malia",
+        "support": "3-sided bar",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MA1b",
+        "site_code": "MA",
+        "site": "Malia",
+        "support": "3-sided bar",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MA1c",
+        "site_code": "MA",
+        "site": "Malia",
+        "support": "Tablet",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MA2a",
+        "site_code": "MA",
+        "site": "Malia",
+        "support": "3-sided bar",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MA2b",
+        "site_code": "MA",
+        "site": "Malia",
+        "support": "3-sided bar",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MA2c",
+        "site_code": "MA",
+        "site": "Malia",
+        "support": "3-sided bar",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MA4a",
+        "site_code": "MA",
+        "site": "Malia",
+        "support": "Tablet",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MA4b",
+        "site_code": "MA",
+        "site": "Malia",
+        "support": "Tablet",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MA6a",
+        "site_code": "MA",
+        "site": "Malia",
+        "support": "Tablet",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MA6b",
+        "site_code": "MA",
+        "site": "Malia",
+        "support": "Tablet",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MA6c",
+        "site_code": "MA",
+        "site": "Malia",
+        "support": "Tablet",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MA6d",
+        "site_code": "MA",
+        "site": "Malia",
+        "support": "Tablet",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MARGWa1-26",
+        "site_code": "MARGW",
+        "site": "Margiana",
+        "support": "Nodule",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MAWc<5>",
+        "site_code": "MAW",
+        "site": "Malia",
+        "support": "Roundel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MAZb15",
+        "site_code": "MAZ",
+        "site": "Malia",
+        "support": "Clay vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MAZe11",
+        "site_code": "MAZ",
+        "site": "Malia",
+        "support": "Architecture",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MILZb1",
+        "site_code": "MILZ",
+        "site": "Miletos",
+        "support": "Clay vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MILZb2",
+        "site_code": "MILZ",
+        "site": "Miletos",
+        "support": "Clay vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MILZb3",
+        "site_code": "MILZ",
+        "site": "Miletos",
+        "support": "Clay vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MILZb4",
+        "site_code": "MILZ",
+        "site": "Miletos",
+        "support": "Clay vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MIZb1",
+        "site_code": "MIZ",
+        "site": "Milos",
+        "support": "Clay vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MIZb3",
+        "site_code": "MIZ",
+        "site": "Milos",
+        "support": "Clay vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MOZb2?",
+        "site_code": "MOZ",
+        "site": "Mokhilos",
+        "support": "Clay vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MOZb3?",
+        "site_code": "MOZ",
+        "site": "Mokhilos",
+        "support": "Clay vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MOZf1",
+        "site_code": "MOZ",
+        "site": "Mokhilos",
+        "support": "Metal object",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MYZf1",
+        "site_code": "MYZ",
+        "site": "Mycenae",
+        "support": "Metal object",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MYZf2",
+        "site_code": "MYZ",
+        "site": "Mycenae",
+        "support": "Metal object",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "MYZg1",
+        "site_code": "MYZ",
+        "site": "Mycenae",
+        "support": "Stone object",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "PA1",
+        "site_code": "PA",
+        "site": "Papourou",
+        "support": "Tablet",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "PE1",
+        "site_code": "PE",
+        "site": "Petras",
+        "support": "Tablet",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "PE2",
+        "site_code": "PE",
+        "site": "Petras",
+        "support": "Tablet",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "PETSWc",
+        "site_code": "PETSW",
+        "site": "Petras",
+        "support": "Roundel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "PEWs",
+        "site_code": "PEW",
+        "site": "Petras",
+        "support": "Tablet",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "PEWy5",
+        "site_code": "PEW",
+        "site": "Petras",
+        "support": "Tablet",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "PEZb",
+        "site_code": "PEZ",
+        "site": "Petras",
+        "support": "Clay vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "PEZg6",
+        "site_code": "PEZ",
+        "site": "Petras",
+        "support": "Stone object",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "PORZf2",
+        "site_code": "PORZ",
+        "site": "Poros Herakleiou",
+        "support": "Metal object",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "PYR2",
+        "site_code": "PYR",
+        "site": "Pyrgos",
+        "support": "Lames (short thin tablet)",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "PYRWc4",
+        "site_code": "PYRW",
+        "site": "Pyrgos",
+        "support": "Roundel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "SAMWe4",
+        "site_code": "SAMW",
+        "site": "Samothrace",
+        "support": "Tablet",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "SEZf1",
+        "site_code": "SEZ",
+        "site": "Selakanos",
+        "support": "Metal object",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "SIZg1",
+        "site_code": "SIZ",
+        "site": "Sitia",
+        "support": "Stone object",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "SKOZc1",
+        "site_code": "SKOZ",
+        "site": "Skoteino Cave",
+        "support": "Inked inscription",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "SKZb1",
+        "site_code": "SKZ",
+        "site": "Skhinia",
+        "support": "Clay vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "TELZb1",
+        "site_code": "TELZ",
+        "site": "Tel Haror",
+        "support": "Clay vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "THEZb1",
+        "site_code": "THEZ",
+        "site": "Thera",
+        "support": "Clay vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "THEZb13",
+        "site_code": "THEZ",
+        "site": "Thera",
+        "support": "Clay vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      },
+      {
+        "inscription": "THEZb15",
+        "site_code": "THEZ",
+        "site": "Thera",
+        "support": "Clay vessel",
+        "in_extended_analyzed_set": false,
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 4,
+        "proposed_action": "fill_context_period_when_metadata_available"
+      }
+    ]
+  },
+  "missing_site": {
+    "items": [
+      {
+        "inscription": "ANZb1",
+        "site_code_from_id": "ANZ",
+        "inferred_site_name": null,
+        "support": "Clay vessel",
+        "context": "",
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 6,
+        "proposed_action": "verify_site_assignment_from_primary_publication"
+      },
+      {
+        "inscription": "DRAZg1",
+        "site_code_from_id": "DRAZ",
+        "inferred_site_name": null,
+        "support": "Stone object",
+        "context": "",
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 6,
+        "proposed_action": "verify_site_assignment_from_primary_publication"
+      },
+      {
+        "inscription": "INZb1",
+        "site_code_from_id": "INZ",
+        "inferred_site_name": null,
+        "support": "Clay vessel",
+        "context": "",
+        "marker_count": 0,
+        "markers": [],
+        "priority_score": 6,
+        "proposed_action": "verify_site_assignment_from_primary_publication"
+      }
+    ]
+  },
+  "empty_transliterated": {
+    "items": [
+      {
+        "inscription": "ZAZb39",
+        "site_code": "ZAZ",
+        "site": "Zakros",
+        "support": "Stone vessel",
+        "context": "",
+        "priority_score": 6,
+        "proposed_action": "recover_or_confirm_transliteration"
+      },
+      {
+        "inscription": "ZOZa1",
+        "site_code": "ZOZ",
+        "site": "Zominthos",
+        "support": "Stone vessel",
+        "context": "",
+        "priority_score": 6,
+        "proposed_action": "recover_or_confirm_transliteration"
+      },
+      {
+        "inscription": "KNZg57b",
+        "site_code": "KNZ",
+        "site": "Knossos",
+        "support": "ivory object",
+        "context": "",
+        "priority_score": 5,
+        "proposed_action": "recover_or_confirm_transliteration"
+      },
+      {
+        "inscription": "HTWc3023",
+        "site_code": "HTW",
+        "site": "Haghia Triada",
+        "support": "Roundel",
+        "context": "LMIB",
+        "priority_score": 3,
+        "proposed_action": "recover_or_confirm_transliteration"
+      },
+      {
+        "inscription": "KE6",
+        "site_code": "KE",
+        "site": "Kea",
+        "support": "Tablet",
+        "context": "",
+        "priority_score": 3,
+        "proposed_action": "recover_or_confirm_transliteration"
+      },
+      {
+        "inscription": "KNsceau",
+        "site_code": "KN",
+        "site": "Knossos",
+        "support": "Tablet",
+        "context": "",
+        "priority_score": 3,
+        "proposed_action": "recover_or_confirm_transliteration"
+      },
+      {
+        "inscription": "MOZb2?",
+        "site_code": "MOZ",
+        "site": "Mokhilos",
+        "support": "Clay vessel",
+        "context": "",
+        "priority_score": 3,
+        "proposed_action": "recover_or_confirm_transliteration"
+      },
+      {
+        "inscription": "MOZb3?",
+        "site_code": "MOZ",
+        "site": "Mokhilos",
+        "support": "Clay vessel",
+        "context": "",
+        "priority_score": 3,
+        "proposed_action": "recover_or_confirm_transliteration"
+      },
+      {
+        "inscription": "PETSWc",
+        "site_code": "PETSW",
+        "site": "Petras",
+        "support": "Roundel",
+        "context": "",
+        "priority_score": 3,
+        "proposed_action": "recover_or_confirm_transliteration"
+      }
+    ]
+  },
+  "remediation_protocol": {
+    "phase_1_critical": [
+      "Resolve all missing_site records",
+      "Resolve empty transliteration records with Stone vessel/ivory/metal support first"
+    ],
+    "phase_2_ritual": [
+      "Backfill context periods for high-priority ritual-marker inscriptions (score >= 8)"
+    ],
+    "phase_3_bulk": [
+      "Bulk-fill remaining context metadata with citation evidence and confidence tags"
+    ],
+    "validator_policy_note": "Until remediated, chronology-sensitive tests should exclude empty-context inscriptions or mark outputs as context-incomplete."
+  }
+}

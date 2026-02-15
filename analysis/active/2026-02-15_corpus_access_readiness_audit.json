@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "generated_utc": "2026-02-15T05:25:31Z",
-    "purpose": "Project setup / corpus access readiness for next decipherment tests"
+    "generated_utc": "2026-02-15T05:31:34Z",
+    "purpose": "Project setup / corpus access readiness for further decipherment tests"
   },
   "core_corpus_access": {
     "inscriptions_total": 1721,
@@ -246,16 +246,16 @@
     "ready_for_further_local_testing": true,
     "verdict": "sufficient_for_next_analysis_cycle_with_known_gaps",
     "blocking_gaps": [
-      "No new non-SYZ ritual-slot substitutions in current corpus; decipherment acceleration now depends on new attestations or alternate targets.",
-      "Context metadata missing for 331 inscriptions, weakening chronology-conditioned tests.",
-      "HT-cluster dominance remains high; diversification is needed for robust cross-site inference.",
-      "Comparative connectors rely on static dictionaries or optional network fetches; live refresh path is limited in offline environments."
+      "No new non-SYZ ritual-slot substitutions in current corpus; acceleration depends on new attestations or alternate targets.",
+      "Context metadata gaps weaken chronology-conditioned tests.",
+      "HT-cluster dominance remains high; queue diversification is still needed for robust cross-site inference.",
+      "Comparative connectors rely on static dictionaries or optional network fetches; live refresh paths are limited offline."
     ],
     "recommended_actions": [
-      "Run a scheduled corpus refresh workflow (submodule update -> parse_lineara_corpus -> validate_corpus) at sprint start.",
-      "Create a remediation table for missing context/site/empty transliteration records and mark exclusion policy explicitly for validators.",
-      "Prioritize non-HT and ritual-support inscriptions in expansion queue to maximize substitution discovery signal.",
-      "Add a cached comparative refresh job that re-builds ORACC/SigLA/DAMOS artifacts into versioned snapshots."
+      "Run a scheduled corpus refresh workflow (submodule update -> parse_lineara_corpus -> validate_corpus).",
+      "Maintain a remediation ledger for missing context/site/empty transliteration records and explicit validator exclusions.",
+      "Prioritize non-HT ritual-support inscriptions in expansion queues.",
+      "Version comparative snapshots (ORACC/SigLA/DAMOS) each cycle for drift tracking."
     ]
   }
 }

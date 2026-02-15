@@ -19,6 +19,7 @@
 | Analyze personal names | personal_name_analyzer.py | — |
 | Check for contradictions | phase_validator.py | — |
 | **Audit corpus structure** | **corpus_auditor.py** | — |
+| **Audit corpus readiness** | **corpus_readiness_auditor.py** | run_corpus_refresh_cycle.sh |
 | **Verify KU-RO totals** | **corpus_auditor.py --totals** | — |
 | **Find function words** | **corpus_auditor.py --function-word** | — |
 | **Check tool drift/parity** | **tool_parity_checker.py** | integrated_validator.py |
@@ -190,6 +191,32 @@ This contract is applied by:
 **Output location**: data/audit/corpus_audit.json
 
 **Key insight**: This works WITHOUT language assumptions - pure structural/mathematical analysis
+
+---
+
+### "I want to refresh corpus and emit a readiness snapshot"
+
+**Example**: Run a sprint-start refresh with parse, validation, and readiness output
+
+**Steps**:
+1. **Dry run**
+   ```bash
+   bash tools/run_corpus_refresh_cycle.sh --dry-run
+   ```
+
+2. **Execute refresh cycle**
+   ```bash
+   bash tools/run_corpus_refresh_cycle.sh --date 2026-02-15
+   ```
+
+3. **Generate readiness snapshot directly (optional)**
+   ```bash
+   python3 tools/corpus_readiness_auditor.py --markdown
+   ```
+
+**Output location**:
+- `analysis/active/YYYY-MM-DD_corpus_access_readiness_audit.json`
+- `analysis/active/YYYY-MM-DD_corpus_access_readiness_audit.md`
 
 ---
 
