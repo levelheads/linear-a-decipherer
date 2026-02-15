@@ -24,6 +24,7 @@
 | **Check tool drift/parity** | **tool_parity_checker.py** | integrated_validator.py |
 | **Generate promotion packet** | **promotion_board_runner.py** | integrated_validator.py, corpus_consistency_validator.py |
 | **Run lane orchestration** | **lane_orchestrator.py** | config/lane_manifest.yaml |
+| **Pre-check dependency trace** | **dependency_trace_resolver.py** | promotion_board_runner.py |
 
 ---
 
@@ -210,7 +211,12 @@
    python3 tools/tool_parity_checker.py --output data/tool_parity_report.json
    ```
 
-5. **Generate promotion packet for candidate**
+5. **Pre-check dependency trace completeness**
+   ```bash
+   python3 tools/dependency_trace_resolver.py --top 25 --output data/dependency_trace_report.json
+   ```
+
+6. **Generate promotion packet for candidate**
    ```bash
    python3 tools/promotion_board_runner.py --candidate KU-RO --target-confidence HIGH
    ```

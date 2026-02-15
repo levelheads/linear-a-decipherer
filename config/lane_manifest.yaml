@@ -54,6 +54,11 @@
           "cmd": "python3 tools/integrated_validator.py --all --output data/integrated_results.json"
         },
         {
+          "name": "Dependency trace pre-check",
+          "cmd": "python3 tools/dependency_trace_resolver.py --top 25 --output data/dependency_trace_report.json",
+          "allow_failure": true
+        },
+        {
           "name": "Parity check",
           "cmd": "python3 tools/tool_parity_checker.py --output data/tool_parity_report.json"
         }
@@ -61,6 +66,7 @@
       "required_artifacts": [
         "data/consistency_validation.json",
         "data/integrated_results.json",
+        "data/dependency_trace_report.json",
         "data/tool_parity_report.json"
       ],
       "merge_gate": "All required reports present and no unresolved critical contradiction",

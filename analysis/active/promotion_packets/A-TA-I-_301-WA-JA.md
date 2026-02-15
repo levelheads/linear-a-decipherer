@@ -9,8 +9,8 @@ Use this packet for any confidence promotion or demotion proposal.
 - Reading: A-TA-I-*301-WA-JA
 - Current confidence: SPECULATIVE
 - Proposed confidence: PROBABLE
-- Meaning claim: Not specified
-- Primary contexts: PKZ, SYZ, KOZ, IOZ, TLZ
+- Meaning claim: formulaic/religious expression (provisional)
+- Primary contexts: SYZ, KOZ, PKZ, IOZ, TLZ
 
 ## 2. Evidence Artifacts
 
@@ -37,14 +37,14 @@ Use this packet for any confidence promotion or demotion proposal.
 
 ## 5. Cross-Corpus and Regional Behavior
 
-- Sites attested: PKZ, SYZ, KOZ, IOZ, TLZ
+- Sites attested: SYZ, KOZ, PKZ, IOZ, TLZ
 - Site concentration (HT): 0.000
-- Period spread: ['', 'LMI', 'MMIIIB', 'LMIA']
+- Period spread: ['', 'MMIIIB', 'LMI', 'LMIA']
 - Regional weighting impact: 1.232
 
 ## 6. Anchor and Dependency Check
 
-- No anchor dependencies found
+- anchor_luwian_morphology: level=4, confidence=MEDIUM
 - Weakest dependency: SPECULATIVE
 - Cascade risk if questioned: No registered dependencies
 
@@ -55,12 +55,12 @@ Use this packet for any confidence promotion or demotion proposal.
 - [x] multi_hypothesis_run (All four hypotheses present in hypothesis_results)
 - [x] cross_corpus_consistency (validated=True, positional=0.909, functional=0.773, sites=5)
 - [x] integrated_validation (entry=yes, final_confidence=SPECULATIVE, methodology_compliant=False)
-- [ ] dependency_trace (anchor_dependencies=0)
+- [x] dependency_trace (anchor_dependencies=1)
 - [x] negative_evidence_statement (negative_evidence_items=0)
 
 ## 8. Decision
 
-- Board decision: HOLD
-- Rationale: One or more non-critical required gates failed. Failed gates: dependency_trace
+- Board decision: APPROVE
+- Rationale: All required gates passed for requested confidence transition.
 - Follow-up actions:
   - Re-run candidate through tool_parity_checker before final publication.; Attach packet and JSON decision record to lane B promotion board review.

@@ -225,6 +225,7 @@ The project includes 44 Python analysis scripts organized by function (stdlib-on
 | `tool_parity_checker.py` | Cross-artifact drift detection (hypothesis vs batch vs integrated) |
 | `promotion_board_runner.py` | Promotion packet + gate decision generator for candidate readings |
 | `lane_orchestrator.py` | Lane-based command orchestration with structured handoff JSON output |
+| `dependency_trace_resolver.py` | Pre-check and optional auto-resolution for dependency-trace promotion gaps |
 
 ### Usage Examples
 

@@ -27,14 +27,14 @@ If any other file conflicts with this one, this file wins.
 | Metric | Current Value | Source |
 |--------|---------------|--------|
 | Total corpus inscriptions | 1,721 | `data/corpus.json` |
-| Batch analysis coverage | 300/1,721 (17.43%) | `data/extended_corpus_analysis.json` |
+| Batch analysis coverage | 500/1,721 (29.05%) | `data/extended_corpus_analysis.json` |
 | Hypothesis run word set | 198 words (freq >= 2) | `data/hypothesis_results.json` |
 | Batch pipeline word set | 248 words | `data/batch_analysis_results.json` |
 | High-confidence batch words | 42 | `data/batch_analysis_results.json` |
-| Integrated validated words | 160 | `data/integrated_results.json` (run 2026-02-13) |
-| Methodology compliance | 6/160 (3.8%) | `data/integrated_results.json` (run 2026-02-13) |
+| Integrated validated words | 160 | `data/integrated_results.json` (run 2026-02-15) |
+| Methodology compliance | 12/160 (7.5%) | `data/integrated_results.json` (run 2026-02-15) |
 | Corpus validation status | PASS with 8 warnings, 0 critical errors | `data/validation_report.json` |
-| Tool count (Python scripts) | 44 | `tools/*.py` |
+| Tool count (Python scripts) | 45 | `tools/*.py` |
 | Current release version | v0.4.1 | `CITATION.cff`, local tags |
 
 ---
