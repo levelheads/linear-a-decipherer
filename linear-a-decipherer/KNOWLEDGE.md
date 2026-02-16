@@ -635,7 +635,7 @@ Example cascade from `anchor_semitic_loan_layer`:
 
 | Sign | Occurrences | Position | Phoneme Candidate | Function |
 |------|-------------|----------|-------------------|----------|
-| *301 | 288 | 88% initial | /ħa/ or /kʲa/ | Hybrid (logogram + syllable) |
+| *301 | 561 | dual-use | /kʲa/ (PROBABLE) or /ħa/ (POSSIBLE) | Hybrid (logogram + syllable) |
 | *304 | 42 | 93% initial | Emphatic? | Pure logogram |
 | *188 | 32 | 94% initial | Unknown | Vessel-related |
 | **\*118** | **26** | **69% FINAL** | Word-final consonant | CVC marker |

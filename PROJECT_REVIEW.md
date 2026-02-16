@@ -8,9 +8,9 @@
 This is a rigorous, methodology-first research project for the systematic decipherment of Linear A, the undeciphered Bronze Age Minoan script. The project distinguishes itself through **explicit uncertainty quantification**, **tool-enforced methodology**, and **evidence-based reasoning chains**.
 
 **Current Status (February 2026):**
-- 1,722 inscriptions processed (100% of known corpus)
-- 198 words tested via multi-hypothesis framework
-- 86 high-confidence readings established
+- 1,721 inscriptions processed (100% of known corpus)
+- 160 words tested via current framework (198 in legacy run)
+- 28 high-confidence batch words established
 - Proto-Greek hypothesis **ELIMINATED** at 2.8% support
 - Three-layer contact language model validated
 
@@ -118,7 +118,7 @@ Approach Linear A as an **active research problem**, systematically analyzing pa
 
 ## 4. PROCESSES, TOOLS & UNIQUE APPROACHES
 
-### 32 Python Analysis Tools
+### 48 Python Analysis Tools
 
 #### Core Discovery (7 tools)
 | Tool | Purpose | Key Feature |
@@ -158,6 +158,52 @@ Approach Linear A as an **active research problem**, systematically analyzing pa
 | `damos_connector.py` | Bronze Age databases |
 | `gorila_indexer.py` | GORILA sign classification |
 
+#### Pipeline & Batch (4 tools)
+| Tool | Purpose |
+|------|---------|
+| `batch_pipeline.py` | Multi-stage corpus analysis (discover → hypothesize → validate → synthesize) |
+| `parse_lineara_corpus.py` | Corpus parsing and JSON generation |
+| `extended_corpus_analyzer.py` | Extended coverage analysis across sites |
+| `validate_corpus.py` | Corpus quality validation (structure, arithmetic) |
+
+#### Orchestration & Governance (7 tools)
+| Tool | Purpose |
+|------|---------|
+| `tool_parity_checker.py` | Cross-artifact drift detection |
+| `promotion_board_runner.py` | Promotion gate enforcement for candidate readings |
+| `lane_orchestrator.py` | Lane-based command orchestration with structured handoff |
+| `dependency_trace_resolver.py` | Dependency-trace gap resolution |
+| `word_filter_contract.py` | Shared lexical eligibility/normalization contract |
+| `site_normalization.py` | Shared site code/full-name normalization contract |
+| `master_state_guard.py` | SSOT structure and redirect-banner verification |
+
+#### Specialized Analysis (7 tools)
+| Tool | Purpose |
+|------|---------|
+| `syntax_analyzer.py` | Word order and particle position analysis |
+| `phoneme_reconstructor.py` | Phonological reconstruction from sign distributions |
+| `personal_name_analyzer.py` | Personal name identification and classification |
+| `enrich_chronology.py` | Chronological layer analysis across periods |
+| `statistical_analysis.py` | Statistical methods for corpus patterns |
+| `analyze_ph.py` | Phaistos vs Hagia Triada syllabary comparison |
+| `phase_validator.py` | Detect contradictions between analysis phases |
+
+#### Infrastructure & Release (6 tools)
+| Tool | Purpose |
+|------|---------|
+| `release_audit.py` | Release consistency checks (tags, versions) |
+| `release_gate.py` | Release readiness gate verification |
+| `refresh_master_state.py` | MASTER_STATE.md auto-refresh from data artifacts |
+| `update_index.py` | ANALYSIS_INDEX.md auto-update |
+| `compare_results.py` | Before/after result comparison between runs |
+| `corpus_readiness_auditor.py` | Coverage and readiness assessment |
+
+#### Developer & Utilities (2 tools)
+| Tool | Purpose |
+|------|---------|
+| `git_manager.py` | Git workflow automation |
+| `sigla_querier.py` | SigLA paleographic database queries (772 documents) |
+
 ### Unique Approaches
 
 #### 1. Structure-Before-Semantics Analysis
@@ -182,9 +228,9 @@ Comparative scribal practices across sites:
 
 #### 4. Multi-Layer Contact Model
 Three distinct linguistic layers identified:
-1. **Luwian morphology** (30.3%) — dominant particles
-2. **Semitic administrative** (17.7%) — loanwords in accounting
-3. **Pre-Greek substrate** — base layer, toponyms
+1. **Luwian morphology** (30-35%) — dominant particles
+2. **Semitic administrative** (16-18%) — loanwords in accounting
+3. **Pre-Greek substrate** (2-14%) — base layer, toponyms
 
 ### Workflow System
 
@@ -207,9 +253,9 @@ After Analysis  -> Append CHANGELOG.md, Update KNOWLEDGE.md tables
 ### Corpus Coverage
 | Metric | Value | Target | Status |
 |--------|-------|--------|--------|
-| Inscriptions processed | 1,722 | 1,721 | **100%** |
-| Words tested | 198 | freq >= 2 | Complete |
-| High-confidence readings | 86 | — | Growing |
+| Inscriptions processed | 1,721 | 1,721 | **100%** |
+| Words tested | 160 (current); 198 (legacy) | freq >= 2 | Complete |
+| High-confidence readings | 28 | — | Growing |
 | Personal names identified | 127 | — | Comprehensive |
 | KU-RO totals verified | 4/35 | — | 11.4% arithmetic |
 
@@ -266,6 +312,9 @@ After Analysis  -> Append CHANGELOG.md, Update KNOWLEDGE.md tables
 | 2026-01-31 | Comprehensive audit | Bug fixes + strategic improvements |
 | 2026-01-31 | OPERATION BREAKTHROUGH | 5-vector synthesis |
 | 2026-01-09 | Knossos Scepter discovery | 119 signs analyzed |
+| 2026-02-05 | Tool quality fixes | K-R double-matching, frequency gating, corpus expansion 300/1,721 |
+| 2026-02-09 | Post-fix validation run | Pre-Greek 2.0%, 10 demotions, batch tiers unchanged |
+| 2026-02-16 | v0.5.0 infrastructure audit | Issue templates, pre-commit, test scaffold, 48 tools |
 
 ---
 
@@ -274,7 +323,7 @@ After Analysis  -> Append CHANGELOG.md, Update KNOWLEDGE.md tables
 ### What Makes This Project Distinctive
 
 1. **Methodology-First**: Six inviolable principles govern all analysis
-2. **Tool-Enforced Rigor**: 32 Python tools automate validation
+2. **Tool-Enforced Rigor**: 48 Python tools automate validation
 3. **Explicit Uncertainty**: 5-tier confidence + Bayesian posteriors
 4. **Falsification-Ready**: Clear thresholds for hypothesis rejection
 5. **Dependency-Aware**: Cascade tracking prevents orphaned readings
@@ -308,7 +357,7 @@ Proto-Greek is **definitively eliminated** at 2.8% support.
 | `linear-a-decipherer/LESSONS_LEARNED.md` | Tool lessons, red flags |
 | `GIT_WORKFLOW.md` | Git procedures, checklists |
 | `ENGINEERING_PRACTICES.md` | Release lessons |
-| `tools/*.py` | 32 analysis tools |
+| `tools/*.py` | 48 analysis tools |
 
 ---
 

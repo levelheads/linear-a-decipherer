@@ -13,11 +13,11 @@ A rigorous methodology system for analyzing undeciphered Minoan Bronze Age inscr
 
 ## Research Status (February 2026)
 
-> **Working hypothesis validated through systematic tool-based corpus analysis.** Proto-Greek **ELIMINATED** at 2.5% support (5/198 words), consistent with prior scholarly observations on phonological mismatch (Gordon 1966, Beekes 2014). Luwian morphology validated as **DOMINANT** at 30.3%. The vowel /o/ appears at only 3.9% frequency (Greek expects ~20%), and zero Greek case endings have been identified.
+> **Working hypothesis validated through systematic tool-based corpus analysis.** Proto-Greek **ELIMINATED** at 2.5% support (5/198 words, legacy run), consistent with prior scholarly observations on phonological mismatch (Gordon 1966, Beekes 2014). Luwian morphology validated as **DOMINANT** at 30.3%. The vowel /o/ appears at only 3.9% frequency (Greek expects ~20%), and zero Greek case endings have been identified.
 
 **Best-fit model**: Linear A records a **contact language** with three distinct layers, building on proposals by Gordon (1966), Palmer (1958), and Beekes (2014):
 
-| Layer | Tool-Validated Support | Key Findings | Prior Scholarship |
+| Layer | Legacy Support (198 words) | Key Findings | Prior Scholarship |
 |-------|------------------------|--------------|-------------------|
 | **Luwian morphology** | **30.3%** (60/198 words) | -JA adjectival (77 occ); -TE/-TI verbal; WA/U quotative | Palmer (1958), Finkelberg (1998) |
 | **Semitic administrative** | **17.7%** (35/198 words) | ku-ro = *kull* "total"; SA-RA₂ = *šarāku* "allocate" | Gordon (1966), Best (1972) |
@@ -63,7 +63,7 @@ See [METHODOLOGY.md](linear-a-decipherer/METHODOLOGY.md) for pre-flight checklis
 
 ## Key Readings
 
-### Verified Readings (56 total)
+### Key Readings (28 high-confidence)
 
 | Reading | Meaning | Occurrences | Confidence | First Proposed | Project Contribution |
 |---------|---------|-------------|------------|----------------|---------------------|
@@ -80,25 +80,37 @@ See [METHODOLOGY.md](linear-a-decipherer/METHODOLOGY.md) for pre-flight checklis
 
 ### Hypothesis Discrimination Results
 
-Tool-validated results from `hypothesis_tester.py` (198 words, freq ≥ 2):
+#### Legacy Results (`hypothesis_tester.py`, 198 words, freq ≥ 2 — validated 2026-02-09)
 
 | Hypothesis | Support | Status | Key Proponents |
 |------------|---------|--------|----------------|
 | **Luwian/Anatolian** | **30.3%** (60 words) | **DOMINANT** - morphological particles pervasive | Palmer (1958), Finkelberg (1998) |
 | **Semitic (loans)** | **17.7%** (35 words) | STRONG - administrative vocabulary | Gordon (1966), Best (1972) |
-| **Pre-Greek Substrate** | 1.5% (3 words) | Base layer; toponyms, divine names | Beekes (2014), Furnée (1972) |
+| **Pre-Greek Substrate** | 2.0% (4 words) | Base layer; toponyms, divine names | Beekes (2014), Furnée (1972) |
 | **Proto-Greek** | **2.5%** (5 words) | **ELIMINATED** - phonological mismatch | Georgiev (1963), Mosenkis (2019) |
+
+#### Bayesian Results (`bayesian_hypothesis_tester.py`, 160 words — calibrated priors)
+
+| Hypothesis | Mean Posterior | 95% CI | Status |
+|------------|----------------|--------|--------|
+| **Luwian/Anatolian** | **35.1%** | [14.2%, 42.9%] | **DOMINANT** |
+| Isolate (null) | 32.8% | — | Active null hypothesis |
+| Semitic (loans) | 15.8% | — | LOANS |
+| Pre-Greek Substrate | 13.5% | — | SUBSTRATE |
+| **Proto-Greek** | **2.8%** | [2.4%, 7.8%] | **ELIMINATED** |
+
+> **Note**: Legacy word-count percentages and Bayesian posteriors are not directly comparable. Legacy counts how many words best-fit each hypothesis; Bayesian uses calibrated priors and probabilistic inference. Both confirm the same pattern: Luwian dominant, Proto-Greek eliminated. See [KNOWLEDGE.md](linear-a-decipherer/KNOWLEDGE.md#hypothesis-scorecard) for full methodology.
 
 ### Major Findings
 
 Building on prior scholarship with systematic corpus validation:
 
 - **\*118 = Word-final consonant**: 69% final position proves Linear A had **closed syllables** (CVC structure) — explains why Greeks dropped 123 signs when adapting to CV-only Linear B (novel breakthrough)
-- **Regional administrative systems**: Khania (227 inscriptions) has ZERO ku-ro/ki-ro forms — confirms parallel system distinct from Hagia Triada (novel systematization)
+- **Regional administrative systems**: Khania (227 inscriptions across all databases) has ZERO ku-ro/ki-ro forms — confirms parallel system distinct from Hagia Triada (novel systematization)
 - **123 unique Linear A signs**: Dropped when Greeks adapted the script, revealing sounds Greek lacked (novel phonological analysis)
 - **127 personal names identified**: 22% Semitic, 20% Pre-Greek, 17% Luwian; DA-MA-TE and A-TA-NA suggest Minoan origins for Demeter/Athena worship
-- **Libation formula structure**: 5-position religious formula mapped (builds on Davis 2014 syntax work)
-- **K-R paradigm**: 60+ forms mapped with vowel alternation system (extends Gordon's 1966 ku-ro proposal)
+- **Libation formula structure**: 6-position religious formula mapped (builds on Davis 2014, Salgarella 2020 Table 5)
+- **K-R paradigm**: 9 forms mapped (64 total occurrences) with vowel alternation system (extends Gordon's 1966 ku-ro proposal)
 
 ---
 
@@ -268,7 +280,7 @@ This project integrates the [lineara.xyz](https://lineara.xyz) corpus as a git s
 | Site | Code | Inscriptions | Notes |
 |------|------|--------------|-------|
 | Hagia Triada | HT | 147 | Largest; central accounting hub |
-| Khania | KH | 99 | Parallel administrative system |
+| Khania | KH | 99 (227 across all databases) | Parallel administrative system |
 | Zakros | ZA | 31 | Eastern dialectal variants |
 | Phaistos | PH | 26 | Earliest inscriptions |
 | Knossos | KN | 20+ | Includes 2024 scepter |
@@ -285,11 +297,14 @@ This project integrates the [lineara.xyz](https://lineara.xyz) corpus as a git s
 | **Jan 9-31, 2026** | OPERATION MINOS II Phase 8+: Regional validation; 47 high-frequency words analyzed |
 | **Jan 31, 2026** | Contact Language Model validated; 127 personal names identified |
 | **Feb 1, 2026** | OPERATION MINOS III + BREAKTHROUGH: 5-Vector analysis; Tool validation complete |
+| **Feb 5-6, 2026** | Tool quality fixes (K-R double-matching, frequency gating); Corpus expansion to 300/1,721 |
+| **Feb 9, 2026** | Post-fix validation run: Pre-Greek 2.0%, 10 demotions, batch tiers unchanged |
+| **Feb 16, 2026** | v0.5.0: Infrastructure audit — issue templates, pre-commit, test scaffold, 48 tools |
 | **Ongoing** | Strategic Plan: Paradigm completion, synthesis |
 
 ### OPERATION MINOS III + BREAKTHROUGH Key Findings (Feb 2026)
 
-**Tool Validation Results** (`hypothesis_tester.py`, 198 words):
+**Tool Validation Results** (`hypothesis_tester.py`, 198 words, legacy run):
 - **Proto-Greek ELIMINATED**: Only 2.5% support (5/198 words)
 - **Luwian DOMINANT**: 30.3% support (60/198 words) — morphological particles pervasive
 - **Semitic STRONG**: 17.7% support (35/198 words) — administrative vocabulary
@@ -298,8 +313,8 @@ This project integrates the [lineara.xyz](https://lineara.xyz) corpus as a git s
 - **\*118 = Word-final consonant**: 69% final position proves CVC syllable structure (BREAKTHROUGH)
 - **KU-RO cross-site VERIFIED**: ZA 15b contains `KU-RO VIN 78` — confirms pan-Minoan usage
 - **KU-RO chronology extended**: PH(?)31a shows KU-RO in MMIII (c.1700-1600 BCE)
-- **Zero K-R at Khania CERTAIN**: All 227 KH inscriptions searched; confirms parallel administrative system
-- **Sign *301 profiled**: 288 occurrences, 88.2% word-initial — possible pharyngeal or palatalized consonant
+- **Zero K-R at Khania CERTAIN**: All 227 KH inscriptions (across all databases) searched; confirms parallel administrative system
+- **Sign *301 profiled**: 561 occurrences, dual-use (logogram + syllabogram) — phoneme candidates: kya > ha (PROBABLE ranking)
 
 **Session logs**: [analysis/sessions/](analysis/sessions/)
 
@@ -342,7 +357,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines. All contributions must:
 - Verify readings across corpus
 - Use calibrated confidence levels
 
-**Issue templates** available for: New Corpus Data, Pattern Observations, Proposed Readings.
+**Issue templates** available for: New Corpus Data, Pattern Observations, Proposed Readings, Bug Reports, Feature Requests.
 
 ---
 
@@ -374,7 +389,7 @@ This project builds on decades of scholarly work on Linear A. Key contributions 
 | **Leonard Palmer (1958)** | Luwian morphological parallels | -JA suffix quantification (77 occ, 17 sites) |
 | **Margalit Finkelberg (1998)** | Anatolian connections | Suffix scoring framework |
 | **Robert Beekes (2014)** | Pre-Greek substrate phonology | 123-sign phonological analysis |
-| **Brent Davis (2010+)** | Libation formula syntax | 5-position structure formalization |
+| **Brent Davis (2010+)** | Libation formula syntax | 6-position structure formalization (Salgarella 2020 Table 5) |
 | **Ester Salgarella (2020+)** | SigLA database, paleography | Data source for corpus tools |
 
 ### What This Project Contributes
@@ -383,7 +398,7 @@ This project builds on decades of scholarly work on Linear A. Key contributions 
 - Systematic multi-hypothesis testing framework with tool-validated percentages
 - Anchor hierarchy formalization for confidence calibration
 - Regional administration systematization (HT vs KH parallel systems)
-- 28 Python analysis tools for corpus-wide verification (stdlib-only)
+- 48 Python analysis tools for corpus-wide verification (stdlib-only)
 
 **Novel interpretations**:
 - **\*118 = Word-final consonant** — proves Linear A had closed syllables (CVC), explaining why Greeks dropped 123 signs

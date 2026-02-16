@@ -83,9 +83,13 @@ Adding academic papers, database links, or reference materials.
 ### Step 1: Open an Issue First
 
 Before any pull request, open an issue using the appropriate template:
-- Describe what you're proposing
-- Wait for maintainer feedback
-- Discuss methodology concerns
+- **New Corpus Data** — adding transliterations, images, or references
+- **Pattern Observation** — proposing distributional patterns
+- **Proposed Reading** — suggesting sign sequence interpretations
+- **Bug Report** — reporting tool or data errors
+- **Feature Request** — suggesting new tools or enhancements
+
+Wait for maintainer feedback and discuss methodology concerns before proceeding.
 
 ### Step 2: Fork and Branch
 
