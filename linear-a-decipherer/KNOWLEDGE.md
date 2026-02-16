@@ -5,7 +5,10 @@
 
 **Essential lookup tables and project status for Linear A research**
 
-**Last Updated**: 2026-02-09
+**Last Updated**: 2026-02-16
+
+> **Refresh policy**: KNOWLEDGE.md updates when readings, hypotheses, or reference tables change.
+> MASTER_STATE.md updates for any operational metric or status change (and is canonical when they diverge).
 
 ---
 

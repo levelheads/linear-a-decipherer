@@ -1,0 +1,24 @@
+[project]
+name = "linear-a-decipherer"
+version = "0.4.1"
+description = "Evidence-based methodology system for analyzing undeciphered Minoan Linear A inscriptions"
+license = "CC-BY-NC-SA-4.0"
+requires-python = ">=3.8"
+keywords = ["Linear A", "Minoan", "decipherment", "epigraphy", "Aegean scripts", "Bronze Age"]
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit",
+    "ruff",
+    "pytest",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py38"
+
+[tool.ruff.lint]
+select = ["E", "F", "W"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
