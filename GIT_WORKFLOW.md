@@ -51,7 +51,7 @@ python tools/git_manager.py sync
 
 <body - what changed and why>
 
-Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
 ```
 
 ### Types:
@@ -73,7 +73,7 @@ New tool compares vocabulary across major Linear A sites (HT, KH, ZA, PH).
 Key finding: LOW vocabulary overlap (Jaccard <0.03) suggests regional
 administrative independence.
 
-Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
 ```
 
 ```
@@ -82,7 +82,7 @@ Fix negative evidence data pipeline bug
 Changed word_frequencies → top_words to match statistics.json schema.
 Added robust corpus extraction method as fallback.
 
-Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
 ```
 
 ---
@@ -124,7 +124,7 @@ git commit -m "$(cat <<'EOF'
 
 <body>
 
-Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
 EOF
 )"
 
