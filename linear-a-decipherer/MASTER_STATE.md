@@ -2,7 +2,7 @@
 
 **Canonical operational source of truth for active status, metrics, campaigns, and release readiness.**
 
-**Last Updated**: 2026-02-15
+**Last Updated**: 2026-02-16
 **Scope**: Current state only (not full historical narrative)
 **Historical log**: `linear-a-decipherer/CHANGELOG.md`
 
@@ -35,7 +35,7 @@ If any other file conflicts with this one, this file wins.
 | Methodology compliance | 16/160 (10.0%) | `data/integrated_results.json` (run 2026-02-15) |
 | Corpus validation status | PASS with 8 warnings, 0 critical errors | `data/validation_report.json` |
 | Tool count (Python scripts) | 48 | `tools/*.py` |
-| Current release version | v0.4.1 | `CITATION.cff`, local tags |
+| Current release version | v0.5.0 | `CITATION.cff`, local tags |
 
 ---
 
@@ -165,7 +165,7 @@ No reading may be promoted without a complete evidence packet.
 
 | Check | Status | Evidence |
 |-------|--------|----------|
-| Local tags align with CITATION version lineage | PASS | tags `v0.2.0`, `v0.3.0`, `v0.4.0`, `v0.4.1` |
+| Local tags align with CITATION version lineage | PASS | tags `v0.2.0`, `v0.3.0`, `v0.4.0`, `v0.4.1`, `v0.5.0` |
 | CITATION version/date present | PASS | `CITATION.cff` |
 | Validator commands in CI use execution flags | TARGETED | `.github/workflows/validate.yml` |
 | Canonical-state guard enabled in CI | TARGETED | `.github/workflows/validate.yml` |

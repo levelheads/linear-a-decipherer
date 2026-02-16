@@ -1,6 +1,6 @@
 [project]
 name = "linear-a-decipherer"
-version = "0.4.1"
+version = "0.5.0"
 description = "Evidence-based methodology system for analyzing undeciphered Minoan Linear A inscriptions"
 license = "CC-BY-NC-SA-4.0"
 requires-python = ">=3.8"

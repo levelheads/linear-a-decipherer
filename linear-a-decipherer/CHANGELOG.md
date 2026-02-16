@@ -4,6 +4,35 @@
 
 ---
 
+## v0.5.0 — 2026-02-16 (Project Infrastructure Audit)
+
+### Comprehensive project audit addressing GitHub community files, pre-commit enhancements, and development tooling.
+
+#### Added
+- **PR template** (`.github/PULL_REQUEST_TEMPLATE.md`) — Six Principles compliance, knowledge management, and testing checklists
+- **SECURITY.md** — supported versions, reporting procedure, stdlib-only security posture
+- **CODE_OF_CONDUCT.md** — Contributor Covenant v2.1 with epistemic standards for research rigor
+- **Issue templates** — bug report and feature request templates alongside existing research templates; `config.yml` enabling blank issues
+- **CODEOWNERS** — `@levelheads` default with methodology doc paths
+- **.editorconfig** — Python 4-space, YAML 2-space, markdown no-trim, LF endings
+- **pyproject.toml** — project metadata, dev dependencies, ruff/pytest config
+- **.python-version** — set to 3.13
+- **Test infrastructure** — `tests/test_smoke.py` with 3 smoke tests (directory exists, py_compile all tools, import key modules)
+
+#### Changed
+- **CLAUDE.md** — added references to TOOLS_GUIDE.md, WORKSTREAMS.md, ANALYSIS_INDEX.md
+- **GIT_WORKFLOW.md** — Co-Authored-By updated from Claude Opus 4.5 to 4.6
+- **Pre-commit hooks** — added `detect-private-key`, `check-case-conflict`, `check-docstring-first`, `ruff-format` (auto-fix); markdown excluded from trailing-whitespace; `data/` excluded from `check-json`; ruff updated to v0.15.1
+- **KNOWLEDGE.md** — timestamp synced to 2026-02-16 with refresh policy note
+- **48 tools** — auto-formatted by ruff-format for consistent code style
+
+#### Infrastructure
+- All 13 pre-commit hooks pass on full codebase
+- 3/3 smoke tests pass
+- Project graded A- in comprehensive audit
+
+---
+
 ## 2026-02-09 (Post-Fix Validation Run)
 
 ### Full Pipeline Re-Run After Feb 5-6 Bug Fixes
