@@ -36,7 +36,7 @@ If any other file conflicts with this one, this file wins.
 | Registered anchor types | 11 | `data/anchors.json` |
 | Corpus validation status | PASS with 8 warnings, 0 critical errors | `data/validation_report.json` |
 | Tool count (Python scripts) | 48 | `tools/*.py` |
-| Current release version | v0.6.0 | `CITATION.cff`, local tags |
+| Current release version | v0.6.1 | `CITATION.cff`, local tags |
 
 ---
 
@@ -166,7 +166,7 @@ No reading may be promoted without a complete evidence packet.
 
 | Check | Status | Evidence |
 |-------|--------|----------|
-| Local tags align with CITATION version lineage | PASS | tags `v0.2.0`, `v0.3.0`, `v0.4.0`, `v0.4.1`, `v0.5.0` |
+| Local tags align with CITATION version lineage | PASS | tags `v0.2.0`, `v0.3.0`, `v0.4.0`, `v0.4.1`, `v0.5.0`, `v0.6.0` |
 | CITATION version/date present | PASS | `CITATION.cff` |
 | Validator commands in CI use execution flags | TARGETED | `.github/workflows/validate.yml` |
 | Canonical-state guard enabled in CI | TARGETED | `.github/workflows/validate.yml` |

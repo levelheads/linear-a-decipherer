@@ -46,6 +46,7 @@
 | U-NA-KA-NA-SI Structural Analysis | D | Complete | -SI detachability confirmed (TLZa1); U-[NA]-KA-NA-SI template; -RU- infixation; JA-SA compound form | [2026-02-16_u-na-ka-na-si_analysis](analysis/active/2026-02-16_u-na-ka-na-si_analysis.md) | 2026-02-16 |
 | DA-ME Frequency Analysis | D | Complete | 4 occ, all HT; grain distribution list recipient; tight co-occurrence cluster with KU-NI-SU/SA-RU/DI-DE-RU/MI-NU-TE | [2026-02-16_da-me_analysis](analysis/active/2026-02-16_da-me_analysis.md) | 2026-02-16 |
 | *304 Commodity Cross-Reference | C | Extended | Quantity range 1-50 (non-bulk); CYP+D warehouse link suggests metal-associated commodity | [2026-02-17_star304_morphological_analysis](analysis/active/2026-02-17_star304_morphological_analysis.md) | 2026-02-16 |
+| Libation Formula Inflectional Paradigm | C+D | Complete | Extends Finkelberg 1990/Davis 2014/Thomas 2020. Novel: SE-KA-NA-SI prefix substitution (KA-NA = minimal root); U-...-SI cross-register template; KA-NA admin independence; coordinated Form A/B paradigm | [2026-02-16_libation_formula_inflectional_paradigm](analysis/active/2026-02-16_libation_formula_inflectional_paradigm.md) | 2026-02-16 |
 
 ---
 

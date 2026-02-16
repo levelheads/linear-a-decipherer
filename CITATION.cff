@@ -21,7 +21,7 @@ keywords:
   - epigraphy
   - Kober Method
 license: CC-BY-NC-SA-4.0
-version: "0.6.0"
+version: "0.6.1"
 date-released: "2026-02-16"
 references:
   - type: article
@@ -62,3 +62,35 @@ references:
     volume: 5
     year: 2025
     url: "https://ejournals.lib.uoc.gr/Ariadne/article/view/1841"
+  - type: article
+    authors:
+      - family-names: Finkelberg
+        given-names: Margalit
+    title: "Minoan Inscriptions on Libation Vessels"
+    journal: "Minos"
+    volume: 25-26
+    year: 1990
+    start: 43
+    end: 85
+  - type: article
+    authors:
+      - family-names: Davis
+        given-names: Brent
+    title: "Syntax in Linear A: The Word-Order of the 'Libation Formula'"
+    journal: "Kadmos"
+    volume: 52
+    issue: 1
+    year: 2014
+    start: 35
+    end: 52
+  - type: article
+    authors:
+      - family-names: Thomas
+        given-names: Rose
+    title: "Some reflections on morphology in the language of the Linear A libation formula"
+    journal: "Kadmos"
+    volume: 59
+    issue: 1-2
+    year: 2020
+    start: 1
+    end: 23

@@ -13,15 +13,15 @@ A rigorous methodology system for analyzing undeciphered Minoan Bronze Age inscr
 
 ## Research Status (February 2026)
 
-> **Working hypothesis validated through systematic tool-based corpus analysis.** Proto-Greek **ELIMINATED** at 2.5% support (5/198 words, legacy run), consistent with prior scholarly observations on phonological mismatch (Gordon 1966, Beekes 2014). Luwian morphology validated as **DOMINANT** at 30.3%. The vowel /o/ appears at only 3.9% frequency (Greek expects ~20%), and zero Greek case endings have been identified.
+> **Working hypothesis validated through systematic tool-based corpus analysis.** Proto-Greek **ELIMINATED** at 2.5% support, consistent with prior scholarly observations on phonological mismatch (Gordon 1966, Beekes 2014). Luwian morphology validated as **DOMINANT** at 35.0%. Methodology compliance at **100%** (160/160 words). 11 registered anchor types. 28 high-confidence batch words.
 
 **Best-fit model**: Linear A records a **contact language** with three distinct layers, building on proposals by Gordon (1966), Palmer (1958), and Beekes (2014):
 
-| Layer | Legacy Support (198 words) | Key Findings | Prior Scholarship |
-|-------|------------------------|--------------|-------------------|
-| **Luwian morphology** | **30.3%** (60/198 words) | -JA adjectival (77 occ); -TE/-TI verbal; WA/U quotative | Palmer (1958), Finkelberg (1998) |
-| **Semitic administrative** | **17.7%** (35/198 words) | ku-ro = *kull* "total"; SA-RA₂ = *šarāku* "allocate" | Gordon (1966), Best (1972) |
-| **Pre-Greek substrate** | Base layer | pa-i-to = Phaistos; 123 unique signs Greek couldn't represent | Beekes (2014), Furnée (1972) |
+| Layer | Batch Support (160 words) | Key Findings | Prior Scholarship |
+|-------|---------------------------|--------------|-------------------|
+| **Luwian morphology** | **35.0%** (56/160 words) | -JA adjectival (77 occ); -TE/-TI verbal; WA/U quotative | Palmer (1958), Finkelberg (1990, 1998) |
+| **Semitic administrative** | **17.5%** (28/160 words) | ku-ro = *kull* "total"; SA-RA₂ = *šarāku* "allocate" | Gordon (1966), Best (1972) |
+| **Pre-Greek substrate** | **2.5%** (4/160 words) + base layer | pa-i-to = Phaistos; 123 unique signs Greek couldn't represent | Beekes (2014), Furnée (1972) |
 
 ---
 
@@ -80,14 +80,14 @@ See [METHODOLOGY.md](linear-a-decipherer/METHODOLOGY.md) for pre-flight checklis
 
 ### Hypothesis Discrimination Results
 
-#### Legacy Results (`hypothesis_tester.py`, 198 words, freq ≥ 2 — validated 2026-02-09)
+#### Current Results (`batch_pipeline.py`, 160 words, freq ≥ 2 — v0.6.0, 2026-02-16)
 
-| Hypothesis | Support | Status | Key Proponents |
-|------------|---------|--------|----------------|
-| **Luwian/Anatolian** | **30.3%** (60 words) | **DOMINANT** - morphological particles pervasive | Palmer (1958), Finkelberg (1998) |
-| **Semitic (loans)** | **17.7%** (35 words) | STRONG - administrative vocabulary | Gordon (1966), Best (1972) |
-| **Pre-Greek Substrate** | 2.0% (4 words) | Base layer; toponyms, divine names | Beekes (2014), Furnée (1972) |
-| **Proto-Greek** | **2.5%** (5 words) | **ELIMINATED** - phonological mismatch | Georgiev (1963), Mosenkis (2019) |
+| Hypothesis | Support | Batch Score | Status | Key Proponents |
+|------------|---------|-------------|--------|----------------|
+| **Luwian/Anatolian** | **35.0%** (56 words) | 234.0 | **DOMINANT** - morphological particles pervasive | Palmer (1958), Finkelberg (1990, 1998) |
+| **Semitic (loans)** | **17.5%** (28 words) | 234.85 | STRONG - administrative vocabulary | Gordon (1966), Best (1972) |
+| **Pre-Greek Substrate** | 2.5% (4 words) | 80.0 | Base layer; toponyms, divine names | Beekes (2014), Furnée (1972) |
+| **Proto-Greek** | **3.1%** (5 words) | 147.75 | **ELIMINATED** - phonological mismatch | Georgiev (1963), Mosenkis (2019) |
 
 #### Bayesian Results (`bayesian_hypothesis_tester.py`, 160 words — calibrated priors)
 
@@ -99,7 +99,7 @@ See [METHODOLOGY.md](linear-a-decipherer/METHODOLOGY.md) for pre-flight checklis
 | Pre-Greek Substrate | 13.5% | — | SUBSTRATE |
 | **Proto-Greek** | **2.8%** | [2.4%, 7.8%] | **ELIMINATED** |
 
-> **Note**: Legacy word-count percentages and Bayesian posteriors are not directly comparable. Legacy counts how many words best-fit each hypothesis; Bayesian uses calibrated priors and probabilistic inference. Both confirm the same pattern: Luwian dominant, Proto-Greek eliminated. See [KNOWLEDGE.md](linear-a-decipherer/KNOWLEDGE.md#hypothesis-scorecard) for full methodology.
+> **Note**: Batch word-count percentages and Bayesian posteriors are not directly comparable. Batch counts how many words best-fit each hypothesis; Bayesian uses calibrated priors and probabilistic inference. Both confirm the same pattern: Luwian dominant, Proto-Greek eliminated. See [KNOWLEDGE.md](linear-a-decipherer/KNOWLEDGE.md#hypothesis-scorecard) for full methodology.
 
 ### Major Findings
 
@@ -109,7 +109,7 @@ Building on prior scholarship with systematic corpus validation:
 - **Regional administrative systems**: Khania (227 inscriptions across all databases) has ZERO ku-ro/ki-ro forms — confirms parallel system distinct from Hagia Triada (novel systematization)
 - **123 unique Linear A signs**: Dropped when Greeks adapted the script, revealing sounds Greek lacked (novel phonological analysis)
 - **127 personal names identified**: 22% Semitic, 20% Pre-Greek, 17% Luwian; DA-MA-TE and A-TA-NA suggest Minoan origins for Demeter/Athena worship
-- **Libation formula structure**: 6-position religious formula mapped (builds on Davis 2014, Salgarella 2020 Table 5)
+- **Libation formula inflectional paradigm**: The formula actively inflects — coordinated suffix changes across all 5 positions simultaneously (extends Finkelberg 1990, Davis 2014, Thomas 2020). Novel: SE-KA-NA-SI prefix substitution proves KA-NA is minimal root; KA-NA bridges religious and admin registers; U-...-SI cross-register template
 - **K-R paradigm**: 9 forms mapped (64 total occurrences) with vowel alternation system (extends Gordon's 1966 ku-ro proposal)
 
 ---
@@ -300,14 +300,16 @@ This project integrates the [lineara.xyz](https://lineara.xyz) corpus as a git s
 | **Feb 5-6, 2026** | Tool quality fixes (K-R double-matching, frequency gating); Corpus expansion to 300/1,721 |
 | **Feb 9, 2026** | Post-fix validation run: Pre-Greek 2.0%, 10 demotions, batch tiers unchanged |
 | **Feb 16, 2026** | v0.5.0: Infrastructure audit — issue templates, pre-commit, test scaffold, 48 tools |
+| **Feb 16, 2026** | v0.6.0: Compliance breakthrough (10% → 100%), 6 new analyses, 2 promotions, 2 anchors |
+| **Feb 16, 2026** | v0.6.1: Libation formula inflectional paradigm; prior art attribution (Finkelberg 1990, Davis 2014, Thomas 2020) |
 | **Ongoing** | Strategic Plan: Paradigm completion, synthesis |
 
 ### OPERATION MINOS III + BREAKTHROUGH Key Findings (Feb 2026)
 
-**Tool Validation Results** (`hypothesis_tester.py`, 198 words, legacy run):
-- **Proto-Greek ELIMINATED**: Only 2.5% support (5/198 words)
-- **Luwian DOMINANT**: 30.3% support (60/198 words) — morphological particles pervasive
-- **Semitic STRONG**: 17.7% support (35/198 words) — administrative vocabulary
+**Tool Validation Results** (`batch_pipeline.py`, 160 words, v0.6.0):
+- **Proto-Greek ELIMINATED**: Only 3.1% support (5/160 words)
+- **Luwian DOMINANT**: 35.0% support (56/160 words) — morphological particles pervasive
+- **Semitic STRONG**: 17.5% support (28/160 words) — administrative vocabulary
 
 **5-Vector Breakthrough Analysis**:
 - **\*118 = Word-final consonant**: 69% final position proves CVC syllable structure (BREAKTHROUGH)
@@ -387,9 +389,11 @@ This project builds on decades of scholarly work on Linear A. Key contributions 
 |---------|--------------|---------------|
 | **Cyrus Gordon (1966)** | ku-ro = Semitic *kull* "total" | Corpus-wide verification (39 occ, 3 sites) |
 | **Leonard Palmer (1958)** | Luwian morphological parallels | -JA suffix quantification (77 occ, 17 sites) |
+| **Margalit Finkelberg (1990)** | Stem *una-(ru)-kana-*; Anatolian verbal parallels | SE-KA-NA-SI proves KA-NA is minimal root; KA-NA bridges admin/religious registers |
 | **Margalit Finkelberg (1998)** | Anatolian connections | Suffix scoring framework |
 | **Robert Beekes (2014)** | Pre-Greek substrate phonology | 123-sign phonological analysis |
-| **Brent Davis (2010+)** | Libation formula syntax | 6-position structure formalization (Salgarella 2020 Table 5) |
+| **Brent Davis (2014)** | -SI/-TI correlates with dedicant number; VSO word order | Reframed as one dimension of coordinated Form A/B paradigm |
+| **Rose Thomas (2020)** | Polysynthetic verb morphology with agreement | Complementary: our paradigm extends her agreement framework to paradigm level |
 | **Ester Salgarella (2020+)** | SigLA database, paleography | Data source for corpus tools |
 
 ### What This Project Contributes

@@ -348,6 +348,22 @@
 
 **Note**: Two versions exist — "principal" (6 sequences) and "secondary" (3 sequences). Both share A/JA-SA-SA-RA-ME.
 
+### Libation Formula Inflectional Paradigm (2026-02-16)
+
+The formula actively inflects (established: Finkelberg 1990, Davis 2014, Thomas 2020). PKZa11 shows coordinated suffix changes across all positions simultaneously (novel: paradigm-level coordination):
+
+| Position | Form A (Standard) | Form B (PKZa11) |
+|----------|-------------------|------------------|
+| 1. Invocation | A-TA-I-*301-WA-**JA** | A-TA-I-*301-WA-**E** |
+| 2. Action | **JA-**SA-SA-RA-ME | SA-SA-RA-ME |
+| 3. Verb/object | U-NA-KA-NA-**SI** | U-NA-RU-KA-NA-**TI** |
+| 4. Qualifier | I-PI-NA-**MA** | I-PI-NA-**MI-NA** |
+| 5. Closing | SI-RU-**TE** | SI-RU |
+
+KA-NA root paradigm (9 forms, 6 sites): U-NA-KA-NA-SI, U-NA-KA-NA, U-NA-RU-KA-NA-SI, U-NA-RU-KA-NA-TI, U-NA-RU-KA-JA-SI, SE-KA-NA-SI, JA-SA-U-NA-KA-NA-SI, KA-NA (standalone, admin), KA-NA-NI-TI.
+
+SE-KA-NA-SI (SYZa3) proves prefix is variable (U-NA- or SE-), root KA-NA is stable.
+
 ---
 
 ## Key Negative Evidence

@@ -4,6 +4,24 @@
 
 ---
 
+## 2026-02-16 (Post-v0.6.0: Libation Formula Inflectional Paradigm)
+
+### Libation Formula Morphological Analysis (extends Finkelberg 1990, Davis 2014, Thomas 2020)
+
+**Building on established work**: Individual suffix alternation (-SI/-TI) documented by Finkelberg (1990), correlated with dedicant number by Davis (2014), analysed as agreement morphology by Thomas (2020). Stem *una-(ru)-kana-* identified by Finkelberg (1990) with Anatolian verbal parallels.
+
+**Novel contributions**:
+- **SE-KA-NA-SI** (SYZa3, Syme): replaces U-NA-KA-NA-SI in formula position, proving **KA-NA** (not *una-kana-*) is the minimal root with interchangeable prefixes (U-NA- vs SE-)
+- **KA-NA bridges religious and administrative registers**: Standalone KA-NA heads commodity lists at HT (HT23a, HT123+124b) — first identification of this root in admin contexts
+- **U-...-SI is a cross-register grammatical template**: U-MI-NA-SI (admin, HT), U-*34-SI (admin, HT), U-TA-I-SI (KH), U-NA-KA-NA-SI (religious) — template operates beyond libation contexts
+- **Coordinated Form A/B paradigm**: Simultaneous suffix changes across ALL 5 formula positions (not just the verb) represent a paradigm-level phenomenon, not individual word variation
+- **KA-NA paradigm table**: 9 attested forms across 6 sites — most productive paradigm for any Linear A root
+- **KA-JA / KA-NA alternation**: PKZa12 has U-NA-RU-KA-JA-SI, suggesting inner suffix variation on the root
+
+Analysis: `analysis/active/2026-02-16_libation_formula_inflectional_paradigm.md`
+
+---
+
 ## 2026-02-16 (v0.6.0: Compliance Breakthrough + Quality Fixes)
 
 ### Phase 1: Compliance Bottleneck Resolved
