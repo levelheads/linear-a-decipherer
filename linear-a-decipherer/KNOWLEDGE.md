@@ -417,23 +417,27 @@
 - *21F-*118 (3 occ) — classifier + final marker
 - I-QA-*118 (2 occ) — second most stable
 
-**Phonetic Hypothesis**: CVC syllable with final consonant /-t, -n, or -m/
-**Confidence**: PROBABLE
+**Phonetic Hypothesis**: CVC syllable with final consonant /-n/ (most probable)
+**Consonant Disambiguation** (2026-02-17): /-n/ scored 10/14, /-t/ scored 8/14, /-m/ scored 4/14
+**Evidence**: Compatible with Luwian accusative/oblique -n AND Semitic nunation; /-m/ excluded by absence in Linear B substrate words
+**Confidence**: POSSIBLE (narrowed from PROBABLE for 3-way to POSSIBLE for specific /-n/)
 
-### Sign *304: Suffix/Postposition (REVISED)
+### Sign *304: Commodity Logogram (SECOND REVISION)
 
 | Metric | Value |
 |--------|-------|
 | Occurrences | 42 |
-| Word-medial | **66.7%** |
-| Word-final | 21.4% |
-| Word-initial | 11.9% |
+| Within-word initial/standalone | **93%** |
+| Within-word final | 7% |
+| Within-word medial | 0% |
 | Primary site | HT (66.7%) |
+| Sites attested | 5 (HT, KH, PH, PY, ZA) |
 
-**REVISION**: Expected 93% initial, observed 11.9% — NOT emphatic/logographic
-**Actual Function**: Suffix or postposition marker (medial dominant)
-**Key Compound**: *304+PA (3 occ)
-**Confidence**: POSSIBLE (function revised)
+**SECOND REVISION** (2026-02-17): Earlier "66.7% medial" was inscription-line position (between list items), not word position. Corrected analysis shows 93% word-initial/standalone.
+**Actual Function**: Commodity logogram — appears in NUMERAL-*304-NUMERAL pattern (identical to GRA, VIN, OLE)
+**Key Compounds**: *304+PA (3 occ, multi-site variety marker), *304+PA-CYP+D (3 occ, copper-graded warehouse commodity)
+**NOT a suffix/postposition**: No syntactic/inflectional behavior observed
+**Confidence**: HIGH (commodity logogram function), SPECULATIVE (specific commodity identity)
 
 ### Signs *21F/*21M: Gender Classifiers
 
@@ -460,8 +464,9 @@
 | Primary site | HT (59.4%) |
 
 **Key Compound**: *86+*188 (11 occ, 34%) — dominant pattern at Khania
+**Khania System** (2026-02-17): *86+*188 is exclusively a KH roundel stamp (8/8 KH occurrences on roundels as sole content). Functions as administrative transaction receipt marker, NOT commodity label. No numerals on these roundels. Separate from CYP copper grading system on KH tablets.
 **Vessel Context**: Confirmed (PSIZa1 stone vessel)
-**Administrative Use**: High roundel frequency supports seal/marking function
+**Administrative Use**: HIGH — roundel transaction stamp at Khania; dual function with HT tablets
 **Confidence**: PROBABLE
 
 ---
@@ -573,6 +578,8 @@ If these anchors change, dependent readings must be re-evaluated.
 | anchor_kuro_total | KU-RO = Total/Sum | 2 | HIGH |
 | anchor_kiro_deficit | KI-RO = Deficit/Category | 4 | MEDIUM |
 | anchor_ja_suffix | -JA Adjectival Suffix | 5 | MEDIUM |
+| anchor_me_suffix | -ME Nominal Suffix | 5 | PROBABLE |
+| anchor_si_suffix | -SI Verbal/Adjectival Suffix | 5 | PROBABLE |
 
 ### Reading Dependencies
 
@@ -656,6 +663,8 @@ Example cascade from `anchor_semitic_loan_layer`:
 | 4 | Epithet/verb | U-NA-KA-NA-SI |
 | 5 | Offering term | I-PI-NA-MA |
 | 6 | Prepositional | SI-RU-TE |
+
+**I-PI-NA-MA Reconciliation** (2026-02-17): APZa2 reclassified from administrative to religious (stone libation vessel, NA-SI = U-NA-KA-NA-SI fragment, no admin markers). I-PI-NA-MA confirmed exclusively religious across 6 attestations at 5 sites. I-PI-NA-MA + SI-RU-TE is a fixed collocation (5/6 cases).
 
 **Key Discovery**: Religious vocabulary favors **Luwian/Pre-Greek** (+14.5/+13.0), NOT Semitic (+4.5) — two distinct linguistic layers.
 

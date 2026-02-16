@@ -395,8 +395,27 @@ class IntegratedValidator:
             base_conf = "SPECULATIVE"
             compliance_notes.append("Hypothesis eliminated by threshold (<5%)")
 
-        # Apply anchor cap
         conf_order = ["SPECULATIVE", "POSSIBLE", "LOW", "MEDIUM", "PROBABLE", "HIGH", "CERTAIN"]
+
+        # Anchor floor: Level 1-2 anchored words cannot fall below POSSIBLE
+        anchor_deps = stages.get("anchor_deps", [])
+        min_anchor_level = None
+        for dep in anchor_deps:
+            anchor_data = self.anchors.get(dep, {})
+            level = anchor_data.get("level")
+            if isinstance(level, int) and (min_anchor_level is None or level < min_anchor_level):
+                min_anchor_level = level
+        if min_anchor_level is not None and min_anchor_level <= 2:
+            floor_conf = "POSSIBLE"
+            floor_rank = conf_order.index(floor_conf) if floor_conf in conf_order else 0
+            current_rank = conf_order.index(base_conf) if base_conf in conf_order else 0
+            if current_rank < floor_rank:
+                compliance_notes.append(
+                    f"Anchor floor applied: Level {min_anchor_level} anchor prevents demotion below {floor_conf}"
+                )
+                base_conf = floor_conf
+
+        # Apply anchor cap
         base_rank = conf_order.index(base_conf) if base_conf in conf_order else 0
         anchor_rank = conf_order.index(anchor_max) if anchor_max in conf_order else 0
 

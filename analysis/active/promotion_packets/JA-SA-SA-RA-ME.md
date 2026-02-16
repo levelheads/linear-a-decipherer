@@ -1,4 +1,4 @@
-# Promotion Packet: DA-RE
+# Promotion Packet: JA-SA-SA-RA-ME
 
 Use this packet for any confidence promotion or demotion proposal.
 
@@ -6,11 +6,11 @@ Use this packet for any confidence promotion or demotion proposal.
 
 ## 1. Candidate
 
-- Reading: DA-RE
-- Current confidence: SPECULATIVE
+- Reading: JA-SA-SA-RA-ME
+- Current confidence: PROBABLE
 - Proposed confidence: PROBABLE
-- Meaning claim: administrative/morphological form (provisional)
-- Primary contexts: HT, KH, PK
+- Meaning claim: divine name (religious formula)
+- Primary contexts: IOZ, PK, PLZ, PSZ, TLZ
 
 ## 2. Evidence Artifacts
 
@@ -24,47 +24,43 @@ Use this packet for any confidence promotion or demotion proposal.
 ## 3. Multi-Hypothesis Adjudication
 
 - Luwian: score=1, verdict=POSSIBLE
-- Semitic: score=0.6, verdict=WEAK
-- Pre-Greek: score=1, verdict=WEAK
-- Proto-Greek: score=0.75, verdict=WEAK
+- Semitic: score=0.7, verdict=WEAK
+- Pre-Greek: score=2.5, verdict=SUPPORTED
+- Proto-Greek: score=0.25, verdict=NEUTRAL
 - Isolate/null: See integrated Bayesian/isolate context in `data/bayesian_results.json` if needed.
 
 ## 4. Negative Evidence
 
 - No explicit negative evidence penalties recorded.
 - Contradictions detected: No
-- Remaining uncertainty: threshold=STRONG, final_confidence=PROBABLE
+- Remaining uncertainty: threshold=ELIMINATED, final_confidence=SPECULATIVE
 
 ## 5. Cross-Corpus and Regional Behavior
 
-- Sites attested: HT, KH, PK
-- Site concentration (HT): 0.714
-- Period spread: ['', 'LMIB']
-- Regional weighting impact: 1.151
+- Sites attested: IOZ, PK, PLZ, PSZ, TLZ
+- Site concentration (HT): 0.000
+- Period spread: ['', 'LMIA']
+- Regional weighting impact: 1.232
 - Parity status: LOW
 
 ## 6. Anchor and Dependency Check
 
-- anchor_luwian_morphology: level=4, confidence=MEDIUM
+- anchor_linear_b_comparison: level=2, confidence=HIGH
 - Weakest dependency: PROBABLE
 - Cascade risk if questioned: No cascade warnings
-- Dependency trace source: provisional (status: complete)
+- Dependency trace source: existing (status: complete)
 
 ## 7. Gate Checklist
 
 - [x] required_inputs_present (Missing: none)
-- [x] no_direct_anchor_contradiction (dependency_warnings=0, threshold=STRONG)
+- [ ] no_direct_anchor_contradiction (dependency_warnings=0, threshold=ELIMINATED)
 - [x] parity_guard (parity_level=LOW)
-- [x] multi_hypothesis_run (All four hypotheses present in hypothesis_results)
-- [x] cross_corpus_consistency (validated=True, positional=0.857, functional=0.786, sites=3, rule=min>=0.55 and max>=0.70)
-- [x] integrated_validation (entry=yes, final_confidence=PROBABLE, methodology_compliant=True)
-- [x] dependency_trace (anchor_dependencies=1, trace_source=provisional)
-- [ ] provisional_trace_review (trace_source=provisional, allow_override=False)
-- [x] negative_evidence_statement (negative_evidence_items=0)
+- [x] integrated_validation (entry=yes, final_confidence=SPECULATIVE, methodology_compliant=True)
+- [x] dependency_trace (anchor_dependencies=1, trace_source=existing)
 
 ## 8. Decision
 
-- Board decision: HOLD
-- Rationale: One or more non-critical required gates failed. Failed gates: provisional_trace_review
+- Board decision: REJECT
+- Rationale: Critical gate failure detected (missing artifacts or direct contradiction). Failed gates: no_direct_anchor_contradiction
 - Follow-up actions:
   - Re-run candidate through tool_parity_checker before final publication.; Attach packet and JSON decision record to lane B promotion board review.

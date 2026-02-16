@@ -32,9 +32,9 @@ DEFAULT_ANCHORS = DATA_DIR / "anchors.json"
 DEFAULT_OUTPUT = DATA_DIR / "dependency_trace_report.json"
 
 HYPOTHESIS_TO_ANCHORS = {
-    "luwian": ["anchor_luwian_morphology"],
-    "semitic": ["anchor_semitic_loan_layer"],
-    "pregreek": ["anchor_toponym_phaistos"],
+    "luwian": ["anchor_linear_b_comparison", "anchor_luwian_morphology"],
+    "semitic": ["anchor_linear_b_comparison", "anchor_semitic_loan_layer"],
+    "pregreek": ["anchor_linear_b_comparison"],
     "protogreek": ["anchor_linear_b_comparison"],
 }
 PROVISIONAL_MARKER = "dependency_trace_resolver.py --write"

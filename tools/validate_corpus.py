@@ -108,6 +108,7 @@ class CorpusValidator:
             "Geometric",
             "LMII",
             "MMIB",
+            "MMIII-LMI",
         }
 
         # Loaded data

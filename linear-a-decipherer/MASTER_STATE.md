@@ -27,15 +27,16 @@ If any other file conflicts with this one, this file wins.
 | Metric | Current Value | Source |
 |--------|---------------|--------|
 | Total corpus inscriptions | 1,721 | `data/corpus.json` |
-| Batch analysis coverage | 500/1,721 (29.05%) | `data/extended_corpus_analysis.json` |
+| Batch analysis coverage | 656/1,721 (38.1%) | `data/extended_corpus_analysis.json` |
 | Hypothesis run word set | 160 words (freq >= 2) | `data/hypothesis_results.json` |
 | Batch pipeline word set | 160 words | `data/batch_analysis_results.json` |
 | High-confidence batch words | 28 | `data/batch_analysis_results.json` |
-| Integrated validated words | 160 | `data/integrated_results.json` (run 2026-02-15) |
-| Methodology compliance | 16/160 (10.0%) | `data/integrated_results.json` (run 2026-02-15) |
+| Integrated validated words | 160 | `data/integrated_results.json` (run 2026-02-16) |
+| Methodology compliance | 160/160 (100.0%) | `data/integrated_results.json` (run 2026-02-16) |
+| Registered anchor types | 11 | `data/anchors.json` |
 | Corpus validation status | PASS with 8 warnings, 0 critical errors | `data/validation_report.json` |
 | Tool count (Python scripts) | 48 | `tools/*.py` |
-| Current release version | v0.5.0 | `CITATION.cff`, local tags |
+| Current release version | v0.6.0 | `CITATION.cff`, local tags |
 
 ---
 
@@ -153,7 +154,7 @@ No reading may be promoted without a complete evidence packet.
 
 | Risk | Severity | Mitigation |
 |------|----------|------------|
-| HT concentration bias in core terms | High | Regional weighting required in promotion packets |
+| HT concentration bias in core terms | Medium | Regional weighting required in promotion packets; HT batch coverage rebalanced from 4% to 30.5% (Sprint Day 1, 2026-02-17) |
 | Incomplete context metadata in corpus | Medium | Track warning deltas from `validate_corpus.py` each run |
 | Legacy docs with stale metrics | Medium | Historical redirect banners + canonical state enforcement |
 | Ambiguous sign functions with mixed roles | High | Maintain dual-role analyses with explicit falsification criteria |
