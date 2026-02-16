@@ -19,9 +19,9 @@ from collections import defaultdict
 PROJECT_ROOT = Path(__file__).parent.parent
 BASE = PROJECT_ROOT / "data"
 
-HYPO_PRE  = BASE / "hypothesis_results_prefix.json"
+HYPO_PRE = BASE / "hypothesis_results_prefix.json"
 HYPO_POST = BASE / "hypothesis_results.json"
-BATCH_PRE  = BASE / "batch_analysis_results_prefix.json"
+BATCH_PRE = BASE / "batch_analysis_results_prefix.json"
 BATCH_POST = BASE / "batch_analysis_results.json"
 
 # K-R paradigm words of special interest
@@ -57,6 +57,7 @@ def fmt_delta(val):
 # ===========================================================================
 # 1. Hypothesis Results Comparison
 # ===========================================================================
+
 
 def compare_hypothesis_results(pre, post):
     pre_words = pre["word_analyses"]
@@ -105,11 +106,20 @@ def compare_hypothesis_results(pre, post):
         if word in KR_WORDS:
             kr_entry = {
                 "word": word,
-                "conf_pre": conf_pre, "conf_post": conf_post,
-                "best_pre": best_pre, "best_post": best_post,
-                "score_pre": score_pre, "score_post": score_post,
-                "hyp_scores_pre": {h: hyps_pre.get(h, {}).get("score", 0) for h in sorted(set(hyps_pre) | set(hyps_post))},
-                "hyp_scores_post": {h: hyps_post.get(h, {}).get("score", 0) for h in sorted(set(hyps_pre) | set(hyps_post))},
+                "conf_pre": conf_pre,
+                "conf_post": conf_post,
+                "best_pre": best_pre,
+                "best_post": best_post,
+                "score_pre": score_pre,
+                "score_post": score_post,
+                "hyp_scores_pre": {
+                    h: hyps_pre.get(h, {}).get("score", 0)
+                    for h in sorted(set(hyps_pre) | set(hyps_post))
+                },
+                "hyp_scores_post": {
+                    h: hyps_post.get(h, {}).get("score", 0)
+                    for h in sorted(set(hyps_pre) | set(hyps_post))
+                },
             }
             kr_diffs.append(kr_entry)
 
@@ -145,7 +155,11 @@ def compare_hypothesis_results(pre, post):
     print(thin)
     if confidence_demotions:
         print(f"  {'Word':<25} {'Pre-Fix':<14} {'Post-Fix':<14} {'Score Change'}")
-        for word, cp, cpo, sp, spo in sorted(confidence_demotions, key=lambda x: confidence_rank(x[1]) - confidence_rank(x[2]), reverse=True):
+        for word, cp, cpo, sp, spo in sorted(
+            confidence_demotions,
+            key=lambda x: confidence_rank(x[1]) - confidence_rank(x[2]),
+            reverse=True,
+        ):
             print(f"  {word:<25} {cp:<14} {cpo:<14} {fmt_delta(spo - sp)}")
     else:
         print("  (none)")
@@ -156,7 +170,11 @@ def compare_hypothesis_results(pre, post):
     print(thin)
     if confidence_promotions:
         print(f"  {'Word':<25} {'Pre-Fix':<14} {'Post-Fix':<14} {'Score Change'}")
-        for word, cp, cpo, sp, spo in sorted(confidence_promotions, key=lambda x: confidence_rank(x[2]) - confidence_rank(x[1]), reverse=True):
+        for word, cp, cpo, sp, spo in sorted(
+            confidence_promotions,
+            key=lambda x: confidence_rank(x[2]) - confidence_rank(x[1]),
+            reverse=True,
+        ):
             print(f"  {word:<25} {cp:<14} {cpo:<14} {fmt_delta(spo - sp)}")
     else:
         print("  (none)")
@@ -166,8 +184,12 @@ def compare_hypothesis_results(pre, post):
     print(f"  BEST HYPOTHESIS CHANGES ({len(best_hyp_changes)} words)")
     print(thin)
     if best_hyp_changes:
-        print(f"  {'Word':<25} {'Pre-Fix Best':<14} {'Post-Fix Best':<14} {'Score Pre':>10} {'Score Post':>10}")
-        for word, bp, bpo, sp, spo in sorted(best_hyp_changes, key=lambda x: abs(x[4] - x[3]), reverse=True):
+        print(
+            f"  {'Word':<25} {'Pre-Fix Best':<14} {'Post-Fix Best':<14} {'Score Pre':>10} {'Score Post':>10}"
+        )
+        for word, bp, bpo, sp, spo in sorted(
+            best_hyp_changes, key=lambda x: abs(x[4] - x[3]), reverse=True
+        ):
             print(f"  {word:<25} {bp:<14} {bpo:<14} {sp:>10.2f} {spo:>10.2f}")
     else:
         print("  (none)")
@@ -182,7 +204,9 @@ def compare_hypothesis_results(pre, post):
             print(f"\n  {w}:")
             print(f"    Best hypothesis:  {entry['best_pre']:<14} -> {entry['best_post']}")
             print(f"    Confidence:       {entry['conf_pre']:<14} -> {entry['conf_post']}")
-            print(f"    Best score:       {entry['score_pre']:<14.2f} -> {entry['score_post']:.2f}  ({fmt_delta(entry['score_post'] - entry['score_pre'])})")
+            print(
+                f"    Best score:       {entry['score_pre']:<14.2f} -> {entry['score_post']:.2f}  ({fmt_delta(entry['score_post'] - entry['score_pre'])})"
+            )
             print("    Per-hypothesis scores:")
             all_hyps = sorted(set(entry["hyp_scores_pre"]) | set(entry["hyp_scores_post"]))
             for h in all_hyps:
@@ -190,14 +214,21 @@ def compare_hypothesis_results(pre, post):
                 s_post = entry["hyp_scores_post"].get(h, 0)
                 delta = s_post - s_pre
                 marker = " ***" if delta != 0 else ""
-                print(f"      {h:<14} {s_pre:>8.2f} -> {s_post:>8.2f}  ({fmt_delta(delta)}){marker}")
+                print(
+                    f"      {h:<14} {s_pre:>8.2f} -> {s_post:>8.2f}  ({fmt_delta(delta)}){marker}"
+                )
     else:
         found_words = [w for w in KR_WORDS if w in common_words]
         if not found_words:
             print("  K-R words not found in common word set.")
             print(f"  Searched for: {KR_WORDS}")
             for target in KR_WORDS:
-                matches = [w for w in common_words if target.replace('\u2082', '2').lower() in w.lower() or target.lower() in w.lower()]
+                matches = [
+                    w
+                    for w in common_words
+                    if target.replace("\u2082", "2").lower() in w.lower()
+                    or target.lower() in w.lower()
+                ]
                 if matches:
                     print(f"  Possible matches for {target}: {matches}")
     print()
@@ -261,6 +292,7 @@ def compare_hypothesis_results(pre, post):
 # 2. Batch Analysis Results Comparison
 # ===========================================================================
 
+
 def compare_batch_results(pre, post):
     sep = "=" * 78
     thin = "-" * 78
@@ -310,7 +342,9 @@ def compare_batch_results(pre, post):
         for w in demoted:
             pe = pre_lookup.get(w, {})
             dest = "medium" if w in post_med else ("needs_review" if w in post_nr else "unknown")
-            print(f"    {w:<25} was {pe.get('confidence','?'):<12} best={pe.get('best_hypothesis','?'):<12} -> {dest}")
+            print(
+                f"    {w:<25} was {pe.get('confidence', '?'):<12} best={pe.get('best_hypothesis', '?'):<12} -> {dest}"
+            )
     else:
         print("  DEMOTED: (none)")
     print()
@@ -323,7 +357,9 @@ def compare_batch_results(pre, post):
         for w in promoted:
             poe = post_lookup.get(w, {})
             origin = "medium" if w in pre_med else ("needs_review" if w in pre_nr else "unknown")
-            print(f"    {w:<25} now {poe.get('confidence','?'):<12} best={poe.get('best_hypothesis','?'):<12} <- {origin}")
+            print(
+                f"    {w:<25} now {poe.get('confidence', '?'):<12} best={poe.get('best_hypothesis', '?'):<12} <- {origin}"
+            )
     else:
         print("  PROMOTED: (none)")
     print()
@@ -337,12 +373,18 @@ def compare_batch_results(pre, post):
     for w in stayed:
         pe = pre_lookup[w]
         poe = post_lookup[w]
-        if pe.get("confidence") != poe.get("confidence") or pe.get("best_hypothesis") != poe.get("best_hypothesis"):
+        if pe.get("confidence") != poe.get("confidence") or pe.get("best_hypothesis") != poe.get(
+            "best_hypothesis"
+        ):
             hc_changes.append((w, pe, poe))
     if hc_changes:
-        print(f"  {'Word':<25} {'Conf Pre':<12} {'Conf Post':<12} {'Best Pre':<14} {'Best Post':<14}")
+        print(
+            f"  {'Word':<25} {'Conf Pre':<12} {'Conf Post':<12} {'Best Pre':<14} {'Best Post':<14}"
+        )
         for w, pe, poe in sorted(hc_changes):
-            print(f"  {w:<25} {pe.get('confidence','?'):<12} {poe.get('confidence','?'):<12} {pe.get('best_hypothesis','?'):<14} {poe.get('best_hypothesis','?'):<14}")
+            print(
+                f"  {w:<25} {pe.get('confidence', '?'):<12} {poe.get('confidence', '?'):<12} {pe.get('best_hypothesis', '?'):<14} {poe.get('best_hypothesis', '?'):<14}"
+            )
     else:
         print("  (no changes for words that remained in high confidence)")
     print()
@@ -354,8 +396,10 @@ def compare_batch_results(pre, post):
     print("  HYPOTHESIS RANKING CHANGES")
     print(thin)
     all_hyps = sorted(set(hr_pre.keys()) | set(hr_post.keys()))
-    print(f"\n  {'Hypothesis':<14} {'Rank Pre':>10} {'Rank Post':>10} {'Score Pre':>12} {'Score Post':>12} {'Words Pre':>11} {'Words Post':>11}")
-    print(f"  {'-'*14} {'-'*10} {'-'*10} {'-'*12} {'-'*12} {'-'*11} {'-'*11}")
+    print(
+        f"\n  {'Hypothesis':<14} {'Rank Pre':>10} {'Rank Post':>10} {'Score Pre':>12} {'Score Post':>12} {'Words Pre':>11} {'Words Post':>11}"
+    )
+    print(f"  {'-' * 14} {'-' * 10} {'-' * 10} {'-' * 12} {'-' * 12} {'-' * 11} {'-' * 11}")
     for h in sorted(all_hyps, key=lambda x: hr_post.get(x, {}).get("rank", 99)):
         rp = hr_pre.get(h, {})
         rpo = hr_post.get(h, {})
@@ -371,7 +415,9 @@ def compare_batch_results(pre, post):
                 rank_marker = " [UP]"
             elif rank_post > rank_pre:
                 rank_marker = " [DOWN]"
-        print(f"  {h:<14} {str(rank_pre):>10} {str(rank_post):>10} {score_pre:>12.1f} {score_post:>12.1f} {ws_pre:>11} {ws_post:>11}{rank_marker}")
+        print(
+            f"  {h:<14} {str(rank_pre):>10} {str(rank_post):>10} {score_pre:>12.1f} {score_post:>12.1f} {ws_pre:>11} {ws_post:>11}{rank_marker}"
+        )
     print()
 
     print("  Score deltas:")
@@ -380,7 +426,9 @@ def compare_batch_results(pre, post):
         rpo = hr_post.get(h, {})
         score_delta = rpo.get("total_score", 0) - rp.get("total_score", 0)
         words_delta = rpo.get("words_supporting", 0) - rp.get("words_supporting", 0)
-        print(f"    {h:<14}  score: {fmt_delta(score_delta):>10}   words_supporting: {fmt_delta(words_delta):>5}")
+        print(
+            f"    {h:<14}  score: {fmt_delta(score_delta):>10}   words_supporting: {fmt_delta(words_delta):>5}"
+        )
     print()
 
     mcf_pre = pre.get("medium_confidence_findings", [])
@@ -399,7 +447,9 @@ def compare_batch_results(pre, post):
     if mc_added:
         print(f"  Added ({len(mc_added)}): {mc_added[:20]}{'...' if len(mc_added) > 20 else ''}")
     if mc_removed:
-        print(f"  Removed ({len(mc_removed)}): {mc_removed[:20]}{'...' if len(mc_removed) > 20 else ''}")
+        print(
+            f"  Removed ({len(mc_removed)}): {mc_removed[:20]}{'...' if len(mc_removed) > 20 else ''}"
+        )
     print()
 
     nr_pre = pre.get("needs_review", [])
@@ -418,13 +468,16 @@ def compare_batch_results(pre, post):
     if nr_added:
         print(f"  Added ({len(nr_added)}): {nr_added[:20]}{'...' if len(nr_added) > 20 else ''}")
     if nr_removed:
-        print(f"  Removed ({len(nr_removed)}): {nr_removed[:20]}{'...' if len(nr_removed) > 20 else ''}")
+        print(
+            f"  Removed ({len(nr_removed)}): {nr_removed[:20]}{'...' if len(nr_removed) > 20 else ''}"
+        )
     print()
 
 
 # ===========================================================================
 # 3. Overall Summary
 # ===========================================================================
+
 
 def print_overall_summary(hypo_stats):
     sep = "=" * 78
@@ -453,6 +506,7 @@ def print_overall_summary(hypo_stats):
 # ===========================================================================
 # Main
 # ===========================================================================
+
 
 def main():
     for path in [HYPO_PRE, HYPO_POST, BATCH_PRE, BATCH_POST]:

@@ -56,10 +56,10 @@ try:
 except ImportError:
     FalsificationSystem = None
     THRESHOLDS = {
-        'ELIMINATED': type('T', (), {'min_pct': 0, 'max_pct': 5})(),
-        'WEAK': type('T', (), {'min_pct': 5, 'max_pct': 15})(),
-        'MODERATE': type('T', (), {'min_pct': 15, 'max_pct': 25})(),
-        'STRONG': type('T', (), {'min_pct': 25, 'max_pct': 100})(),
+        "ELIMINATED": type("T", (), {"min_pct": 0, "max_pct": 5})(),
+        "WEAK": type("T", (), {"min_pct": 5, "max_pct": 15})(),
+        "MODERATE": type("T", (), {"min_pct": 15, "max_pct": 25})(),
+        "STRONG": type("T", (), {"min_pct": 25, "max_pct": 100})(),
     }
 
 try:
@@ -72,8 +72,11 @@ try:
 except ImportError:
     BayesianHypothesisTester = None
     DEFAULT_PRIORS = {
-        'luwian': 0.25, 'semitic': 0.15, 'pregreek': 0.20,
-        'protogreek': 0.05, 'isolate': 0.35
+        "luwian": 0.25,
+        "semitic": 0.15,
+        "pregreek": 0.20,
+        "protogreek": 0.05,
+        "isolate": 0.35,
     }
 
 
@@ -81,9 +84,11 @@ except ImportError:
 # DATA STRUCTURES
 # ============================================================================
 
+
 @dataclass
 class IntegratedAssessment:
     """Complete assessment of a word through all validation stages."""
+
     word: str
     frequency: int
 
@@ -163,34 +168,34 @@ class IntegratedValidator:
         try:
             # Load corpus
             corpus_path = DATA_DIR / "corpus.json"
-            with open(corpus_path, 'r', encoding='utf-8') as f:
+            with open(corpus_path, "r", encoding="utf-8") as f:
                 self.corpus = json.load(f)
             print(f"Loaded corpus: {len(self.corpus.get('inscriptions', {}))} inscriptions")
 
             # Load hypothesis results
             hyp_path = DATA_DIR / "hypothesis_results.json"
             if hyp_path.exists():
-                with open(hyp_path, 'r', encoding='utf-8') as f:
+                with open(hyp_path, "r", encoding="utf-8") as f:
                     self.hypothesis_results = json.load(f)
 
             # Load negative evidence catalog
             neg_path = DATA_DIR / "negative_evidence_catalog.json"
             if neg_path.exists():
-                with open(neg_path, 'r', encoding='utf-8') as f:
+                with open(neg_path, "r", encoding="utf-8") as f:
                     data = json.load(f)
-                    self.negative_evidence = data.get('absences', [])
+                    self.negative_evidence = data.get("absences", [])
 
             # Load anchors
             anchor_path = DATA_DIR / "anchors.json"
             if anchor_path.exists():
-                with open(anchor_path, 'r', encoding='utf-8') as f:
-                    self.anchors = json.load(f).get('anchors', {})
+                with open(anchor_path, "r", encoding="utf-8") as f:
+                    self.anchors = json.load(f).get("anchors", {})
 
             # Load reading dependencies
             dep_path = DATA_DIR / "reading_dependencies.json"
             if dep_path.exists():
-                with open(dep_path, 'r', encoding='utf-8') as f:
-                    self.reading_dependencies = json.load(f).get('readings', {})
+                with open(dep_path, "r", encoding="utf-8") as f:
+                    self.reading_dependencies = json.load(f).get("readings", {})
 
             # Initialize components
             if RegionalWeighting:
@@ -214,37 +219,38 @@ class IntegratedValidator:
         except Exception as e:
             print(f"Error loading data: {e}")
             import traceback
+
             traceback.print_exc()
             return False
 
     def _get_raw_scores(self, word: str) -> Tuple[Dict[str, float], str, float]:
         """Get raw hypothesis scores for a word."""
-        word_analyses = self.hypothesis_results.get('word_analyses', {})
+        word_analyses = self.hypothesis_results.get("word_analyses", {})
 
         # Try exact match then case-insensitive
         word_data = word_analyses.get(word) or word_analyses.get(word.upper())
 
         if word_data:
-            hypotheses = word_data.get('hypotheses', {})
+            hypotheses = word_data.get("hypotheses", {})
             scores = {
-                'luwian': hypotheses.get('luwian', {}).get('score', 0),
-                'semitic': hypotheses.get('semitic', {}).get('score', 0),
-                'pregreek': hypotheses.get('pregreek', {}).get('score', 0),
-                'protogreek': hypotheses.get('protogreek', {}).get('score', 0),
+                "luwian": hypotheses.get("luwian", {}).get("score", 0),
+                "semitic": hypotheses.get("semitic", {}).get("score", 0),
+                "pregreek": hypotheses.get("pregreek", {}).get("score", 0),
+                "protogreek": hypotheses.get("protogreek", {}).get("score", 0),
             }
-            synthesis = word_data.get('synthesis', {})
-            best = synthesis.get('best_hypothesis', 'unknown')
+            synthesis = word_data.get("synthesis", {})
+            best = synthesis.get("best_hypothesis", "unknown")
 
             # Calculate support percentage from summaries
-            summaries = self.hypothesis_results.get('hypothesis_summaries', {})
-            total = self.hypothesis_results.get('metadata', {}).get('words_tested', 198)
-            supported = summaries.get(best, {}).get('supported', 0)
+            summaries = self.hypothesis_results.get("hypothesis_summaries", {})
+            total = self.hypothesis_results.get("metadata", {}).get("words_tested", 198)
+            supported = summaries.get(best, {}).get("supported", 0)
             pct = supported / total * 100 if total > 0 else 0
 
             return scores, best, pct
 
         # Default if not found
-        return {'luwian': 0, 'semitic': 0, 'pregreek': 0, 'protogreek': 0}, 'unknown', 0
+        return {"luwian": 0, "semitic": 0, "pregreek": 0, "protogreek": 0}, "unknown", 0
 
     def _get_regional_weight(self, word: str) -> Tuple[Dict, int, float, float, List[str]]:
         """Get regional weighting for a word."""
@@ -255,25 +261,25 @@ class IntegratedValidator:
                 weighted.site_distribution.num_sites,
                 weighted.site_distribution.ht_concentration,
                 weighted.regional_weight,
-                weighted.weight_rationale
+                weighted.weight_rationale,
             )
 
         # Fallback: calculate manually from corpus
         site_counts = Counter()
         word_upper = word.upper()
 
-        for insc_id, data in self.corpus.get('inscriptions', {}).items():
-            if '_parse_error' in data:
+        for insc_id, data in self.corpus.get("inscriptions", {}).items():
+            if "_parse_error" in data:
                 continue
-            words = data.get('transliteratedWords', [])
+            words = data.get("transliteratedWords", [])
             if any(w.upper() == word_upper for w in words):
-                match = re.match(r'^([A-Z]+)', insc_id)
+                match = re.match(r"^([A-Z]+)", insc_id)
                 if match:
                     site = match.group(1)[:2]
                     site_counts[site] += 1
 
         total = sum(site_counts.values())
-        ht_count = site_counts.get('HT', 0)
+        ht_count = site_counts.get("HT", 0)
         ht_conc = ht_count / total if total > 0 else 0
 
         # Calculate weight
@@ -301,14 +307,14 @@ class IntegratedValidator:
         items = []
 
         for absence in self.negative_evidence:
-            if absence.get('hypothesis', '').lower() == hypothesis.lower():
-                if absence.get('falsifies', False):
+            if absence.get("hypothesis", "").lower() == hypothesis.lower():
+                if absence.get("falsifies", False):
                     penalty += 0.3
                     items.append(f"CRITICAL: {absence.get('pattern', 'Unknown')}")
-                elif absence.get('status') == 'CERTAIN':
+                elif absence.get("status") == "CERTAIN":
                     penalty += 0.1
                     items.append(f"Certain: {absence.get('id', 'Unknown')}")
-                elif absence.get('status') == 'PROBABLE':
+                elif absence.get("status") == "PROBABLE":
                     penalty += 0.05
                     items.append(f"Probable: {absence.get('id', 'Unknown')}")
 
@@ -317,10 +323,10 @@ class IntegratedValidator:
     def _get_threshold_category(self, pct: float) -> Tuple[str, str]:
         """Get falsification threshold category."""
         for category, threshold in THRESHOLDS.items():
-            if hasattr(threshold, 'min_pct'):
+            if hasattr(threshold, "min_pct"):
                 if threshold.min_pct <= pct < threshold.max_pct:
-                    return category, getattr(threshold, 'interpretation', category)
-        return 'STRONG' if pct >= 25 else 'ELIMINATED', 'Unknown category'
+                    return category, getattr(threshold, "interpretation", category)
+        return "STRONG" if pct >= 25 else "ELIMINATED", "Unknown category"
 
     def _get_bayesian_posteriors(self, word: str, frequency: int) -> Tuple[Dict, Tuple, float, str]:
         """Get Bayesian posteriors for a word."""
@@ -337,22 +343,24 @@ class IntegratedValidator:
 
     def _get_anchor_dependencies(self, word: str) -> Tuple[List[str], str, List[str]]:
         """Get anchor dependencies and constraints for a reading."""
-        reading_data = self.reading_dependencies.get(word) or self.reading_dependencies.get(word.upper())
+        reading_data = self.reading_dependencies.get(word) or self.reading_dependencies.get(
+            word.upper()
+        )
 
         if reading_data:
-            deps = reading_data.get('depends_on', [])
-            max_conf = reading_data.get('max_confidence', 'SPECULATIVE')
+            deps = reading_data.get("depends_on", [])
+            max_conf = reading_data.get("max_confidence", "SPECULATIVE")
 
             # Check for warnings
             warnings = []
             for dep in deps:
                 anchor = self.anchors.get(dep, {})
-                if anchor.get('confidence') in ['LOW', 'SPECULATIVE']:
+                if anchor.get("confidence") in ["LOW", "SPECULATIVE"]:
                     warnings.append(f"Low-confidence anchor: {dep}")
 
             return deps, max_conf, warnings
 
-        return [], 'SPECULATIVE', ['No registered dependencies']
+        return [], "SPECULATIVE", ["No registered dependencies"]
 
     def _synthesize_assessment(self, stages: dict) -> Tuple[str, str, bool, List[str]]:
         """
@@ -366,29 +374,29 @@ class IntegratedValidator:
 
         # Check methodology compliance
         # Rule 1: Confidence cannot exceed anchor max
-        anchor_max = stages['anchor_max']
-        bayesian_best = stages['bayesian_best']
-        bayes_factor = stages['bayes_factor']
+        anchor_max = stages["anchor_max"]
+        bayesian_best = stages["bayesian_best"]
+        bayes_factor = stages["bayes_factor"]
 
         # Determine base confidence from Bayesian analysis
-        best_posterior = stages['posteriors'].get(bayesian_best, 0)
+        best_posterior = stages["posteriors"].get(bayesian_best, 0)
         if best_posterior > 0.5:
-            base_conf = 'HIGH'
+            base_conf = "HIGH"
         elif best_posterior > 0.3:
-            base_conf = 'PROBABLE'
+            base_conf = "PROBABLE"
         elif best_posterior > 0.15:
-            base_conf = 'POSSIBLE'
+            base_conf = "POSSIBLE"
         else:
-            base_conf = 'SPECULATIVE'
+            base_conf = "SPECULATIVE"
 
         # Apply threshold classification
-        threshold_cat = stages['threshold_category']
-        if threshold_cat == 'ELIMINATED':
-            base_conf = 'SPECULATIVE'
+        threshold_cat = stages["threshold_category"]
+        if threshold_cat == "ELIMINATED":
+            base_conf = "SPECULATIVE"
             compliance_notes.append("Hypothesis eliminated by threshold (<5%)")
 
         # Apply anchor cap
-        conf_order = ['SPECULATIVE', 'POSSIBLE', 'LOW', 'MEDIUM', 'PROBABLE', 'HIGH', 'CERTAIN']
+        conf_order = ["SPECULATIVE", "POSSIBLE", "LOW", "MEDIUM", "PROBABLE", "HIGH", "CERTAIN"]
         base_rank = conf_order.index(base_conf) if base_conf in conf_order else 0
         anchor_rank = conf_order.index(anchor_max) if anchor_max in conf_order else 0
 
@@ -397,30 +405,29 @@ class IntegratedValidator:
             base_conf = anchor_max
 
         # Apply regional weight penalty
-        regional_weight = stages['regional_weight']
+        regional_weight = stages["regional_weight"]
         if regional_weight < 0.7:
             compliance_notes.append(f"Regional weight penalty applied ({regional_weight:.2f})")
-            if base_conf in ['HIGH', 'CERTAIN']:
-                base_conf = 'PROBABLE'
+            if base_conf in ["HIGH", "CERTAIN"]:
+                base_conf = "PROBABLE"
                 compliance_notes.append("Demoted due to low regional diversity")
 
         # Apply negative evidence
-        neg_penalty = stages['neg_penalty']
+        neg_penalty = stages["neg_penalty"]
         if neg_penalty > 0.2:
             compliance_notes.append(f"Significant negative evidence penalty ({neg_penalty:.2f})")
-            if base_conf in ['HIGH', 'CERTAIN', 'PROBABLE']:
-                base_conf = 'POSSIBLE'
+            if base_conf in ["HIGH", "CERTAIN", "PROBABLE"]:
+                base_conf = "POSSIBLE"
                 compliance_notes.append("Demoted due to negative evidence")
 
         # Check for single-hypothesis support
-        supported_hyps = [h for h, p in stages['posteriors'].items()
-                        if p > 0.15 and h != 'isolate']
-        if len(supported_hyps) == 1 and base_conf in ['HIGH', 'CERTAIN']:
-            base_conf = 'PROBABLE'
+        supported_hyps = [h for h, p in stages["posteriors"].items() if p > 0.15 and h != "isolate"]
+        if len(supported_hyps) == 1 and base_conf in ["HIGH", "CERTAIN"]:
+            base_conf = "PROBABLE"
             compliance_notes.append("Capped at PROBABLE (single-hypothesis support)")
 
         # Generate assessment text
-        best_hyp = stages['bayesian_best']
+        best_hyp = stages["bayesian_best"]
         assessment = (
             f"{best_hyp.upper()} supported | "
             f"Threshold: {threshold_cat} | "
@@ -429,12 +436,12 @@ class IntegratedValidator:
         )
 
         # Check overall compliance
-        if not stages['anchor_deps']:
+        if not stages["anchor_deps"]:
             is_compliant = False
             compliance_notes.append("WARNING: No anchor dependencies registered")
 
-        if stages['dependency_warnings']:
-            compliance_notes.extend(stages['dependency_warnings'])
+        if stages["dependency_warnings"]:
+            compliance_notes.extend(stages["dependency_warnings"])
 
         return assessment, base_conf, is_compliant, compliance_notes
 
@@ -446,7 +453,9 @@ class IntegratedValidator:
         raw_scores, raw_best, raw_pct = self._get_raw_scores(word)
 
         # Stage 2: Regional weighting
-        site_dist, num_sites, ht_conc, regional_weight, regional_rationale = self._get_regional_weight(word)
+        site_dist, num_sites, ht_conc, regional_weight, regional_rationale = (
+            self._get_regional_weight(word)
+        )
 
         # Stage 3: Negative evidence
         neg_penalty, neg_items = self._get_negative_penalty(raw_best)
@@ -463,15 +472,15 @@ class IntegratedValidator:
 
         # Synthesize final assessment
         stages = {
-            'threshold_category': threshold_cat,
-            'posteriors': posteriors,
-            'bayesian_best': bayes_best,
-            'bayes_factor': bf,
-            'regional_weight': regional_weight,
-            'neg_penalty': neg_penalty,
-            'anchor_max': anchor_max,
-            'anchor_deps': anchor_deps,
-            'dependency_warnings': dep_warnings,
+            "threshold_category": threshold_cat,
+            "posteriors": posteriors,
+            "bayesian_best": bayes_best,
+            "bayes_factor": bf,
+            "regional_weight": regional_weight,
+            "neg_penalty": neg_penalty,
+            "anchor_max": anchor_max,
+            "anchor_deps": anchor_deps,
+            "dependency_warnings": dep_warnings,
         }
 
         assessment, confidence, compliant, notes = self._synthesize_assessment(stages)
@@ -502,17 +511,17 @@ class IntegratedValidator:
             final_assessment=assessment,
             final_confidence=confidence,
             methodology_compliant=compliant,
-            compliance_notes=notes
+            compliance_notes=notes,
         )
 
     def validate_all(self, min_freq: int = 2) -> List[IntegratedAssessment]:
         """Validate all words in corpus above frequency threshold."""
         # Get word frequencies
         word_freq = Counter()
-        for insc_id, data in self.corpus.get('inscriptions', {}).items():
-            if '_parse_error' in data:
+        for insc_id, data in self.corpus.get("inscriptions", {}).items():
+            if "_parse_error" in data:
                 continue
-            for word in data.get('transliteratedWords', []):
+            for word in data.get("transliteratedWords", []):
                 if is_hypothesis_eligible_word(word):
                     word_freq[normalize_word_token(word)] += 1
 
@@ -542,50 +551,45 @@ class IntegratedValidator:
         non_compliant = [r for r in results if not r.methodology_compliant]
 
         report = {
-            'metadata': {
-                'generated': datetime.now().isoformat(),
-                'method': 'Integrated Validation Pipeline',
-                'word_filter_contract': CONTRACT_VERSION,
-                'stages': [
-                    '1. Raw hypothesis scores',
-                    '2. Regional weighting',
-                    '3. Negative evidence penalty',
-                    '4. Falsification threshold',
-                    '5. Bayesian posterior',
-                    '6. Anchor dependency check',
-                    '7. Final synthesis'
+            "metadata": {
+                "generated": datetime.now().isoformat(),
+                "method": "Integrated Validation Pipeline",
+                "word_filter_contract": CONTRACT_VERSION,
+                "stages": [
+                    "1. Raw hypothesis scores",
+                    "2. Regional weighting",
+                    "3. Negative evidence penalty",
+                    "4. Falsification threshold",
+                    "5. Bayesian posterior",
+                    "6. Anchor dependency check",
+                    "7. Final synthesis",
                 ],
-                'words_validated': len(results)
+                "words_validated": len(results),
             },
-            'summary': {
-                'by_confidence': {k: len(v) for k, v in by_confidence.items()},
-                'by_threshold': {k: len(v) for k, v in by_threshold.items()},
-                'methodology_compliant': len(compliant),
-                'non_compliant': len(non_compliant),
-                'compliance_rate': round(len(compliant) / len(results) * 100, 1) if results else 0
+            "summary": {
+                "by_confidence": {k: len(v) for k, v in by_confidence.items()},
+                "by_threshold": {k: len(v) for k, v in by_threshold.items()},
+                "methodology_compliant": len(compliant),
+                "non_compliant": len(non_compliant),
+                "compliance_rate": round(len(compliant) / len(results) * 100, 1) if results else 0,
             },
-            'high_confidence_readings': [
-                asdict(r) for r in results
-                if r.final_confidence in ['HIGH', 'CERTAIN', 'PROBABLE']
+            "high_confidence_readings": [
+                asdict(r) for r in results if r.final_confidence in ["HIGH", "CERTAIN", "PROBABLE"]
             ][:50],
-            'non_compliant_readings': [
-                {
-                    'word': r.word,
-                    'confidence': r.final_confidence,
-                    'issues': r.compliance_notes
-                }
+            "non_compliant_readings": [
+                {"word": r.word, "confidence": r.final_confidence, "issues": r.compliance_notes}
                 for r in non_compliant[:20]
             ],
-            'all_results': [asdict(r) for r in results]
+            "all_results": [asdict(r) for r in results],
         }
 
         return report
 
     def print_assessment(self, result: IntegratedAssessment):
         """Print formatted integrated assessment."""
-        print(f"\n{'='*70}")
+        print(f"\n{'=' * 70}")
         print(f"INTEGRATED VALIDATION: {result.word}")
-        print(f"{'='*70}")
+        print(f"{'=' * 70}")
 
         print("\n[1] RAW HYPOTHESIS SCORES")
         print(f"    Best: {result.raw_best_hypothesis} ({result.raw_support_pct}%)")
@@ -609,8 +613,12 @@ class IntegratedValidator:
         print(f"    → {result.threshold_interpretation[:60]}...")
 
         print("\n[5] BAYESIAN ANALYSIS")
-        print(f"    Best: {result.bayesian_best} (P={result.bayesian_posteriors.get(result.bayesian_best, 0):.3f})")
-        print(f"    95% CI: [{result.credible_interval_95[0]:.2f}, {result.credible_interval_95[1]:.2f}]")
+        print(
+            f"    Best: {result.bayesian_best} (P={result.bayesian_posteriors.get(result.bayesian_best, 0):.3f})"
+        )
+        print(
+            f"    95% CI: [{result.credible_interval_95[0]:.2f}, {result.credible_interval_95[1]:.2f}]"
+        )
         print(f"    Bayes Factor vs Isolate: {result.bayes_factor:.1f}")
         for hyp, post in sorted(result.bayesian_posteriors.items(), key=lambda x: -x[1])[:4]:
             print(f"    {hyp:12} P={post:.3f}")
@@ -622,9 +630,9 @@ class IntegratedValidator:
         for w in result.dependency_warnings[:2]:
             print(f"    ⚠ {w}")
 
-        print(f"\n{'─'*70}")
+        print(f"\n{'─' * 70}")
         print("FINAL ASSESSMENT")
-        print(f"{'─'*70}")
+        print(f"{'─' * 70}")
         print(f"    {result.final_assessment}")
         print(f"    Confidence: {result.final_confidence}")
         compliant_str = "✓ YES" if result.methodology_compliant else "✗ NO"
@@ -634,7 +642,7 @@ class IntegratedValidator:
             for note in result.compliance_notes:
                 print(f"      • {note}")
 
-        print(f"\n{'='*70}")
+        print(f"\n{'=' * 70}")
 
     def print_summary(self, report: Dict):
         """Print summary of integrated validation."""
@@ -642,30 +650,32 @@ class IntegratedValidator:
         print("INTEGRATED VALIDATION SUMMARY")
         print("=" * 70)
 
-        summary = report['summary']
+        summary = report["summary"]
 
         print(f"\nWords Validated: {report['metadata']['words_validated']}")
 
         print("\nBy Final Confidence:")
-        conf_order = ['CERTAIN', 'HIGH', 'PROBABLE', 'POSSIBLE', 'SPECULATIVE']
+        conf_order = ["CERTAIN", "HIGH", "PROBABLE", "POSSIBLE", "SPECULATIVE"]
         for conf in conf_order:
-            count = summary['by_confidence'].get(conf, 0)
+            count = summary["by_confidence"].get(conf, 0)
             if count > 0:
                 print(f"  {conf:12} {count:4d}")
 
         print("\nBy Threshold Category:")
-        for cat in ['STRONG', 'MODERATE', 'WEAK', 'ELIMINATED']:
-            count = summary['by_threshold'].get(cat, 0)
+        for cat in ["STRONG", "MODERATE", "WEAK", "ELIMINATED"]:
+            count = summary["by_threshold"].get(cat, 0)
             if count > 0:
                 print(f"  {cat:12} {count:4d}")
 
         print("\nMethodology Compliance:")
-        print(f"  Compliant:     {summary['methodology_compliant']:4d} ({summary['compliance_rate']}%)")
+        print(
+            f"  Compliant:     {summary['methodology_compliant']:4d} ({summary['compliance_rate']}%)"
+        )
         print(f"  Non-compliant: {summary['non_compliant']:4d}")
 
-        if report['non_compliant_readings']:
+        if report["non_compliant_readings"]:
             print("\nTop Non-Compliant Issues:")
-            for item in report['non_compliant_readings'][:5]:
+            for item in report["non_compliant_readings"][:5]:
                 print(f"  {item['word']}: {item['issues'][0] if item['issues'] else 'Unknown'}")
 
         print("\n" + "=" * 70)
@@ -675,47 +685,18 @@ def main():
     parser = argparse.ArgumentParser(
         description="Integrated validation combining all methodological improvements"
     )
+    parser.add_argument("--word", "-w", type=str, help="Validate a specific word")
+    parser.add_argument("--detail", "-d", action="store_true", help="Show detailed stage breakdown")
+    parser.add_argument("--all", "-a", action="store_true", help="Validate all words in corpus")
     parser.add_argument(
-        '--word', '-w',
-        type=str,
-        help='Validate a specific word'
+        "--min-freq", "-m", type=int, default=2, help="Minimum frequency for --all (default: 2)"
     )
+    parser.add_argument("--summary", "-s", action="store_true", help="Show methodology summary")
     parser.add_argument(
-        '--detail', '-d',
-        action='store_true',
-        help='Show detailed stage breakdown'
+        "--validate-methodology", action="store_true", help="Validate methodology compliance"
     )
-    parser.add_argument(
-        '--all', '-a',
-        action='store_true',
-        help='Validate all words in corpus'
-    )
-    parser.add_argument(
-        '--min-freq', '-m',
-        type=int,
-        default=2,
-        help='Minimum frequency for --all (default: 2)'
-    )
-    parser.add_argument(
-        '--summary', '-s',
-        action='store_true',
-        help='Show methodology summary'
-    )
-    parser.add_argument(
-        '--validate-methodology',
-        action='store_true',
-        help='Validate methodology compliance'
-    )
-    parser.add_argument(
-        '--output', '-o',
-        type=str,
-        help='Output path for JSON report'
-    )
-    parser.add_argument(
-        '--verbose', '-v',
-        action='store_true',
-        help='Verbose output'
-    )
+    parser.add_argument("--output", "-o", type=str, help="Output path for JSON report")
+    parser.add_argument("--verbose", "-v", action="store_true", help="Verbose output")
 
     args = parser.parse_args()
 
@@ -753,7 +734,7 @@ def main():
 
         if args.output:
             output_path = Path(args.output)
-            with open(output_path, 'w', encoding='utf-8') as f:
+            with open(output_path, "w", encoding="utf-8") as f:
                 json.dump(report, f, indent=2, ensure_ascii=False)
             print(f"\nReport saved to: {output_path}")
 
@@ -768,5 +749,5 @@ def main():
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

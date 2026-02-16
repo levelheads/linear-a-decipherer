@@ -49,20 +49,21 @@ NEGATIVE_EVIDENCE_FILE = DATA_DIR / "negative_evidence_catalog.json"
 
 # Site information
 SITE_CODES = {
-    'HT': {'name': 'Hagia Triada', 'region': 'central', 'dominant': True},
-    'KH': {'name': 'Khania', 'region': 'west', 'dominant': False},
-    'ZA': {'name': 'Zakros', 'region': 'east', 'dominant': False},
-    'PH': {'name': 'Phaistos', 'region': 'central', 'dominant': False},
-    'KN': {'name': 'Knossos', 'region': 'central', 'dominant': False},
-    'MA': {'name': 'Malia', 'region': 'east', 'dominant': False},
-    'TY': {'name': 'Tylissos', 'region': 'central', 'dominant': False},
-    'PK': {'name': 'Palaikastro', 'region': 'east', 'dominant': False},
+    "HT": {"name": "Hagia Triada", "region": "central", "dominant": True},
+    "KH": {"name": "Khania", "region": "west", "dominant": False},
+    "ZA": {"name": "Zakros", "region": "east", "dominant": False},
+    "PH": {"name": "Phaistos", "region": "central", "dominant": False},
+    "KN": {"name": "Knossos", "region": "central", "dominant": False},
+    "MA": {"name": "Malia", "region": "east", "dominant": False},
+    "TY": {"name": "Tylissos", "region": "central", "dominant": False},
+    "PK": {"name": "Palaikastro", "region": "east", "dominant": False},
 }
 
 
 @dataclass
 class SiteDistribution:
     """Distribution of a word across sites."""
+
     word: str
     total_occurrences: int
     site_counts: Dict[str, int]
@@ -74,6 +75,7 @@ class SiteDistribution:
 @dataclass
 class WeightedReading:
     """A reading with regional weight applied."""
+
     word: str
     meaning: str
     raw_confidence: str
@@ -105,13 +107,13 @@ class RegionalWeighting:
     def load_data(self) -> bool:
         """Load corpus and supporting data."""
         try:
-            with open(CORPUS_FILE, 'r', encoding='utf-8') as f:
+            with open(CORPUS_FILE, "r", encoding="utf-8") as f:
                 self.corpus = json.load(f)
 
             if NEGATIVE_EVIDENCE_FILE.exists():
-                with open(NEGATIVE_EVIDENCE_FILE, 'r', encoding='utf-8') as f:
+                with open(NEGATIVE_EVIDENCE_FILE, "r", encoding="utf-8") as f:
                     data = json.load(f)
-                    self.negative_evidence = data.get('absences', [])
+                    self.negative_evidence = data.get("absences", [])
 
             # Calculate site statistics
             self._calculate_site_stats()
@@ -125,7 +127,7 @@ class RegionalWeighting:
 
     def _get_site_code(self, inscription_id: str) -> str:
         """Extract site code from inscription ID."""
-        match = re.match(r'^([A-Z]+)', inscription_id)
+        match = re.match(r"^([A-Z]+)", inscription_id)
         if match:
             code = match.group(1)
             # Normalize variants
@@ -133,13 +135,13 @@ class RegionalWeighting:
                 if code.startswith(canonical):
                     return canonical
             return code
-        return 'UNKNOWN'
+        return "UNKNOWN"
 
     def _calculate_site_stats(self):
         """Calculate inscription counts by site."""
         self.site_stats = Counter()
 
-        for insc_id in self.corpus.get('inscriptions', {}):
+        for insc_id in self.corpus.get("inscriptions", {}):
             site = self._get_site_code(insc_id)
             self.site_stats[site] += 1
 
@@ -151,11 +153,11 @@ class RegionalWeighting:
 
     def _is_valid_word(self, word: str) -> bool:
         """Check if word is valid for analysis."""
-        if not word or word in ['\n', '𐄁', '', '—', '≈']:
+        if not word or word in ["\n", "𐄁", "", "—", "≈"]:
             return False
-        if re.match(r'^[\d\s.¹²³⁴⁵⁶⁷⁸⁹⁰/₀₁₂₃₄₅₆₇₈○◎—|]+$', word):
+        if re.match(r"^[\d\s.¹²³⁴⁵⁶⁷⁸⁹⁰/₀₁₂₃₄₅₆₇₈○◎—|]+$", word):
             return False
-        if word.startswith('𐝫') or word == '𐝫':
+        if word.startswith("𐝫") or word == "𐝫":
             return False
         return True
 
@@ -173,11 +175,11 @@ class RegionalWeighting:
         total = 0
         word_upper = word.upper()
 
-        for insc_id, data in self.corpus.get('inscriptions', {}).items():
-            if '_parse_error' in data:
+        for insc_id, data in self.corpus.get("inscriptions", {}).items():
+            if "_parse_error" in data:
                 continue
 
-            words = data.get('transliteratedWords', [])
+            words = data.get("transliteratedWords", [])
             word_in_insc = any(w.upper() == word_upper for w in words if self._is_valid_word(w))
 
             if word_in_insc:
@@ -186,7 +188,7 @@ class RegionalWeighting:
                 total += 1
 
         # Calculate HT concentration
-        ht_count = site_counts.get('HT', 0)
+        ht_count = site_counts.get("HT", 0)
         ht_concentration = ht_count / total if total > 0 else 0
 
         # Calculate diversity score (Shannon entropy normalized)
@@ -205,7 +207,7 @@ class RegionalWeighting:
             site_counts=dict(site_counts),
             num_sites=num_sites,
             ht_concentration=round(ht_concentration, 3),
-            diversity_score=round(diversity_score, 3)
+            diversity_score=round(diversity_score, 3),
         )
 
     def calculate_regional_weight(self, distribution: SiteDistribution) -> Tuple[float, List[str]]:
@@ -237,7 +239,9 @@ class RegionalWeighting:
         if distribution.ht_concentration > 0.5:
             penalty = (distribution.ht_concentration - 0.5) * 0.5
             weight -= penalty
-            rationale.append(f"HT concentration penalty: -{penalty:.2f} ({distribution.ht_concentration:.1%} at HT)")
+            rationale.append(
+                f"HT concentration penalty: -{penalty:.2f} ({distribution.ht_concentration:.1%} at HT)"
+            )
 
         # Single-site penalty
         if distribution.num_sites == 1:
@@ -248,13 +252,15 @@ class RegionalWeighting:
         # Low diversity penalty
         if distribution.diversity_score < 0.3 and distribution.num_sites > 1:
             weight *= 0.9
-            rationale.append(f"Low diversity penalty: ×0.9 (entropy={distribution.diversity_score:.2f})")
+            rationale.append(
+                f"Low diversity penalty: ×0.9 (entropy={distribution.diversity_score:.2f})"
+            )
 
         # Cross-regional bonus (found in multiple regions)
         regions = set()
         for site in distribution.site_counts:
             if site in SITE_CODES:
-                regions.add(SITE_CODES[site]['region'])
+                regions.add(SITE_CODES[site]["region"])
         if len(regions) >= 2:
             weight += 0.1
             rationale.append(f"Cross-regional bonus: +0.1 (found in {len(regions)} regions)")
@@ -267,7 +273,9 @@ class RegionalWeighting:
 
         return round(weight, 3), rationale
 
-    def calculate_negative_evidence_penalty(self, word: str, hypothesis: str) -> Tuple[float, List[str]]:
+    def calculate_negative_evidence_penalty(
+        self, word: str, hypothesis: str
+    ) -> Tuple[float, List[str]]:
         """
         Calculate penalty based on negative evidence catalog.
 
@@ -282,28 +290,34 @@ class RegionalWeighting:
         rationale = []
 
         for absence in self.negative_evidence:
-            if absence.get('hypothesis', '').lower() != hypothesis.lower():
+            if absence.get("hypothesis", "").lower() != hypothesis.lower():
                 continue
 
             # Check if this absence is relevant to the word
-            if absence.get('falsifies', False) and absence.get('significance') == 'CRITICAL':
+            if absence.get("falsifies", False) and absence.get("significance") == "CRITICAL":
                 # Hypothesis is falsified - major penalty
                 penalty += 0.3
-                rationale.append(f"Critical absence: {absence.get('pattern', 'Unknown')} ({absence.get('id')})")
+                rationale.append(
+                    f"Critical absence: {absence.get('pattern', 'Unknown')} ({absence.get('id')})"
+                )
 
-            elif absence.get('status') == 'CERTAIN':
+            elif absence.get("status") == "CERTAIN":
                 penalty += 0.1
                 rationale.append(f"Certain absence penalty: {absence.get('id')}")
 
-            elif absence.get('status') == 'PROBABLE':
+            elif absence.get("status") == "PROBABLE":
                 penalty += 0.05
                 rationale.append(f"Probable absence penalty: {absence.get('id')}")
 
         return round(min(penalty, 0.5), 3), rationale  # Cap at 0.5
 
-    def weight_reading(self, word: str, meaning: str = "",
-                      raw_confidence: str = "PROBABLE",
-                      hypothesis: str = "luwian") -> WeightedReading:
+    def weight_reading(
+        self,
+        word: str,
+        meaning: str = "",
+        raw_confidence: str = "PROBABLE",
+        hypothesis: str = "luwian",
+    ) -> WeightedReading:
         """
         Apply regional weighting to a reading.
 
@@ -331,7 +345,7 @@ class RegionalWeighting:
             regional_weight=regional_weight,
             negative_evidence_penalty=neg_penalty,
             adjusted_weight=round(adjusted_weight, 3),
-            weight_rationale=all_rationale
+            weight_rationale=all_rationale,
         )
 
     def weight_all_words(self, min_freq: int = 3) -> List[WeightedReading]:
@@ -346,11 +360,11 @@ class RegionalWeighting:
         """
         # Count word frequencies
         word_freq = Counter()
-        for insc_id, data in self.corpus.get('inscriptions', {}).items():
-            if '_parse_error' in data:
+        for insc_id, data in self.corpus.get("inscriptions", {}).items():
+            if "_parse_error" in data:
                 continue
-            for word in data.get('transliteratedWords', []):
-                if self._is_valid_word(word) and '-' in word:
+            for word in data.get("transliteratedWords", []):
+                if self._is_valid_word(word) and "-" in word:
                     word_freq[word.upper()] += 1
 
         # Weight words above threshold
@@ -359,7 +373,9 @@ class RegionalWeighting:
             if freq >= min_freq:
                 weighted = self.weight_reading(word)
                 results.append(weighted)
-                self.log(f"{word}: weight={weighted.adjusted_weight:.2f} ({weighted.site_distribution.num_sites} sites)")
+                self.log(
+                    f"{word}: weight={weighted.adjusted_weight:.2f} ({weighted.site_distribution.num_sites} sites)"
+                )
 
         return results
 
@@ -368,32 +384,32 @@ class RegionalWeighting:
         total = sum(self.site_stats.values())
 
         stats = {
-            'total_inscriptions': total,
-            'sites': {},
-            'dominant_site': None,
-            'dominant_concentration': 0,
-            'regional_distribution': defaultdict(int)
+            "total_inscriptions": total,
+            "sites": {},
+            "dominant_site": None,
+            "dominant_concentration": 0,
+            "regional_distribution": defaultdict(int),
         }
 
         max_count = 0
         for site, count in self.site_stats.items():
             pct = count / total * 100 if total > 0 else 0
-            stats['sites'][site] = {
-                'count': count,
-                'percentage': round(pct, 1),
-                'name': SITE_CODES.get(site, {}).get('name', site),
-                'region': SITE_CODES.get(site, {}).get('region', 'unknown')
+            stats["sites"][site] = {
+                "count": count,
+                "percentage": round(pct, 1),
+                "name": SITE_CODES.get(site, {}).get("name", site),
+                "region": SITE_CODES.get(site, {}).get("region", "unknown"),
             }
 
             if count > max_count:
                 max_count = count
-                stats['dominant_site'] = site
-                stats['dominant_concentration'] = round(pct, 1)
+                stats["dominant_site"] = site
+                stats["dominant_concentration"] = round(pct, 1)
 
             if site in SITE_CODES:
-                stats['regional_distribution'][SITE_CODES[site]['region']] += count
+                stats["regional_distribution"][SITE_CODES[site]["region"]] += count
 
-        stats['regional_distribution'] = dict(stats['regional_distribution'])
+        stats["regional_distribution"] = dict(stats["regional_distribution"])
 
         return stats
 
@@ -404,9 +420,10 @@ class RegionalWeighting:
         print(f"  Meaning: {weighted.meaning or 'Unknown'}")
         print(f"  Raw Confidence: {weighted.raw_confidence}")
         print("\n  Site Distribution:")
-        for site, count in sorted(weighted.site_distribution.site_counts.items(),
-                                  key=lambda x: -x[1]):
-            name = SITE_CODES.get(site, {}).get('name', site)
+        for site, count in sorted(
+            weighted.site_distribution.site_counts.items(), key=lambda x: -x[1]
+        ):
+            name = SITE_CODES.get(site, {}).get("name", site)
             print(f"    {site} ({name}): {count}")
         print(f"\n  Sites: {weighted.site_distribution.num_sites}")
         print(f"  HT Concentration: {weighted.site_distribution.ht_concentration:.1%}")
@@ -431,18 +448,22 @@ class RegionalWeighting:
         print(f"Dominant Site: {stats['dominant_site']} ({stats['dominant_concentration']}%)")
 
         print("\nBy Site:")
-        for site, data in sorted(stats['sites'].items(), key=lambda x: -x[1]['count']):
-            bar = '█' * int(data['percentage'] / 2)
-            print(f"  {site:4} {data['name'][:15]:15} {data['count']:4} ({data['percentage']:5.1f}%) {bar}")
+        for site, data in sorted(stats["sites"].items(), key=lambda x: -x[1]["count"]):
+            bar = "█" * int(data["percentage"] / 2)
+            print(
+                f"  {site:4} {data['name'][:15]:15} {data['count']:4} ({data['percentage']:5.1f}%) {bar}"
+            )
 
         print("\nBy Region:")
-        for region, count in sorted(stats['regional_distribution'].items(), key=lambda x: -x[1]):
-            pct = count / stats['total_inscriptions'] * 100
+        for region, count in sorted(stats["regional_distribution"].items(), key=lambda x: -x[1]):
+            pct = count / stats["total_inscriptions"] * 100
             print(f"  {region:8} {count:4} ({pct:.1f}%)")
 
         print("\n⚠ BIAS WARNING:")
-        if stats['dominant_concentration'] > 50:
-            print(f"  {stats['dominant_site']} accounts for {stats['dominant_concentration']}% of corpus")
+        if stats["dominant_concentration"] > 50:
+            print(
+                f"  {stats['dominant_site']} accounts for {stats['dominant_concentration']}% of corpus"
+            )
             print("  Readings validated primarily at this site may be over-confident")
             print("  Apply regional weighting to adjust confidence scores")
 
@@ -458,75 +479,50 @@ class RegionalWeighting:
         low_weight = [w for w in weighted_readings if w.adjusted_weight < 0.7]
 
         # Words with HT penalty
-        ht_penalized = [w for w in weighted_readings
-                       if w.site_distribution.ht_concentration > 0.5]
+        ht_penalized = [w for w in weighted_readings if w.site_distribution.ht_concentration > 0.5]
 
         # Cross-site validated
-        cross_site = [w for w in weighted_readings
-                     if w.site_distribution.num_sites >= 3]
+        cross_site = [w for w in weighted_readings if w.site_distribution.num_sites >= 3]
 
         report = {
-            'metadata': {
-                'generated': datetime.now().isoformat(),
-                'method': 'Regional Weighting with Negative Evidence',
-                'formula': 'weight = 1.0 + log2(sites)*0.1 - (ht_conc-0.5)*0.5 - neg_penalty',
-                'total_words_analyzed': len(weighted_readings)
+            "metadata": {
+                "generated": datetime.now().isoformat(),
+                "method": "Regional Weighting with Negative Evidence",
+                "formula": "weight = 1.0 + log2(sites)*0.1 - (ht_conc-0.5)*0.5 - neg_penalty",
+                "total_words_analyzed": len(weighted_readings),
             },
-            'site_statistics': site_stats,
-            'weight_distribution': {
-                'high_weight_1.0+': len(high_weight),
-                'moderate_weight_0.7-1.0': len(moderate_weight),
-                'low_weight_under_0.7': len(low_weight)
+            "site_statistics": site_stats,
+            "weight_distribution": {
+                "high_weight_1.0+": len(high_weight),
+                "moderate_weight_0.7-1.0": len(moderate_weight),
+                "low_weight_under_0.7": len(low_weight),
             },
-            'ht_bias_analysis': {
-                'words_with_ht_penalty': len(ht_penalized),
-                'penalized_words': [asdict(w) for w in ht_penalized[:20]]
+            "ht_bias_analysis": {
+                "words_with_ht_penalty": len(ht_penalized),
+                "penalized_words": [asdict(w) for w in ht_penalized[:20]],
             },
-            'cross_site_validated': {
-                'count': len(cross_site),
-                'words': [asdict(w) for w in cross_site[:20]]
+            "cross_site_validated": {
+                "count": len(cross_site),
+                "words": [asdict(w) for w in cross_site[:20]],
             },
-            'all_weights': [asdict(w) for w in weighted_readings]
+            "all_weights": [asdict(w) for w in weighted_readings],
         }
 
         return report
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Calculate regional weights for Linear A readings"
+    parser = argparse.ArgumentParser(description="Calculate regional weights for Linear A readings")
+    parser.add_argument("--word", "-w", type=str, help="Analyze a specific word")
+    parser.add_argument("--all", "-a", action="store_true", help="Weight all words in corpus")
+    parser.add_argument(
+        "--min-freq", "-m", type=int, default=3, help="Minimum frequency for --all (default: 3)"
     )
     parser.add_argument(
-        '--word', '-w',
-        type=str,
-        help='Analyze a specific word'
+        "--site-stats", "-s", action="store_true", help="Show site distribution statistics"
     )
-    parser.add_argument(
-        '--all', '-a',
-        action='store_true',
-        help='Weight all words in corpus'
-    )
-    parser.add_argument(
-        '--min-freq', '-m',
-        type=int,
-        default=3,
-        help='Minimum frequency for --all (default: 3)'
-    )
-    parser.add_argument(
-        '--site-stats', '-s',
-        action='store_true',
-        help='Show site distribution statistics'
-    )
-    parser.add_argument(
-        '--output', '-o',
-        type=str,
-        help='Output path for JSON report'
-    )
-    parser.add_argument(
-        '--verbose', '-v',
-        action='store_true',
-        help='Verbose output'
-    )
+    parser.add_argument("--output", "-o", type=str, help="Output path for JSON report")
+    parser.add_argument("--verbose", "-v", action="store_true", help="Verbose output")
 
     args = parser.parse_args()
 
@@ -563,19 +559,23 @@ def main():
         penalized = sorted(weighted_readings, key=lambda w: w.adjusted_weight)[:10]
         print("\nMost Penalized Words:")
         for w in penalized:
-            print(f"  {w.word}: {w.adjusted_weight:.2f} (HT={w.site_distribution.ht_concentration:.0%})")
+            print(
+                f"  {w.word}: {w.adjusted_weight:.2f} (HT={w.site_distribution.ht_concentration:.0%})"
+            )
 
         # Top cross-site validated
         cross_site = sorted(weighted_readings, key=lambda w: -w.site_distribution.num_sites)[:10]
         print("\nBest Cross-Site Validation:")
         for w in cross_site:
-            sites = ', '.join(w.site_distribution.site_counts.keys())
-            print(f"  {w.word}: {w.adjusted_weight:.2f} ({w.site_distribution.num_sites} sites: {sites})")
+            sites = ", ".join(w.site_distribution.site_counts.keys())
+            print(
+                f"  {w.word}: {w.adjusted_weight:.2f} ({w.site_distribution.num_sites} sites: {sites})"
+            )
 
         if args.output:
             report = system.generate_report(weighted_readings)
             output_path = Path(args.output)
-            with open(output_path, 'w', encoding='utf-8') as f:
+            with open(output_path, "w", encoding="utf-8") as f:
                 json.dump(report, f, indent=2, ensure_ascii=False, default=str)
             print(f"\nReport saved to: {output_path}")
 
@@ -588,5 +588,5 @@ def main():
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

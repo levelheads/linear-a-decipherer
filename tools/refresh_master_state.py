@@ -25,9 +25,7 @@ MASTER_STATE = PROJECT_ROOT / "linear-a-decipherer" / "MASTER_STATE.md"
 CITATION = PROJECT_ROOT / "CITATION.cff"
 
 
-ROW_RE = re.compile(
-    r"^\|\s*(?P<metric>[^|]+?)\s*\|\s*(?P<value>.*?)\s*\|\s*(?P<source>.*?)\s*\|$"
-)
+ROW_RE = re.compile(r"^\|\s*(?P<metric>[^|]+?)\s*\|\s*(?P<value>.*?)\s*\|\s*(?P<source>.*?)\s*\|$")
 
 
 def load_json(path: Path) -> dict[str, Any] | None:
@@ -282,7 +280,7 @@ def main() -> int:
     content2, changed_metrics = apply_metric_updates(content, updates)
     content3, changed_date = update_last_updated(content2)
 
-    changed = (content3 != content)
+    changed = content3 != content
 
     print("=" * 60)
     print("MASTER STATE REFRESH")

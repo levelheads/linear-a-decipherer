@@ -1,0 +1,11 @@
+# Default owner for everything
+* @levelheads
+
+# Methodology and knowledge base
+linear-a-decipherer/METHODOLOGY.md @levelheads
+linear-a-decipherer/MASTER_STATE.md @levelheads
+linear-a-decipherer/KNOWLEDGE.md @levelheads
+
+# Release configuration
+CITATION.cff @levelheads
+GIT_WORKFLOW.md @levelheads

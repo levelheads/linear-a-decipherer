@@ -46,35 +46,37 @@ PARADIGMS_FILE = DATA_DIR / "discovered_paradigms.json"
 
 
 # Vowel classes for alternation detection
-VOWELS = ['A', 'E', 'I', 'O', 'U']
+VOWELS = ["A", "E", "I", "O", "U"]
 VOWEL_ALTERNATIONS = [
-    ('U', 'I'),   # Most common in K-R paradigm
-    ('U', 'A'),   # Possible ablaut
-    ('U', 'E'),   # Possible ablaut
-    ('I', 'A'),   # Possible case marker
-    ('I', 'E'),   # Possible case marker
-    ('A', 'E'),   # Common Semitic pattern
-    ('A', 'I'),   # Common pattern
+    ("U", "I"),  # Most common in K-R paradigm
+    ("U", "A"),  # Possible ablaut
+    ("U", "E"),  # Possible ablaut
+    ("I", "A"),  # Possible case marker
+    ("I", "E"),  # Possible case marker
+    ("A", "E"),  # Common Semitic pattern
+    ("A", "I"),  # Common pattern
 ]
 
 
 @dataclass
 class ParadigmMember:
     """A word that is a member of a paradigm."""
+
     word: str
     frequency: int
-    vowel_pattern: str      # e.g., "U-O" for KU-RO
+    vowel_pattern: str  # e.g., "U-O" for KU-RO
     final_syllable: str
     sites: List[str]
-    contexts: List[str]     # Context types: administrative, religious, etc.
+    contexts: List[str]  # Context types: administrative, religious, etc.
 
 
 @dataclass
 class Paradigm:
     """A discovered morphological paradigm."""
+
     paradigm_id: str
-    root: str               # Consonantal root (e.g., "K-R")
-    root_pattern: str       # Pattern (e.g., "CV-CV")
+    root: str  # Consonantal root (e.g., "K-R")
+    root_pattern: str  # Pattern (e.g., "CV-CV")
     members: List[ParadigmMember]
     total_occurrences: int
 
@@ -87,11 +89,11 @@ class Paradigm:
     function_mapping: Dict[str, str]  # word -> proposed function
 
     # Confidence
-    confidence: str         # HIGH, MEDIUM, LOW
+    confidence: str  # HIGH, MEDIUM, LOW
     evidence_notes: List[str]
 
     # Comparison to K-R
-    kr_similarity: float    # 0-1: how similar to known K-R paradigm
+    kr_similarity: float  # 0-1: how similar to known K-R paradigm
 
 
 class ParadigmDiscoverer:
@@ -113,7 +115,7 @@ class ParadigmDiscoverer:
     def load_corpus(self) -> bool:
         """Load corpus data."""
         try:
-            with open(CORPUS_FILE, 'r', encoding='utf-8') as f:
+            with open(CORPUS_FILE, "r", encoding="utf-8") as f:
                 self.corpus = json.load(f)
 
             self._extract_word_data()
@@ -129,20 +131,20 @@ class ParadigmDiscoverer:
         word_sites = defaultdict(set)
         word_contexts = defaultdict(list)
 
-        for insc_id, data in self.corpus.get('inscriptions', {}).items():
-            if '_parse_error' in data:
+        for insc_id, data in self.corpus.get("inscriptions", {}).items():
+            if "_parse_error" in data:
                 continue
 
-            words = data.get('transliteratedWords', [])
-            site_match = re.match(r'^([A-Z]+)', insc_id)
-            site = site_match.group(1) if site_match else 'UNKNOWN'
+            words = data.get("transliteratedWords", [])
+            site_match = re.match(r"^([A-Z]+)", insc_id)
+            site = site_match.group(1) if site_match else "UNKNOWN"
 
             for i, word in enumerate(words):
-                if not word or '-' not in word:
+                if not word or "-" not in word:
                     continue
 
                 # Skip numerals
-                if re.match(r'^[\d\s.¹²³⁴⁵⁶⁷⁸⁹⁰/₀₁₂₃₄₅₆₇₈○◎—|]+$', word):
+                if re.match(r"^[\d\s.¹²³⁴⁵⁶⁷⁸⁹⁰/₀₁₂₃₄₅₆₇₈○◎—|]+$", word):
                     continue
 
                 word_upper = word.upper()
@@ -150,19 +152,19 @@ class ParadigmDiscoverer:
                 word_sites[word_upper].add(site)
 
                 # Determine context type
-                after = words[i+1:i+3] if i < len(words) - 1 else []
-                if any(w in ['GRA', 'VIN', 'OLE', 'OLIV', 'CYP'] for w in after):
-                    word_contexts[word_upper].append('administrative')
-                elif any(re.match(r'^[\d]+$', w) for w in after):
-                    word_contexts[word_upper].append('counted')
+                after = words[i + 1 : i + 3] if i < len(words) - 1 else []
+                if any(w in ["GRA", "VIN", "OLE", "OLIV", "CYP"] for w in after):
+                    word_contexts[word_upper].append("administrative")
+                elif any(re.match(r"^[\d]+$", w) for w in after):
+                    word_contexts[word_upper].append("counted")
                 else:
-                    word_contexts[word_upper].append('other')
+                    word_contexts[word_upper].append("other")
 
         for word, freq in word_freq.items():
             self.word_data[word] = {
-                'frequency': freq,
-                'sites': list(word_sites[word]),
-                'contexts': word_contexts[word],
+                "frequency": freq,
+                "sites": list(word_sites[word]),
+                "contexts": word_contexts[word],
             }
 
     def extract_consonant_skeleton(self, word: str) -> str:
@@ -172,19 +174,19 @@ class ParadigmDiscoverer:
         KU-RO -> K-R
         SA-RA₂ -> S-R
         """
-        syllables = word.upper().split('-')
+        syllables = word.upper().split("-")
         consonants = []
 
         for syl in syllables:
             # Remove subscripts
-            syl_clean = re.sub(r'[₀₁₂₃₄₅₆₇₈₉]', '', syl)
+            syl_clean = re.sub(r"[₀₁₂₃₄₅₆₇₈₉]", "", syl)
             if syl_clean and syl_clean[0] not in VOWELS:
                 consonants.append(syl_clean[0])
             elif syl_clean and syl_clean[0] in VOWELS:
                 # Pure vowel syllable
-                consonants.append('Ø')
+                consonants.append("Ø")
 
-        return '-'.join(consonants)
+        return "-".join(consonants)
 
     def extract_vowel_pattern(self, word: str) -> str:
         """
@@ -193,20 +195,20 @@ class ParadigmDiscoverer:
         KU-RO -> U-O
         SA-RA₂ -> A-A
         """
-        syllables = word.upper().split('-')
+        syllables = word.upper().split("-")
         vowels = []
 
         for syl in syllables:
-            syl_clean = re.sub(r'[₀₁₂₃₄₅₆₇₈₉]', '', syl)
+            syl_clean = re.sub(r"[₀₁₂₃₄₅₆₇₈₉]", "", syl)
             # Find vowel in syllable
             for char in syl_clean:
                 if char in VOWELS:
                     vowels.append(char)
                     break
             else:
-                vowels.append('?')
+                vowels.append("?")
 
-        return '-'.join(vowels)
+        return "-".join(vowels)
 
     def find_paradigm_candidates(self, min_members: int = 2) -> Dict[str, List[str]]:
         """
@@ -223,8 +225,7 @@ class ParadigmDiscoverer:
 
         # Filter to groups with enough members
         candidates = {
-            skel: words for skel, words in skeleton_groups.items()
-            if len(words) >= min_members
+            skel: words for skel, words in skeleton_groups.items() if len(words) >= min_members
         }
 
         return candidates
@@ -244,17 +245,19 @@ class ParadigmDiscoverer:
 
         for word in words:
             data = self.word_data.get(word, {})
-            freq = data.get('frequency', 0)
+            freq = data.get("frequency", 0)
             total_occ += freq
 
-            members.append(ParadigmMember(
-                word=word,
-                frequency=freq,
-                vowel_pattern=self.extract_vowel_pattern(word),
-                final_syllable=word.split('-')[-1],
-                sites=data.get('sites', []),
-                contexts=data.get('contexts', []),
-            ))
+            members.append(
+                ParadigmMember(
+                    word=word,
+                    frequency=freq,
+                    vowel_pattern=self.extract_vowel_pattern(word),
+                    final_syllable=word.split("-")[-1],
+                    sites=data.get("sites", []),
+                    contexts=data.get("contexts", []),
+                )
+            )
 
         # Sort by frequency
         members.sort(key=lambda m: -m.frequency)
@@ -293,20 +296,20 @@ class ParadigmDiscoverer:
 
     def _get_root_pattern(self, word: str) -> str:
         """Get structural pattern (CV-CV, CV-CVC, etc.)."""
-        syllables = word.upper().split('-')
+        syllables = word.upper().split("-")
         pattern = []
 
         for syl in syllables:
-            syl_clean = re.sub(r'[₀₁₂₃₄₅₆₇₈₉]', '', syl)
-            p = ''
+            syl_clean = re.sub(r"[₀₁₂₃₄₅₆₇₈₉]", "", syl)
+            p = ""
             for char in syl_clean:
                 if char in VOWELS:
-                    p += 'V'
+                    p += "V"
                 else:
-                    p += 'C'
+                    p += "C"
             pattern.append(p)
 
-        return '-'.join(pattern)
+        return "-".join(pattern)
 
     def _detect_vowel_alternations(self, members: List[ParadigmMember]) -> List[Dict]:
         """Detect systematic vowel alternations."""
@@ -319,10 +322,10 @@ class ParadigmDiscoverer:
             return alternations
 
         # Check each vowel position
-        for i in range(len(vowel_patterns[0].split('-'))):
+        for i in range(len(vowel_patterns[0].split("-"))):
             vowels_at_pos = []
             for pattern in vowel_patterns:
-                parts = pattern.split('-')
+                parts = pattern.split("-")
                 if i < len(parts):
                     vowels_at_pos.append(parts[i])
 
@@ -332,17 +335,17 @@ class ParadigmDiscoverer:
                 for v1, v2 in VOWEL_ALTERNATIONS:
                     if v1 in unique_vowels and v2 in unique_vowels:
                         # Find words with each variant
-                        v1_words = [m.word for m in members
-                                   if m.vowel_pattern.split('-')[i] == v1]
-                        v2_words = [m.word for m in members
-                                   if m.vowel_pattern.split('-')[i] == v2]
+                        v1_words = [m.word for m in members if m.vowel_pattern.split("-")[i] == v1]
+                        v2_words = [m.word for m in members if m.vowel_pattern.split("-")[i] == v2]
 
-                        alternations.append({
-                            'position': i,
-                            'alternation': f'{v1}/{v2}',
-                            f'{v1}_forms': v1_words,
-                            f'{v2}_forms': v2_words,
-                        })
+                        alternations.append(
+                            {
+                                "position": i,
+                                "alternation": f"{v1}/{v2}",
+                                f"{v1}_forms": v1_words,
+                                f"{v2}_forms": v2_words,
+                            }
+                        )
 
         return alternations
 
@@ -355,15 +358,19 @@ class ParadigmDiscoverer:
         if len(finals) >= 2:
             for final, count in finals.most_common():
                 words = [m.word for m in members if m.final_syllable == final]
-                alternations.append({
-                    'final': final,
-                    'count': count,
-                    'words': words,
-                })
+                alternations.append(
+                    {
+                        "final": final,
+                        "count": count,
+                        "words": words,
+                    }
+                )
 
         return alternations
 
-    def _analyze_functional_differentiation(self, members: List[ParadigmMember]) -> Tuple[bool, Dict]:
+    def _analyze_functional_differentiation(
+        self, members: List[ParadigmMember]
+    ) -> Tuple[bool, Dict]:
         """Check if different forms have different functions."""
         func_map = {}
 
@@ -385,7 +392,7 @@ class ParadigmDiscoverer:
         members: List[ParadigmMember],
         vowel_alt: List[Dict],
         final_alt: List[Dict],
-        func_diff: bool
+        func_diff: bool,
     ) -> Tuple[str, List[str]]:
         """Calculate confidence level for the paradigm."""
         notes = []
@@ -427,11 +434,11 @@ class ParadigmDiscoverer:
             notes.append(f"Multi-site distribution: {len(all_sites)} sites")
 
         if score >= 5:
-            return 'HIGH', notes
+            return "HIGH", notes
         elif score >= 3:
-            return 'MEDIUM', notes
+            return "MEDIUM", notes
         else:
-            return 'LOW', notes
+            return "LOW", notes
 
     def _compare_to_kr(self, members: List[ParadigmMember], vowel_alt: List[Dict]) -> float:
         """
@@ -443,7 +450,7 @@ class ParadigmDiscoverer:
 
         # K-R has U/I alternation in first syllable
         for alt in vowel_alt:
-            if alt['alternation'] == 'U/I' and alt['position'] == 0:
+            if alt["alternation"] == "U/I" and alt["position"] == 0:
                 sim += 0.4
                 break
 
@@ -453,14 +460,15 @@ class ParadigmDiscoverer:
             sim += 0.2
 
         # K-R appears in administrative context
-        admin_count = sum(1 for m in members
-                         if 'administrative' in m.contexts or 'counted' in m.contexts)
+        admin_count = sum(
+            1 for m in members if "administrative" in m.contexts or "counted" in m.contexts
+        )
         if admin_count >= len(members) * 0.5:
             sim += 0.2
 
         # K-R has CV-CV structure
         for m in members:
-            if len(m.word.split('-')) == 2:
+            if len(m.word.split("-")) == 2:
                 sim += 0.1
                 break
 
@@ -473,7 +481,9 @@ class ParadigmDiscoverer:
 
         return min(1.0, sim)
 
-    def discover_paradigms(self, min_members: int = 2, min_occurrences: int = 5) -> Dict[str, Paradigm]:
+    def discover_paradigms(
+        self, min_members: int = 2, min_occurrences: int = 5
+    ) -> Dict[str, Paradigm]:
         """Discover all paradigms in the corpus."""
         candidates = self.find_paradigm_candidates(min_members)
 
@@ -484,7 +494,9 @@ class ParadigmDiscoverer:
 
             if paradigm and paradigm.total_occurrences >= min_occurrences:
                 self.discovered_paradigms[paradigm.paradigm_id] = paradigm
-                self.log(f"Discovered paradigm: {root} ({len(words)} members, {paradigm.confidence})")
+                self.log(
+                    f"Discovered paradigm: {root} ({len(words)} members, {paradigm.confidence})"
+                )
 
         return self.discovered_paradigms
 
@@ -512,7 +524,7 @@ class ParadigmDiscoverer:
         suffix_words = defaultdict(list)
 
         for word in self.word_data:
-            if word.endswith(f'-{suffix_upper}'):
+            if word.endswith(f"-{suffix_upper}"):
                 root = self.extract_consonant_skeleton(word)
                 suffix_words[root].append(word)
 
@@ -527,28 +539,28 @@ class ParadigmDiscoverer:
         paradigms_data = {}
         for pid, p in self.discovered_paradigms.items():
             paradigms_data[pid] = {
-                'paradigm_id': p.paradigm_id,
-                'root': p.root,
-                'root_pattern': p.root_pattern,
-                'members': [asdict(m) for m in p.members],
-                'total_occurrences': p.total_occurrences,
-                'vowel_alternations': p.vowel_alternations,
-                'final_alternations': p.final_alternations,
-                'functional_differentiation': p.functional_differentiation,
-                'function_mapping': p.function_mapping,
-                'confidence': p.confidence,
-                'evidence_notes': p.evidence_notes,
-                'kr_similarity': p.kr_similarity,
+                "paradigm_id": p.paradigm_id,
+                "root": p.root,
+                "root_pattern": p.root_pattern,
+                "members": [asdict(m) for m in p.members],
+                "total_occurrences": p.total_occurrences,
+                "vowel_alternations": p.vowel_alternations,
+                "final_alternations": p.final_alternations,
+                "functional_differentiation": p.functional_differentiation,
+                "function_mapping": p.function_mapping,
+                "confidence": p.confidence,
+                "evidence_notes": p.evidence_notes,
+                "kr_similarity": p.kr_similarity,
             }
 
         data = {
-            'generated': datetime.now().isoformat(),
-            'total_paradigms': len(self.discovered_paradigms),
-            'paradigms': paradigms_data,
+            "generated": datetime.now().isoformat(),
+            "total_paradigms": len(self.discovered_paradigms),
+            "paradigms": paradigms_data,
         }
 
         output_path.parent.mkdir(parents=True, exist_ok=True)
-        with open(output_path, 'w', encoding='utf-8') as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
 
         print(f"Results saved to: {output_path}")
@@ -566,7 +578,9 @@ class ParadigmDiscoverer:
 
         print(f"\nMembers ({len(paradigm.members)}):")
         for m in paradigm.members:
-            print(f"  {m.word:15} freq={m.frequency:3} vowels={m.vowel_pattern:5} sites={','.join(m.sites[:3])}")
+            print(
+                f"  {m.word:15} freq={m.frequency:3} vowels={m.vowel_pattern:5} sites={','.join(m.sites[:3])}"
+            )
 
         print(f"\nTotal occurrences: {paradigm.total_occurrences}")
 
@@ -575,7 +589,7 @@ class ParadigmDiscoverer:
             for alt in paradigm.vowel_alternations:
                 print(f"  Position {alt['position']}: {alt['alternation']}")
                 for key, val in alt.items():
-                    if key.endswith('_forms'):
+                    if key.endswith("_forms"):
                         print(f"    {key}: {', '.join(val)}")
 
         if paradigm.final_alternations:
@@ -596,46 +610,22 @@ class ParadigmDiscoverer:
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Discover morphological paradigms in Linear A"
+    parser = argparse.ArgumentParser(description="Discover morphological paradigms in Linear A")
+    parser.add_argument("--discover", action="store_true", help="Discover all paradigms in corpus")
+    parser.add_argument(
+        "--root", "-r", type=str, help="Analyze a specific root (e.g., K-R, S-R, T-N)"
     )
     parser.add_argument(
-        '--discover',
-        action='store_true',
-        help='Discover all paradigms in corpus'
+        "--suffix", "-s", type=str, help="Analyze distribution of a suffix (e.g., JA, TE, TI)"
     )
     parser.add_argument(
-        '--root', '-r',
-        type=str,
-        help='Analyze a specific root (e.g., K-R, S-R, T-N)'
+        "--min-members", type=int, default=2, help="Minimum members for paradigm (default: 2)"
     )
     parser.add_argument(
-        '--suffix', '-s',
-        type=str,
-        help='Analyze distribution of a suffix (e.g., JA, TE, TI)'
+        "--min-occurrences", type=int, default=5, help="Minimum total occurrences (default: 5)"
     )
-    parser.add_argument(
-        '--min-members',
-        type=int,
-        default=2,
-        help='Minimum members for paradigm (default: 2)'
-    )
-    parser.add_argument(
-        '--min-occurrences',
-        type=int,
-        default=5,
-        help='Minimum total occurrences (default: 5)'
-    )
-    parser.add_argument(
-        '--output', '-o',
-        type=str,
-        help='Output file for results'
-    )
-    parser.add_argument(
-        '--verbose', '-v',
-        action='store_true',
-        help='Show detailed output'
-    )
+    parser.add_argument("--output", "-o", type=str, help="Output file for results")
+    parser.add_argument("--verbose", "-v", action="store_true", help="Show detailed output")
 
     args = parser.parse_args()
 
@@ -651,8 +641,7 @@ def main():
 
     if args.discover:
         paradigms = discoverer.discover_paradigms(
-            min_members=args.min_members,
-            min_occurrences=args.min_occurrences
+            min_members=args.min_members, min_occurrences=args.min_occurrences
         )
 
         print(f"\nDiscovered {len(paradigms)} paradigms")
@@ -660,13 +649,13 @@ def main():
         # Sort by confidence and occurrence
         sorted_paradigms = sorted(
             paradigms.values(),
-            key=lambda p: (p.confidence == 'HIGH', p.confidence == 'MEDIUM', p.total_occurrences),
-            reverse=True
+            key=lambda p: (p.confidence == "HIGH", p.confidence == "MEDIUM", p.total_occurrences),
+            reverse=True,
         )
 
         print("\nTop paradigms:")
         for p in sorted_paradigms[:10]:
-            members = ', '.join(m.word for m in p.members[:4])
+            members = ", ".join(m.word for m in p.members[:4])
             print(f"  {p.root}: {p.confidence} ({p.total_occurrences} occ) - {members}")
 
         # Save results
@@ -697,5 +686,5 @@ def main():
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

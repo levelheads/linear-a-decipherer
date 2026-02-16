@@ -51,9 +51,11 @@ INDEX_PATH = PROJECT_ROOT / "linear-a-decipherer" / "ANALYSIS_INDEX.md"
 # DATA STRUCTURES
 # ============================================================================
 
+
 @dataclass
 class AnalysisEntry:
     """Represents a single inscription analysis entry."""
+
     inscription_id: str
     site: str
     status: str
@@ -77,26 +79,26 @@ class AnalysisEntry:
 # ============================================================================
 
 SITE_CODES = {
-    'HT': 'Hagia Triada',
-    'KH': 'Khania',
-    'ZA': 'Zakros',
-    'PH': 'Phaistos',
-    'KN': 'Knossos',
-    'IO': 'Iouktas',
-    'TY': 'Tylissos',
-    'MA': 'Malia',
-    'PL': 'Platanos',
-    'PS': 'Psychro',
-    'TL': 'Troullos',
-    'PK': 'Palaikastro',
-    'AP': 'Apodoulou',
-    'AR': 'Archanes',
-    'KA': 'Kato Syme',
-    'MY': 'Mykenaean',
-    'PE': 'Petsophas',
-    'PR': 'Prasa',
-    'SY': 'Syme',
-    'VR': 'Vrysinas',
+    "HT": "Hagia Triada",
+    "KH": "Khania",
+    "ZA": "Zakros",
+    "PH": "Phaistos",
+    "KN": "Knossos",
+    "IO": "Iouktas",
+    "TY": "Tylissos",
+    "MA": "Malia",
+    "PL": "Platanos",
+    "PS": "Psychro",
+    "TL": "Troullos",
+    "PK": "Palaikastro",
+    "AP": "Apodoulou",
+    "AR": "Archanes",
+    "KA": "Kato Syme",
+    "MY": "Mykenaean",
+    "PE": "Petsophas",
+    "PR": "Prasa",
+    "SY": "Syme",
+    "VR": "Vrysinas",
 }
 
 
@@ -107,44 +109,45 @@ SITE_CODES = {
 # Inscription ID patterns - ORDER MATTERS (more specific patterns first)
 INSCRIPTION_ID_PATTERNS = [
     # Peak sanctuary format: IO Za 2, PS Za 2 (must come before standard format)
-    (r'\b([A-Z]{2})\s+Za\s+(\d+)\b', 'za'),
+    (r"\b([A-Z]{2})\s+Za\s+(\d+)\b", "za"),
     # Scepter format: KN Zf 2
-    (r'\b([A-Z]{2})\s+Zf\s+(\d+)\b', 'zf'),
+    (r"\b([A-Z]{2})\s+Zf\s+(\d+)\b", "zf"),
     # With parenthetical: PH(?)31a/b
-    (r'\b([A-Z]{2})\(\?\)(\d+[a-z]?(?:/[a-z])?)\b', 'standard'),
+    (r"\b([A-Z]{2})\(\?\)(\d+[a-z]?(?:/[a-z])?)\b", "standard"),
     # Combined format in titles: HT 94 / HT 117
-    (r'\b([A-Z]{2})\s+(\d+)\s*/\s*[A-Z]{2}\s+\d+', 'standard'),
+    (r"\b([A-Z]{2})\s+(\d+)\s*/\s*[A-Z]{2}\s+\d+", "standard"),
     # Range format: KH 5 and KH 88
-    (r'\b([A-Z]{2})\s+(\d+)\s+and\s+[A-Z]{2}\s+\d+', 'standard'),
+    (r"\b([A-Z]{2})\s+(\d+)\s+and\s+[A-Z]{2}\s+\d+", "standard"),
     # Standard format: HT 85, KH 11, ZA 4 (comes last as fallback)
     # Exclude Za/Zf/Zg patterns to avoid false matches
-    (r'\b([A-Z]{2})\s+(\d+[a-z]?(?:/[a-z])?)\b', 'standard'),
+    (r"\b([A-Z]{2})\s+(\d+[a-z]?(?:/[a-z])?)\b", "standard"),
 ]
 
 # Status patterns
 STATUS_PATTERNS = [
-    r'\*\*Status\*\*:\s*([A-Z_]+)',
-    r'Status:\s*([A-Z_]+)',
-    r'\bStatus\b[:\s]+([A-Z_]+)',
+    r"\*\*Status\*\*:\s*([A-Z_]+)",
+    r"Status:\s*([A-Z_]+)",
+    r"\bStatus\b[:\s]+([A-Z_]+)",
 ]
 
 # Confidence patterns
 CONFIDENCE_PATTERNS = [
-    r'\*\*Confidence\*\*:\s*([A-Z]+)',
-    r'Confidence:\s*([A-Z]+)',
-    r'\bConfidence\b[:\s]+([A-Z]+)',
+    r"\*\*Confidence\*\*:\s*([A-Z]+)",
+    r"Confidence:\s*([A-Z]+)",
+    r"\bConfidence\b[:\s]+([A-Z]+)",
 ]
 
 # Date patterns
 DATE_PATTERNS = [
-    r'\*\*Date\*\*:\s*(\d{4}-\d{2}-\d{2})',
-    r'Date:\s*(\d{4}-\d{2}-\d{2})',
+    r"\*\*Date\*\*:\s*(\d{4}-\d{2}-\d{2})",
+    r"Date:\s*(\d{4}-\d{2}-\d{2})",
 ]
 
 
 # ============================================================================
 # PARSER
 # ============================================================================
+
 
 class AnalysisFileParser:
     """
@@ -168,7 +171,7 @@ class AnalysisFileParser:
         self.log(f"Parsing: {file_path.name}")
 
         try:
-            content = file_path.read_text(encoding='utf-8')
+            content = file_path.read_text(encoding="utf-8")
         except Exception as e:
             self.log(f"Error reading file: {e}")
             return []
@@ -220,7 +223,7 @@ class AnalysisFileParser:
         ids = set()
 
         # Skip tracking/overview files that list many inscriptions
-        skip_patterns = ['TRACKING', 'OVERVIEW', 'INDEX', 'AUDIT', 'SYNTHESIS']
+        skip_patterns = ["TRACKING", "OVERVIEW", "INDEX", "AUDIT", "SYNTHESIS"]
         if any(pat in filename.upper() for pat in skip_patterns):
             self.log(f"Skipping tracking/overview file: {filename}")
             return []
@@ -233,13 +236,13 @@ class AnalysisFileParser:
                 number = match.group(2)
 
                 # Skip if this looks like a Za/Zf prefix that should be handled specially
-                if pattern_type == 'standard' and site_code in ['ZA', 'ZF', 'ZG']:
+                if pattern_type == "standard" and site_code in ["ZA", "ZF", "ZG"]:
                     # Check if this is actually part of a Za/Zf pattern
                     continue
 
-                if pattern_type == 'za':
+                if pattern_type == "za":
                     insc_id = f"{site_code} Za {number}"
-                elif pattern_type == 'zf':
+                elif pattern_type == "zf":
                     insc_id = f"{site_code} Zf {number}"
                 else:
                     insc_id = f"{site_code} {number}"
@@ -247,7 +250,7 @@ class AnalysisFileParser:
                 ids.add(insc_id)
 
         # Check title/header (first few lines)
-        header_lines = '\n'.join(content.split('\n')[:20])
+        header_lines = "\n".join(content.split("\n")[:20])
 
         for pattern, pattern_type in INSCRIPTION_ID_PATTERNS:
             for match in re.finditer(pattern, header_lines, re.IGNORECASE):
@@ -255,13 +258,13 @@ class AnalysisFileParser:
                 number = match.group(2)
 
                 # Handle special cases
-                if pattern_type == 'za':
+                if pattern_type == "za":
                     insc_id = f"{site_code} Za {number}"
-                elif pattern_type == 'zf':
+                elif pattern_type == "zf":
                     insc_id = f"{site_code} Zf {number}"
                 else:
                     # Skip standalone ZA/ZF/ZG if they should be prefixes
-                    if site_code in ['ZA', 'ZF', 'ZG'] and pattern_type == 'standard':
+                    if site_code in ["ZA", "ZF", "ZG"] and pattern_type == "standard":
                         continue
                     insc_id = f"{site_code} {number}"
 
@@ -269,8 +272,8 @@ class AnalysisFileParser:
 
         # Special handling for combined analyses (multiple tablets)
         combined_patterns = [
-            r'([A-Z]{2})\s+(\d+[a-z]?)\s+and\s+([A-Z]{2})\s+(\d+[a-z]?)',
-            r'([A-Z]{2})\s+(\d+[a-z]?),\s*([A-Z]{2})\s+(\d+[a-z]?)',
+            r"([A-Z]{2})\s+(\d+[a-z]?)\s+and\s+([A-Z]{2})\s+(\d+[a-z]?)",
+            r"([A-Z]{2})\s+(\d+[a-z]?),\s*([A-Z]{2})\s+(\d+[a-z]?)",
         ]
         for pattern in combined_patterns:
             for match in re.finditer(pattern, header_lines, re.IGNORECASE):
@@ -281,12 +284,12 @@ class AnalysisFileParser:
         processed_ids = set()
         for insc_id in ids:
             # If we have "HT 94" but content mentions "HT 94a" and "HT 94b"
-            base = insc_id.rstrip('ab/')
+            base = insc_id.rstrip("ab/")
             if base != insc_id:
                 processed_ids.add(insc_id)
-            elif re.search(rf'{re.escape(base)}[ab]', content):
+            elif re.search(rf"{re.escape(base)}[ab]", content):
                 # Check if explicit a/b sides are discussed
-                if f'{base}a' in content and f'{base}b' in content:
+                if f"{base}a" in content and f"{base}b" in content:
                     processed_ids.add(f"{base}a/b")
                 else:
                     processed_ids.add(insc_id)
@@ -302,24 +305,24 @@ class AnalysisFileParser:
             if match:
                 status = match.group(1).upper()
                 # Normalize status values
-                if status in ['COMPLETE', 'COMPLETED', 'DONE']:
-                    return 'Complete'
-                elif status in ['PARTIAL', 'IN_PROGRESS', 'WIP', 'IN', 'PROGRESS']:
-                    return 'Partial'
-                elif status in ['PENDING', 'TODO']:
-                    return 'Pending'
-                elif status in ['ACTIVE']:
-                    return 'Active'
+                if status in ["COMPLETE", "COMPLETED", "DONE"]:
+                    return "Complete"
+                elif status in ["PARTIAL", "IN_PROGRESS", "WIP", "IN", "PROGRESS"]:
+                    return "Partial"
+                elif status in ["PENDING", "TODO"]:
+                    return "Pending"
+                elif status in ["ACTIVE"]:
+                    return "Active"
                 return status.capitalize()
 
         # Check for status-like keywords in content
-        if 'Status: COMPLETE' in content or '**Status**: COMPLETE' in content:
-            return 'Complete'
-        if 'IN PROGRESS' in content.upper() or 'IN_PROGRESS' in content.upper():
-            return 'Partial'
+        if "Status: COMPLETE" in content or "**Status**: COMPLETE" in content:
+            return "Complete"
+        if "IN PROGRESS" in content.upper() or "IN_PROGRESS" in content.upper():
+            return "Partial"
 
         # Default
-        return 'Unknown'
+        return "Unknown"
 
     def _extract_confidence(self, content: str) -> str:
         """Extract confidence level from content."""
@@ -328,26 +331,34 @@ class AnalysisFileParser:
             if match:
                 conf = match.group(1).upper()
                 # Validate it's a real confidence level
-                valid_levels = ['CERTAIN', 'HIGH', 'PROBABLE', 'MEDIUM', 'POSSIBLE', 'LOW', 'SPECULATIVE']
+                valid_levels = [
+                    "CERTAIN",
+                    "HIGH",
+                    "PROBABLE",
+                    "MEDIUM",
+                    "POSSIBLE",
+                    "LOW",
+                    "SPECULATIVE",
+                ]
                 if conf in valid_levels:
                     return conf
 
         # Try to infer from content (look for explicit mentions)
         content_upper = content.upper()
-        if 'CONFIDENCE**: HIGH' in content or 'CONFIDENCE: HIGH' in content_upper:
-            return 'HIGH'
-        elif 'CONFIDENCE**: CERTAIN' in content or 'CONFIDENCE: CERTAIN' in content_upper:
-            return 'CERTAIN'
-        elif 'VERIFIED' in content_upper or 'EXACT MATCH' in content_upper:
-            return 'HIGH'
-        elif 'PROBABLE' in content_upper and 'CONFIDENCE' in content_upper:
-            return 'PROBABLE'
-        elif 'POSSIBLE' in content_upper and 'CONFIDENCE' in content_upper:
-            return 'POSSIBLE'
-        elif 'SPECULATIVE' in content_upper:
-            return 'SPECULATIVE'
+        if "CONFIDENCE**: HIGH" in content or "CONFIDENCE: HIGH" in content_upper:
+            return "HIGH"
+        elif "CONFIDENCE**: CERTAIN" in content or "CONFIDENCE: CERTAIN" in content_upper:
+            return "CERTAIN"
+        elif "VERIFIED" in content_upper or "EXACT MATCH" in content_upper:
+            return "HIGH"
+        elif "PROBABLE" in content_upper and "CONFIDENCE" in content_upper:
+            return "PROBABLE"
+        elif "POSSIBLE" in content_upper and "CONFIDENCE" in content_upper:
+            return "POSSIBLE"
+        elif "SPECULATIVE" in content_upper:
+            return "SPECULATIVE"
 
-        return 'MEDIUM'
+        return "MEDIUM"
 
     def _extract_date(self, content: str, file_path: Path) -> str:
         """Extract analysis date from content or file modification time."""
@@ -359,26 +370,26 @@ class AnalysisFileParser:
         # Fallback to file modification date
         try:
             mtime = file_path.stat().st_mtime
-            return datetime.fromtimestamp(mtime).strftime('%Y-%m-%d')
+            return datetime.fromtimestamp(mtime).strftime("%Y-%m-%d")
         except Exception:
-            return datetime.now().strftime('%Y-%m-%d')
+            return datetime.now().strftime("%Y-%m-%d")
 
     def _extract_site(self, inscription_id: str, content: str) -> str:
         """Extract site name from inscription ID or content."""
         # Parse site code from inscription ID
-        match = re.match(r'([A-Z]{2})', inscription_id)
+        match = re.match(r"([A-Z]{2})", inscription_id)
         if match:
             code = match.group(1)
             if code in SITE_CODES:
                 return SITE_CODES[code]
 
         # Try to find explicit site mention in content
-        site_pattern = r'\|\s*Site\s*\|\s*([^|]+)\s*\|'
+        site_pattern = r"\|\s*Site\s*\|\s*([^|]+)\s*\|"
         match = re.search(site_pattern, content, re.IGNORECASE)
         if match:
             return match.group(1).strip()
 
-        return 'Unknown'
+        return "Unknown"
 
     def _extract_key_findings(self, content: str) -> List[str]:
         """Extract key findings section from content."""
@@ -386,9 +397,9 @@ class AnalysisFileParser:
 
         # Look for Key Finding(s) section
         key_finding_patterns = [
-            r'##\s*\d*\.?\s*Key\s+Findings?\s*\n(.*?)(?=\n##|\n---|\Z)',
-            r'\*\*Key\s+Findings?\*\*:?\s*(.*?)(?=\n\n|\n##|\Z)',
-            r'###\s*\d*\.?\s*Key\s+Findings?\s*\n(.*?)(?=\n##|\n---|\Z)',
+            r"##\s*\d*\.?\s*Key\s+Findings?\s*\n(.*?)(?=\n##|\n---|\Z)",
+            r"\*\*Key\s+Findings?\*\*:?\s*(.*?)(?=\n\n|\n##|\Z)",
+            r"###\s*\d*\.?\s*Key\s+Findings?\s*\n(.*?)(?=\n##|\n---|\Z)",
         ]
 
         for pattern in key_finding_patterns:
@@ -396,38 +407,39 @@ class AnalysisFileParser:
             if match:
                 section = match.group(1).strip()
                 # Extract bullet points or numbered items
-                items = re.findall(r'^\s*[-*\d.]+\s*\*?\*?(.+?)(?:\*\*)?$', section, re.MULTILINE)
+                items = re.findall(r"^\s*[-*\d.]+\s*\*?\*?(.+?)(?:\*\*)?$", section, re.MULTILINE)
                 if items:
                     # Clean up the items
                     cleaned = []
                     for item in items:
                         # Remove markdown formatting and leading colons
-                        clean = re.sub(r'\*\*', '', item).strip()
-                        clean = re.sub(r'^[:\s]+', '', clean)
+                        clean = re.sub(r"\*\*", "", item).strip()
+                        clean = re.sub(r"^[:\s]+", "", clean)
                         if clean and len(clean) > 10:
                             cleaned.append(clean)
                     findings.extend(cleaned[:5])
                 elif section:
                     # Take first sentence if no bullets
-                    first_sentence = section.split('.')[0].strip()
-                    first_sentence = re.sub(r'\*\*', '', first_sentence)
+                    first_sentence = section.split(".")[0].strip()
+                    first_sentence = re.sub(r"\*\*", "", first_sentence)
                     if first_sentence and len(first_sentence) > 10:
                         findings.append(first_sentence)
                 break
 
         # Also check Executive Summary
         exec_summary_match = re.search(
-            r'##\s*Executive\s+Summary\s*\n(.*?)(?=\n##|\n---|\Z)',
-            content, re.DOTALL | re.IGNORECASE
+            r"##\s*Executive\s+Summary\s*\n(.*?)(?=\n##|\n---|\Z)",
+            content,
+            re.DOTALL | re.IGNORECASE,
         )
         if exec_summary_match and not findings:
             summary = exec_summary_match.group(1).strip()
-            items = re.findall(r'^\s*[-*\d.]+\s*\*?\*?(.+?)(?:\*\*)?$', summary, re.MULTILINE)
+            items = re.findall(r"^\s*[-*\d.]+\s*\*?\*?(.+?)(?:\*\*)?$", summary, re.MULTILINE)
             if items:
                 cleaned = []
                 for item in items:
-                    clean = re.sub(r'\*\*', '', item).strip()
-                    clean = re.sub(r'^[:\s]+', '', clean)
+                    clean = re.sub(r"\*\*", "", item).strip()
+                    clean = re.sub(r"^[:\s]+", "", clean)
                     if clean and len(clean) > 10:
                         cleaned.append(clean)
                 findings.extend(cleaned[:3])
@@ -439,7 +451,7 @@ class AnalysisFileParser:
     ) -> str:
         """Find key finding specific to an inscription."""
         # First check if any finding mentions this specific inscription
-        insc_base = inscription_id.replace(' ', r'[\s-]?')
+        insc_base = inscription_id.replace(" ", r"[\s-]?")
         for finding in findings:
             if re.search(insc_base, finding, re.IGNORECASE):
                 return finding.strip()
@@ -449,46 +461,52 @@ class AnalysisFileParser:
             return findings[0].strip()
 
         # Try to extract from Analysis Registry if present
-        registry_pattern = rf'\|\s*{re.escape(inscription_id)}\s*\|[^|]*\|[^|]*\|([^|]+)\|'
+        registry_pattern = rf"\|\s*{re.escape(inscription_id)}\s*\|[^|]*\|[^|]*\|([^|]+)\|"
         match = re.search(registry_pattern, content)
         if match:
             finding = match.group(1).strip()
-            finding = re.sub(r'\*\*', '', finding)
+            finding = re.sub(r"\*\*", "", finding)
             return finding
 
         # Look for verification/confirmation patterns
         verify_patterns = [
-            r'VERIFIED[:\s]+(.{20,100})',
-            r'CONFIRMED[:\s]+(.{20,100})',
-            r'confirms?[:\s]+(.{20,100})',
+            r"VERIFIED[:\s]+(.{20,100})",
+            r"CONFIRMED[:\s]+(.{20,100})",
+            r"confirms?[:\s]+(.{20,100})",
         ]
         for pattern in verify_patterns:
             match = re.search(pattern, content, re.IGNORECASE)
             if match:
                 finding = match.group(1).strip()
-                finding = re.sub(r'\*\*', '', finding)
-                return finding.split('.')[0] + '.'
+                finding = re.sub(r"\*\*", "", finding)
+                return finding.split(".")[0] + "."
 
         # Fallback to first meaningful sentence after the header
-        lines = content.split('\n')
+        lines = content.split("\n")
         for line in lines[3:30]:  # Skip title, look in early content
             line = line.strip()
             # Skip headers, tables, metadata
-            if len(line) > 40 and not line.startswith('#') and not line.startswith('|') \
-               and not line.startswith('**') and not line.startswith('---'):
+            if (
+                len(line) > 40
+                and not line.startswith("#")
+                and not line.startswith("|")
+                and not line.startswith("**")
+                and not line.startswith("---")
+            ):
                 # Clean up
-                clean = re.sub(r'\*\*', '', line)
-                clean = re.sub(r'\[.*?\]\(.*?\)', '', clean)  # Remove links
+                clean = re.sub(r"\*\*", "", line)
+                clean = re.sub(r"\[.*?\]\(.*?\)", "", clean)  # Remove links
                 clean = clean.strip()
                 if len(clean) > 30:
-                    return clean[:100] + ('...' if len(clean) > 100 else '')
+                    return clean[:100] + ("..." if len(clean) > 100 else "")
 
-        return 'Analysis documented'
+        return "Analysis documented"
 
 
 # ============================================================================
 # INDEX GENERATOR
 # ============================================================================
+
 
 class IndexGenerator:
     """
@@ -513,15 +531,15 @@ class IndexGenerator:
 
         # Sort by site, then by inscription number
         def sort_key(e):
-            match = re.match(r'([A-Z]+)\s*(.+)', e.inscription_id)
+            match = re.match(r"([A-Z]+)\s*(.+)", e.inscription_id)
             if match:
                 site = match.group(1)
                 num_part = match.group(2)
                 # Extract leading number for sorting
-                num_match = re.match(r'(\d+)', num_part)
+                num_match = re.match(r"(\d+)", num_part)
                 num = int(num_match.group(1)) if num_match else 999
                 return (site, num, num_part)
-            return (e.inscription_id, 0, '')
+            return (e.inscription_id, 0, "")
 
         sorted_entries = sorted(self.entries, key=sort_key)
 
@@ -533,11 +551,11 @@ class IndexGenerator:
         for entry in sorted_entries:
             lines.append(entry.to_table_row())
 
-        return '\n'.join(lines)
+        return "\n".join(lines)
 
     def generate_full_index(self) -> str:
         """Generate complete ANALYSIS_INDEX.md content."""
-        now = datetime.now().strftime('%Y-%m-%d')
+        now = datetime.now().strftime("%Y-%m-%d")
 
         content = f"""# Analysis Index
 
@@ -563,9 +581,9 @@ class IndexGenerator:
 | Metric | Count |
 |--------|-------|
 | Total inscriptions analyzed | {len(self.entries)} |
-| Complete analyses | {sum(1 for e in self.entries if e.status == 'Complete')} |
-| Partial analyses | {sum(1 for e in self.entries if e.status == 'Partial')} |
-| Pending analyses | {sum(1 for e in self.entries if e.status == 'Pending')} |
+| Complete analyses | {sum(1 for e in self.entries if e.status == "Complete")} |
+| Partial analyses | {sum(1 for e in self.entries if e.status == "Partial")} |
+| Pending analyses | {sum(1 for e in self.entries if e.status == "Pending")} |
 
 ### By Site
 
@@ -599,7 +617,7 @@ class IndexGenerator:
         for site, count in sorted(site_counts.items(), key=lambda x: -x[1]):
             lines.append(f"| {site} | {count} |")
 
-        return '\n'.join(lines)
+        return "\n".join(lines)
 
     def _generate_confidence_stats(self) -> str:
         """Generate confidence level statistics."""
@@ -608,17 +626,18 @@ class IndexGenerator:
             conf_counts[entry.confidence] = conf_counts.get(entry.confidence, 0) + 1
 
         lines = ["| Confidence | Count |", "|------------|-------|"]
-        order = ['CERTAIN', 'HIGH', 'PROBABLE', 'POSSIBLE', 'MEDIUM', 'SPECULATIVE', 'Unknown']
+        order = ["CERTAIN", "HIGH", "PROBABLE", "POSSIBLE", "MEDIUM", "SPECULATIVE", "Unknown"]
         for conf in order:
             if conf in conf_counts:
                 lines.append(f"| {conf} | {conf_counts[conf]} |")
 
-        return '\n'.join(lines)
+        return "\n".join(lines)
 
 
 # ============================================================================
 # MAIN SCANNER
 # ============================================================================
+
 
 class IndexScanner:
     """
@@ -649,12 +668,12 @@ class IndexScanner:
             self.log(f"Scanning: {directory}")
 
             # Find all markdown files recursively
-            md_files = list(directory.glob('**/*.md'))
+            md_files = list(directory.glob("**/*.md"))
             self.log(f"Found {len(md_files)} markdown files")
 
             for md_file in md_files:
                 # Skip index files themselves
-                if 'INDEX' in md_file.name.upper():
+                if "INDEX" in md_file.name.upper():
                     continue
 
                 entries = self.parser.parse_file(md_file)
@@ -693,16 +712,16 @@ class IndexScanner:
         # Output
         if json_output:
             output = {
-                'generated': datetime.now().isoformat(),
-                'entries': [asdict(e) for e in self.generator.entries],
-                'statistics': {
-                    'total': len(self.generator.entries),
-                    'complete': sum(1 for e in self.generator.entries if e.status == 'Complete'),
-                }
+                "generated": datetime.now().isoformat(),
+                "entries": [asdict(e) for e in self.generator.entries],
+                "statistics": {
+                    "total": len(self.generator.entries),
+                    "complete": sum(1 for e in self.generator.entries if e.status == "Complete"),
+                },
             }
             # Remove file_path from JSON output (not serializable)
-            for entry in output['entries']:
-                entry.pop('file_path', None)
+            for entry in output["entries"]:
+                entry.pop("file_path", None)
             print(json.dumps(output, indent=2, ensure_ascii=False))
             return 0
         else:
@@ -714,7 +733,7 @@ class IndexScanner:
                 INDEX_PATH.parent.mkdir(parents=True, exist_ok=True)
 
                 # Write to file
-                INDEX_PATH.write_text(content, encoding='utf-8')
+                INDEX_PATH.write_text(content, encoding="utf-8")
                 print(f"\nIndex written to: {INDEX_PATH}")
             else:
                 # Preview mode
@@ -746,24 +765,22 @@ class IndexScanner:
 # CLI
 # ============================================================================
 
+
 def main():
     parser = argparse.ArgumentParser(
-        description='Auto-update ANALYSIS_INDEX.md from analysis files'
+        description="Auto-update ANALYSIS_INDEX.md from analysis files"
     )
     parser.add_argument(
-        '--write', '-w',
-        action='store_true',
-        help='Write changes to ANALYSIS_INDEX.md (default: preview only)'
+        "--write",
+        "-w",
+        action="store_true",
+        help="Write changes to ANALYSIS_INDEX.md (default: preview only)",
     )
     parser.add_argument(
-        '--json', '-j',
-        action='store_true',
-        help='Output as JSON instead of markdown'
+        "--json", "-j", action="store_true", help="Output as JSON instead of markdown"
     )
     parser.add_argument(
-        '--verbose', '-v',
-        action='store_true',
-        help='Show detailed parsing information'
+        "--verbose", "-v", action="store_true", help="Show detailed parsing information"
     )
 
     args = parser.parse_args()
@@ -772,5 +789,5 @@ def main():
     return scanner.run(write=args.write, json_output=args.json)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

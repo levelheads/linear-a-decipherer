@@ -31,34 +31,29 @@ PROJECT_ROOT = Path(__file__).parent.parent
 
 def run_git(args: List[str], capture=True) -> Tuple[int, str, str]:
     """Run a git command and return (returncode, stdout, stderr)."""
-    result = subprocess.run(
-        ['git'] + args,
-        cwd=PROJECT_ROOT,
-        capture_output=capture,
-        text=True
-    )
+    result = subprocess.run(["git"] + args, cwd=PROJECT_ROOT, capture_output=capture, text=True)
     return result.returncode, result.stdout, result.stderr
 
 
 def get_status() -> Dict:
     """Get comprehensive git status."""
     status = {
-        'branch': '',
-        'remote_status': '',
-        'staged': [],
-        'modified': [],
-        'untracked': [],
-        'has_uncommitted': False,
-        'needs_push': False,
+        "branch": "",
+        "remote_status": "",
+        "staged": [],
+        "modified": [],
+        "untracked": [],
+        "has_uncommitted": False,
+        "needs_push": False,
     }
 
     # Get current branch
-    code, out, _ = run_git(['branch', '--show-current'])
-    status['branch'] = out.strip()
+    code, out, _ = run_git(["branch", "--show-current"])
+    status["branch"] = out.strip()
 
     # Get status (ignore submodules which have different format)
-    code, out, _ = run_git(['status', '--porcelain', '--ignore-submodules'])
-    for line in out.strip().split('\n'):
+    code, out, _ = run_git(["status", "--porcelain", "--ignore-submodules"])
+    for line in out.strip().split("\n"):
         if not line or len(line) < 3:
             continue
 
@@ -66,41 +61,42 @@ def get_status() -> Dict:
         # X = status in index (staged), Y = status in work tree (modified)
         # The path starts after the 2-char status + space
         index_status = line[0]
-        worktree_status = line[1] if len(line) > 1 else ' '
+        worktree_status = line[1] if len(line) > 1 else " "
 
         # Find where the filepath starts (after status chars)
         # Handle both 'XY PATH' and 'X  PATH' formats
         filepath = line[2:].lstrip()
 
-        if index_status in 'MADRC':
-            status['staged'].append(filepath)
-        if worktree_status in 'MADRC':
-            status['modified'].append(filepath)
-        if index_status == '?' and worktree_status == '?':
+        if index_status in "MADRC":
+            status["staged"].append(filepath)
+        if worktree_status in "MADRC":
+            status["modified"].append(filepath)
+        if index_status == "?" and worktree_status == "?":
             # Filter out ignored patterns
-            if not any(p in filepath for p in ['__pycache__', '.DS_Store']):
-                status['untracked'].append(filepath)
+            if not any(p in filepath for p in ["__pycache__", ".DS_Store"]):
+                status["untracked"].append(filepath)
 
-    status['has_uncommitted'] = bool(status['staged'] or status['modified'] or
-                                      [f for f in status['untracked'] if f])
+    status["has_uncommitted"] = bool(
+        status["staged"] or status["modified"] or [f for f in status["untracked"] if f]
+    )
 
     # Check if ahead of remote
-    code, out, _ = run_git(['rev-list', '--count', '@{u}..HEAD'])
+    code, out, _ = run_git(["rev-list", "--count", "@{u}..HEAD"])
     if code == 0 and out.strip():
         ahead = int(out.strip())
-        status['needs_push'] = ahead > 0
+        status["needs_push"] = ahead > 0
         if ahead > 0:
-            status['remote_status'] = f'{ahead} commit(s) ahead of origin'
+            status["remote_status"] = f"{ahead} commit(s) ahead of origin"
 
     # Check if behind remote
-    code, out, _ = run_git(['rev-list', '--count', 'HEAD..@{u}'])
+    code, out, _ = run_git(["rev-list", "--count", "HEAD..@{u}"])
     if code == 0 and out.strip():
         behind = int(out.strip())
         if behind > 0:
-            status['remote_status'] = f'{behind} commit(s) behind origin'
+            status["remote_status"] = f"{behind} commit(s) behind origin"
 
-    if not status['remote_status']:
-        status['remote_status'] = 'Up to date with origin'
+    if not status["remote_status"]:
+        status["remote_status"] = "Up to date with origin"
 
     return status
 
@@ -116,34 +112,34 @@ def print_status():
     print(f"Remote: {status['remote_status']}")
     print()
 
-    if status['staged']:
+    if status["staged"]:
         print(f"STAGED ({len(status['staged'])}):")
-        for f in status['staged'][:10]:
+        for f in status["staged"][:10]:
             print(f"  + {f}")
-        if len(status['staged']) > 10:
+        if len(status["staged"]) > 10:
             print(f"  ... and {len(status['staged']) - 10} more")
         print()
 
-    if status['modified']:
+    if status["modified"]:
         print(f"MODIFIED ({len(status['modified'])}):")
-        for f in status['modified'][:10]:
+        for f in status["modified"][:10]:
             print(f"  M {f}")
-        if len(status['modified']) > 10:
+        if len(status["modified"]) > 10:
             print(f"  ... and {len(status['modified']) - 10} more")
         print()
 
-    if status['untracked']:
+    if status["untracked"]:
         print(f"UNTRACKED ({len(status['untracked'])}):")
-        for f in status['untracked'][:10]:
+        for f in status["untracked"][:10]:
             print(f"  ? {f}")
-        if len(status['untracked']) > 10:
+        if len(status["untracked"]) > 10:
             print(f"  ... and {len(status['untracked']) - 10} more")
         print()
 
-    if not status['has_uncommitted']:
+    if not status["has_uncommitted"]:
         print("✓ Working directory clean")
 
-    if status['needs_push']:
+    if status["needs_push"]:
         print(f"⚠ {status['remote_status']} - push recommended")
 
     print("=" * 60)
@@ -159,9 +155,9 @@ def pre_commit_check() -> bool:
     checks_passed = True
 
     # Check 1: No data/ files staged (should be gitignored)
-    code, out, _ = run_git(['diff', '--cached', '--name-only'])
-    staged_files = out.strip().split('\n') if out.strip() else []
-    data_files = [f for f in staged_files if f.startswith('data/')]
+    code, out, _ = run_git(["diff", "--cached", "--name-only"])
+    staged_files = out.strip().split("\n") if out.strip() else []
+    data_files = [f for f in staged_files if f.startswith("data/")]
     if data_files:
         print("✗ ERROR: data/ files staged (should be gitignored)")
         for f in data_files:
@@ -171,7 +167,7 @@ def pre_commit_check() -> bool:
         print("✓ No data/ files staged")
 
     # Check 2: No __pycache__ staged
-    pycache_files = [f for f in staged_files if '__pycache__' in f]
+    pycache_files = [f for f in staged_files if "__pycache__" in f]
     if pycache_files:
         print("✗ ERROR: __pycache__ files staged")
         checks_passed = False
@@ -179,13 +175,12 @@ def pre_commit_check() -> bool:
         print("✓ No __pycache__ files staged")
 
     # Check 3: Python files have no syntax errors
-    py_files = [f for f in staged_files if f.endswith('.py')]
+    py_files = [f for f in staged_files if f.endswith(".py")]
     for py_file in py_files:
         filepath = PROJECT_ROOT / py_file
         if filepath.exists():
             result = subprocess.run(
-                [sys.executable, '-m', 'py_compile', str(filepath)],
-                capture_output=True
+                [sys.executable, "-m", "py_compile", str(filepath)], capture_output=True
             )
             if result.returncode != 0:
                 print(f"✗ Syntax error in {py_file}")
@@ -194,20 +189,20 @@ def pre_commit_check() -> bool:
         print(f"✓ Python syntax valid ({len(py_files)} files)")
 
     # Check 4: README.md updated if tools/ changed
-    tools_changed = any(f.startswith('tools/') and f.endswith('.py') for f in staged_files)
-    readme_changed = 'README.md' in staged_files
+    tools_changed = any(f.startswith("tools/") and f.endswith(".py") for f in staged_files)
+    readme_changed = "README.md" in staged_files
     if tools_changed and not readme_changed:
         print("⚠ WARNING: tools/ changed but README.md not updated")
     elif tools_changed and readme_changed:
         print("✓ README.md updated with tools/ changes")
 
     # Check 5: Analyses have proper structure
-    analysis_files = [f for f in staged_files if f.startswith('analyses/') and f.endswith('.md')]
+    analysis_files = [f for f in staged_files if f.startswith("analyses/") and f.endswith(".md")]
     for af in analysis_files:
         filepath = PROJECT_ROOT / af
         if filepath.exists():
             content = filepath.read_text()
-            if '## EXECUTIVE SUMMARY' not in content and '## Overview' not in content:
+            if "## EXECUTIVE SUMMARY" not in content and "## Overview" not in content:
                 print(f"⚠ WARNING: {af} may be missing summary section")
 
     print()
@@ -222,49 +217,49 @@ def pre_commit_check() -> bool:
 
 def generate_commit_summary() -> str:
     """Generate a commit message summary based on staged changes."""
-    code, out, _ = run_git(['diff', '--cached', '--stat'])
+    code, out, _ = run_git(["diff", "--cached", "--stat"])
     if not out.strip():
         print("No staged changes to summarize")
         return ""
 
-    code, files_out, _ = run_git(['diff', '--cached', '--name-only'])
-    files = files_out.strip().split('\n') if files_out.strip() else []
+    code, files_out, _ = run_git(["diff", "--cached", "--name-only"])
+    files = files_out.strip().split("\n") if files_out.strip() else []
 
     # Categorize changes
     categories = {
-        'tools': [],
-        'analyses': [],
-        'docs': [],
-        'data': [],
-        'other': [],
+        "tools": [],
+        "analyses": [],
+        "docs": [],
+        "data": [],
+        "other": [],
     }
 
     for f in files:
-        if f.startswith('tools/'):
-            categories['tools'].append(f)
-        elif f.startswith('analyses/'):
-            categories['analyses'].append(f)
-        elif f.endswith('.md'):
-            categories['docs'].append(f)
-        elif f.startswith('data/'):
-            categories['data'].append(f)
+        if f.startswith("tools/"):
+            categories["tools"].append(f)
+        elif f.startswith("analyses/"):
+            categories["analyses"].append(f)
+        elif f.endswith(".md"):
+            categories["docs"].append(f)
+        elif f.startswith("data/"):
+            categories["data"].append(f)
         else:
-            categories['other'].append(f)
+            categories["other"].append(f)
 
     # Generate summary
     parts = []
 
-    if categories['tools']:
-        new_tools = [f for f in categories['tools'] if 'new file' in out]
+    if categories["tools"]:
+        new_tools = [f for f in categories["tools"] if "new file" in out]
         if new_tools:
             parts.append(f"Add {len(new_tools)} new tool(s)")
         else:
             parts.append(f"Update {len(categories['tools'])} tool(s)")
 
-    if categories['analyses']:
+    if categories["analyses"]:
         parts.append(f"Add/update {len(categories['analyses'])} analysis document(s)")
 
-    if categories['docs']:
+    if categories["docs"]:
         parts.append("Update documentation")
 
     summary = "; ".join(parts) if parts else "Update project files"
@@ -295,27 +290,27 @@ def sync_check():
 
     # Fetch latest from remote
     print("Fetching from remote...")
-    run_git(['fetch'])
+    run_git(["fetch"])
 
     # Show status
     status = get_status()
 
     issues = []
 
-    if status['has_uncommitted']:
+    if status["has_uncommitted"]:
         parts = []
-        if status['staged']:
+        if status["staged"]:
             parts.append(f"{len(status['staged'])} staged")
-        if status['modified']:
+        if status["modified"]:
             parts.append(f"{len(status['modified'])} modified")
-        if status['untracked']:
+        if status["untracked"]:
             parts.append(f"{len(status['untracked'])} untracked")
         issues.append(f"Uncommitted changes: {', '.join(parts)}")
 
-    if status['needs_push']:
+    if status["needs_push"]:
         issues.append(f"Unpushed commits: {status['remote_status']}")
 
-    if 'behind' in status['remote_status']:
+    if "behind" in status["remote_status"]:
         issues.append(f"Need to pull: {status['remote_status']}")
 
     if issues:
@@ -324,15 +319,15 @@ def sync_check():
             print(f"  - {issue}")
         print()
         print("RECOMMENDED ACTIONS:")
-        if status['has_uncommitted']:
-            if status['staged']:
+        if status["has_uncommitted"]:
+            if status["staged"]:
                 print("  1. Commit staged files: git commit -m 'message'")
             else:
                 print("  1. Stage changes: git add <files>")
                 print("  2. Commit: git commit -m 'message'")
-        if status['needs_push']:
+        if status["needs_push"]:
             print("  3. Push: git push")
-        if 'behind' in status['remote_status']:
+        if "behind" in status["remote_status"]:
             print("  - Pull first: git pull")
     else:
         print("✓ Repository fully synchronized")
@@ -346,7 +341,7 @@ def sync_check():
 
 def parse_citation_cff() -> Optional[Dict[str, str]]:
     """Parse CITATION.cff and return version and date-released."""
-    citation_path = PROJECT_ROOT / 'CITATION.cff'
+    citation_path = PROJECT_ROOT / "CITATION.cff"
     if not citation_path.exists():
         return None
 
@@ -356,12 +351,12 @@ def parse_citation_cff() -> Optional[Dict[str, str]]:
     # Extract version
     version_match = re.search(r'^version:\s*["\']?([^"\'\n]+)["\']?', content, re.MULTILINE)
     if version_match:
-        result['version'] = version_match.group(1).strip()
+        result["version"] = version_match.group(1).strip()
 
     # Extract date-released
     date_match = re.search(r'^date-released:\s*["\']?([^"\'\n]+)["\']?', content, re.MULTILINE)
     if date_match:
-        result['date-released'] = date_match.group(1).strip()
+        result["date-released"] = date_match.group(1).strip()
 
     return result if result else None
 
@@ -383,15 +378,15 @@ def release_check():
         issues.append("CITATION.cff not found or invalid")
         print("  ✗ CITATION.cff not found or invalid")
     else:
-        if 'version' in citation:
+        if "version" in citation:
             print(f"  ✓ version: {citation['version']}")
         else:
             issues.append("CITATION.cff missing 'version' field")
             print("  ✗ Missing 'version' field")
 
-        if 'date-released' in citation:
+        if "date-released" in citation:
             today = date.today().isoformat()
-            if citation['date-released'] != today:
+            if citation["date-released"] != today:
                 warnings.append(f"date-released is {citation['date-released']}, today is {today}")
                 print(f"  ⚠ date-released: {citation['date-released']} (today: {today})")
             else:
@@ -405,13 +400,13 @@ def release_check():
     # Check 2: Uncommitted changes
     print("Checking for uncommitted changes...")
     status = get_status()
-    if status['has_uncommitted']:
+    if status["has_uncommitted"]:
         parts = []
-        if status['staged']:
+        if status["staged"]:
             parts.append(f"{len(status['staged'])} staged")
-        if status['modified']:
+        if status["modified"]:
             parts.append(f"{len(status['modified'])} modified")
-        if status['untracked']:
+        if status["untracked"]:
             parts.append(f"{len(status['untracked'])} untracked")
         issues.append(f"Uncommitted changes: {', '.join(parts)}")
         print(f"  ✗ Uncommitted changes: {', '.join(parts)}")
@@ -488,16 +483,16 @@ def main():
 
     command = sys.argv[1]
 
-    if command == 'status':
+    if command == "status":
         print_status()
-    elif command == 'pre-commit':
+    elif command == "pre-commit":
         success = pre_commit_check()
         return 0 if success else 1
-    elif command == 'summary':
+    elif command == "summary":
         generate_commit_summary()
-    elif command == 'sync':
+    elif command == "sync":
         sync_check()
-    elif command == 'release':
+    elif command == "release":
         success = release_check()
         return 0 if success else 1
     else:
@@ -507,5 +502,5 @@ def main():
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

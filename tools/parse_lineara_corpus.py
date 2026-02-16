@@ -54,15 +54,15 @@ def extract_js_map_entries(content: str) -> list:
 
         while brace_count > 0 and pos < len(content):
             char = content[pos]
-            if char == '{':
+            if char == "{":
                 brace_count += 1
-            elif char == '}':
+            elif char == "}":
                 brace_count -= 1
             elif char == '"':
                 # Skip string content
                 pos += 1
                 while pos < len(content):
-                    if content[pos] == '\\':
+                    if content[pos] == "\\":
                         pos += 2
                         continue
                     if content[pos] == '"':
@@ -86,17 +86,18 @@ def convert_js_unicode_escapes(s: str) -> str:
     For code points <= U+FFFF, convert to \\uXXXX.
     For code points > U+FFFF, convert to surrogate pairs or use the actual character.
     """
+
     def replace_unicode_escape(match):
         code_point = int(match.group(1), 16)
         if code_point <= 0xFFFF:
-            return f'\\u{code_point:04X}'
+            return f"\\u{code_point:04X}"
         else:
             # For code points > U+FFFF, just insert the actual character
             # This is safer than trying to compute surrogate pairs
             return chr(code_point)
 
     # Pattern matches \u{XXXX} or \u{XXXXX} etc.
-    return re.sub(r'\\u\{([0-9A-Fa-f]+)\}', replace_unicode_escape, s)
+    return re.sub(r"\\u\{([0-9A-Fa-f]+)\}", replace_unicode_escape, s)
 
 
 def parse_js_object_safe(obj_str: str) -> dict:
@@ -116,13 +117,13 @@ def parse_js_object_safe(obj_str: str) -> dict:
         fixed = convert_js_unicode_escapes(fixed)
 
         # Remove trailing commas before closing braces/brackets
-        fixed = re.sub(r',\s*}', '}', fixed)
-        fixed = re.sub(r',\s*\]', ']', fixed)
+        fixed = re.sub(r",\s*}", "}", fixed)
+        fixed = re.sub(r",\s*\]", "]", fixed)
         try:
             return json.loads(fixed)
         except json.JSONDecodeError as e:
             # Return a minimal dict with error info
-            return {'_parse_error': str(e), '_raw_snippet': obj_str[:200]}
+            return {"_parse_error": str(e), "_raw_snippet": obj_str[:200]}
 
 
 def load_inscriptions() -> dict:
@@ -136,7 +137,7 @@ def load_inscriptions() -> dict:
         )
 
     print(f"Loading inscriptions from {js_path}...")
-    content = js_path.read_text(encoding='utf-8')
+    content = js_path.read_text(encoding="utf-8")
 
     entries = extract_js_map_entries(content)
     print(f"  Found {len(entries)} inscription entries")
@@ -146,7 +147,7 @@ def load_inscriptions() -> dict:
 
     for key, obj_str in entries:
         parsed = parse_js_object_safe(obj_str)
-        if '_parse_error' in parsed:
+        if "_parse_error" in parsed:
             parse_errors += 1
         inscriptions[key] = parsed
 
@@ -162,7 +163,7 @@ def extract_cognate_map(content: str, var_name: str) -> dict:
     result = {}
 
     # Find the variable declaration
-    pattern = rf'var\s+{var_name}\s*=\s*new\s+Map\s*\(\s*\['
+    pattern = rf"var\s+{var_name}\s*=\s*new\s+Map\s*\(\s*\["
     match = re.search(pattern, content)
     if not match:
         return result
@@ -189,7 +190,7 @@ def extract_similar_words(content: str) -> list:
     pairs = []
 
     # Find the variable declaration
-    pattern = r'var\s+similarWords\s*=\s*new\s+Map\s*\(\s*\['
+    pattern = r"var\s+similarWords\s*=\s*new\s+Map\s*\(\s*\["
     match = re.search(pattern, content)
     if not match:
         return pairs
@@ -200,10 +201,7 @@ def extract_similar_words(content: str) -> list:
     pair_pattern = re.compile(r'\["([^"]+)",\s*"([^"]+)"\]')
 
     for pair_match in pair_pattern.finditer(content[start:]):
-        pairs.append({
-            'wordA': pair_match.group(1),
-            'wordB': pair_match.group(2)
-        })
+        pairs.append({"wordA": pair_match.group(1), "wordB": pair_match.group(2)})
 
     return pairs
 
@@ -216,12 +214,12 @@ def load_cognates() -> dict:
         raise FileNotFoundError(f"words_in_linearb.js not found at {js_path}")
 
     print(f"Loading Linear B cognates from {js_path}...")
-    content = js_path.read_text(encoding='utf-8')
+    content = js_path.read_text(encoding="utf-8")
 
     result = {
-        'identicalWords': extract_cognate_map(content, 'identicalWords'),
-        'identicalRoots': extract_cognate_map(content, 'identicalRoots'),
-        'similarWords': extract_similar_words(content)
+        "identicalWords": extract_cognate_map(content, "identicalWords"),
+        "identicalRoots": extract_cognate_map(content, "identicalRoots"),
+        "similarWords": extract_similar_words(content),
     }
 
     print(f"  Identical words: {len(result['identicalWords'])}")
@@ -236,76 +234,76 @@ def compute_statistics(inscriptions: dict) -> dict:
     print("Computing corpus statistics...")
 
     stats = {
-        'generated': datetime.now().isoformat(),
-        'attribution': {
-            'source': 'lineara.xyz (https://github.com/mwenge/lineara.xyz)',
-            'upstream': ['GORILA (Godart & Olivier)', 'George Douros', 'John Younger']
+        "generated": datetime.now().isoformat(),
+        "attribution": {
+            "source": "lineara.xyz (https://github.com/mwenge/lineara.xyz)",
+            "upstream": ["GORILA (Godart & Olivier)", "George Douros", "John Younger"],
         },
-        'total_inscriptions': len(inscriptions),
-        'by_site': Counter(),
-        'by_support': Counter(),
-        'by_context': Counter(),
-        'scribes': set(),
-        'word_frequency': Counter(),
-        'sites_full_names': {}
+        "total_inscriptions": len(inscriptions),
+        "by_site": Counter(),
+        "by_support": Counter(),
+        "by_context": Counter(),
+        "scribes": set(),
+        "word_frequency": Counter(),
+        "sites_full_names": {},
     }
 
     for name, data in inscriptions.items():
-        if '_parse_error' in data:
+        if "_parse_error" in data:
             continue
 
         # Extract site from name (e.g., "HT1" -> "HT")
-        site_match = re.match(r'^([A-Z]+)', name)
+        site_match = re.match(r"^([A-Z]+)", name)
         if site_match:
             site_code = site_match.group(1)
-            stats['by_site'][site_code] += 1
+            stats["by_site"][site_code] += 1
 
             # Track full site names
-            site_name = data.get('site', '')
-            if site_name and site_code not in stats['sites_full_names']:
-                stats['sites_full_names'][site_code] = site_name
+            site_name = data.get("site", "")
+            if site_name and site_code not in stats["sites_full_names"]:
+                stats["sites_full_names"][site_code] = site_name
 
         # Count by support type
-        support = data.get('support', 'Unknown')
+        support = data.get("support", "Unknown")
         if support:
-            stats['by_support'][support] += 1
+            stats["by_support"][support] += 1
 
         # Count by context/period
-        context = data.get('context', 'Unknown')
+        context = data.get("context", "Unknown")
         if context:
-            stats['by_context'][context] += 1
+            stats["by_context"][context] += 1
 
         # Track scribes
-        scribe = data.get('scribe', '')
+        scribe = data.get("scribe", "")
         if scribe and scribe.strip():
-            stats['scribes'].add(scribe)
+            stats["scribes"].add(scribe)
 
         # Count word frequencies from transliterated words
-        transliterated = data.get('transliteratedWords', [])
+        transliterated = data.get("transliteratedWords", [])
         for word in transliterated:
             if not word:
                 continue
             word = str(word).strip()
             # Skip newlines, separators, pure numerals, fractions
-            if word in ['\n', '𐄁', '', '—']:
+            if word in ["\n", "𐄁", "", "—"]:
                 continue
-            if re.match(r'^[\d\s.]+$', word):
+            if re.match(r"^[\d\s.]+$", word):
                 continue
-            if word.startswith('𐝫'):  # Lacuna marker
+            if word.startswith("𐝫"):  # Lacuna marker
                 continue
             # Include meaningful words
-            stats['word_frequency'][word] += 1
+            stats["word_frequency"][word] += 1
 
     # Convert sets and Counters to serializable formats
-    stats['scribes'] = sorted(stats['scribes'])
-    stats['by_site'] = dict(stats['by_site'].most_common())
-    stats['by_support'] = dict(stats['by_support'].most_common())
-    stats['by_context'] = dict(stats['by_context'].most_common())
+    stats["scribes"] = sorted(stats["scribes"])
+    stats["by_site"] = dict(stats["by_site"].most_common())
+    stats["by_support"] = dict(stats["by_support"].most_common())
+    stats["by_context"] = dict(stats["by_context"].most_common())
 
     # Top 100 most frequent words
-    stats['top_words'] = dict(stats['word_frequency'].most_common(100))
-    stats['unique_words'] = len(stats['word_frequency'])
-    del stats['word_frequency']
+    stats["top_words"] = dict(stats["word_frequency"].most_common(100))
+    stats["unique_words"] = len(stats["word_frequency"])
+    del stats["word_frequency"]
 
     print(f"  Sites: {len(stats['by_site'])}")
     print(f"  Scribes identified: {len(stats['scribes'])}")
@@ -332,21 +330,21 @@ def extract_sign_data(inscriptions: dict) -> dict:
     sign_data = {}
 
     # Regular expressions for detecting logograms and numerals
-    logogram_pattern = re.compile(r'^([A-Z]{2,}|VIN|OLE|GRA|FIC|OVI|CAP|SUS|BOS|\*\d+)')
-    numeral_pattern = re.compile(r'^[\d\s.¹²³⁄₂₃₄₅₆₇₈○◎—|]+$')
+    logogram_pattern = re.compile(r"^([A-Z]{2,}|VIN|OLE|GRA|FIC|OVI|CAP|SUS|BOS|\*\d+)")
+    numeral_pattern = re.compile(r"^[\d\s.¹²³⁄₂₃₄₅₆₇₈○◎—|]+$")
 
     for inscription_id, data in inscriptions.items():
-        if '_parse_error' in data:
+        if "_parse_error" in data:
             continue
 
-        transliterated = data.get('transliteratedWords', [])
+        transliterated = data.get("transliteratedWords", [])
         if not transliterated:
             continue
 
         # Process each word in the inscription
         for word_idx, word in enumerate(transliterated):
             # Skip separators, newlines, and numerals
-            if not word or word in ['\n', '𐄁', '', '—', '≈']:
+            if not word or word in ["\n", "𐄁", "", "—", "≈"]:
                 continue
             if numeral_pattern.match(word):
                 continue
@@ -357,12 +355,12 @@ def extract_sign_data(inscriptions: dict) -> dict:
                 continue
 
             # Split word into syllabograms
-            syllabograms = word.split('-')
+            syllabograms = word.split("-")
             num_signs = len(syllabograms)
 
             for sign_idx, sign in enumerate(syllabograms):
                 # Clean subscripts (RA₂ → RA, PA₃ → PA)
-                clean_sign = re.sub(r'[₀₁₂₃₄₅₆₇₈₉]', '', sign).upper()
+                clean_sign = re.sub(r"[₀₁₂₃₄₅₆₇₈₉]", "", sign).upper()
 
                 # Skip empty or very long strings
                 if not clean_sign or len(clean_sign) > 6:
@@ -371,66 +369,68 @@ def extract_sign_data(inscriptions: dict) -> dict:
                 # Initialize sign data if first occurrence
                 if clean_sign not in sign_data:
                     sign_data[clean_sign] = {
-                        'total_occurrences': 0,
-                        'position_frequency': {'initial': 0, 'medial': 0, 'final': 0},
-                        'contexts': {'pre_logogram': 0, 'post_numeral': 0, 'standalone': 0},
-                        'attestations': [],
-                        'co_occurrences': Counter()
+                        "total_occurrences": 0,
+                        "position_frequency": {"initial": 0, "medial": 0, "final": 0},
+                        "contexts": {"pre_logogram": 0, "post_numeral": 0, "standalone": 0},
+                        "attestations": [],
+                        "co_occurrences": Counter(),
                     }
 
                 # Increment total occurrences
-                sign_data[clean_sign]['total_occurrences'] += 1
+                sign_data[clean_sign]["total_occurrences"] += 1
 
                 # Determine position in word
                 if num_signs == 1:
-                    position = 'standalone'
-                    sign_data[clean_sign]['contexts']['standalone'] += 1
+                    position = "standalone"
+                    sign_data[clean_sign]["contexts"]["standalone"] += 1
                 elif sign_idx == 0:
-                    position = 'initial'
+                    position = "initial"
                 elif sign_idx == num_signs - 1:
-                    position = 'final'
+                    position = "final"
                 else:
-                    position = 'medial'
+                    position = "medial"
 
-                if position != 'standalone':
-                    sign_data[clean_sign]['position_frequency'][position] += 1
+                if position != "standalone":
+                    sign_data[clean_sign]["position_frequency"][position] += 1
 
                 # Check context (pre-logogram, post-numeral)
                 if word_idx + 1 < len(transliterated):
                     next_word = transliterated[word_idx + 1]
                     if next_word and logogram_pattern.match(next_word):
-                        sign_data[clean_sign]['contexts']['pre_logogram'] += 1
+                        sign_data[clean_sign]["contexts"]["pre_logogram"] += 1
 
                 if word_idx > 0:
                     prev_word = transliterated[word_idx - 1]
                     if prev_word and numeral_pattern.match(prev_word):
-                        sign_data[clean_sign]['contexts']['post_numeral'] += 1
+                        sign_data[clean_sign]["contexts"]["post_numeral"] += 1
 
                 # Record attestation
-                sign_data[clean_sign]['attestations'].append({
-                    'inscription': inscription_id,
-                    'word_index': word_idx,
-                    'sign_index': sign_idx,
-                    'position': position,
-                    'full_word': word
-                })
+                sign_data[clean_sign]["attestations"].append(
+                    {
+                        "inscription": inscription_id,
+                        "word_index": word_idx,
+                        "sign_index": sign_idx,
+                        "position": position,
+                        "full_word": word,
+                    }
+                )
 
                 # Record co-occurrences (other signs in same word)
                 for other_idx, other_sign in enumerate(syllabograms):
                     if other_idx != sign_idx:
-                        other_clean = re.sub(r'[₀₁₂₃₄₅₆₇₈₉]', '', other_sign).upper()
+                        other_clean = re.sub(r"[₀₁₂₃₄₅₆₇₈₉]", "", other_sign).upper()
                         if other_clean and len(other_clean) <= 6:
-                            sign_data[clean_sign]['co_occurrences'][other_clean] += 1
+                            sign_data[clean_sign]["co_occurrences"][other_clean] += 1
 
     # Convert Counters to dicts for JSON serialization
     for sign in sign_data:
-        sign_data[sign]['co_occurrences'] = dict(
-            sign_data[sign]['co_occurrences'].most_common(20)  # Top 20 co-occurrences
+        sign_data[sign]["co_occurrences"] = dict(
+            sign_data[sign]["co_occurrences"].most_common(20)  # Top 20 co-occurrences
         )
         # Limit attestations to first 100 for file size
-        if len(sign_data[sign]['attestations']) > 100:
-            sign_data[sign]['attestations'] = sign_data[sign]['attestations'][:100]
-            sign_data[sign]['attestations_truncated'] = True
+        if len(sign_data[sign]["attestations"]) > 100:
+            sign_data[sign]["attestations"] = sign_data[sign]["attestations"][:100]
+            sign_data[sign]["attestations_truncated"] = True
 
     print(f"  Extracted data for {len(sign_data)} unique signs")
 
@@ -476,46 +476,61 @@ def main():
     print("Writing output files...")
 
     corpus_path = OUTPUT_DIR / "corpus.json"
-    with open(corpus_path, 'w', encoding='utf-8') as f:
-        json.dump({
-            'attribution': {
-                'source': 'lineara.xyz (https://github.com/mwenge/lineara.xyz)',
-                'upstream': ['GORILA (Godart & Olivier)', 'George Douros', 'John Younger'],
-                'license': 'See ATTRIBUTION.md',
-                'generated': datetime.now().isoformat()
+    with open(corpus_path, "w", encoding="utf-8") as f:
+        json.dump(
+            {
+                "attribution": {
+                    "source": "lineara.xyz (https://github.com/mwenge/lineara.xyz)",
+                    "upstream": ["GORILA (Godart & Olivier)", "George Douros", "John Younger"],
+                    "license": "See ATTRIBUTION.md",
+                    "generated": datetime.now().isoformat(),
+                },
+                "inscriptions": inscriptions,
             },
-            'inscriptions': inscriptions
-        }, f, ensure_ascii=False, indent=2)
+            f,
+            ensure_ascii=False,
+            indent=2,
+        )
     print(f"  {corpus_path} ({corpus_path.stat().st_size / 1024:.1f} KB)")
 
     cognates_path = OUTPUT_DIR / "cognates.json"
-    with open(cognates_path, 'w', encoding='utf-8') as f:
-        json.dump({
-            'attribution': {
-                'source': 'lineara.xyz (https://github.com/mwenge/lineara.xyz)',
-                'note': 'Linear B cognate mappings for anchor verification',
-                'generated': datetime.now().isoformat()
+    with open(cognates_path, "w", encoding="utf-8") as f:
+        json.dump(
+            {
+                "attribution": {
+                    "source": "lineara.xyz (https://github.com/mwenge/lineara.xyz)",
+                    "note": "Linear B cognate mappings for anchor verification",
+                    "generated": datetime.now().isoformat(),
+                },
+                **cognates,
             },
-            **cognates
-        }, f, ensure_ascii=False, indent=2)
+            f,
+            ensure_ascii=False,
+            indent=2,
+        )
     print(f"  {cognates_path} ({cognates_path.stat().st_size / 1024:.1f} KB)")
 
     stats_path = OUTPUT_DIR / "statistics.json"
-    with open(stats_path, 'w', encoding='utf-8') as f:
+    with open(stats_path, "w", encoding="utf-8") as f:
         json.dump(statistics, f, ensure_ascii=False, indent=2)
     print(f"  {stats_path} ({stats_path.stat().st_size / 1024:.1f} KB)")
 
     signs_path = OUTPUT_DIR / "signs.json"
-    with open(signs_path, 'w', encoding='utf-8') as f:
-        json.dump({
-            'attribution': {
-                'source': 'lineara.xyz (https://github.com/mwenge/lineara.xyz)',
-                'note': 'Sign-level frequency, position, and co-occurrence data for pattern analysis',
-                'generated': datetime.now().isoformat()
+    with open(signs_path, "w", encoding="utf-8") as f:
+        json.dump(
+            {
+                "attribution": {
+                    "source": "lineara.xyz (https://github.com/mwenge/lineara.xyz)",
+                    "note": "Sign-level frequency, position, and co-occurrence data for pattern analysis",
+                    "generated": datetime.now().isoformat(),
+                },
+                "total_signs": len(sign_data),
+                "signs": sign_data,
             },
-            'total_signs': len(sign_data),
-            'signs': sign_data
-        }, f, ensure_ascii=False, indent=2)
+            f,
+            ensure_ascii=False,
+            indent=2,
+        )
     print(f"  {signs_path} ({signs_path.stat().st_size / 1024:.1f} KB)")
 
     print()
@@ -531,5 +546,5 @@ def main():
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     exit(main())

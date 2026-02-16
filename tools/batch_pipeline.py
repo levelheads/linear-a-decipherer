@@ -73,48 +73,51 @@ class BatchPipeline:
 
         # Statistics
         self.stats = {
-            'inscriptions_total': 0,
-            'inscriptions_processed': 0,
-            'words_total': 0,
-            'words_analyzed': 0,
-            'high_confidence_findings': 0,
-            'coverage_percent': 0.0,
-            'word_filter_contract': CONTRACT_VERSION,
+            "inscriptions_total": 0,
+            "inscriptions_processed": 0,
+            "words_total": 0,
+            "words_analyzed": 0,
+            "high_confidence_findings": 0,
+            "coverage_percent": 0.0,
+            "word_filter_contract": CONTRACT_VERSION,
         }
 
         # Ensure checkpoint directory exists
         CHECKPOINT_DIR.mkdir(parents=True, exist_ok=True)
 
-    def log(self, message: str, level: str = 'INFO'):
+    def log(self, message: str, level: str = "INFO"):
         """Print message with timestamp if verbose mode enabled."""
-        if self.verbose or level in ['ERROR', 'WARNING']:
-            timestamp = datetime.now().strftime('%H:%M:%S')
+        if self.verbose or level in ["ERROR", "WARNING"]:
+            timestamp = datetime.now().strftime("%H:%M:%S")
             print(f"[{timestamp}] [{level}] {message}")
 
     def load_corpus(self, site_filter: Optional[str] = None) -> bool:
         """Load corpus data with optional site filtering."""
         try:
             corpus_path = DATA_DIR / "corpus.json"
-            with open(corpus_path, 'r', encoding='utf-8') as f:
+            with open(corpus_path, "r", encoding="utf-8") as f:
                 full_corpus = json.load(f)
 
             # Apply site filter if specified
             if site_filter:
                 filtered = {}
-                for insc_id, data in full_corpus.get('inscriptions', {}).items():
+                for insc_id, data in full_corpus.get("inscriptions", {}).items():
                     if insc_id.startswith(site_filter):
                         filtered[insc_id] = data
-                self.corpus = {'inscriptions': filtered, 'attribution': full_corpus.get('attribution', {})}
+                self.corpus = {
+                    "inscriptions": filtered,
+                    "attribution": full_corpus.get("attribution", {}),
+                }
                 self.log(f"Loaded {len(filtered)} inscriptions from site {site_filter}")
             else:
                 self.corpus = full_corpus
                 self.log(f"Loaded {len(full_corpus.get('inscriptions', {}))} inscriptions")
 
-            self.stats['inscriptions_total'] = len(self.corpus.get('inscriptions', {}))
+            self.stats["inscriptions_total"] = len(self.corpus.get("inscriptions", {}))
             return True
 
         except Exception as e:
-            self.log(f"Error loading corpus: {e}", 'ERROR')
+            self.log(f"Error loading corpus: {e}", "ERROR")
             return False
 
     def save_checkpoint(self, stage: str):
@@ -122,20 +125,20 @@ class BatchPipeline:
         checkpoint_path = CHECKPOINT_DIR / f"checkpoint_{stage}.json"
 
         checkpoint = {
-            'stage': stage,
-            'timestamp': datetime.now().isoformat(),
-            'stats': self.stats,
-            'words_discovered': self.words_discovered,
-            'hypotheses_tested': self.hypotheses_tested,  # Full data for proper resume
-            'validations': self.validations,  # Required for synthesize stage
-            'progress': {
-                'total_words': len(self.words_discovered),
-                'tested_words': len(self.hypotheses_tested),
-                'validated_words': len(self.validations),
-            }
+            "stage": stage,
+            "timestamp": datetime.now().isoformat(),
+            "stats": self.stats,
+            "words_discovered": self.words_discovered,
+            "hypotheses_tested": self.hypotheses_tested,  # Full data for proper resume
+            "validations": self.validations,  # Required for synthesize stage
+            "progress": {
+                "total_words": len(self.words_discovered),
+                "tested_words": len(self.hypotheses_tested),
+                "validated_words": len(self.validations),
+            },
         }
 
-        with open(checkpoint_path, 'w', encoding='utf-8') as f:
+        with open(checkpoint_path, "w", encoding="utf-8") as f:
             json.dump(checkpoint, f, ensure_ascii=False, indent=2)
 
         self.log(f"Checkpoint saved: {checkpoint_path}")
@@ -148,19 +151,19 @@ class BatchPipeline:
             return False
 
         try:
-            with open(checkpoint_path, 'r', encoding='utf-8') as f:
+            with open(checkpoint_path, "r", encoding="utf-8") as f:
                 self.checkpoint = json.load(f)
-            self.stats = self.checkpoint.get('stats', self.stats)
-            self.words_discovered = self.checkpoint.get('words_discovered', {})
-            self.hypotheses_tested = self.checkpoint.get('hypotheses_tested', {})
-            self.validations = self.checkpoint.get('validations', {})
+            self.stats = self.checkpoint.get("stats", self.stats)
+            self.words_discovered = self.checkpoint.get("words_discovered", {})
+            self.hypotheses_tested = self.checkpoint.get("hypotheses_tested", {})
+            self.validations = self.checkpoint.get("validations", {})
             self.log(f"Resumed from checkpoint: {stage}")
             self.log(f"  Words discovered: {len(self.words_discovered)}")
             self.log(f"  Hypotheses tested: {len(self.hypotheses_tested)}")
             self.log(f"  Validations: {len(self.validations)}")
             return True
         except Exception as e:
-            self.log(f"Could not load checkpoint: {e}", 'WARNING')
+            self.log(f"Could not load checkpoint: {e}", "WARNING")
             return False
 
     # =========================================================================
@@ -182,68 +185,66 @@ class BatchPipeline:
             self.log("DRY RUN: Would extract words from corpus")
             return {}
 
-        word_data = defaultdict(lambda: {
-            'frequency': 0,
-            'sites': set(),
-            'inscriptions': [],
-            'positions': defaultdict(int),  # initial/medial/final
-            'contexts': [],  # Sample contexts
-        })
+        word_data = defaultdict(
+            lambda: {
+                "frequency": 0,
+                "sites": set(),
+                "inscriptions": [],
+                "positions": defaultdict(int),  # initial/medial/final
+                "contexts": [],  # Sample contexts
+            }
+        )
 
         processed = 0
-        for insc_id, data in self.corpus.get('inscriptions', {}).items():
-            if '_parse_error' in data:
+        for insc_id, data in self.corpus.get("inscriptions", {}).items():
+            if "_parse_error" in data:
                 continue
 
             site = self._extract_site_code(insc_id)
-            words = data.get('transliteratedWords', [])
+            words = data.get("transliteratedWords", [])
 
             for idx, word in enumerate(words):
                 if not self._is_valid_word(word):
                     continue
 
                 word_upper = normalize_word_token(word)
-                word_data[word_upper]['frequency'] += 1
-                word_data[word_upper]['sites'].add(site)
+                word_data[word_upper]["frequency"] += 1
+                word_data[word_upper]["sites"].add(site)
 
                 # Track position (simplified)
-                if idx == 0 or (idx > 0 and words[idx-1] == '\n'):
-                    word_data[word_upper]['positions']['initial'] += 1
-                elif idx == len(words) - 1 or (idx < len(words) - 1 and words[idx+1] == '\n'):
-                    word_data[word_upper]['positions']['final'] += 1
+                if idx == 0 or (idx > 0 and words[idx - 1] == "\n"):
+                    word_data[word_upper]["positions"]["initial"] += 1
+                elif idx == len(words) - 1 or (idx < len(words) - 1 and words[idx + 1] == "\n"):
+                    word_data[word_upper]["positions"]["final"] += 1
                 else:
-                    word_data[word_upper]['positions']['medial'] += 1
+                    word_data[word_upper]["positions"]["medial"] += 1
 
                 # Store sample inscriptions (max 10)
-                if len(word_data[word_upper]['inscriptions']) < 10:
-                    word_data[word_upper]['inscriptions'].append(insc_id)
+                if len(word_data[word_upper]["inscriptions"]) < 10:
+                    word_data[word_upper]["inscriptions"].append(insc_id)
 
             processed += 1
 
         # Convert sets to lists for JSON serialization
         self.words_discovered = {}
         for word, data in word_data.items():
-            if data['frequency'] >= min_frequency:
+            if data["frequency"] >= min_frequency:
                 self.words_discovered[word] = {
-                    'frequency': data['frequency'],
-                    'sites': list(data['sites']),
-                    'inscriptions': data['inscriptions'],
-                    'positions': dict(data['positions']),
-                    'site_count': len(data['sites']),
+                    "frequency": data["frequency"],
+                    "sites": list(data["sites"]),
+                    "inscriptions": data["inscriptions"],
+                    "positions": dict(data["positions"]),
+                    "site_count": len(data["sites"]),
                 }
 
-        self.stats['inscriptions_processed'] = processed
-        self.stats['words_total'] = len(word_data)
-        self.stats['words_above_threshold'] = len(self.words_discovered)
+        self.stats["inscriptions_processed"] = processed
+        self.stats["words_total"] = len(word_data)
+        self.stats["words_above_threshold"] = len(self.words_discovered)
 
         # Count excluded buckets for transparency against total raw tokens.
-        logogram_count = sum(
-            1 for w in word_data
-            if self._is_logogram(w)
-        )
+        logogram_count = sum(1 for w in word_data if self._is_logogram(w))
         single_syllable_count = sum(
-            1 for w in word_data
-            if '-' not in w and not self._is_logogram(w)
+            1 for w in word_data if "-" not in w and not self._is_logogram(w)
         )
 
         self.log(f"Discovered {len(self.words_discovered)} words with freq >= {min_frequency}")
@@ -252,18 +253,30 @@ class BatchPipeline:
         self.log(f"Logograms excluded from hypothesis testing: {logogram_count}")
         self.log(f"Single-syllables excluded (insufficient data): {single_syllable_count}")
 
-        self.save_checkpoint('discover')
+        self.save_checkpoint("discover")
         return self.words_discovered
 
     def _extract_site_code(self, inscription_id: str) -> str:
         """Extract site code from inscription ID."""
-        match = re.match(r'^([A-Z]+)', inscription_id)
-        return match.group(1) if match else 'UNKNOWN'
+        match = re.match(r"^([A-Z]+)", inscription_id)
+        return match.group(1) if match else "UNKNOWN"
 
     # Commodity logograms (not linguistic data - represent concepts, not sounds)
     COMMODITY_LOGOGRAMS = {
-        'GRA', 'VIN', 'OLE', 'OLIV', 'FIC', 'FAR', 'CYP',
-        'OVI', 'CAP', 'SUS', 'BOS', 'VIR', 'MUL', 'TELA'
+        "GRA",
+        "VIN",
+        "OLE",
+        "OLIV",
+        "FIC",
+        "FAR",
+        "CYP",
+        "OVI",
+        "CAP",
+        "SUS",
+        "BOS",
+        "VIR",
+        "MUL",
+        "TELA",
     }
 
     def _is_valid_word(self, word: str) -> bool:
@@ -272,7 +285,7 @@ class BatchPipeline:
 
     def _is_logogram(self, word: str) -> bool:
         """Check if word is a commodity logogram."""
-        base = word.split('+')[0] if '+' in word else word
+        base = word.split("+")[0] if "+" in word else word
         return base.upper() in self.COMMODITY_LOGOGRAMS
 
     def calculate_corpus_coverage(self) -> dict:
@@ -283,36 +296,38 @@ class BatchPipeline:
             Dictionary with coverage metrics and recommendations for next analysis.
         """
         if not self.corpus:
-            return {'error': 'Corpus not loaded'}
+            return {"error": "Corpus not loaded"}
 
         # Count inscriptions and words by site
-        site_stats = defaultdict(lambda: {
-            'inscriptions': 0,
-            'words': 0,
-            'unique_words': set(),
-            'has_kuro': 0,
-        })
+        site_stats = defaultdict(
+            lambda: {
+                "inscriptions": 0,
+                "words": 0,
+                "unique_words": set(),
+                "has_kuro": 0,
+            }
+        )
 
         total_inscriptions = 0
         total_words = 0
         kuro_tablets = 0
 
-        for insc_id, data in self.corpus.get('inscriptions', {}).items():
-            if '_parse_error' in data:
+        for insc_id, data in self.corpus.get("inscriptions", {}).items():
+            if "_parse_error" in data:
                 continue
 
             site = self._extract_site_code(insc_id)
-            site_stats[site]['inscriptions'] += 1
+            site_stats[site]["inscriptions"] += 1
             total_inscriptions += 1
 
-            words = data.get('transliteratedWords', [])
+            words = data.get("transliteratedWords", [])
             valid_words = [w for w in words if self._is_valid_word(w)]
-            site_stats[site]['words'] += len(valid_words)
-            site_stats[site]['unique_words'].update(w.upper() for w in valid_words)
+            site_stats[site]["words"] += len(valid_words)
+            site_stats[site]["unique_words"].update(w.upper() for w in valid_words)
             total_words += len(valid_words)
 
-            if 'KU-RO' in words:
-                site_stats[site]['has_kuro'] += 1
+            if "KU-RO" in words:
+                site_stats[site]["has_kuro"] += 1
                 kuro_tablets += 1
 
         # Calculate analyzed coverage
@@ -320,51 +335,58 @@ class BatchPipeline:
 
         # Build coverage report
         coverage = {
-            'total_inscriptions': total_inscriptions,
-            'total_words': total_words,
-            'words_analyzed': analyzed_words,
-            'overall_coverage_percent': round(analyzed_words / total_words * 100, 2) if total_words > 0 else 0,
-            'kuro_tablets': kuro_tablets,
-            'by_site': {},
-            'recommendations': [],
+            "total_inscriptions": total_inscriptions,
+            "total_words": total_words,
+            "words_analyzed": analyzed_words,
+            "overall_coverage_percent": round(analyzed_words / total_words * 100, 2)
+            if total_words > 0
+            else 0,
+            "kuro_tablets": kuro_tablets,
+            "by_site": {},
+            "recommendations": [],
         }
 
         # Per-site statistics
-        for site, stats in sorted(site_stats.items(), key=lambda x: -x[1]['inscriptions']):
-            unique_count = len(stats['unique_words'])
+        for site, stats in sorted(site_stats.items(), key=lambda x: -x[1]["inscriptions"]):
+            unique_count = len(stats["unique_words"])
             # Estimate analyzed (intersection with hypotheses_tested)
-            analyzed_at_site = sum(1 for w in stats['unique_words']
-                                   if w in (self.hypotheses_tested or {}))
+            analyzed_at_site = sum(
+                1 for w in stats["unique_words"] if w in (self.hypotheses_tested or {})
+            )
 
-            coverage['by_site'][site] = {
-                'inscriptions': stats['inscriptions'],
-                'words': stats['words'],
-                'unique_words': unique_count,
-                'analyzed': analyzed_at_site,
-                'coverage_percent': round(analyzed_at_site / unique_count * 100, 2) if unique_count > 0 else 0,
-                'kuro_tablets': stats['has_kuro'],
+            coverage["by_site"][site] = {
+                "inscriptions": stats["inscriptions"],
+                "words": stats["words"],
+                "unique_words": unique_count,
+                "analyzed": analyzed_at_site,
+                "coverage_percent": round(analyzed_at_site / unique_count * 100, 2)
+                if unique_count > 0
+                else 0,
+                "kuro_tablets": stats["has_kuro"],
             }
 
         # Generate recommendations (priority sites with low coverage)
         priority_sites = []
-        for site, stats in coverage['by_site'].items():
-            if stats['inscriptions'] >= 10 and stats['coverage_percent'] < 50:
-                priority_sites.append({
-                    'site': site,
-                    'inscriptions': stats['inscriptions'],
-                    'coverage': stats['coverage_percent'],
-                    'reason': 'Low coverage, significant corpus'
-                })
+        for site, stats in coverage["by_site"].items():
+            if stats["inscriptions"] >= 10 and stats["coverage_percent"] < 50:
+                priority_sites.append(
+                    {
+                        "site": site,
+                        "inscriptions": stats["inscriptions"],
+                        "coverage": stats["coverage_percent"],
+                        "reason": "Low coverage, significant corpus",
+                    }
+                )
 
-        priority_sites.sort(key=lambda x: (-x['inscriptions'], x['coverage']))
+        priority_sites.sort(key=lambda x: (-x["inscriptions"], x["coverage"]))
 
-        coverage['recommendations'] = [
+        coverage["recommendations"] = [
             f"Priority: {s['site']} ({s['inscriptions']} inscriptions, {s['coverage']}% coverage)"
             for s in priority_sites[:5]
         ]
 
-        if not coverage['recommendations']:
-            coverage['recommendations'] = ['All major sites have adequate coverage']
+        if not coverage["recommendations"]:
+            coverage["recommendations"] = ["All major sites have adequate coverage"]
 
         return coverage
 
@@ -387,7 +409,7 @@ class BatchPipeline:
             return {}
 
         if not self.words_discovered:
-            self.log("No words discovered. Run stage_discover first.", 'ERROR')
+            self.log("No words discovered. Run stage_discover first.", "ERROR")
             return {}
 
         # Import hypothesis tester inline to avoid circular imports
@@ -395,16 +417,13 @@ class BatchPipeline:
         try:
             from hypothesis_tester import HypothesisTester
         except ImportError as e:
-            self.log(f"Could not import hypothesis_tester: {e}", 'ERROR')
+            self.log(f"Could not import hypothesis_tester: {e}", "ERROR")
             return {}
 
         tester = HypothesisTester(verbose=False)
 
         # Sort by frequency (most frequent first)
-        words_sorted = sorted(
-            self.words_discovered.items(),
-            key=lambda x: -x[1]['frequency']
-        )
+        words_sorted = sorted(self.words_discovered.items(), key=lambda x: -x[1]["frequency"])
 
         if max_words:
             words_sorted = words_sorted[:max_words]
@@ -417,39 +436,42 @@ class BatchPipeline:
                 self.log(f"Progress: {idx + 1}/{total} words tested")
 
             try:
-                result = tester.test_word(word, frequency=data['frequency'])
+                result = tester.test_word(word, frequency=data["frequency"])
                 self.hypotheses_tested[word] = {
-                    'word': word,
-                    'frequency': data['frequency'],
-                    'sites': data['sites'],
-                    'best_hypothesis': result['synthesis']['best_hypothesis'],
-                    'best_score': result['synthesis']['best_score'],
-                    'max_confidence': result['synthesis']['max_confidence'],
-                    'multi_hypothesis_support': result['synthesis']['multi_hypothesis_support'],
-                    'supported_hypotheses': result['synthesis']['supported_hypotheses'],
-                    'hypothesis_scores': {
-                        h: result['hypotheses'][h]['score']
-                        for h in result['hypotheses']
+                    "word": word,
+                    "frequency": data["frequency"],
+                    "sites": data["sites"],
+                    "best_hypothesis": result["synthesis"]["best_hypothesis"],
+                    "best_score": result["synthesis"]["best_score"],
+                    "max_confidence": result["synthesis"]["max_confidence"],
+                    "multi_hypothesis_support": result["synthesis"]["multi_hypothesis_support"],
+                    "supported_hypotheses": result["synthesis"]["supported_hypotheses"],
+                    "hypothesis_scores": {
+                        h: result["hypotheses"][h]["score"] for h in result["hypotheses"]
                     },
                 }
             except Exception as e:
-                self.log(f"Error testing {word}: {e}", 'WARNING')
+                self.log(f"Error testing {word}: {e}", "WARNING")
 
-        self.stats['words_analyzed'] = len(self.hypotheses_tested)
-        self.stats['coverage_percent'] = (
+        self.stats["words_analyzed"] = len(self.hypotheses_tested)
+        self.stats["coverage_percent"] = (
             len(self.hypotheses_tested) / len(self.words_discovered) * 100
-            if self.words_discovered else 0
+            if self.words_discovered
+            else 0
         )
 
         # Count high-confidence findings
-        high_conf = sum(1 for w, d in self.hypotheses_tested.items()
-                        if d['max_confidence'] in ['CERTAIN', 'PROBABLE', 'HIGH'])
-        self.stats['high_confidence_findings'] = high_conf
+        high_conf = sum(
+            1
+            for w, d in self.hypotheses_tested.items()
+            if d["max_confidence"] in ["CERTAIN", "PROBABLE", "HIGH"]
+        )
+        self.stats["high_confidence_findings"] = high_conf
 
         self.log(f"Hypothesis testing complete: {len(self.hypotheses_tested)} words")
         self.log(f"High-confidence findings: {high_conf}")
 
-        self.save_checkpoint('hypothesize')
+        self.save_checkpoint("hypothesize")
         return self.hypotheses_tested
 
     # =========================================================================
@@ -474,14 +496,14 @@ class BatchPipeline:
             return {}
 
         if not self.hypotheses_tested:
-            self.log("No hypotheses tested. Run stage_hypothesize first.", 'ERROR')
+            self.log("No hypotheses tested. Run stage_hypothesize first.", "ERROR")
             return {}
 
         validations = {}
 
         for word, data in self.hypotheses_tested.items():
-            sites = data.get('sites', [])
-            freq = data.get('frequency', 0)
+            sites = data.get("sites", [])
+            freq = data.get("frequency", 0)
 
             # Cross-site consistency
             site_count = len(sites)
@@ -489,50 +511,50 @@ class BatchPipeline:
 
             # Position consistency (from discover stage)
             word_data = self.words_discovered.get(word, {})
-            positions = word_data.get('positions', {})
+            positions = word_data.get("positions", {})
 
             # Determine dominant position
             if positions:
                 dominant_pos = max(positions.items(), key=lambda x: x[1])
                 position_consistency = dominant_pos[1] / sum(positions.values())
             else:
-                dominant_pos = ('unknown', 0)
+                dominant_pos = ("unknown", 0)
                 position_consistency = 0
 
             # Validation verdict
             if is_cross_site and position_consistency > 0.7:
-                verdict = 'CONSISTENT'
+                verdict = "CONSISTENT"
             elif is_cross_site or position_consistency > 0.7:
-                verdict = 'PARTIAL'
+                verdict = "PARTIAL"
             else:
-                verdict = 'WEAK'
+                verdict = "WEAK"
 
             validations[word] = {
-                'word': word,
-                'frequency': freq,
-                'site_count': site_count,
-                'sites': sites,
-                'cross_site': is_cross_site,
-                'dominant_position': dominant_pos[0],
-                'position_consistency': round(position_consistency, 2),
-                'verdict': verdict,
-                'best_hypothesis': data.get('best_hypothesis'),
-                'max_confidence': data.get('max_confidence'),
+                "word": word,
+                "frequency": freq,
+                "site_count": site_count,
+                "sites": sites,
+                "cross_site": is_cross_site,
+                "dominant_position": dominant_pos[0],
+                "position_consistency": round(position_consistency, 2),
+                "verdict": verdict,
+                "best_hypothesis": data.get("best_hypothesis"),
+                "max_confidence": data.get("max_confidence"),
             }
 
         self.validations = validations
 
         # Statistics
-        consistent = sum(1 for v in validations.values() if v['verdict'] == 'CONSISTENT')
-        partial = sum(1 for v in validations.values() if v['verdict'] == 'PARTIAL')
-        weak = sum(1 for v in validations.values() if v['verdict'] == 'WEAK')
+        consistent = sum(1 for v in validations.values() if v["verdict"] == "CONSISTENT")
+        partial = sum(1 for v in validations.values() if v["verdict"] == "PARTIAL")
+        weak = sum(1 for v in validations.values() if v["verdict"] == "WEAK")
 
         self.log("Validation complete:")
         self.log(f"  CONSISTENT: {consistent}")
         self.log(f"  PARTIAL: {partial}")
         self.log(f"  WEAK: {weak}")
 
-        self.save_checkpoint('validate')
+        self.save_checkpoint("validate")
         return validations
 
     # =========================================================================
@@ -558,21 +580,21 @@ class BatchPipeline:
             return {}
 
         if not self.validations:
-            self.log("No validations available. Run stage_validate first.", 'ERROR')
+            self.log("No validations available. Run stage_validate first.", "ERROR")
             return {}
 
         # Hypothesis support aggregation
         hypothesis_support = {
-            'luwian': {'total_score': 0, 'word_count': 0, 'best_words': []},
-            'semitic': {'total_score': 0, 'word_count': 0, 'best_words': []},
-            'pregreek': {'total_score': 0, 'word_count': 0, 'best_words': []},
-            'protogreek': {'total_score': 0, 'word_count': 0, 'best_words': []},
+            "luwian": {"total_score": 0, "word_count": 0, "best_words": []},
+            "semitic": {"total_score": 0, "word_count": 0, "best_words": []},
+            "pregreek": {"total_score": 0, "word_count": 0, "best_words": []},
+            "protogreek": {"total_score": 0, "word_count": 0, "best_words": []},
         }
         best_assignment_counts = {
-            'luwian': 0,
-            'semitic': 0,
-            'pregreek': 0,
-            'protogreek': 0,
+            "luwian": 0,
+            "semitic": 0,
+            "pregreek": 0,
+            "protogreek": 0,
         }
 
         # Categorize findings
@@ -582,75 +604,72 @@ class BatchPipeline:
 
         for word, validation in self.validations.items():
             hyp_data = self.hypotheses_tested.get(word, {})
-            scores = hyp_data.get('hypothesis_scores', {})
+            scores = hyp_data.get("hypothesis_scores", {})
 
             # Aggregate hypothesis scores
             for hyp, score in scores.items():
                 if hyp in hypothesis_support:
-                    hypothesis_support[hyp]['total_score'] += score
+                    hypothesis_support[hyp]["total_score"] += score
             # Count support using hypothesis_tester synthesis verdict thresholds.
-            for hyp in hyp_data.get('supported_hypotheses', []):
+            for hyp in hyp_data.get("supported_hypotheses", []):
                 if hyp in hypothesis_support:
-                    hypothesis_support[hyp]['word_count'] += 1
-            best_hypothesis = hyp_data.get('best_hypothesis')
+                    hypothesis_support[hyp]["word_count"] += 1
+            best_hypothesis = hyp_data.get("best_hypothesis")
             if best_hypothesis in best_assignment_counts:
                 best_assignment_counts[best_hypothesis] += 1
 
             # Categorize by confidence
-            confidence = validation.get('max_confidence', 'SPECULATIVE')
-            verdict = validation.get('verdict', 'WEAK')
+            confidence = validation.get("max_confidence", "SPECULATIVE")
+            verdict = validation.get("verdict", "WEAK")
 
             entry = {
-                'word': word,
-                'frequency': validation.get('frequency', 0),
-                'best_hypothesis': validation.get('best_hypothesis'),
-                'confidence': confidence,
-                'consistency': verdict,
-                'sites': validation.get('sites', []),
+                "word": word,
+                "frequency": validation.get("frequency", 0),
+                "best_hypothesis": validation.get("best_hypothesis"),
+                "confidence": confidence,
+                "consistency": verdict,
+                "sites": validation.get("sites", []),
             }
 
             # High confidence requires freq >= 2 (exclude hapax legomena per METHODOLOGY.md)
-            freq = entry['frequency']
-            if confidence in ['CERTAIN', 'PROBABLE'] and verdict == 'CONSISTENT' and freq >= 2:
+            freq = entry["frequency"]
+            if confidence in ["CERTAIN", "PROBABLE"] and verdict == "CONSISTENT" and freq >= 2:
                 high_confidence.append(entry)
-            elif confidence in ['PROBABLE', 'POSSIBLE'] or verdict == 'PARTIAL':
+            elif confidence in ["PROBABLE", "POSSIBLE"] or verdict == "PARTIAL":
                 medium_confidence.append(entry)
             else:
                 needs_review.append(entry)
 
         # Sort by frequency
-        high_confidence.sort(key=lambda x: -x['frequency'])
-        medium_confidence.sort(key=lambda x: -x['frequency'])
-        needs_review.sort(key=lambda x: -x['frequency'])
+        high_confidence.sort(key=lambda x: -x["frequency"])
+        medium_confidence.sort(key=lambda x: -x["frequency"])
+        needs_review.sort(key=lambda x: -x["frequency"])
 
         # Calculate hypothesis rankings
-        hypothesis_rankings = sorted(
-            hypothesis_support.items(),
-            key=lambda x: -x[1]['total_score']
-        )
+        hypothesis_rankings = sorted(hypothesis_support.items(), key=lambda x: -x[1]["total_score"])
 
         self.synthesis = {
-            'generated': datetime.now().isoformat(),
-            'pipeline_stats': self.stats,
-            'summary': {
-                'total_words_analyzed': len(self.validations),
-                'high_confidence': len(high_confidence),
-                'medium_confidence': len(medium_confidence),
-                'needs_review': len(needs_review),
+            "generated": datetime.now().isoformat(),
+            "pipeline_stats": self.stats,
+            "summary": {
+                "total_words_analyzed": len(self.validations),
+                "high_confidence": len(high_confidence),
+                "medium_confidence": len(medium_confidence),
+                "needs_review": len(needs_review),
             },
-            'hypothesis_rankings': {
+            "hypothesis_rankings": {
                 hyp: {
-                    'rank': idx + 1,
-                    'total_score': round(data['total_score'], 2),
-                    'words_supporting': data['word_count'],
-                    'best_assignments': best_assignment_counts.get(hyp, 0),
+                    "rank": idx + 1,
+                    "total_score": round(data["total_score"], 2),
+                    "words_supporting": data["word_count"],
+                    "best_assignments": best_assignment_counts.get(hyp, 0),
                 }
                 for idx, (hyp, data) in enumerate(hypothesis_rankings)
             },
-            'high_confidence_findings': high_confidence[:50],  # Top 50
-            'medium_confidence_findings': medium_confidence[:50],
-            'needs_review': needs_review[:30],
-            'recommendations': self._generate_recommendations(high_confidence),
+            "high_confidence_findings": high_confidence[:50],  # Top 50
+            "medium_confidence_findings": medium_confidence[:50],
+            "needs_review": needs_review[:30],
+            "recommendations": self._generate_recommendations(high_confidence),
         }
 
         self.log("\nSynthesis complete:")
@@ -659,7 +678,9 @@ class BatchPipeline:
         self.log(f"  Needs review: {len(needs_review)}")
         self.log("\nHypothesis rankings:")
         for hyp, data in hypothesis_rankings:
-            self.log(f"  {hyp.upper()}: score={data['total_score']:.1f}, words={data['word_count']}")
+            self.log(
+                f"  {hyp.upper()}: score={data['total_score']:.1f}, words={data['word_count']}"
+            )
 
         return self.synthesis
 
@@ -675,7 +696,7 @@ class BatchPipeline:
             # Group by hypothesis
             by_hyp = defaultdict(list)
             for item in high_confidence[:20]:
-                by_hyp[item['best_hypothesis']].append(item['word'])
+                by_hyp[item["best_hypothesis"]].append(item["word"])
 
             for hyp, words in by_hyp.items():
                 if words:
@@ -694,7 +715,7 @@ class BatchPipeline:
         min_frequency: int = 2,
         max_words: Optional[int] = None,
         site_filter: Optional[str] = None,
-        resume: bool = False
+        resume: bool = False,
     ) -> dict:
         """
         Run complete analysis pipeline.
@@ -718,16 +739,16 @@ class BatchPipeline:
 
         # Load corpus
         if not self.load_corpus(site_filter):
-            return {'error': 'Failed to load corpus'}
+            return {"error": "Failed to load corpus"}
 
         # Stage 1: Discover
-        if resume and self.load_checkpoint('discover'):
+        if resume and self.load_checkpoint("discover"):
             self.log("Resumed discovery from checkpoint")
         else:
             self.stage_discover(min_frequency)
 
         # Stage 2: Hypothesize
-        if resume and self.load_checkpoint('hypothesize'):
+        if resume and self.load_checkpoint("hypothesize"):
             self.log("Resumed hypothesis testing from checkpoint")
         else:
             self.stage_hypothesize(max_words)
@@ -740,7 +761,7 @@ class BatchPipeline:
 
         # Save final results
         output_path = DATA_DIR / "batch_analysis_results.json"
-        with open(output_path, 'w', encoding='utf-8') as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             json.dump(self.synthesis, f, ensure_ascii=False, indent=2)
 
         self.log("")
@@ -762,78 +783,60 @@ class BatchPipeline:
         print("BATCH ANALYSIS SUMMARY")
         print("=" * 60)
 
-        summary = self.synthesis.get('summary', {})
+        summary = self.synthesis.get("summary", {})
         print(f"\nWords Analyzed: {summary.get('total_words_analyzed', 0)}")
         print(f"  High Confidence: {summary.get('high_confidence', 0)}")
         print(f"  Medium Confidence: {summary.get('medium_confidence', 0)}")
         print(f"  Needs Review: {summary.get('needs_review', 0)}")
 
         print("\nHypothesis Rankings:")
-        rankings = self.synthesis.get('hypothesis_rankings', {})
-        for hyp, data in sorted(rankings.items(), key=lambda x: x[1]['rank']):
-            print(f"  {data['rank']}. {hyp.upper()}: score={data['total_score']}, words={data['words_supporting']}")
+        rankings = self.synthesis.get("hypothesis_rankings", {})
+        for hyp, data in sorted(rankings.items(), key=lambda x: x[1]["rank"]):
+            print(
+                f"  {data['rank']}. {hyp.upper()}: score={data['total_score']}, words={data['words_supporting']}"
+            )
 
         print("\nTop High-Confidence Findings:")
-        for item in self.synthesis.get('high_confidence_findings', [])[:10]:
-            print(f"  {item['word']} (freq={item['frequency']}): {item['best_hypothesis'].upper()} [{item['confidence']}]")
+        for item in self.synthesis.get("high_confidence_findings", [])[:10]:
+            print(
+                f"  {item['word']} (freq={item['frequency']}): {item['best_hypothesis'].upper()} [{item['confidence']}]"
+            )
 
         print("\nRecommendations:")
-        for rec in self.synthesis.get('recommendations', []):
+        for rec in self.synthesis.get("recommendations", []):
             print(f"  - {rec}")
 
         print("\n" + "=" * 60)
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Linear A Batch Processing Pipeline"
+    parser = argparse.ArgumentParser(description="Linear A Batch Processing Pipeline")
+    parser.add_argument(
+        "--full", "-f", action="store_true", help="Run full pipeline on entire corpus"
     )
     parser.add_argument(
-        '--full', '-f',
-        action='store_true',
-        help='Run full pipeline on entire corpus'
+        "--stage",
+        "-s",
+        choices=["discover", "hypothesize", "validate", "synthesize"],
+        help="Run single stage only",
     )
+    parser.add_argument("--site", type=str, help="Filter by site code (e.g., HT, KH, ZA)")
     parser.add_argument(
-        '--stage', '-s',
-        choices=['discover', 'hypothesize', 'validate', 'synthesize'],
-        help='Run single stage only'
-    )
-    parser.add_argument(
-        '--site',
-        type=str,
-        help='Filter by site code (e.g., HT, KH, ZA)'
-    )
-    parser.add_argument(
-        '--min-freq', '-m',
+        "--min-freq",
+        "-m",
         type=int,
         default=2,
-        help='Minimum word frequency threshold (default: 2)'
+        help="Minimum word frequency threshold (default: 2)",
+    )
+    parser.add_argument("--max-words", type=int, help="Maximum words to test (default: all)")
+    parser.add_argument("--resume", "-r", action="store_true", help="Resume from last checkpoint")
+    parser.add_argument(
+        "--dry-run", action="store_true", help="Show what would be done without executing"
     )
     parser.add_argument(
-        '--max-words',
-        type=int,
-        help='Maximum words to test (default: all)'
+        "--coverage", action="store_true", help="Calculate and display corpus coverage statistics"
     )
-    parser.add_argument(
-        '--resume', '-r',
-        action='store_true',
-        help='Resume from last checkpoint'
-    )
-    parser.add_argument(
-        '--dry-run',
-        action='store_true',
-        help='Show what would be done without executing'
-    )
-    parser.add_argument(
-        '--coverage',
-        action='store_true',
-        help='Calculate and display corpus coverage statistics'
-    )
-    parser.add_argument(
-        '--verbose', '-v',
-        action='store_true',
-        help='Show detailed progress'
-    )
+    parser.add_argument("--verbose", "-v", action="store_true", help="Show detailed progress")
 
     args = parser.parse_args()
 
@@ -844,7 +847,7 @@ def main():
         if not pipeline.load_corpus(args.site):
             return 1
         if args.resume:
-            pipeline.load_checkpoint('hypothesize')
+            pipeline.load_checkpoint("hypothesize")
         coverage = pipeline.calculate_corpus_coverage()
         print("\n" + "=" * 60)
         print("CORPUS COVERAGE ANALYSIS")
@@ -855,12 +858,14 @@ def main():
         print(f"Overall coverage: {coverage.get('overall_coverage_percent', 0)}%")
         print(f"KU-RO tablets: {coverage.get('kuro_tablets', 0)}")
         print("\nCoverage by Site:")
-        for site, stats in coverage.get('by_site', {}).items():
-            print(f"  {site:4s}: {stats['inscriptions']:4d} inscriptions, "
-                  f"{stats['unique_words']:4d} unique words, "
-                  f"{stats['coverage_percent']:5.1f}% analyzed")
+        for site, stats in coverage.get("by_site", {}).items():
+            print(
+                f"  {site:4s}: {stats['inscriptions']:4d} inscriptions, "
+                f"{stats['unique_words']:4d} unique words, "
+                f"{stats['coverage_percent']:5.1f}% analyzed"
+            )
         print("\nRecommendations:")
-        for rec in coverage.get('recommendations', []):
+        for rec in coverage.get("recommendations", []):
             print(f"  • {rec}")
         print("=" * 60)
         return 0
@@ -870,28 +875,28 @@ def main():
             min_frequency=args.min_freq,
             max_words=args.max_words,
             site_filter=args.site,
-            resume=args.resume
+            resume=args.resume,
         )
     elif args.stage:
         # Load corpus first
         if not pipeline.load_corpus(args.site):
             return 1
 
-        if args.stage == 'discover':
+        if args.stage == "discover":
             pipeline.stage_discover(args.min_freq)
-        elif args.stage == 'hypothesize':
+        elif args.stage == "hypothesize":
             if args.resume:
-                pipeline.load_checkpoint('discover')
+                pipeline.load_checkpoint("discover")
             else:
                 pipeline.stage_discover(args.min_freq)
             pipeline.stage_hypothesize(args.max_words)
-        elif args.stage == 'validate':
+        elif args.stage == "validate":
             if args.resume:
-                pipeline.load_checkpoint('hypothesize')
+                pipeline.load_checkpoint("hypothesize")
             pipeline.stage_validate()
-        elif args.stage == 'synthesize':
+        elif args.stage == "synthesize":
             if args.resume:
-                pipeline.load_checkpoint('validate')
+                pipeline.load_checkpoint("validate")
             pipeline.stage_synthesize()
     else:
         print("Linear A Batch Processing Pipeline")
@@ -910,5 +915,5 @@ def main():
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

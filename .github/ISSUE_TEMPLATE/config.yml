@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Methodology Discussion
+    url: https://github.com/levelheads/linear-a-decipherer/discussions
+    about: For open-ended methodology discussions and research questions

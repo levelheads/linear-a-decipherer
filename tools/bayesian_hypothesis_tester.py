@@ -50,8 +50,12 @@ HYPOTHESIS_RESULTS_FILE = DATA_DIR / "hypothesis_results.json"
 # Import lexicons from hypothesis_tester if available
 try:
     from hypothesis_tester import (
-        LUWIAN_LEXICON, SEMITIC_LEXICON, PREGREEK_MARKERS,
-        PREGREEK_VOCABULARY, GREEK_LEXICON, extract_consonants
+        LUWIAN_LEXICON,
+        SEMITIC_LEXICON,
+        PREGREEK_MARKERS,
+        PREGREEK_VOCABULARY,
+        GREEK_LEXICON,
+        extract_consonants,
     )
 except ImportError:
     # Define minimal versions if import fails
@@ -63,14 +67,14 @@ except ImportError:
 
     def extract_consonants(word: str) -> str:
         consonants = []
-        syllables = word.upper().split('-')
+        syllables = word.upper().split("-")
         for syl in syllables:
-            syl = re.sub(r'[₀₁₂₃₄₅₆₇₈₉]', '', syl)
+            syl = re.sub(r"[₀₁₂₃₄₅₆₇₈₉]", "", syl)
             if len(syl) >= 1:
                 first = syl[0]
-                if first not in 'AEIOU':
+                if first not in "AEIOU":
                     consonants.append(first)
-        return ''.join(consonants)
+        return "".join(consonants)
 
 
 # ============================================================================
@@ -79,40 +83,40 @@ except ImportError:
 
 # Calibrated priors based on external evidence
 DEFAULT_PRIORS = {
-    'luwian': 0.25,      # Geographic proximity, Palmer/Finkelberg case
-    'semitic': 0.15,     # Trade routes, Gordon's administrative vocabulary
-    'pregreek': 0.20,    # Substrate theory, Beekes' lexicon of Pre-Greek
-    'protogreek': 0.05,  # Low /o/ frequency strongly argues against
-    'isolate': 0.35,     # Conservative null hypothesis
+    "luwian": 0.25,  # Geographic proximity, Palmer/Finkelberg case
+    "semitic": 0.15,  # Trade routes, Gordon's administrative vocabulary
+    "pregreek": 0.20,  # Substrate theory, Beekes' lexicon of Pre-Greek
+    "protogreek": 0.05,  # Low /o/ frequency strongly argues against
+    "isolate": 0.35,  # Conservative null hypothesis
 }
 
 # Prior rationales
 PRIOR_RATIONALES = {
-    'luwian': [
+    "luwian": [
         "Geographic proximity: Anatolia accessible via western trade routes",
         "Palmer (1958) and Finkelberg (1998) identified morphological parallels",
         "30.3% corpus support (highest of tested hypotheses)",
         "Religious texts show +14.5% Luwian affinity vs administrative",
     ],
-    'semitic': [
+    "semitic": [
         "Bronze Age trade routes connected Crete with Levant",
         "Gordon (1966) identified KU-RO = *kull administrative parallel",
         "17.7% corpus support concentrated in administrative vocabulary",
         "Absence of triconsonantal morphology suggests loans, not genetic",
     ],
-    'pregreek': [
+    "pregreek": [
         "Substrate theory: Pre-Greek layer in Greek toponyms and vocabulary",
         "Beekes (2014) documented extensive Pre-Greek vocabulary",
         "Low direct evidence (1.5%) may reflect detection limitations",
         "Pre-Greek is 'residual' hypothesis - gains when others fail",
     ],
-    'protogreek': [
+    "protogreek": [
         "Very low prior due to /o/ frequency (2.9% vs expected 20%)",
         "Absence of Greek case endings",
         "Different totaling vocabulary (KU-RO vs to-so)",
         "Only 2.5% corpus support; effectively eliminated",
     ],
-    'isolate': [
+    "isolate": [
         "Conservative null hypothesis: Minoan is a language isolate",
         "No definitive genetic affiliation established",
         "Davis (2014) 'isolated language' consensus",
@@ -124,6 +128,7 @@ PRIOR_RATIONALES = {
 @dataclass
 class LikelihoodEvidence:
     """Evidence contributing to likelihood calculation."""
+
     evidence_type: str  # lexical, morphological, phonological, structural
     observation: str
     likelihood_luwian: float
@@ -137,6 +142,7 @@ class LikelihoodEvidence:
 @dataclass
 class BayesianResult:
     """Result of Bayesian analysis for a word."""
+
     word: str
     frequency: int
     priors: Dict[str, float]
@@ -181,11 +187,11 @@ class BayesianHypothesisTester:
     def load_data(self) -> bool:
         """Load corpus and existing hypothesis results."""
         try:
-            with open(CORPUS_FILE, 'r', encoding='utf-8') as f:
+            with open(CORPUS_FILE, "r", encoding="utf-8") as f:
                 self.corpus = json.load(f)
 
             if HYPOTHESIS_RESULTS_FILE.exists():
-                with open(HYPOTHESIS_RESULTS_FILE, 'r', encoding='utf-8') as f:
+                with open(HYPOTHESIS_RESULTS_FILE, "r", encoding="utf-8") as f:
                     self.hypothesis_results = json.load(f)
 
             print(f"Loaded corpus: {len(self.corpus.get('inscriptions', {}))} inscriptions")
@@ -202,46 +208,48 @@ class BayesianHypothesisTester:
         Returns likelihood values for each hypothesis.
         """
         likelihoods = {
-            'luwian': 0.1,      # Base rate
-            'semitic': 0.1,
-            'pregreek': 0.1,
-            'protogreek': 0.1,
-            'isolate': 0.1,
+            "luwian": 0.1,  # Base rate
+            "semitic": 0.1,
+            "pregreek": 0.1,
+            "protogreek": 0.1,
+            "isolate": 0.1,
         }
 
         word_upper = word.upper()
-        syllables = word_upper.split('-')
+        syllables = word_upper.split("-")
         consonants = extract_consonants(word)
 
         # Check Luwian lexicon
         for luw_word, data in LUWIAN_LEXICON.items():
             if luw_word.upper() in word_upper or word_upper in luw_word.upper():
-                conf = data.get('confidence', 'LOW')
-                boost = 0.3 if conf == 'HIGH' else 0.2 if conf == 'MEDIUM' else 0.1
-                likelihoods['luwian'] += boost
+                conf = data.get("confidence", "LOW")
+                boost = 0.3 if conf == "HIGH" else 0.2 if conf == "MEDIUM" else 0.1
+                likelihoods["luwian"] += boost
 
         # Check Semitic roots
         for sem_word, data in SEMITIC_LEXICON.items():
-            root = data.get('root', sem_word.upper())
+            root = data.get("root", sem_word.upper())
             if consonants == root or consonants in root or root in consonants:
-                conf = data.get('confidence', 'LOW')
-                boost = 0.3 if conf == 'HIGH' else 0.2 if conf == 'MEDIUM' else 0.1
-                likelihoods['semitic'] += boost
+                conf = data.get("confidence", "LOW")
+                boost = 0.3 if conf == "HIGH" else 0.2 if conf == "MEDIUM" else 0.1
+                likelihoods["semitic"] += boost
 
         # Check Greek cognates
         for greek_word, data in GREEK_LEXICON.items():
-            linear_b = data.get('Linear_B', '').upper()
-            if linear_b and (word_upper == linear_b or word_upper in linear_b or linear_b in word_upper):
-                conf = data.get('confidence', 'LOW')
-                boost = 0.3 if conf == 'HIGH' else 0.2 if conf == 'MEDIUM' else 0.1
-                likelihoods['protogreek'] += boost
+            linear_b = data.get("Linear_B", "").upper()
+            if linear_b and (
+                word_upper == linear_b or word_upper in linear_b or linear_b in word_upper
+            ):
+                conf = data.get("confidence", "LOW")
+                boost = 0.3 if conf == "HIGH" else 0.2 if conf == "MEDIUM" else 0.1
+                likelihoods["protogreek"] += boost
 
         # Check Pre-Greek markers
         for marker in PREGREEK_MARKERS:
             if marker.upper() in word_upper:
-                sig = PREGREEK_MARKERS[marker].get('significance', 'LOW')
-                boost = 0.3 if sig == 'HIGH' else 0.2 if sig == 'MEDIUM' else 0.1
-                likelihoods['pregreek'] += boost
+                sig = PREGREEK_MARKERS[marker].get("significance", "LOW")
+                boost = 0.3 if sig == "HIGH" else 0.2 if sig == "MEDIUM" else 0.1
+                likelihoods["pregreek"] += boost
 
         # Normalize to [0, 1] range
         for hyp in likelihoods:
@@ -254,43 +262,43 @@ class BayesianHypothesisTester:
         Calculate likelihood based on morphological patterns.
         """
         likelihoods = {
-            'luwian': 0.1,
-            'semitic': 0.1,
-            'pregreek': 0.1,
-            'protogreek': 0.1,
-            'isolate': 0.1,
+            "luwian": 0.1,
+            "semitic": 0.1,
+            "pregreek": 0.1,
+            "protogreek": 0.1,
+            "isolate": 0.1,
         }
 
         word_upper = word.upper()
-        syllables = word_upper.split('-')
+        syllables = word_upper.split("-")
 
         # Luwian morphology
-        if syllables[0] == 'A':  # Conjunction
-            likelihoods['luwian'] += 0.15
-        if 'WA' in syllables or 'U' in syllables:  # Quotative
-            likelihoods['luwian'] += 0.15
-        if word_upper.endswith('-JA'):  # Adjectival
-            likelihoods['luwian'] += 0.2
-        if word_upper.endswith('-TI') or word_upper.endswith('-NTI'):  # Verbal
-            likelihoods['luwian'] += 0.15
+        if syllables[0] == "A":  # Conjunction
+            likelihoods["luwian"] += 0.15
+        if "WA" in syllables or "U" in syllables:  # Quotative
+            likelihoods["luwian"] += 0.15
+        if word_upper.endswith("-JA"):  # Adjectival
+            likelihoods["luwian"] += 0.2
+        if word_upper.endswith("-TI") or word_upper.endswith("-NTI"):  # Verbal
+            likelihoods["luwian"] += 0.15
 
         # Semitic morphology (weak evidence - we know it's mostly loans)
         consonants = extract_consonants(word)
         if len(consonants) == 3:  # Triconsonantal
-            likelihoods['semitic'] += 0.1
+            likelihoods["semitic"] += 0.1
 
         # Greek morphology
-        greek_endings = ['O', 'A', 'OS', 'AS', 'ES', 'OI', 'AI']
+        greek_endings = ["O", "A", "OS", "AS", "ES", "OI", "AI"]
         if syllables and syllables[-1] in greek_endings:
-            likelihoods['protogreek'] += 0.1
+            likelihoods["protogreek"] += 0.1
 
         # Pre-Greek (limited morphological criteria)
         if len(syllables) >= 2 and syllables[0] == syllables[1]:  # Gemination
-            likelihoods['pregreek'] += 0.1
+            likelihoods["pregreek"] += 0.1
 
         # Isolate gets boost for unmatched patterns
         if max(likelihoods.values()) < 0.2:
-            likelihoods['isolate'] += 0.2
+            likelihoods["isolate"] += 0.2
 
         # Normalize
         for hyp in likelihoods:
@@ -303,41 +311,41 @@ class BayesianHypothesisTester:
         Calculate likelihood based on phonological patterns.
         """
         likelihoods = {
-            'luwian': 0.1,
-            'semitic': 0.1,
-            'pregreek': 0.1,
-            'protogreek': 0.1,
-            'isolate': 0.1,
+            "luwian": 0.1,
+            "semitic": 0.1,
+            "pregreek": 0.1,
+            "protogreek": 0.1,
+            "isolate": 0.1,
         }
 
         word_upper = word.upper()
-        syllables = word_upper.split('-')
+        syllables = word_upper.split("-")
 
         # Vowel distribution (critical for Greek)
         vowels = []
         for syl in syllables:
-            syl_clean = re.sub(r'[₀₁₂₃₄₅₆₇₈₉]', '', syl)
-            if syl_clean and syl_clean[-1] in 'AEIOU':
+            syl_clean = re.sub(r"[₀₁₂₃₄₅₆₇₈₉]", "", syl)
+            if syl_clean and syl_clean[-1] in "AEIOU":
                 vowels.append(syl_clean[-1])
 
         if vowels:
-            o_freq = vowels.count('O') / len(vowels)
-            a_freq = vowels.count('A') / len(vowels)
+            o_freq = vowels.count("O") / len(vowels)
+            a_freq = vowels.count("A") / len(vowels)
 
             # Low /o/ argues against Greek
             if o_freq < 0.1:
-                likelihoods['protogreek'] *= 0.5
-                likelihoods['isolate'] += 0.1
+                likelihoods["protogreek"] *= 0.5
+                likelihoods["isolate"] += 0.1
 
             # High /a/ compatible with Anatolian/Semitic
             if a_freq > 0.4:
-                likelihoods['luwian'] += 0.1
-                likelihoods['semitic'] += 0.1
+                likelihoods["luwian"] += 0.1
+                likelihoods["semitic"] += 0.1
 
         # Labialized consonants (Luwian feature)
         for syl in syllables:
-            if syl.startswith('W') or syl.startswith('KW') or syl.startswith('QU'):
-                likelihoods['luwian'] += 0.1
+            if syl.startswith("W") or syl.startswith("KW") or syl.startswith("QU"):
+                likelihoods["luwian"] += 0.1
                 break
 
         # Normalize
@@ -364,9 +372,7 @@ class BayesianHypothesisTester:
         combined_likelihoods = {}
         for hyp in self.priors:
             combined_likelihoods[hyp] = (
-                lexical_lik[hyp] ** 0.4 *
-                morph_lik[hyp] ** 0.3 *
-                phon_lik[hyp] ** 0.3
+                lexical_lik[hyp] ** 0.4 * morph_lik[hyp] ** 0.3 * phon_lik[hyp] ** 0.3
             )
 
         # Apply Bayes' theorem
@@ -379,7 +385,9 @@ class BayesianHypothesisTester:
         total = sum(unnormalized_posteriors.values())
         posteriors = {}
         for hyp in self.priors:
-            posteriors[hyp] = unnormalized_posteriors[hyp] / total if total > 0 else self.priors[hyp]
+            posteriors[hyp] = (
+                unnormalized_posteriors[hyp] / total if total > 0 else self.priors[hyp]
+            )
 
         # Calculate credible intervals using Beta distribution approximation
         credible_intervals = {}
@@ -390,15 +398,15 @@ class BayesianHypothesisTester:
             alpha = post * effective_n
             beta = (1 - post) * effective_n + 1
             # 95% credible interval from Beta distribution
-            lower = max(0, post - 1.96 * math.sqrt(post * (1-post) / effective_n))
-            upper = min(1, post + 1.96 * math.sqrt(post * (1-post) / effective_n))
+            lower = max(0, post - 1.96 * math.sqrt(post * (1 - post) / effective_n))
+            upper = min(1, post + 1.96 * math.sqrt(post * (1 - post) / effective_n))
             credible_intervals[hyp] = (round(lower, 4), round(upper, 4))
 
         # Calculate Bayes factors vs isolate null
         bayes_factors = {}
-        isolate_post = posteriors.get('isolate', 0.001)
+        isolate_post = posteriors.get("isolate", 0.001)
         for hyp in posteriors:
-            if hyp != 'isolate':
+            if hyp != "isolate":
                 bf = posteriors[hyp] / isolate_post if isolate_post > 0 else 0
                 bayes_factors[hyp] = round(bf, 3)
 
@@ -407,7 +415,7 @@ class BayesianHypothesisTester:
 
         # Multi-hypothesis support (code-switching model)
         # Normalize non-isolate posteriors for weighting
-        non_isolate = {k: v for k, v in posteriors.items() if k != 'isolate'}
+        non_isolate = {k: v for k, v in posteriors.items() if k != "isolate"}
         total_non_isolate = sum(non_isolate.values())
         multi_support = {}
         if total_non_isolate > 0:
@@ -429,12 +437,12 @@ class BayesianHypothesisTester:
             evidence=evidence,
             best_hypothesis=best_hyp,
             multi_hypothesis_support=multi_support,
-            interpretation=interpretation
+            interpretation=interpretation,
         )
 
-    def _generate_interpretation(self, posteriors: Dict[str, float],
-                                 bayes_factors: Dict[str, float],
-                                 best_hyp: str) -> str:
+    def _generate_interpretation(
+        self, posteriors: Dict[str, float], bayes_factors: Dict[str, float], best_hyp: str
+    ) -> str:
         """Generate human-readable interpretation."""
         best_post = posteriors[best_hyp]
         best_bf = bayes_factors.get(best_hyp, 0)
@@ -460,15 +468,18 @@ class BayesianHypothesisTester:
             bf_interp = "no evidence"
 
         # Check for multi-hypothesis support
-        above_threshold = [h for h, p in posteriors.items()
-                         if p > 0.15 and h != 'isolate']
+        above_threshold = [h for h, p in posteriors.items() if p > 0.15 and h != "isolate"]
 
         if len(above_threshold) > 1:
-            return (f"{best_hyp.capitalize()} {strength} supported (P={best_post:.2f}), "
-                   f"but multi-hypothesis model suggests: {', '.join(above_threshold)}")
+            return (
+                f"{best_hyp.capitalize()} {strength} supported (P={best_post:.2f}), "
+                f"but multi-hypothesis model suggests: {', '.join(above_threshold)}"
+            )
         else:
-            return (f"{best_hyp.capitalize()} {strength} supported (P={best_post:.2f}); "
-                   f"{bf_interp} vs isolate null (BF={best_bf:.1f})")
+            return (
+                f"{best_hyp.capitalize()} {strength} supported (P={best_post:.2f}); "
+                f"{bf_interp} vs isolate null (BF={best_bf:.1f})"
+            )
 
     def sensitivity_analysis(self, word: str) -> Dict:
         """
@@ -480,11 +491,29 @@ class BayesianHypothesisTester:
 
         # Test different prior configurations
         prior_configs = {
-            'default': DEFAULT_PRIORS.copy(),
-            'uniform': {h: 0.2 for h in DEFAULT_PRIORS},
-            'luwian_dominant': {'luwian': 0.4, 'semitic': 0.15, 'pregreek': 0.15, 'protogreek': 0.05, 'isolate': 0.25},
-            'semitic_dominant': {'luwian': 0.2, 'semitic': 0.35, 'pregreek': 0.15, 'protogreek': 0.05, 'isolate': 0.25},
-            'skeptical': {'luwian': 0.15, 'semitic': 0.1, 'pregreek': 0.15, 'protogreek': 0.05, 'isolate': 0.55},
+            "default": DEFAULT_PRIORS.copy(),
+            "uniform": {h: 0.2 for h in DEFAULT_PRIORS},
+            "luwian_dominant": {
+                "luwian": 0.4,
+                "semitic": 0.15,
+                "pregreek": 0.15,
+                "protogreek": 0.05,
+                "isolate": 0.25,
+            },
+            "semitic_dominant": {
+                "luwian": 0.2,
+                "semitic": 0.35,
+                "pregreek": 0.15,
+                "protogreek": 0.05,
+                "isolate": 0.25,
+            },
+            "skeptical": {
+                "luwian": 0.15,
+                "semitic": 0.1,
+                "pregreek": 0.15,
+                "protogreek": 0.05,
+                "isolate": 0.55,
+            },
         }
 
         for config_name, priors in prior_configs.items():
@@ -499,23 +528,25 @@ class BayesianHypothesisTester:
             result = self.compute_posterior(word)
 
             results[config_name] = {
-                'priors': priors,
-                'posteriors': result.posteriors,
-                'best_hypothesis': result.best_hypothesis,
-                'best_posterior': result.posteriors[result.best_hypothesis],
+                "priors": priors,
+                "posteriors": result.posteriors,
+                "best_hypothesis": result.best_hypothesis,
+                "best_posterior": result.posteriors[result.best_hypothesis],
             }
 
             self.priors = old_priors
 
         # Check stability
-        best_hypotheses = [r['best_hypothesis'] for r in results.values()]
+        best_hypotheses = [r["best_hypothesis"] for r in results.values()]
         stable = len(set(best_hypotheses)) == 1
 
         return {
-            'word': word,
-            'configurations': results,
-            'stable': stable,
-            'interpretation': 'Robust to prior changes' if stable else 'Sensitive to prior assumptions'
+            "word": word,
+            "configurations": results,
+            "stable": stable,
+            "interpretation": "Robust to prior changes"
+            if stable
+            else "Sensitive to prior assumptions",
         }
 
     def analyze_corpus(self, min_freq: int = 2) -> List[BayesianResult]:
@@ -524,11 +555,11 @@ class BayesianHypothesisTester:
         """
         # Extract word frequencies
         word_freq = Counter()
-        for insc_id, data in self.corpus.get('inscriptions', {}).items():
-            if '_parse_error' in data:
+        for insc_id, data in self.corpus.get("inscriptions", {}).items():
+            if "_parse_error" in data:
                 continue
-            for word in data.get('transliteratedWords', []):
-                if word and '-' in word and word not in ['\n', '𐄁', '']:
+            for word in data.get("transliteratedWords", []):
+                if word and "-" in word and word not in ["\n", "𐄁", ""]:
                     word_freq[word.upper()] += 1
 
         # Analyze words above threshold
@@ -537,7 +568,9 @@ class BayesianHypothesisTester:
             if freq >= min_freq:
                 result = self.compute_posterior(word, freq)
                 results.append(result)
-                self.log(f"{word}: {result.best_hypothesis} (P={result.posteriors[result.best_hypothesis]:.2f})")
+                self.log(
+                    f"{word}: {result.best_hypothesis} (P={result.posteriors[result.best_hypothesis]:.2f})"
+                )
 
         return results
 
@@ -555,34 +588,35 @@ class BayesianHypothesisTester:
                 aggregate_posteriors[hyp].append(post)
 
         mean_posteriors = {
-            hyp: sum(posts) / len(posts)
-            for hyp, posts in aggregate_posteriors.items()
+            hyp: sum(posts) / len(posts) for hyp, posts in aggregate_posteriors.items()
         }
 
         report = {
-            'metadata': {
-                'generated': datetime.now().isoformat(),
-                'method': 'Bayesian Hypothesis Testing',
-                'words_analyzed': len(results),
-                'priors_used': self.priors,
+            "metadata": {
+                "generated": datetime.now().isoformat(),
+                "method": "Bayesian Hypothesis Testing",
+                "words_analyzed": len(results),
+                "priors_used": self.priors,
             },
-            'aggregate_results': {
-                'mean_posteriors': mean_posteriors,
-                'words_per_hypothesis': {h: len(words) for h, words in by_hypothesis.items()},
+            "aggregate_results": {
+                "mean_posteriors": mean_posteriors,
+                "words_per_hypothesis": {h: len(words) for h, words in by_hypothesis.items()},
             },
-            'hypothesis_summaries': {},
-            'word_details': [asdict(r) for r in results[:100]],  # Top 100
+            "hypothesis_summaries": {},
+            "word_details": [asdict(r) for r in results[:100]],  # Top 100
         }
 
         for hyp in self.priors:
             words = by_hypothesis.get(hyp, [])
             posteriors = [r.posteriors[hyp] for r in results]
-            report['hypothesis_summaries'][hyp] = {
-                'best_for_n_words': len(words),
-                'mean_posterior': round(sum(posteriors) / len(posteriors), 4) if posteriors else 0,
-                'max_posterior': round(max(posteriors), 4) if posteriors else 0,
-                'prior': self.priors[hyp],
-                'posterior_shift': round((sum(posteriors) / len(posteriors)) - self.priors[hyp], 4) if posteriors else 0,
+            report["hypothesis_summaries"][hyp] = {
+                "best_for_n_words": len(words),
+                "mean_posterior": round(sum(posteriors) / len(posteriors), 4) if posteriors else 0,
+                "max_posterior": round(max(posteriors), 4) if posteriors else 0,
+                "prior": self.priors[hyp],
+                "posterior_shift": round((sum(posteriors) / len(posteriors)) - self.priors[hyp], 4)
+                if posteriors
+                else 0,
             }
 
         return report
@@ -597,11 +631,11 @@ class BayesianHypothesisTester:
             prior = result.priors[hyp]
             post = result.posteriors[hyp]
             ci = result.credible_intervals[hyp]
-            bf = result.bayes_factors.get(hyp, '')
+            bf = result.bayes_factors.get(hyp, "")
             bf_str = f"BF={bf:.1f}" if bf else ""
 
             bar_len = int(post * 40)
-            bar = '█' * bar_len + '░' * (40 - bar_len)
+            bar = "█" * bar_len + "░" * (40 - bar_len)
 
             print(f"  {hyp:12} {prior:.2f} → {post:.3f} [{ci[0]:.2f}, {ci[1]:.2f}] {bar} {bf_str}")
 
@@ -622,29 +656,34 @@ class BayesianHypothesisTester:
         print(f"\nWords Analyzed: {report['metadata']['words_analyzed']}")
 
         print("\nPrior Probabilities:")
-        for hyp, prior in report['metadata']['priors_used'].items():
+        for hyp, prior in report["metadata"]["priors_used"].items():
             print(f"  {hyp:12} {prior:.2f}")
 
         print("\nAggregate Results (Mean Posterior):")
-        for hyp, mean_post in sorted(report['aggregate_results']['mean_posteriors'].items(),
-                                     key=lambda x: -x[1]):
-            prior = report['metadata']['priors_used'][hyp]
+        for hyp, mean_post in sorted(
+            report["aggregate_results"]["mean_posteriors"].items(), key=lambda x: -x[1]
+        ):
+            prior = report["metadata"]["priors_used"][hyp]
             shift = mean_post - prior
-            arrow = '↑' if shift > 0 else '↓' if shift < 0 else '→'
+            arrow = "↑" if shift > 0 else "↓" if shift < 0 else "→"
             print(f"  {hyp:12} {mean_post:.3f} ({arrow}{abs(shift):.3f} from prior)")
 
         print("\nWords Best Explained By:")
-        for hyp, count in sorted(report['aggregate_results']['words_per_hypothesis'].items(),
-                                key=lambda x: -x[1]):
-            pct = count / report['metadata']['words_analyzed'] * 100
+        for hyp, count in sorted(
+            report["aggregate_results"]["words_per_hypothesis"].items(), key=lambda x: -x[1]
+        ):
+            pct = count / report["metadata"]["words_analyzed"] * 100
             print(f"  {hyp:12} {count:4d} ({pct:.1f}%)")
 
         print("\nHypothesis Performance:")
-        for hyp, summary in sorted(report['hypothesis_summaries'].items(),
-                                   key=lambda x: -x[1]['mean_posterior']):
+        for hyp, summary in sorted(
+            report["hypothesis_summaries"].items(), key=lambda x: -x[1]["mean_posterior"]
+        ):
             print(f"\n  {hyp.upper()}:")
             print(f"    Best for {summary['best_for_n_words']} words")
-            print(f"    Mean posterior: {summary['mean_posterior']:.3f} (prior: {summary['prior']:.2f})")
+            print(
+                f"    Mean posterior: {summary['mean_posterior']:.3f} (prior: {summary['prior']:.2f})"
+            )
             print(f"    Max posterior: {summary['max_posterior']:.3f}")
             print(f"    Shift from prior: {summary['posterior_shift']:+.3f}")
 
@@ -652,46 +691,28 @@ class BayesianHypothesisTester:
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Bayesian hypothesis testing for Linear A"
-    )
+    parser = argparse.ArgumentParser(description="Bayesian hypothesis testing for Linear A")
+    parser.add_argument("--word", "-w", type=str, help="Analyze a specific word")
     parser.add_argument(
-        '--word', '-w',
-        type=str,
-        help='Analyze a specific word'
+        "--detail", "-d", action="store_true", help="Show detailed evidence breakdown"
     )
+    parser.add_argument("--corpus", "-c", action="store_true", help="Analyze full corpus")
     parser.add_argument(
-        '--detail', '-d',
-        action='store_true',
-        help='Show detailed evidence breakdown'
-    )
-    parser.add_argument(
-        '--corpus', '-c',
-        action='store_true',
-        help='Analyze full corpus'
-    )
-    parser.add_argument(
-        '--min-freq', '-m',
+        "--min-freq",
+        "-m",
         type=int,
         default=2,
-        help='Minimum frequency for corpus analysis (default: 2)'
+        help="Minimum frequency for corpus analysis (default: 2)",
     )
     parser.add_argument(
-        '--sensitivity', '-s',
+        "--sensitivity",
+        "-s",
         type=str,
-        metavar='WORD',
-        help='Run prior sensitivity analysis for a word'
+        metavar="WORD",
+        help="Run prior sensitivity analysis for a word",
     )
-    parser.add_argument(
-        '--output', '-o',
-        type=str,
-        help='Output path for JSON results'
-    )
-    parser.add_argument(
-        '--verbose', '-v',
-        action='store_true',
-        help='Verbose output'
-    )
+    parser.add_argument("--output", "-o", type=str, help="Output path for JSON results")
+    parser.add_argument("--verbose", "-v", action="store_true", help="Verbose output")
 
     args = parser.parse_args()
 
@@ -709,7 +730,7 @@ def main():
 
         print(f"\nStability: {result['interpretation']}")
         print("\nResults by Prior Configuration:")
-        for config, data in result['configurations'].items():
+        for config, data in result["configurations"].items():
             print(f"\n  {config}:")
             print(f"    Best: {data['best_hypothesis']} (P={data['best_posterior']:.3f})")
 
@@ -728,7 +749,7 @@ def main():
 
         if args.output:
             output_path = Path(args.output)
-            with open(output_path, 'w', encoding='utf-8') as f:
+            with open(output_path, "w", encoding="utf-8") as f:
                 json.dump(report, f, indent=2, ensure_ascii=False)
             print(f"\nReport saved to: {output_path}")
 
@@ -745,5 +766,5 @@ def main():
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

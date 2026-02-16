@@ -227,7 +227,9 @@ def evaluate_lane(
             )
         ),
         "evidence_artifacts": evidence_artifacts,
-        "confidence_impact": handoff_defaults.get("confidence_impact", "No confidence change recorded."),
+        "confidence_impact": handoff_defaults.get(
+            "confidence_impact", "No confidence change recorded."
+        ),
         "dependencies_affected": handoff_defaults.get("dependencies_affected", []),
         "open_risks": handoff_defaults.get("open_risks", []),
         "required_reviewer_lane": handoff_defaults.get("required_reviewer_lane", "A"),
@@ -343,7 +345,9 @@ def main() -> int:
         },
         "lanes": lane_reports,
     }
-    output_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    output_path.write_text(
+        json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
 
     print("=" * 60)
     print("LANE ORCHESTRATOR")

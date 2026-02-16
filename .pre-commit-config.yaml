@@ -10,20 +10,26 @@ repos:
       - id: check-added-large-files
         args: ['--maxkb=500']
       - id: trailing-whitespace
+        exclude: '\.md$'
       - id: end-of-file-fixer
       - id: check-yaml
       - id: check-json
+        exclude: '^data/'
       - id: check-merge-conflict
       - id: mixed-line-ending
         args: ['--fix=lf']
       - id: check-ast
+      - id: detect-private-key
+      - id: check-case-conflict
+      - id: check-docstring-first
 
-  # Python linting (advisory - does not block commits)
+  # Python linting and formatting (advisory - does not block commits)
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.14.14
     hooks:
       - id: ruff
         args: ['--fix', '--exit-zero']
+      - id: ruff-format
 
 # Configuration
 default_language_version:

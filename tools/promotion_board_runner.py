@@ -208,9 +208,7 @@ def main() -> int:
         print("Error: --candidate cannot be empty")
         return 2
 
-    artifact_presence = {
-        name: path.exists() for name, path in REQUIRED_ARTIFACTS.items()
-    }
+    artifact_presence = {name: path.exists() for name, path in REQUIRED_ARTIFACTS.items()}
     missing_required = [name for name, present in artifact_presence.items() if not present]
     if missing_required and args.strict:
         print("Error: missing required artifacts:")
@@ -267,10 +265,13 @@ def main() -> int:
         dependency_trace_source = str(dependency_trace_entry.get("trace_source", "none")).lower()
         dependency_trace_status = str(dependency_trace_entry.get("status", "unknown")).lower()
     elif dependency_entry and anchor_dependencies:
-        sources = dependency_entry.get("evidence_sources", []) if isinstance(dependency_entry, dict) else []
+        sources = (
+            dependency_entry.get("evidence_sources", [])
+            if isinstance(dependency_entry, dict)
+            else []
+        )
         if (
-            isinstance(sources, list)
-            and "dependency_trace_resolver.py --write" in sources
+            isinstance(sources, list) and "dependency_trace_resolver.py --write" in sources
         ) or _contains_provisional_marker(dependency_entry):
             dependency_trace_source = "provisional"
         else:
@@ -284,16 +285,32 @@ def main() -> int:
         )
     ).upper()
 
-    threshold_category = str(integrated_entry.get("threshold_category", "")) if integrated_entry else ""
-    methodology_compliant = bool(integrated_entry.get("methodology_compliant")) if integrated_entry else False
-    final_confidence = _normalize_confidence(integrated_entry.get("final_confidence")) if integrated_entry else "SPECULATIVE"
-    ht_concentration = float(integrated_entry.get("ht_concentration", 0.0)) if integrated_entry else 0.0
+    threshold_category = (
+        str(integrated_entry.get("threshold_category", "")) if integrated_entry else ""
+    )
+    methodology_compliant = (
+        bool(integrated_entry.get("methodology_compliant")) if integrated_entry else False
+    )
+    final_confidence = (
+        _normalize_confidence(integrated_entry.get("final_confidence"))
+        if integrated_entry
+        else "SPECULATIVE"
+    )
+    ht_concentration = (
+        float(integrated_entry.get("ht_concentration", 0.0)) if integrated_entry else 0.0
+    )
     num_sites = int(integrated_entry.get("num_sites", 0) or 0) if integrated_entry else 0
     negative_items = integrated_entry.get("negative_evidence_items", []) if integrated_entry else []
 
-    consistency_validated = bool(consistency_entry.get("reading_validated")) if consistency_entry else False
-    positional_consistency = float(consistency_entry.get("positional_consistency", 0.0)) if consistency_entry else 0.0
-    functional_consistency = float(consistency_entry.get("functional_consistency", 0.0)) if consistency_entry else 0.0
+    consistency_validated = (
+        bool(consistency_entry.get("reading_validated")) if consistency_entry else False
+    )
+    positional_consistency = (
+        float(consistency_entry.get("positional_consistency", 0.0)) if consistency_entry else 0.0
+    )
+    functional_consistency = (
+        float(consistency_entry.get("functional_consistency", 0.0)) if consistency_entry else 0.0
+    )
     sites_found = consistency_entry.get("sites_found", []) if consistency_entry else []
     cross_corpus_passed, cross_corpus_rule = _cross_corpus_pass(
         target_confidence=target_confidence,
@@ -311,7 +328,9 @@ def main() -> int:
     four_hypothesis_present = False
     if hypothesis_entry:
         hypotheses = hypothesis_entry.get("hypotheses", {})
-        four_hypothesis_present = all(k in hypotheses for k in ("luwian", "semitic", "pregreek", "protogreek"))
+        four_hypothesis_present = all(
+            k in hypotheses for k in ("luwian", "semitic", "pregreek", "protogreek")
+        )
 
     direct_anchor_contradiction = any(
         isinstance(item, str) and ("contradict" in item.lower() or "conflict" in item.lower())
@@ -375,11 +394,19 @@ def main() -> int:
     regional_note = (
         args.regional_justification
         if args.regional_justification
-        else ("High concentration noted without explicit justification." if ht_concentration > 0.8 else "Balanced distribution.")
+        else (
+            "High concentration noted without explicit justification."
+            if ht_concentration > 0.8
+            else "Balanced distribution."
+        )
     )
     gate_results["regional_concentration_addressed"] = _gate(
         required=True,
-        passed=(ht_concentration <= 0.8 or bool(args.regional_justification) or target_confidence in ("POSSIBLE", "MEDIUM")),
+        passed=(
+            ht_concentration <= 0.8
+            or bool(args.regional_justification)
+            or target_confidence in ("POSSIBLE", "MEDIUM")
+        ),
         evidence=f"ht_concentration={ht_concentration:.3f}, num_sites={num_sites}",
         notes=regional_note,
     )
@@ -395,7 +422,11 @@ def main() -> int:
     )
     gate_results["broad_corpus_behavior"] = _gate(
         required=target_confidence == "CERTAIN",
-        passed=(len(sites_found) >= 3 and positional_consistency >= 0.8 and functional_consistency >= 0.8),
+        passed=(
+            len(sites_found) >= 3
+            and positional_consistency >= 0.8
+            and functional_consistency >= 0.8
+        ),
         evidence=f"sites={len(sites_found)}, positional={positional_consistency:.3f}, functional={functional_consistency:.3f}",
     )
     gate_results["methodology_compliant_for_high"] = _gate(
@@ -404,7 +435,11 @@ def main() -> int:
         evidence=f"methodology_compliant={methodology_compliant}",
     )
 
-    required_gate_ids = ["required_inputs_present", "no_direct_anchor_contradiction", "parity_guard"]
+    required_gate_ids = [
+        "required_inputs_present",
+        "no_direct_anchor_contradiction",
+        "parity_guard",
+    ]
     if increasing:
         if target_confidence in ("POSSIBLE", "MEDIUM"):
             required_gate_ids.extend(["multi_hypothesis_run"])
@@ -453,7 +488,9 @@ def main() -> int:
     else:
         required_gate_ids.extend(["integrated_validation", "dependency_trace"])
 
-    failed_required = [gate for gate in required_gate_ids if not gate_results.get(gate, {}).get("passed", False)]
+    failed_required = [
+        gate for gate in required_gate_ids if not gate_results.get(gate, {}).get("passed", False)
+    ]
     critical_fail = any(
         not gate_results[name]["passed"]
         for name in ("required_inputs_present", "no_direct_anchor_contradiction")
@@ -472,7 +509,9 @@ def main() -> int:
     elif board_decision == "HOLD":
         rationale.append("One or more non-critical required gates failed.")
     else:
-        rationale.append("Critical gate failure detected (missing artifacts or direct contradiction).")
+        rationale.append(
+            "Critical gate failure detected (missing artifacts or direct contradiction)."
+        )
 
     if failed_required:
         rationale.append(f"Failed gates: {', '.join(failed_required)}")
@@ -537,9 +576,11 @@ def main() -> int:
     hypothesis_text = "Not available"
     if hypothesis_entry:
         hyp = hypothesis_entry.get("hypotheses", {})
+
         def _hv(name: str) -> str:
             row = hyp.get(name, {})
             return f"score={row.get('score', 'n/a')}, verdict={row.get('verdict', 'n/a')}"
+
         hypothesis_text = "\n".join(
             [
                 f"- Luwian: {_hv('luwian')}",
@@ -586,17 +627,17 @@ Use this packet for any confidence promotion or demotion proposal.
 - Reading: {candidate}
 - Current confidence: {current_confidence}
 - Proposed confidence: {target_confidence}
-- Meaning claim: {(dependency_entry or {}).get('meaning', 'Not specified')}
-- Primary contexts: {', '.join(sites_attested) if sites_attested else 'Not available'}
+- Meaning claim: {(dependency_entry or {}).get("meaning", "Not specified")}
+- Primary contexts: {", ".join(sites_attested) if sites_attested else "Not available"}
 
 ## 2. Evidence Artifacts
 
-- Hypothesis results: `{evidence_artifacts['hypothesis_results']}`
-- Consistency results: `{evidence_artifacts['consistency_results']}`
-- Integrated results: `{evidence_artifacts['integrated_results']}`
-- Dependencies: `{evidence_artifacts['reading_dependencies']}`
-- Anchors: `{evidence_artifacts['anchors']}`
-- Optional supporting analysis: {'Provided via --regional-justification' if args.regional_justification else 'None'}
+- Hypothesis results: `{evidence_artifacts["hypothesis_results"]}`
+- Consistency results: `{evidence_artifacts["consistency_results"]}`
+- Integrated results: `{evidence_artifacts["integrated_results"]}`
+- Dependencies: `{evidence_artifacts["reading_dependencies"]}`
+- Anchors: `{evidence_artifacts["anchors"]}`
+- Optional supporting analysis: {"Provided via --regional-justification" if args.regional_justification else "None"}
 
 ## 3. Multi-Hypothesis Adjudication
 
@@ -607,20 +648,20 @@ Use this packet for any confidence promotion or demotion proposal.
 
 {negative_text}
 - Contradictions detected: {"Yes" if direct_anchor_contradiction else "No"}
-- Remaining uncertainty: threshold={threshold_category or 'unknown'}, final_confidence={final_confidence}
+- Remaining uncertainty: threshold={threshold_category or "unknown"}, final_confidence={final_confidence}
 
 ## 5. Cross-Corpus and Regional Behavior
 
-- Sites attested: {', '.join(sites_attested) if sites_attested else 'Not available'}
+- Sites attested: {", ".join(sites_attested) if sites_attested else "Not available"}
 - Site concentration (HT): {ht_concentration:.3f}
-- Period spread: {(consistency_entry or {}).get('periods_found', []) if consistency_entry else 'Not available'}
-- Regional weighting impact: {(integrated_entry or {}).get('regional_weight', 'Not available')}
+- Period spread: {(consistency_entry or {}).get("periods_found", []) if consistency_entry else "Not available"}
+- Regional weighting impact: {(integrated_entry or {}).get("regional_weight", "Not available")}
 - Parity status: {parity_level}
 
 ## 6. Anchor and Dependency Check
 
 {chr(10).join(anchor_lines)}
-- Weakest dependency: {(integrated_entry or {}).get('max_confidence_from_anchors', 'Unknown')}
+- Weakest dependency: {(integrated_entry or {}).get("max_confidence_from_anchors", "Unknown")}
 - Cascade risk if questioned: {"; ".join(dependency_warnings) if dependency_warnings else "No cascade warnings"}
 - Dependency trace source: {dependency_trace_source} (status: {dependency_trace_status})
 
@@ -631,9 +672,9 @@ Use this packet for any confidence promotion or demotion proposal.
 ## 8. Decision
 
 - Board decision: {board_decision}
-- Rationale: {' '.join(rationale)}
+- Rationale: {" ".join(rationale)}
 - Follow-up actions:
-  - {"; ".join(decision_record['follow_up_actions'])}
+  - {"; ".join(decision_record["follow_up_actions"])}
 """
     packet_path.write_text(packet_body, encoding="utf-8")
 
@@ -648,8 +689,7 @@ Use this packet for any confidence promotion or demotion proposal.
     # Replace previous record for same candidate to keep output deterministic.
     candidate_cf = candidate.casefold()
     decisions = [
-        row for row in decisions
-        if str(row.get("candidate", "")).casefold() != candidate_cf
+        row for row in decisions if str(row.get("candidate", "")).casefold() != candidate_cf
     ]
     decisions.append(decision_record)
 
@@ -661,7 +701,9 @@ Use this packet for any confidence promotion or demotion proposal.
         },
         "decisions": decisions,
     }
-    json_out_path.write_text(json.dumps(merged, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    json_out_path.write_text(
+        json.dumps(merged, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
 
     print("=" * 60)
     print("PROMOTION BOARD RUNNER")

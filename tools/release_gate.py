@@ -79,9 +79,7 @@ def main() -> int:
         errors.append("CITATION.cff missing date-released")
 
     if tag_version and citation_version and tag_version != citation_version:
-        errors.append(
-            f"Version mismatch: tag={tag_version} vs CITATION.cff={citation_version}"
-        )
+        errors.append(f"Version mismatch: tag={tag_version} vs CITATION.cff={citation_version}")
 
     if not MASTER_STATE.exists():
         errors.append(f"Missing MASTER_STATE: {MASTER_STATE}")

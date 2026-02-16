@@ -46,58 +46,66 @@ NAMES_FILE = DATA_DIR / "personal_names.json"
 
 # Known administrative terms (NOT personal names)
 ADMINISTRATIVE_TERMS = {
-    'KU-RO', 'KI-RO', 'SA-RA₂', 'DA-RE', 'TE', 'PO-TO-KU-RO',
-    'A-DU', 'KU-PA₃-NU', 'SI-RU-TE', 'I-PI-NA-MA',
+    "KU-RO",
+    "KI-RO",
+    "SA-RA₂",
+    "DA-RE",
+    "TE",
+    "PO-TO-KU-RO",
+    "A-DU",
+    "KU-PA₃-NU",
+    "SI-RU-TE",
+    "I-PI-NA-MA",
 }
 
 # Known toponyms (NOT personal names)
 TOPONYMS = {
-    'PA-I-TO',  # Phaistos
-    'KU-DO-NI-JA',  # Kydonia
-    'SU-KI-RI-TA',  # Sybrita
-    'SE-TO-I-JA',
+    "PA-I-TO",  # Phaistos
+    "KU-DO-NI-JA",  # Kydonia
+    "SU-KI-RI-TA",  # Sybrita
+    "SE-TO-I-JA",
 }
 
 # Likely theophoric elements (deity name components)
 THEOPHORIC_ELEMENTS = {
-    'A-TA-NA': 'Athena-related',
-    'A-SI': 'Possibly Asiatic deity',
-    'DI': 'Possibly Zeus (Di-/Diwos)',
-    'JA': 'Divine suffix?',
-    'MA': 'Mother-related',
-    'DA': 'Possibly Dameter/Demeter',
-    'PO': 'Possibly Poseidon',
+    "A-TA-NA": "Athena-related",
+    "A-SI": "Possibly Asiatic deity",
+    "DI": "Possibly Zeus (Di-/Diwos)",
+    "JA": "Divine suffix?",
+    "MA": "Mother-related",
+    "DA": "Possibly Dameter/Demeter",
+    "PO": "Possibly Poseidon",
 }
 
 # Suffix patterns by linguistic hypothesis
 NAME_SUFFIX_PATTERNS = {
-    'luwian': {
-        '-WA': {'meaning': 'Agent/possessive suffix', 'examples': ['Tarḫunawa', 'Muwawa']},
-        '-MU-WA': {'meaning': 'Name-forming suffix', 'examples': ['Arnumawa', 'Šuppiluliumaš']},
-        '-ZI-TI': {'meaning': 'Living/belonging to', 'examples': ['Muwaziti', 'Piyamaziti']},
-        '-A-TA': {'meaning': 'Affiliation suffix', 'examples': []},
-        '-SA': {'meaning': 'Possessive', 'examples': []},
+    "luwian": {
+        "-WA": {"meaning": "Agent/possessive suffix", "examples": ["Tarḫunawa", "Muwawa"]},
+        "-MU-WA": {"meaning": "Name-forming suffix", "examples": ["Arnumawa", "Šuppiluliumaš"]},
+        "-ZI-TI": {"meaning": "Living/belonging to", "examples": ["Muwaziti", "Piyamaziti"]},
+        "-A-TA": {"meaning": "Affiliation suffix", "examples": []},
+        "-SA": {"meaning": "Possessive", "examples": []},
     },
-    'semitic': {
-        '-U': {'meaning': 'Nominative masculine', 'examples': ['Ḫammurabi', 'Zimri-Lim']},
-        '-A': {'meaning': 'Feminine/status', 'examples': []},
-        '-I': {'meaning': 'Nisbe adjective/origin', 'examples': ['Ṣidqi', 'Abdi']},
-        '-EL': {'meaning': 'Theophoric (God)', 'examples': ['Israel', 'Gabriel']},
-        '-BA-AL': {'meaning': 'Theophoric (Baal)', 'examples': []},
-        '-YA': {'meaning': 'Theophoric (Yahweh)', 'examples': []},
+    "semitic": {
+        "-U": {"meaning": "Nominative masculine", "examples": ["Ḫammurabi", "Zimri-Lim"]},
+        "-A": {"meaning": "Feminine/status", "examples": []},
+        "-I": {"meaning": "Nisbe adjective/origin", "examples": ["Ṣidqi", "Abdi"]},
+        "-EL": {"meaning": "Theophoric (God)", "examples": ["Israel", "Gabriel"]},
+        "-BA-AL": {"meaning": "Theophoric (Baal)", "examples": []},
+        "-YA": {"meaning": "Theophoric (Yahweh)", "examples": []},
     },
-    'pregreek': {
-        '-NTH': {'meaning': 'Pre-Greek suffix', 'examples': ['Korinth-', 'Amarynth-']},
-        '-SS': {'meaning': 'Pre-Greek suffix', 'examples': ['Odyss-', 'Parnass-']},
-        '-NA': {'meaning': 'Feminine/place suffix', 'examples': ['Athena', 'Mykena']},
-        '-NE': {'meaning': 'Variant of -NA', 'examples': []},
+    "pregreek": {
+        "-NTH": {"meaning": "Pre-Greek suffix", "examples": ["Korinth-", "Amarynth-"]},
+        "-SS": {"meaning": "Pre-Greek suffix", "examples": ["Odyss-", "Parnass-"]},
+        "-NA": {"meaning": "Feminine/place suffix", "examples": ["Athena", "Mykena"]},
+        "-NE": {"meaning": "Variant of -NA", "examples": []},
     },
-    'greek': {
-        '-OS': {'meaning': 'Masculine nominative', 'examples': ['Odysseus', 'Menelaos']},
-        '-ES': {'meaning': 'Masculine nominative', 'examples': ['Achilles', 'Herakles']},
-        '-AS': {'meaning': 'Masculine nominative', 'examples': ['Aeneas', 'Anchises']},
-        '-E': {'meaning': 'Vocative/feminine', 'examples': ['Penelope', 'Hekabe']},
-        '-A': {'meaning': 'Feminine nominative', 'examples': ['Helena', 'Elektra']},
+    "greek": {
+        "-OS": {"meaning": "Masculine nominative", "examples": ["Odysseus", "Menelaos"]},
+        "-ES": {"meaning": "Masculine nominative", "examples": ["Achilles", "Herakles"]},
+        "-AS": {"meaning": "Masculine nominative", "examples": ["Aeneas", "Anchises"]},
+        "-E": {"meaning": "Vocative/feminine", "examples": ["Penelope", "Hekabe"]},
+        "-A": {"meaning": "Feminine nominative", "examples": ["Helena", "Elektra"]},
     },
 }
 
@@ -105,6 +113,7 @@ NAME_SUFFIX_PATTERNS = {
 @dataclass
 class PersonalName:
     """A word identified as a likely personal name."""
+
     word: str
     occurrences: int
     sites: List[str]
@@ -155,7 +164,7 @@ class PersonalNameAnalyzer:
     def load_corpus(self) -> bool:
         """Load corpus data."""
         try:
-            with open(CORPUS_FILE, 'r', encoding='utf-8') as f:
+            with open(CORPUS_FILE, "r", encoding="utf-8") as f:
                 self.corpus = json.load(f)
 
             self._extract_word_contexts()
@@ -169,50 +178,46 @@ class PersonalNameAnalyzer:
         """Extract all words with their contexts."""
         word_freq = Counter()
 
-        for insc_id, data in self.corpus.get('inscriptions', {}).items():
-            if '_parse_error' in data:
+        for insc_id, data in self.corpus.get("inscriptions", {}).items():
+            if "_parse_error" in data:
                 continue
 
-            words = data.get('transliteratedWords', [])
-            site_match = re.match(r'^([A-Z]+)', insc_id)
-            site = site_match.group(1) if site_match else 'UNKNOWN'
+            words = data.get("transliteratedWords", [])
+            site_match = re.match(r"^([A-Z]+)", insc_id)
+            site = site_match.group(1) if site_match else "UNKNOWN"
 
             for i, word in enumerate(words):
-                if not word or '-' not in word:
+                if not word or "-" not in word:
                     continue
 
                 # Skip numerals and pure logograms
-                if re.match(r'^[\d\s.¹²³⁴⁵⁶⁷⁸⁹⁰/₀₁₂₃₄₅₆₇₈○◎—|]+$', word):
+                if re.match(r"^[\d\s.¹²³⁴⁵⁶⁷⁸⁹⁰/₀₁₂₃₄₅₆₇₈○◎—|]+$", word):
                     continue
-                if re.match(r'^[A-Z*\d+\[\]]+$', word) and '-' not in word:
+                if re.match(r"^[A-Z*\d+\[\]]+$", word) and "-" not in word:
                     continue
 
                 word_upper = word.upper()
                 word_freq[word_upper] += 1
 
                 # Extract context
-                before = [words[j] for j in range(max(0, i-2), i) if words[j]]
-                after = [words[j] for j in range(i+1, min(len(words), i+3)) if words[j]]
+                before = [words[j] for j in range(max(0, i - 2), i) if words[j]]
+                after = [words[j] for j in range(i + 1, min(len(words), i + 3)) if words[j]]
 
                 # Determine if followed by logogram or number
-                followed_by_logogram = any(
-                    re.match(r'^[A-Z]+$', w) and len(w) >= 2
-                    for w in after
-                )
-                followed_by_number = any(
-                    re.match(r'^[\d\s.¹²³⁴⁵⁶⁷⁸⁹⁰/]+$', w)
-                    for w in after
-                )
+                followed_by_logogram = any(re.match(r"^[A-Z]+$", w) and len(w) >= 2 for w in after)
+                followed_by_number = any(re.match(r"^[\d\s.¹²³⁴⁵⁶⁷⁸⁹⁰/]+$", w) for w in after)
 
-                self.word_contexts[word_upper].append({
-                    'inscription': insc_id,
-                    'site': site,
-                    'position': i,
-                    'before': before,
-                    'after': after,
-                    'followed_by_logogram': followed_by_logogram,
-                    'followed_by_number': followed_by_number,
-                })
+                self.word_contexts[word_upper].append(
+                    {
+                        "inscription": insc_id,
+                        "site": site,
+                        "position": i,
+                        "before": before,
+                        "after": after,
+                        "followed_by_logogram": followed_by_logogram,
+                        "followed_by_number": followed_by_number,
+                    }
+                )
 
         self.word_frequencies = dict(word_freq)
 
@@ -238,7 +243,7 @@ class PersonalNameAnalyzer:
                 continue
 
             # Skip single syllables
-            syllables = word.split('-')
+            syllables = word.split("-")
             if len(syllables) < 2:
                 continue
 
@@ -246,7 +251,7 @@ class PersonalNameAnalyzer:
             name_prob, reason = self._calculate_name_probability(word, contexts)
 
             if name_prob >= 0.3:  # Threshold for likely name
-                sites = list(set(c['site'] for c in contexts))
+                sites = list(set(c["site"] for c in contexts))
 
                 # Morphological analysis
                 root, prefixes, suffixes = self._analyze_morphology(word)
@@ -259,10 +264,10 @@ class PersonalNameAnalyzer:
 
                 # Find best hypothesis
                 fits = {
-                    'luwian': luwian_fit.get('score', 0),
-                    'semitic': semitic_fit.get('score', 0),
-                    'pregreek': pregreek_fit.get('score', 0),
-                    'greek': greek_fit.get('score', 0),
+                    "luwian": luwian_fit.get("score", 0),
+                    "semitic": semitic_fit.get("score", 0),
+                    "pregreek": pregreek_fit.get("score", 0),
+                    "greek": greek_fit.get("score", 0),
                 }
                 best_hyp = max(fits.keys(), key=lambda k: fits[k])
 
@@ -290,7 +295,7 @@ class PersonalNameAnalyzer:
                     semitic_fit=semitic_fit,
                     pregreek_fit=pregreek_fit,
                     greek_fit=greek_fit,
-                    best_hypothesis=best_hyp if fits[best_hyp] > 0 else 'unknown',
+                    best_hypothesis=best_hyp if fits[best_hyp] > 0 else "unknown",
                     name_type=name_type,
                     gender_guess=gender,
                     possible_variants=variants,
@@ -313,8 +318,9 @@ class PersonalNameAnalyzer:
         reasons = []
 
         # Factor 1: Appears before logogram + number (recipient pattern)
-        recipient_count = sum(1 for c in contexts
-                            if c['followed_by_logogram'] and c['followed_by_number'])
+        recipient_count = sum(
+            1 for c in contexts if c["followed_by_logogram"] and c["followed_by_number"]
+        )
         if recipient_count > 0:
             recipient_ratio = recipient_count / len(contexts)
             prob += min(0.4, recipient_ratio * 0.5)
@@ -322,7 +328,7 @@ class PersonalNameAnalyzer:
                 reasons.append(f"recipient pattern ({recipient_count}/{len(contexts)})")
 
         # Factor 2: Multi-syllable (names tend to be 2-4 syllables)
-        syllables = word.split('-')
+        syllables = word.split("-")
         if 2 <= len(syllables) <= 5:
             prob += 0.15
             reasons.append(f"{len(syllables)} syllables")
@@ -341,13 +347,13 @@ class PersonalNameAnalyzer:
                 break
 
         # Factor 5: Consistent site pattern (names may be site-specific)
-        sites = set(c['site'] for c in contexts)
+        sites = set(c["site"] for c in contexts)
         if len(sites) == 1 and len(contexts) >= 2:
             prob += 0.1
             reasons.append(f"site-specific ({list(sites)[0]})")
 
         # Factor 6: Name-like suffixes
-        if word.endswith(('-JA', '-WA', '-TI', '-SI', '-TE', '-NE', '-RI')):
+        if word.endswith(("-JA", "-WA", "-TI", "-SI", "-TE", "-NE", "-RI")):
             prob += 0.15
             reasons.append("name-like suffix")
 
@@ -360,20 +366,20 @@ class PersonalNameAnalyzer:
 
         Returns (root, prefixes, suffixes).
         """
-        syllables = word.split('-')
+        syllables = word.split("-")
 
         if len(syllables) < 2:
             return word, [], []
 
         # Common prefix patterns
         prefixes = []
-        if syllables[0] in ['A', 'I', 'U', 'E']:
+        if syllables[0] in ["A", "I", "U", "E"]:
             prefixes.append(syllables[0])
             syllables = syllables[1:]
 
         # Common suffix patterns
         suffixes = []
-        suffix_candidates = ['-JA', '-WA', '-TI', '-SI', '-TE', '-NE', '-RI', '-U', '-A', '-I']
+        suffix_candidates = ["-JA", "-WA", "-TI", "-SI", "-TE", "-NE", "-RI", "-U", "-A", "-I"]
 
         for suffix in suffix_candidates:
             if word.endswith(suffix):
@@ -383,95 +389,103 @@ class PersonalNameAnalyzer:
         # Root is what remains
         if suffixes:
             root_end = len(syllables) - 1
-            root = '-'.join(syllables[:root_end])
+            root = "-".join(syllables[:root_end])
         else:
-            root = '-'.join(syllables)
+            root = "-".join(syllables)
 
         return root, prefixes, suffixes
 
     def _test_luwian_name(self, word: str, suffixes: List[str]) -> Dict:
         """Test if name follows Luwian naming patterns."""
-        result = {'score': 0, 'matches': [], 'notes': []}
+        result = {"score": 0, "matches": [], "notes": []}
 
         for suffix in suffixes:
             suffix_upper = suffix.upper()
-            for pattern, data in NAME_SUFFIX_PATTERNS['luwian'].items():
-                pattern_clean = pattern.replace('-', '')
-                if suffix_upper == pattern_clean or word.upper().endswith(pattern.replace('-', '')):
-                    result['score'] += 1
-                    result['matches'].append({
-                        'suffix': pattern,
-                        'meaning': data['meaning'],
-                    })
+            for pattern, data in NAME_SUFFIX_PATTERNS["luwian"].items():
+                pattern_clean = pattern.replace("-", "")
+                if suffix_upper == pattern_clean or word.upper().endswith(pattern.replace("-", "")):
+                    result["score"] += 1
+                    result["matches"].append(
+                        {
+                            "suffix": pattern,
+                            "meaning": data["meaning"],
+                        }
+                    )
 
         # Check for Luwian-like initial elements
-        if word.upper().startswith(('TA-', 'MA-', 'PA-', 'PI-')):
-            result['score'] += 0.5
-            result['notes'].append('Luwian-like initial syllable')
+        if word.upper().startswith(("TA-", "MA-", "PA-", "PI-")):
+            result["score"] += 0.5
+            result["notes"].append("Luwian-like initial syllable")
 
         return result
 
     def _test_semitic_name(self, word: str, suffixes: List[str]) -> Dict:
         """Test if name follows Semitic naming patterns."""
-        result = {'score': 0, 'matches': [], 'notes': []}
+        result = {"score": 0, "matches": [], "notes": []}
 
         for suffix in suffixes:
             suffix_upper = suffix.upper()
-            for pattern, data in NAME_SUFFIX_PATTERNS['semitic'].items():
-                pattern_clean = pattern.replace('-', '')
+            for pattern, data in NAME_SUFFIX_PATTERNS["semitic"].items():
+                pattern_clean = pattern.replace("-", "")
                 if suffix_upper == pattern_clean:
-                    result['score'] += 1
-                    result['matches'].append({
-                        'suffix': pattern,
-                        'meaning': data['meaning'],
-                    })
+                    result["score"] += 1
+                    result["matches"].append(
+                        {
+                            "suffix": pattern,
+                            "meaning": data["meaning"],
+                        }
+                    )
 
         # Check for triconsonantal structure (characteristic of Semitic)
-        syllables = word.split('-')
-        consonants = [s[0] for s in syllables if s and s[0] not in 'AEIOU']
+        syllables = word.split("-")
+        consonants = [s[0] for s in syllables if s and s[0] not in "AEIOU"]
         if len(consonants) == 3:
-            result['score'] += 0.5
-            result['notes'].append('Triconsonantal structure')
+            result["score"] += 0.5
+            result["notes"].append("Triconsonantal structure")
 
         return result
 
     def _test_pregreek_name(self, word: str, suffixes: List[str]) -> Dict:
         """Test if name follows Pre-Greek naming patterns."""
-        result = {'score': 0, 'matches': [], 'notes': []}
+        result = {"score": 0, "matches": [], "notes": []}
 
         for suffix in suffixes:
             suffix_upper = suffix.upper()
-            for pattern, data in NAME_SUFFIX_PATTERNS['pregreek'].items():
-                pattern_clean = pattern.replace('-', '')
+            for pattern, data in NAME_SUFFIX_PATTERNS["pregreek"].items():
+                pattern_clean = pattern.replace("-", "")
                 if suffix_upper == pattern_clean:
-                    result['score'] += 1
-                    result['matches'].append({
-                        'suffix': pattern,
-                        'meaning': data['meaning'],
-                    })
+                    result["score"] += 1
+                    result["matches"].append(
+                        {
+                            "suffix": pattern,
+                            "meaning": data["meaning"],
+                        }
+                    )
 
         # Check for Pre-Greek phonological markers
-        word_concat = word.replace('-', '').upper()
-        if 'SS' in word_concat or 'NTH' in word_concat or 'MN' in word_concat:
-            result['score'] += 1
-            result['notes'].append('Pre-Greek phonological marker')
+        word_concat = word.replace("-", "").upper()
+        if "SS" in word_concat or "NTH" in word_concat or "MN" in word_concat:
+            result["score"] += 1
+            result["notes"].append("Pre-Greek phonological marker")
 
         return result
 
     def _test_greek_name(self, word: str, suffixes: List[str]) -> Dict:
         """Test if name follows Greek naming patterns."""
-        result = {'score': 0, 'matches': [], 'notes': []}
+        result = {"score": 0, "matches": [], "notes": []}
 
         for suffix in suffixes:
             suffix_upper = suffix.upper()
-            for pattern, data in NAME_SUFFIX_PATTERNS['greek'].items():
-                pattern_clean = pattern.replace('-', '')
+            for pattern, data in NAME_SUFFIX_PATTERNS["greek"].items():
+                pattern_clean = pattern.replace("-", "")
                 if suffix_upper == pattern_clean:
-                    result['score'] += 1
-                    result['matches'].append({
-                        'suffix': pattern,
-                        'meaning': data['meaning'],
-                    })
+                    result["score"] += 1
+                    result["matches"].append(
+                        {
+                            "suffix": pattern,
+                            "meaning": data["meaning"],
+                        }
+                    )
 
         return result
 
@@ -482,31 +496,33 @@ class PersonalNameAnalyzer:
         # Theophoric (contains divine element)
         for elem in THEOPHORIC_ELEMENTS:
             if elem in word_upper:
-                return 'theophoric'
+                return "theophoric"
 
         # Patronymic indicators
-        if word_upper.endswith(('-I-DA', '-I-DO')):
-            return 'patronymic'
+        if word_upper.endswith(("-I-DA", "-I-DO")):
+            return "patronymic"
 
         # Occupational (usually short, ends in certain suffixes)
-        if len(syllables) == 2 and word_upper.endswith(('-TE', '-KE', '-ME')):
-            return 'occupational'
+        if len(syllables) == 2 and word_upper.endswith(("-TE", "-KE", "-ME")):
+            return "occupational"
 
-        return 'unknown'
+        return "unknown"
 
     def _guess_gender(self, word: str, suffixes: List[str]) -> str:
         """Guess gender based on suffix patterns."""
         word_upper = word.upper()
 
         # Feminine indicators
-        if word_upper.endswith(('-A', '-NA', '-NE', '-E')) and not word_upper.endswith(('-TA', '-DA')):
-            return 'feminine'
+        if word_upper.endswith(("-A", "-NA", "-NE", "-E")) and not word_upper.endswith(
+            ("-TA", "-DA")
+        ):
+            return "feminine"
 
         # Masculine indicators
-        if word_upper.endswith(('-OS', '-U', '-AS', '-WA')):
-            return 'masculine'
+        if word_upper.endswith(("-OS", "-U", "-AS", "-WA")):
+            return "masculine"
 
-        return 'unknown'
+        return "unknown"
 
     def _find_variants(self, word: str) -> List[str]:
         """Find possible spelling variants of a name."""
@@ -519,11 +535,13 @@ class PersonalNameAnalyzer:
 
             # Check for vowel alternation variants
             # (e.g., KU-RO vs KI-RO, SA-RA vs SA-RI)
-            if len(other.split('-')) == len(word_upper.split('-')):
-                diff_count = sum(1 for a, b in zip(word_upper.split('-'), other.split('-')) if a != b)
+            if len(other.split("-")) == len(word_upper.split("-")):
+                diff_count = sum(
+                    1 for a, b in zip(word_upper.split("-"), other.split("-")) if a != b
+                )
                 if diff_count == 1:
                     # Check if difference is just vowel
-                    for s1, s2 in zip(word_upper.split('-'), other.split('-')):
+                    for s1, s2 in zip(word_upper.split("-"), other.split("-")):
                         if s1 != s2 and len(s1) == len(s2):
                             if s1[0] == s2[0]:  # Same consonant
                                 variants.append(other)
@@ -535,13 +553,13 @@ class PersonalNameAnalyzer:
         """Find names with similar structure."""
         similar = []
         word_upper = word.upper()
-        syllables = word_upper.split('-')
+        syllables = word_upper.split("-")
 
         for other in all_words:
             if other == word_upper:
                 continue
 
-            other_syls = other.split('-')
+            other_syls = other.split("-")
 
             # Same length and same initial syllable
             if len(other_syls) == len(syllables) and other_syls[0] == syllables[0]:
@@ -560,11 +578,13 @@ class PersonalNameAnalyzer:
         contexts = self.word_contexts.get(word_upper, [])
         if not contexts:
             # Create minimal context
-            contexts = [{'followed_by_logogram': False, 'followed_by_number': False, 'site': 'UNKNOWN'}]
+            contexts = [
+                {"followed_by_logogram": False, "followed_by_number": False, "site": "UNKNOWN"}
+            ]
 
         name_prob, reason = self._calculate_name_probability(word_upper, contexts)
 
-        syllables = word_upper.split('-')
+        syllables = word_upper.split("-")
         root, prefixes, suffixes = self._analyze_morphology(word_upper)
 
         luwian_fit = self._test_luwian_name(word_upper, suffixes)
@@ -573,17 +593,17 @@ class PersonalNameAnalyzer:
         greek_fit = self._test_greek_name(word_upper, suffixes)
 
         fits = {
-            'luwian': luwian_fit.get('score', 0),
-            'semitic': semitic_fit.get('score', 0),
-            'pregreek': pregreek_fit.get('score', 0),
-            'greek': greek_fit.get('score', 0),
+            "luwian": luwian_fit.get("score", 0),
+            "semitic": semitic_fit.get("score", 0),
+            "pregreek": pregreek_fit.get("score", 0),
+            "greek": greek_fit.get("score", 0),
         }
         best_hyp = max(fits.keys(), key=lambda k: fits[k])
 
         return PersonalName(
             word=word_upper,
             occurrences=self.word_frequencies.get(word_upper, 0),
-            sites=list(set(c.get('site', 'UNKNOWN') for c in contexts)),
+            sites=list(set(c.get("site", "UNKNOWN") for c in contexts)),
             contexts=contexts[:5],
             name_probability=name_prob,
             detection_reason=reason,
@@ -594,7 +614,7 @@ class PersonalNameAnalyzer:
             semitic_fit=semitic_fit,
             pregreek_fit=pregreek_fit,
             greek_fit=greek_fit,
-            best_hypothesis=best_hyp if fits[best_hyp] > 0 else 'unknown',
+            best_hypothesis=best_hyp if fits[best_hyp] > 0 else "unknown",
             name_type=self._classify_name_type(word_upper, syllables),
             gender_guess=self._guess_gender(word_upper, suffixes),
             possible_variants=self._find_variants(word_upper),
@@ -607,19 +627,19 @@ class PersonalNameAnalyzer:
             output_path = NAMES_FILE
 
         data = {
-            'generated': datetime.now().isoformat(),
-            'total_names_detected': len(self.detected_names),
-            'methodology': 'Personal name detection based on context and morphology',
-            'names': {word: asdict(name) for word, name in self.detected_names.items()},
-            'summary': {
-                'by_hypothesis': Counter(n.best_hypothesis for n in self.detected_names.values()),
-                'by_type': Counter(n.name_type for n in self.detected_names.values()),
-                'by_gender': Counter(n.gender_guess for n in self.detected_names.values()),
+            "generated": datetime.now().isoformat(),
+            "total_names_detected": len(self.detected_names),
+            "methodology": "Personal name detection based on context and morphology",
+            "names": {word: asdict(name) for word, name in self.detected_names.items()},
+            "summary": {
+                "by_hypothesis": Counter(n.best_hypothesis for n in self.detected_names.values()),
+                "by_type": Counter(n.name_type for n in self.detected_names.values()),
+                "by_gender": Counter(n.gender_guess for n in self.detected_names.values()),
             },
         }
 
         output_path.parent.mkdir(parents=True, exist_ok=True)
-        with open(output_path, 'w', encoding='utf-8') as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
 
         print(f"Results saved to: {output_path}")
@@ -645,16 +665,16 @@ class PersonalNameAnalyzer:
         print(f"  Gender guess: {name.gender_guess}")
 
         print("\nHypothesis Testing:")
-        for hyp in ['luwian', 'semitic', 'pregreek', 'greek']:
-            fit = getattr(name, f'{hyp}_fit')
-            score = fit.get('score', 0)
+        for hyp in ["luwian", "semitic", "pregreek", "greek"]:
+            fit = getattr(name, f"{hyp}_fit")
+            score = fit.get("score", 0)
             indicator = "★" if hyp == name.best_hypothesis and score > 0 else " "
             print(f"  {indicator} {hyp.upper()}: score={score}")
-            if fit.get('matches'):
-                for m in fit['matches']:
+            if fit.get("matches"):
+                for m in fit["matches"]:
                     print(f"      • {m['suffix']}: {m['meaning']}")
-            if fit.get('notes'):
-                for n in fit['notes']:
+            if fit.get("notes"):
+                for n in fit["notes"]:
                     print(f"      • {n}")
 
         if name.possible_variants:
@@ -667,35 +687,22 @@ class PersonalNameAnalyzer:
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Analyze Linear A personal names"
+    parser = argparse.ArgumentParser(description="Analyze Linear A personal names")
+    parser.add_argument(
+        "--extract", action="store_true", help="Extract all likely personal names from corpus"
     )
     parser.add_argument(
-        '--extract',
-        action='store_true',
-        help='Extract all likely personal names from corpus'
+        "--analyze", "-a", type=str, help="Analyze a specific word as potential name"
     )
     parser.add_argument(
-        '--analyze', '-a',
-        type=str,
-        help='Analyze a specific word as potential name'
-    )
-    parser.add_argument(
-        '--min-freq', '-m',
+        "--min-freq",
+        "-m",
         type=int,
         default=2,
-        help='Minimum frequency for name detection (default: 2)'
+        help="Minimum frequency for name detection (default: 2)",
     )
-    parser.add_argument(
-        '--output', '-o',
-        type=str,
-        help='Output file for results'
-    )
-    parser.add_argument(
-        '--verbose', '-v',
-        action='store_true',
-        help='Show detailed output'
-    )
+    parser.add_argument("--output", "-o", type=str, help="Output file for results")
+    parser.add_argument("--verbose", "-v", action="store_true", help="Show detailed output")
 
     args = parser.parse_args()
 
@@ -724,7 +731,9 @@ def main():
         print("\nTop names by probability:")
         sorted_names = sorted(names.values(), key=lambda n: -n.name_probability)
         for name in sorted_names[:15]:
-            print(f"  {name.word}: prob={name.name_probability:.2f}, {name.best_hypothesis}, {name.name_type}")
+            print(
+                f"  {name.word}: prob={name.name_probability:.2f}, {name.best_hypothesis}, {name.name_type}"
+            )
 
         # Save results
         output_path = Path(args.output) if args.output else None
@@ -746,5 +755,5 @@ def main():
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

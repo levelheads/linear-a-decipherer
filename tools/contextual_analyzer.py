@@ -51,14 +51,14 @@ class ContextualAnalyzer:
         self.verbose = verbose
         self.corpus = None
         self.results = {
-            'metadata': {
-                'generated': None,
-                'method': 'Contextual Pattern Analysis',
+            "metadata": {
+                "generated": None,
+                "method": "Contextual Pattern Analysis",
             },
-            'conditional_frequencies': {},
-            'formulas': {},
-            'document_structures': {},
-            'cooccurrence': {},
+            "conditional_frequencies": {},
+            "formulas": {},
+            "document_structures": {},
+            "cooccurrence": {},
         }
 
     def log(self, message: str):
@@ -70,7 +70,7 @@ class ContextualAnalyzer:
         """Load corpus data."""
         try:
             corpus_path = DATA_DIR / "corpus.json"
-            with open(corpus_path, 'r', encoding='utf-8') as f:
+            with open(corpus_path, "r", encoding="utf-8") as f:
                 self.corpus = json.load(f)
             print(f"Loaded corpus: {len(self.corpus['inscriptions'])} inscriptions")
             return True
@@ -82,88 +82,92 @@ class ContextualAnalyzer:
         """Check if word is a numeral."""
         if not word:
             return False
-        return bool(re.match(r'^[\d\s.¹²³⁴⁵⁶⁷⁸⁹⁰/₀₁₂₃₄₅₆₇₈○◎—|≈J]+$', word))
+        return bool(re.match(r"^[\d\s.¹²³⁴⁵⁶⁷⁸⁹⁰/₀₁₂₃₄₅₆₇₈○◎—|≈J]+$", word))
 
     def _is_logogram(self, word: str) -> bool:
         """Check if word is a logogram (all caps, no hyphens)."""
-        if not word or '-' in word:
+        if not word or "-" in word:
             return False
-        return bool(re.match(r'^[A-Z*\d\[\]]+$', word))
+        return bool(re.match(r"^[A-Z*\d\[\]]+$", word))
 
     def _is_syllabic(self, word: str) -> bool:
         """Check if word is syllabic (contains hyphens)."""
-        return '-' in word and not self._is_numeral(word)
+        return "-" in word and not self._is_numeral(word)
 
     def _extract_document_elements(self, inscription_id: str) -> dict:
         """Extract structural elements from an inscription."""
-        data = self.corpus['inscriptions'].get(inscription_id, {})
-        if '_parse_error' in data:
+        data = self.corpus["inscriptions"].get(inscription_id, {})
+        if "_parse_error" in data:
             return None
 
-        words = data.get('transliteratedWords', [])
+        words = data.get("transliteratedWords", [])
         if not words:
             return None
 
         elements = {
-            'inscription_id': inscription_id,
-            'site': data.get('site', ''),
-            'lines': [],
-            'syllabic_words': [],
-            'logograms': [],
-            'numerals': [],
-            'has_total': False,
-            'total_word': None,
-            'structure_type': 'unknown',
+            "inscription_id": inscription_id,
+            "site": data.get("site", ""),
+            "lines": [],
+            "syllabic_words": [],
+            "logograms": [],
+            "numerals": [],
+            "has_total": False,
+            "total_word": None,
+            "structure_type": "unknown",
         }
 
         current_line = []
         line_num = 1
 
         for word in words:
-            if word == '\n':
+            if word == "\n":
                 if current_line:
-                    elements['lines'].append({
-                        'line_num': line_num,
-                        'words': current_line,
-                    })
+                    elements["lines"].append(
+                        {
+                            "line_num": line_num,
+                            "words": current_line,
+                        }
+                    )
                     current_line = []
                     line_num += 1
                 continue
 
-            if not word or word in ['𐄁', '', '—', '≈']:
+            if not word or word in ["𐄁", "", "—", "≈"]:
                 continue
 
             current_line.append(word)
 
             if self._is_numeral(word):
-                elements['numerals'].append({'word': word, 'line': line_num})
+                elements["numerals"].append({"word": word, "line": line_num})
             elif self._is_logogram(word):
-                elements['logograms'].append({'word': word, 'line': line_num})
+                elements["logograms"].append({"word": word, "line": line_num})
             elif self._is_syllabic(word):
-                elements['syllabic_words'].append({'word': word, 'line': line_num})
+                elements["syllabic_words"].append({"word": word, "line": line_num})
 
                 # Check for totaling words
                 word_upper = word.upper()
-                if word_upper in ['KU-RO', 'PO-TO-KU-RO', 'KI-RO']:
-                    elements['has_total'] = True
-                    elements['total_word'] = word
+                if word_upper in ["KU-RO", "PO-TO-KU-RO", "KI-RO"]:
+                    elements["has_total"] = True
+                    elements["total_word"] = word
 
         # Add final line
         if current_line:
-            elements['lines'].append({
-                'line_num': line_num,
-                'words': current_line,
-            })
+            elements["lines"].append(
+                {
+                    "line_num": line_num,
+                    "words": current_line,
+                }
+            )
 
         # Determine structure type
-        if elements['has_total']:
-            elements['structure_type'] = 'commodity_list'
-        elif len(elements['logograms']) > 5:
-            elements['structure_type'] = 'logographic_heavy'
-        elif len(elements['numerals']) > 3:
-            elements['structure_type'] = 'administrative'
+        if elements["has_total"]:
+            elements["structure_type"] = "commodity_list"
+        elif len(elements["logograms"]) > 5:
+            elements["structure_type"] = "logographic_heavy"
+        elif len(elements["numerals"]) > 3:
+            elements["structure_type"] = "administrative"
         else:
-            elements['structure_type'] = 'mixed'
+            elements["structure_type"] = "mixed"
 
         return elements
 
@@ -186,43 +190,43 @@ class ContextualAnalyzer:
         print("Analyzing conditional frequencies...")
 
         contexts = {
-            'before_logogram': Counter(),
-            'after_logogram': Counter(),
-            'before_numeral': Counter(),
-            'after_numeral': Counter(),
-            'line_initial': Counter(),
-            'line_final': Counter(),
-            'before_total': Counter(),  # Words appearing before ku-ro
-            'after_total': Counter(),   # Words appearing after ku-ro
-            'pre_logogram_pairs': Counter(),  # (word, logogram) pairs
+            "before_logogram": Counter(),
+            "after_logogram": Counter(),
+            "before_numeral": Counter(),
+            "after_numeral": Counter(),
+            "line_initial": Counter(),
+            "line_final": Counter(),
+            "before_total": Counter(),  # Words appearing before ku-ro
+            "after_total": Counter(),  # Words appearing after ku-ro
+            "pre_logogram_pairs": Counter(),  # (word, logogram) pairs
         }
 
         total_counts = Counter()
 
-        for insc_id, data in self.corpus['inscriptions'].items():
-            if '_parse_error' in data:
+        for insc_id, data in self.corpus["inscriptions"].items():
+            if "_parse_error" in data:
                 continue
 
-            words = data.get('transliteratedWords', [])
+            words = data.get("transliteratedWords", [])
             line_words = []
 
             for i, word in enumerate(words):
-                if word == '\n':
+                if word == "\n":
                     # Process line
                     if line_words:
                         # Line initial
                         if self._is_syllabic(line_words[0]):
-                            contexts['line_initial'][line_words[0].upper()] += 1
+                            contexts["line_initial"][line_words[0].upper()] += 1
 
                         # Line final (before newline, excluding numerals)
                         for w in reversed(line_words):
                             if self._is_syllabic(w):
-                                contexts['line_final'][w.upper()] += 1
+                                contexts["line_final"][w.upper()] += 1
                                 break
                     line_words = []
                     continue
 
-                if not word or word in ['𐄁', '', '—', '≈']:
+                if not word or word in ["𐄁", "", "—", "≈"]:
                     continue
 
                 line_words.append(word)
@@ -233,24 +237,24 @@ class ContextualAnalyzer:
 
                 # Check context relationships
                 if i > 0:
-                    prev = words[i-1]
+                    prev = words[i - 1]
                     if self._is_logogram(prev) and self._is_syllabic(word):
-                        contexts['after_logogram'][word_upper] += 1
+                        contexts["after_logogram"][word_upper] += 1
                     if self._is_numeral(prev) and self._is_syllabic(word):
-                        contexts['after_numeral'][word_upper] += 1
-                    if prev.upper() in ['KU-RO', 'PO-TO-KU-RO'] and self._is_syllabic(word):
-                        contexts['after_total'][word_upper] += 1
+                        contexts["after_numeral"][word_upper] += 1
+                    if prev.upper() in ["KU-RO", "PO-TO-KU-RO"] and self._is_syllabic(word):
+                        contexts["after_total"][word_upper] += 1
 
                 if i < len(words) - 1:
-                    next_word = words[i+1]
+                    next_word = words[i + 1]
                     if self._is_logogram(next_word) and self._is_syllabic(word):
-                        contexts['before_logogram'][word_upper] += 1
+                        contexts["before_logogram"][word_upper] += 1
                         # Track the pair
-                        contexts['pre_logogram_pairs'][(word_upper, next_word)] += 1
+                        contexts["pre_logogram_pairs"][(word_upper, next_word)] += 1
                     if self._is_numeral(next_word) and self._is_syllabic(word):
-                        contexts['before_numeral'][word_upper] += 1
-                    if next_word.upper() in ['KU-RO', 'PO-TO-KU-RO'] and self._is_syllabic(word):
-                        contexts['before_total'][word_upper] += 1
+                        contexts["before_numeral"][word_upper] += 1
+                    if next_word.upper() in ["KU-RO", "PO-TO-KU-RO"] and self._is_syllabic(word):
+                        contexts["before_total"][word_upper] += 1
 
         # Calculate conditional probabilities
         results = {}
@@ -261,36 +265,38 @@ class ContextualAnalyzer:
 
             top_items = counter.most_common(30)
 
-            if context_name == 'pre_logogram_pairs':
+            if context_name == "pre_logogram_pairs":
                 # Format pairs nicely
                 results[context_name] = {
-                    'total_count': total,
-                    'top_pairs': [
+                    "total_count": total,
+                    "top_pairs": [
                         {
-                            'word': pair[0],
-                            'logogram': pair[1],
-                            'count': count,
-                            'frequency': count / total,
+                            "word": pair[0],
+                            "logogram": pair[1],
+                            "count": count,
+                            "frequency": count / total,
                         }
                         for pair, count in top_items
-                    ]
+                    ],
                 }
             else:
                 results[context_name] = {
-                    'total_count': total,
-                    'top_words': [
+                    "total_count": total,
+                    "top_words": [
                         {
-                            'word': word,
-                            'count': count,
-                            'frequency': count / total,
-                            'overall_frequency': total_counts.get(word, 0) / sum(total_counts.values())
-                                                 if total_counts else 0,
+                            "word": word,
+                            "count": count,
+                            "frequency": count / total,
+                            "overall_frequency": total_counts.get(word, 0)
+                            / sum(total_counts.values())
+                            if total_counts
+                            else 0,
                         }
                         for word, count in top_items
-                    ]
+                    ],
                 }
 
-        self.results['conditional_frequencies'] = results
+        self.results["conditional_frequencies"] = results
         return results
 
     # =========================================================================
@@ -308,19 +314,19 @@ class ContextualAnalyzer:
         print(f"Detecting formulas (min_length={min_length}, min_occurrences={min_occurrences})...")
 
         # Extract all sequences
-        sequence_counts = defaultdict(lambda: {'count': 0, 'locations': []})
+        sequence_counts = defaultdict(lambda: {"count": 0, "locations": []})
 
-        for insc_id, data in self.corpus['inscriptions'].items():
-            if '_parse_error' in data:
+        for insc_id, data in self.corpus["inscriptions"].items():
+            if "_parse_error" in data:
                 continue
 
-            words = data.get('transliteratedWords', [])
+            words = data.get("transliteratedWords", [])
 
             # Filter to syllabic words and logograms
             filtered_words = []
             positions = []
             for i, word in enumerate(words):
-                if word == '\n' or not word or word in ['𐄁', '', '—', '≈']:
+                if word == "\n" or not word or word in ["𐄁", "", "—", "≈"]:
                     continue
                 if self._is_numeral(word):
                     continue
@@ -330,55 +336,58 @@ class ContextualAnalyzer:
             # Generate all subsequences
             for length in range(min_length, min(len(filtered_words) + 1, 7)):  # Max 6 words
                 for start in range(len(filtered_words) - length + 1):
-                    seq = tuple(filtered_words[start:start + length])
-                    sequence_counts[seq]['count'] += 1
-                    sequence_counts[seq]['locations'].append({
-                        'inscription': insc_id,
-                        'position': positions[start] if start < len(positions) else 0,
-                    })
+                    seq = tuple(filtered_words[start : start + length])
+                    sequence_counts[seq]["count"] += 1
+                    sequence_counts[seq]["locations"].append(
+                        {
+                            "inscription": insc_id,
+                            "position": positions[start] if start < len(positions) else 0,
+                        }
+                    )
 
         # Filter by minimum occurrences
         formulas = {}
         for seq, data in sequence_counts.items():
-            if data['count'] >= min_occurrences:
-                seq_str = ' '.join(seq)
+            if data["count"] >= min_occurrences:
+                seq_str = " ".join(seq)
                 formulas[seq_str] = {
-                    'sequence': list(seq),
-                    'length': len(seq),
-                    'occurrences': data['count'],
-                    'locations': data['locations'][:10],  # Limit for output size
-                    'is_libation_related': self._is_libation_formula(seq),
+                    "sequence": list(seq),
+                    "length": len(seq),
+                    "occurrences": data["count"],
+                    "locations": data["locations"][:10],  # Limit for output size
+                    "is_libation_related": self._is_libation_formula(seq),
                 }
 
         # Sort by occurrences
         sorted_formulas = dict(
-            sorted(formulas.items(), key=lambda x: (-x[1]['occurrences'], -x[1]['length']))
+            sorted(formulas.items(), key=lambda x: (-x[1]["occurrences"], -x[1]["length"]))
         )
 
         # Group by length
         by_length = defaultdict(list)
         for formula, data in sorted_formulas.items():
-            by_length[data['length']].append({
-                'formula': formula,
-                **data
-            })
+            by_length[data["length"]].append({"formula": formula, **data})
 
         results = {
-            'total_formulas_found': len(sorted_formulas),
-            'by_length': {str(k): v for k, v in sorted(by_length.items())},
-            'top_formulas': [
-                {'formula': k, **v}
-                for k, v in list(sorted_formulas.items())[:30]
-            ],
+            "total_formulas_found": len(sorted_formulas),
+            "by_length": {str(k): v for k, v in sorted(by_length.items())},
+            "top_formulas": [{"formula": k, **v} for k, v in list(sorted_formulas.items())[:30]],
         }
 
-        self.results['formulas'] = results
+        self.results["formulas"] = results
         return results
 
     def _is_libation_formula(self, sequence: tuple) -> bool:
         """Check if sequence matches known libation formula patterns."""
-        libation_words = {'A-TA-I', 'JA-SA-SA-RA-ME', 'U-NA-KA-NA-SI',
-                         'I-PI-NA-MA', 'SI-RU-TE', '*301', 'WA-JA'}
+        libation_words = {
+            "A-TA-I",
+            "JA-SA-SA-RA-ME",
+            "U-NA-KA-NA-SI",
+            "I-PI-NA-MA",
+            "SI-RU-TE",
+            "*301",
+            "WA-JA",
+        }
         return any(word in libation_words for word in sequence)
 
     # =========================================================================
@@ -397,101 +406,109 @@ class ContextualAnalyzer:
         print("Analyzing document structures...")
 
         structures = {
-            'commodity_list': [],
-            'personnel_list': [],
-            'religious': [],
-            'administrative': [],
-            'fragment': [],
-            'unknown': [],
+            "commodity_list": [],
+            "personnel_list": [],
+            "religious": [],
+            "administrative": [],
+            "fragment": [],
+            "unknown": [],
         }
 
         structure_stats = Counter()
 
-        for insc_id in self.corpus['inscriptions']:
+        for insc_id in self.corpus["inscriptions"]:
             elements = self._extract_document_elements(insc_id)
             if not elements:
                 continue
 
-            structure_type = elements['structure_type']
+            structure_type = elements["structure_type"]
             structure_stats[structure_type] += 1
 
             # Classify more specifically
-            if elements['has_total']:
-                structures['commodity_list'].append({
-                    'inscription': insc_id,
-                    'total_word': elements['total_word'],
-                    'line_count': len(elements['lines']),
-                    'logogram_count': len(elements['logograms']),
-                    'numeral_count': len(elements['numerals']),
-                })
+            if elements["has_total"]:
+                structures["commodity_list"].append(
+                    {
+                        "inscription": insc_id,
+                        "total_word": elements["total_word"],
+                        "line_count": len(elements["lines"]),
+                        "logogram_count": len(elements["logograms"]),
+                        "numeral_count": len(elements["numerals"]),
+                    }
+                )
             elif self._is_religious_text(elements):
-                structures['religious'].append({
-                    'inscription': insc_id,
-                    'line_count': len(elements['lines']),
-                    'syllabic_count': len(elements['syllabic_words']),
-                })
-            elif len(elements['lines']) <= 2 and len(elements['syllabic_words']) < 5:
-                structures['fragment'].append({
-                    'inscription': insc_id,
-                    'word_count': len(elements['syllabic_words']) + len(elements['logograms']),
-                })
+                structures["religious"].append(
+                    {
+                        "inscription": insc_id,
+                        "line_count": len(elements["lines"]),
+                        "syllabic_count": len(elements["syllabic_words"]),
+                    }
+                )
+            elif len(elements["lines"]) <= 2 and len(elements["syllabic_words"]) < 5:
+                structures["fragment"].append(
+                    {
+                        "inscription": insc_id,
+                        "word_count": len(elements["syllabic_words"]) + len(elements["logograms"]),
+                    }
+                )
             else:
-                structures['administrative'].append({
-                    'inscription': insc_id,
-                    'structure': structure_type,
-                })
+                structures["administrative"].append(
+                    {
+                        "inscription": insc_id,
+                        "structure": structure_type,
+                    }
+                )
 
         # Calculate template patterns for commodity lists
-        commodity_templates = self._extract_commodity_templates(structures['commodity_list'])
+        commodity_templates = self._extract_commodity_templates(structures["commodity_list"])
 
         results = {
-            'structure_counts': dict(structure_stats),
-            'commodity_lists': {
-                'count': len(structures['commodity_list']),
-                'templates': commodity_templates,
-                'examples': structures['commodity_list'][:10],
+            "structure_counts": dict(structure_stats),
+            "commodity_lists": {
+                "count": len(structures["commodity_list"]),
+                "templates": commodity_templates,
+                "examples": structures["commodity_list"][:10],
             },
-            'religious_texts': {
-                'count': len(structures['religious']),
-                'examples': structures['religious'][:10],
+            "religious_texts": {
+                "count": len(structures["religious"]),
+                "examples": structures["religious"][:10],
             },
-            'fragments': {
-                'count': len(structures['fragment']),
+            "fragments": {
+                "count": len(structures["fragment"]),
             },
-            'administrative': {
-                'count': len(structures['administrative']),
-                'examples': structures['administrative'][:10],
+            "administrative": {
+                "count": len(structures["administrative"]),
+                "examples": structures["administrative"][:10],
             },
         }
 
-        self.results['document_structures'] = results
+        self.results["document_structures"] = results
         return results
 
     def _is_religious_text(self, elements: dict) -> bool:
         """Check if document appears to be religious text."""
         # Check for libation formula words
-        libation_markers = {'A-TA-I', 'JA-SA-SA-RA-ME', 'U-NA-KA-NA-SI'}
-        syllabic_upper = [w['word'].upper() for w in elements['syllabic_words']]
+        libation_markers = {"A-TA-I", "JA-SA-SA-RA-ME", "U-NA-KA-NA-SI"}
+        syllabic_upper = [w["word"].upper() for w in elements["syllabic_words"]]
 
         if any(marker in syllabic_upper for marker in libation_markers):
             return True
 
         # Check site (peak sanctuaries, caves)
-        religious_sites = {'IO', 'PS', 'SY', 'PK'}
-        site_code = self._extract_site_code(elements['inscription_id'])
+        religious_sites = {"IO", "PS", "SY", "PK"}
+        site_code = self._extract_site_code(elements["inscription_id"])
         if site_code in religious_sites:
             return True
 
         # Check support type (Za = stone vessels)
-        if 'Za' in elements['inscription_id']:
+        if "Za" in elements["inscription_id"]:
             return True
 
         return False
 
     def _extract_site_code(self, inscription_id: str) -> str:
         """Extract site code from inscription ID."""
-        match = re.match(r'^([A-Z]+)', inscription_id)
-        return match.group(1) if match else ''
+        match = re.match(r"^([A-Z]+)", inscription_id)
+        return match.group(1) if match else ""
 
     def _extract_commodity_templates(self, commodity_docs: list) -> list:
         """Extract common templates from commodity lists."""
@@ -500,29 +517,34 @@ class ContextualAnalyzer:
         # Template 1: Header + Entries + ku-ro Total
         header_entry_total = []
         for doc in commodity_docs:
-            if doc['total_word'] and doc['total_word'].upper() == 'KU-RO':
-                header_entry_total.append(doc['inscription'])
+            if doc["total_word"] and doc["total_word"].upper() == "KU-RO":
+                header_entry_total.append(doc["inscription"])
 
         if header_entry_total:
-            templates.append({
-                'name': 'Standard Commodity List (ku-ro)',
-                'pattern': '[Header?] → [Entry + Logogram + Numeral]* → ku-ro + Total',
-                'count': len(header_entry_total),
-                'examples': header_entry_total[:5],
-            })
+            templates.append(
+                {
+                    "name": "Standard Commodity List (ku-ro)",
+                    "pattern": "[Header?] → [Entry + Logogram + Numeral]* → ku-ro + Total",
+                    "count": len(header_entry_total),
+                    "examples": header_entry_total[:5],
+                }
+            )
 
         # Template 2: ki-ro deficit lists
         deficit_lists = [
-            doc['inscription'] for doc in commodity_docs
-            if doc['total_word'] and 'KI-RO' in doc['total_word'].upper()
+            doc["inscription"]
+            for doc in commodity_docs
+            if doc["total_word"] and "KI-RO" in doc["total_word"].upper()
         ]
         if deficit_lists:
-            templates.append({
-                'name': 'Deficit List (ki-ro)',
-                'pattern': '[Entries] → ki-ro + Deficit Amount',
-                'count': len(deficit_lists),
-                'examples': deficit_lists[:5],
-            })
+            templates.append(
+                {
+                    "name": "Deficit List (ki-ro)",
+                    "pattern": "[Entries] → ki-ro + Deficit Amount",
+                    "count": len(deficit_lists),
+                    "examples": deficit_lists[:5],
+                }
+            )
 
         return templates
 
@@ -542,11 +564,11 @@ class ContextualAnalyzer:
         cooccurrence_matrix = defaultdict(Counter)
         word_counts = Counter()
 
-        for insc_id, data in self.corpus['inscriptions'].items():
-            if '_parse_error' in data:
+        for insc_id, data in self.corpus["inscriptions"].items():
+            if "_parse_error" in data:
                 continue
 
-            words = data.get('transliteratedWords', [])
+            words = data.get("transliteratedWords", [])
 
             # Filter to syllabic words only
             syllabic = []
@@ -581,37 +603,37 @@ class ContextualAnalyzer:
 
                 if p_x * p_y > 0:
                     import math
+
                     pmi = math.log2(p_xy / (p_x * p_y)) if p_xy > 0 else 0
 
                     if pmi > 1:  # Only keep high PMI pairs
-                        pmi_scores.append({
-                            'word1': word1,
-                            'word2': word2,
-                            'cooccurrence_count': count,
-                            'pmi': round(pmi, 3),
-                        })
+                        pmi_scores.append(
+                            {
+                                "word1": word1,
+                                "word2": word2,
+                                "cooccurrence_count": count,
+                                "pmi": round(pmi, 3),
+                            }
+                        )
 
         # Sort by PMI
-        pmi_scores.sort(key=lambda x: -x['pmi'])
+        pmi_scores.sort(key=lambda x: -x["pmi"])
 
         # Build word association lists
         associations = {}
         for word, cooccur in cooccurrence_matrix.items():
             if word_counts[word] >= 5:
                 top_assoc = cooccur.most_common(10)
-                associations[word] = [
-                    {'word': w, 'count': c}
-                    for w, c in top_assoc
-                ]
+                associations[word] = [{"word": w, "count": c} for w, c in top_assoc]
 
         results = {
-            'window_size': window_size,
-            'total_words_analyzed': len(word_counts),
-            'high_pmi_pairs': pmi_scores[:50],
-            'top_word_associations': dict(list(associations.items())[:30]),
+            "window_size": window_size,
+            "total_words_analyzed": len(word_counts),
+            "high_pmi_pairs": pmi_scores[:50],
+            "top_word_associations": dict(list(associations.items())[:30]),
         }
 
-        self.results['cooccurrence'] = results
+        self.results["cooccurrence"] = results
         return results
 
     # =========================================================================
@@ -633,8 +655,22 @@ class ContextualAnalyzer:
 
         # Known commodity logograms
         commodity_logograms = [
-            'GRA', 'VIN', 'OLE', 'OLIV', 'CYP', 'AROM', 'TELA', 'LANA',
-            'BOS', 'OVIS', 'CAP', 'SUS', 'HORD', 'NI', 'FIC', 'CUM',
+            "GRA",
+            "VIN",
+            "OLE",
+            "OLIV",
+            "CYP",
+            "AROM",
+            "TELA",
+            "LANA",
+            "BOS",
+            "OVIS",
+            "CAP",
+            "SUS",
+            "HORD",
+            "NI",
+            "FIC",
+            "CUM",
         ]
 
         triplets = []
@@ -642,40 +678,45 @@ class ContextualAnalyzer:
         slot_by_logogram = defaultdict(list)
         slot_suffixes = Counter()
 
-        for insc_id, data in self.corpus['inscriptions'].items():
-            if '_parse_error' in data:
+        for insc_id, data in self.corpus["inscriptions"].items():
+            if "_parse_error" in data:
                 continue
 
-            words = data.get('transliteratedWords', [])
+            words = data.get("transliteratedWords", [])
 
             # Filter to valid tokens
             valid_tokens = []
             for i, word in enumerate(words):
-                if word and word not in ['\n', '𐄁', '', '—', '≈', '𐝫']:
-                    valid_tokens.append({'index': i, 'word': word})
+                if word and word not in ["\n", "𐄁", "", "—", "≈", "𐝫"]:
+                    valid_tokens.append({"index": i, "word": word})
 
             # Look for patterns: SYLLABIC + LOGOGRAM + NUMERAL
             for i in range(len(valid_tokens) - 2):
-                t1, t2, t3 = valid_tokens[i], valid_tokens[i+1], valid_tokens[i+2]
+                t1, t2, t3 = valid_tokens[i], valid_tokens[i + 1], valid_tokens[i + 2]
 
                 # Check pattern: [X] + LOGOGRAM + NUMBER
-                is_syllabic = self._is_syllabic(t1['word'])
-                is_logo = self._is_logogram(t2['word'])
-                is_num = self._is_numeral(t3['word'])
+                is_syllabic = self._is_syllabic(t1["word"])
+                is_logo = self._is_logogram(t2["word"])
+                is_num = self._is_numeral(t3["word"])
 
                 if is_syllabic and is_logo and is_num:
-                    x_slot = t1['word'].upper()
-                    logogram = t2['word'].upper()
+                    x_slot = t1["word"].upper()
+                    logogram = t2["word"].upper()
 
                     triplet = {
-                        'inscription_id': insc_id,
-                        'x_slot': x_slot,
-                        'logogram': logogram,
-                        'number': t3['word'],
-                        'position': i,
-                        'context_before': [valid_tokens[j]['word'] for j in range(max(0, i-2), i)],
-                        'context_after': [valid_tokens[j]['word'] for j in range(i+3, min(len(valid_tokens), i+5))],
-                        'site': data.get('site', ''),
+                        "inscription_id": insc_id,
+                        "x_slot": x_slot,
+                        "logogram": logogram,
+                        "number": t3["word"],
+                        "position": i,
+                        "context_before": [
+                            valid_tokens[j]["word"] for j in range(max(0, i - 2), i)
+                        ],
+                        "context_after": [
+                            valid_tokens[j]["word"]
+                            for j in range(i + 3, min(len(valid_tokens), i + 5))
+                        ],
+                        "site": data.get("site", ""),
                     }
                     triplets.append(triplet)
 
@@ -684,23 +725,23 @@ class ContextualAnalyzer:
                     slot_by_logogram[logogram].append(x_slot)
 
                     # Extract final syllable as potential case marker
-                    syllables = x_slot.split('-')
+                    syllables = x_slot.split("-")
                     if syllables:
                         final_syl = syllables[-1]
                         # Remove subscripts
-                        final_syl = re.sub(r'[₀₁₂₃₄₅₆₇₈₉]', '', final_syl)
+                        final_syl = re.sub(r"[₀₁₂₃₄₅₆₇₈₉]", "", final_syl)
                         slot_suffixes[final_syl] += 1
 
         results = {
-            'total_triplets': len(triplets),
-            'unique_slot_words': len(slot_word_freq),
-            'triplets': triplets,
-            'slot_word_frequencies': dict(slot_word_freq.most_common()),
-            'slot_suffix_frequencies': dict(slot_suffixes.most_common()),
-            'slots_by_logogram': {k: list(set(v)) for k, v in slot_by_logogram.items()},
+            "total_triplets": len(triplets),
+            "unique_slot_words": len(slot_word_freq),
+            "triplets": triplets,
+            "slot_word_frequencies": dict(slot_word_freq.most_common()),
+            "slot_suffix_frequencies": dict(slot_suffixes.most_common()),
+            "slots_by_logogram": {k: list(set(v)) for k, v in slot_by_logogram.items()},
         }
 
-        self.results['commodity_triplets'] = results
+        self.results["commodity_triplets"] = results
         return results
 
     def analyze_slot_distributions(self) -> dict:
@@ -715,62 +756,62 @@ class ContextualAnalyzer:
         print("Analyzing slot word distributions...")
 
         # Ensure triplets are extracted
-        if 'commodity_triplets' not in self.results:
+        if "commodity_triplets" not in self.results:
             self.extract_commodity_triplets()
 
-        triplets = self.results['commodity_triplets'].get('triplets', [])
+        triplets = self.results["commodity_triplets"].get("triplets", [])
         if not triplets:
             return {}
 
         # Position analysis
-        position_dist = {'early': [], 'middle': [], 'late': []}
-        suffix_contexts = defaultdict(lambda: {'logograms': Counter(), 'sites': Counter()})
+        position_dist = {"early": [], "middle": [], "late": []}
+        suffix_contexts = defaultdict(lambda: {"logograms": Counter(), "sites": Counter()})
 
         for t in triplets:
-            x_slot = t['x_slot']
-            logogram = t['logogram']
-            site = t.get('site', 'Unknown')
+            x_slot = t["x_slot"]
+            logogram = t["logogram"]
+            site = t.get("site", "Unknown")
 
             # Classify position
             # Note: position relative to total not available here, use heuristic
-            pos = t.get('position', 0)
+            pos = t.get("position", 0)
             if pos < 3:
-                position_dist['early'].append(x_slot)
+                position_dist["early"].append(x_slot)
             elif pos < 8:
-                position_dist['middle'].append(x_slot)
+                position_dist["middle"].append(x_slot)
             else:
-                position_dist['late'].append(x_slot)
+                position_dist["late"].append(x_slot)
 
             # Track suffix contexts
-            syllables = x_slot.split('-')
+            syllables = x_slot.split("-")
             if syllables:
-                final_syl = re.sub(r'[₀₁₂₃₄₅₆₇₈₉]', '', syllables[-1])
-                suffix_contexts[final_syl]['logograms'][logogram] += 1
-                suffix_contexts[final_syl]['sites'][site] += 1
+                final_syl = re.sub(r"[₀₁₂₃₄₅₆₇₈₉]", "", syllables[-1])
+                suffix_contexts[final_syl]["logograms"][logogram] += 1
+                suffix_contexts[final_syl]["sites"][site] += 1
 
         # Calculate suffix statistics
         suffix_stats = {}
         for suffix, data in suffix_contexts.items():
-            total = sum(data['logograms'].values())
+            total = sum(data["logograms"].values())
             if total >= 3:  # Minimum occurrences
                 suffix_stats[suffix] = {
-                    'total_occurrences': total,
-                    'logogram_diversity': len(data['logograms']) / total,
-                    'top_logograms': dict(data['logograms'].most_common(5)),
-                    'top_sites': dict(data['sites'].most_common(3)),
+                    "total_occurrences": total,
+                    "logogram_diversity": len(data["logograms"]) / total,
+                    "top_logograms": dict(data["logograms"].most_common(5)),
+                    "top_sites": dict(data["sites"].most_common(3)),
                 }
 
         results = {
-            'position_distribution': {
-                'early': len(position_dist['early']),
-                'middle': len(position_dist['middle']),
-                'late': len(position_dist['late']),
+            "position_distribution": {
+                "early": len(position_dist["early"]),
+                "middle": len(position_dist["middle"]),
+                "late": len(position_dist["late"]),
             },
-            'suffix_statistics': suffix_stats,
-            'unique_suffixes_analyzed': len(suffix_stats),
+            "suffix_statistics": suffix_stats,
+            "unique_suffixes_analyzed": len(suffix_stats),
         }
 
-        self.results['slot_distributions'] = results
+        self.results["slot_distributions"] = results
         return results
 
     # =========================================================================
@@ -788,13 +829,13 @@ class ContextualAnalyzer:
         self.analyze_document_structures()
         self.analyze_cooccurrence()
 
-        self.results['metadata']['generated'] = datetime.now().isoformat()
+        self.results["metadata"]["generated"] = datetime.now().isoformat()
 
         return self.results
 
     def save_results(self, output_path: Path):
         """Save results to JSON."""
-        with open(output_path, 'w', encoding='utf-8') as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             json.dump(self.results, f, ensure_ascii=False, indent=2)
         print(f"\nResults saved to: {output_path}")
 
@@ -805,31 +846,31 @@ class ContextualAnalyzer:
         print("=" * 70)
 
         # Conditional frequencies
-        cond_freq = self.results.get('conditional_frequencies', {})
+        cond_freq = self.results.get("conditional_frequencies", {})
         print("\nConditional Frequency Highlights:")
-        if 'before_total' in cond_freq:
-            before_total = cond_freq['before_total'].get('top_words', [])[:5]
+        if "before_total" in cond_freq:
+            before_total = cond_freq["before_total"].get("top_words", [])[:5]
             print("  Words most likely to appear before ku-ro (total):")
             for item in before_total:
-                print(f"    {item['word']}: {item['count']} times ({item['frequency']*100:.1f}%)")
+                print(f"    {item['word']}: {item['count']} times ({item['frequency'] * 100:.1f}%)")
 
         # Formulas
-        formulas = self.results.get('formulas', {})
+        formulas = self.results.get("formulas", {})
         print(f"\nFormulas Detected: {formulas.get('total_formulas_found', 0)}")
-        top = formulas.get('top_formulas', [])[:5]
+        top = formulas.get("top_formulas", [])[:5]
         for f in top:
             print(f"  '{f['formula']}' - {f['occurrences']} occurrences")
 
         # Document structures
-        structures = self.results.get('document_structures', {})
+        structures = self.results.get("document_structures", {})
         print("\nDocument Structure Types:")
-        for struct_type, count in structures.get('structure_counts', {}).items():
+        for struct_type, count in structures.get("structure_counts", {}).items():
             print(f"  {struct_type}: {count}")
 
         # Co-occurrence
-        cooccur = self.results.get('cooccurrence', {})
+        cooccur = self.results.get("cooccurrence", {})
         print("\nHigh PMI Word Pairs (strong associations):")
-        high_pmi = cooccur.get('high_pmi_pairs', [])[:5]
+        high_pmi = cooccur.get("high_pmi_pairs", [])[:5]
         for pair in high_pmi:
             print(f"  {pair['word1']} + {pair['word2']}: PMI={pair['pmi']:.2f}")
 
@@ -837,39 +878,32 @@ class ContextualAnalyzer:
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Analyze contextual patterns in Linear A corpus"
-    )
+    parser = argparse.ArgumentParser(description="Analyze contextual patterns in Linear A corpus")
     parser.add_argument(
-        '--analyze', '-a',
+        "--analyze",
+        "-a",
         type=str,
-        choices=['frequencies', 'formulas', 'structure', 'cooccurrence', 'all'],
-        default='all',
-        help='Analysis type to run (default: all)'
+        choices=["frequencies", "formulas", "structure", "cooccurrence", "all"],
+        default="all",
+        help="Analysis type to run (default: all)",
     )
     parser.add_argument(
-        '--output', '-o',
+        "--output",
+        "-o",
         type=str,
-        default='data/contextual_analysis.json',
-        help='Output path for results'
+        default="data/contextual_analysis.json",
+        help="Output path for results",
     )
     parser.add_argument(
-        '--min-formula-length',
-        type=int,
-        default=2,
-        help='Minimum words in formula (default: 2)'
+        "--min-formula-length", type=int, default=2, help="Minimum words in formula (default: 2)"
     )
     parser.add_argument(
-        '--min-formula-occurrences',
+        "--min-formula-occurrences",
         type=int,
         default=3,
-        help='Minimum formula occurrences (default: 3)'
+        help="Minimum formula occurrences (default: 3)",
     )
-    parser.add_argument(
-        '--verbose', '-v',
-        action='store_true',
-        help='Show detailed progress'
-    )
+    parser.add_argument("--verbose", "-v", action="store_true", help="Show detailed progress")
 
     args = parser.parse_args()
 
@@ -883,18 +917,18 @@ def main():
         return 1
 
     # Run requested analyses
-    if args.analyze == 'all':
+    if args.analyze == "all":
         analyzer.run_full_analysis()
-    elif args.analyze == 'frequencies':
+    elif args.analyze == "frequencies":
         analyzer.analyze_conditional_frequencies()
-    elif args.analyze == 'formulas':
+    elif args.analyze == "formulas":
         analyzer.detect_formulas(args.min_formula_length, args.min_formula_occurrences)
-    elif args.analyze == 'structure':
+    elif args.analyze == "structure":
         analyzer.analyze_document_structures()
-    elif args.analyze == 'cooccurrence':
+    elif args.analyze == "cooccurrence":
         analyzer.analyze_cooccurrence()
 
-    analyzer.results['metadata']['generated'] = datetime.now().isoformat()
+    analyzer.results["metadata"]["generated"] = datetime.now().isoformat()
 
     # Save results
     output_path = PROJECT_ROOT / args.output
@@ -906,5 +940,5 @@ def main():
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

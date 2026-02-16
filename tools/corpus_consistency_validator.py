@@ -43,23 +43,25 @@ VALIDATION_RESULTS_FILE = DATA_DIR / "consistency_validation.json"
 @dataclass
 class Occurrence:
     """A single occurrence of a word in the corpus."""
+
     inscription_id: str
     site: str
     site_full: str
     site_raw: str
     period: str
     support: str
-    position: int           # Position in inscription
+    position: int  # Position in inscription
     context_before: List[str]
     context_after: List[str]
-    has_logogram: bool      # Is it followed by a logogram?
-    has_number: bool        # Is it followed by a number?
-    line_position: str      # start, middle, end, total_position
+    has_logogram: bool  # Is it followed by a logogram?
+    has_number: bool  # Is it followed by a number?
+    line_position: str  # start, middle, end, total_position
 
 
 @dataclass
 class ConsistencyReport:
     """Consistency validation results for a word."""
+
     word: str
     total_occurrences: int
     sites_found: List[str]
@@ -67,9 +69,9 @@ class ConsistencyReport:
     periods_found: List[str]
 
     # Consistency metrics
-    positional_consistency: float   # 0-1: how consistent is position?
-    contextual_consistency: float   # 0-1: how consistent is context?
-    functional_consistency: float   # 0-1: how consistent is function?
+    positional_consistency: float  # 0-1: how consistent is position?
+    contextual_consistency: float  # 0-1: how consistent is context?
+    functional_consistency: float  # 0-1: how consistent is function?
 
     # Breakdown
     position_distribution: Dict[str, int]
@@ -97,7 +99,7 @@ class CorpusConsistencyValidator:
         self.verbose = verbose
         self.corpus = None
         self.statistics = None
-        self.major_sites = ['HT', 'KH', 'ZA', 'PH', 'KN', 'MA', 'TY', 'PK']
+        self.major_sites = ["HT", "KH", "ZA", "PH", "KN", "MA", "TY", "PK"]
         self.site_name_map = {}
 
     def log(self, message: str):
@@ -108,14 +110,14 @@ class CorpusConsistencyValidator:
     def load_corpus(self) -> bool:
         """Load corpus data."""
         try:
-            with open(CORPUS_FILE, 'r', encoding='utf-8') as f:
+            with open(CORPUS_FILE, "r", encoding="utf-8") as f:
                 self.corpus = json.load(f)
 
             stats_file = DATA_DIR / "statistics.json"
             if stats_file.exists():
-                with open(stats_file, 'r', encoding='utf-8') as f:
+                with open(stats_file, "r", encoding="utf-8") as f:
                     self.statistics = json.load(f)
-                    self.site_name_map = self.statistics.get('sites_full_names', {})
+                    self.site_name_map = self.statistics.get("sites_full_names", {})
 
             self.log(f"Loaded corpus: {len(self.corpus.get('inscriptions', {}))} inscriptions")
             return True
@@ -132,11 +134,11 @@ class CorpusConsistencyValidator:
         word_upper = word.upper()
         occurrences = []
 
-        for insc_id, data in self.corpus.get('inscriptions', {}).items():
-            if '_parse_error' in data:
+        for insc_id, data in self.corpus.get("inscriptions", {}).items():
+            if "_parse_error" in data:
                 continue
 
-            words = data.get('transliteratedWords', [])
+            words = data.get("transliteratedWords", [])
 
             for i, w in enumerate(words):
                 if not w:
@@ -146,31 +148,35 @@ class CorpusConsistencyValidator:
                 w_normalized = w.upper()
                 if w_normalized == word_upper or w.upper() == word_upper:
                     # Extract context
-                    context_before = [words[j] for j in range(max(0, i-3), i) if words[j]]
-                    context_after = [words[j] for j in range(i+1, min(len(words), i+4)) if words[j]]
+                    context_before = [words[j] for j in range(max(0, i - 3), i) if words[j]]
+                    context_after = [
+                        words[j] for j in range(i + 1, min(len(words), i + 4)) if words[j]
+                    ]
 
                     # Determine position characteristics
                     has_logogram = any(
-                        re.match(r'^[A-Z]+$', w_after) and len(w_after) >= 2 and w_after not in ['VIR', 'MUL']
+                        re.match(r"^[A-Z]+$", w_after)
+                        and len(w_after) >= 2
+                        and w_after not in ["VIR", "MUL"]
                         for w_after in context_after
                     )
                     has_number = any(
-                        re.match(r'^[\d\s.¹²³⁴⁵⁶⁷⁸⁹⁰/₀₁₂₃₄₅₆₇₈○◎—|]+$', w_after)
+                        re.match(r"^[\d\s.¹²³⁴⁵⁶⁷⁸⁹⁰/₀₁₂₃₄₅₆₇₈○◎—|]+$", w_after)
                         for w_after in context_after
                     )
 
                     # Determine line position
                     if i == 0:
-                        line_pos = 'start'
+                        line_pos = "start"
                     elif i == len(words) - 1:
-                        line_pos = 'end'
-                    elif 'total' in str(context_before).lower() or has_number:
-                        line_pos = 'total_position'
+                        line_pos = "end"
+                    elif "total" in str(context_before).lower() or has_number:
+                        line_pos = "total_position"
                     else:
-                        line_pos = 'middle'
+                        line_pos = "middle"
 
                     site_code, site_name = normalize_site(
-                        site_value=data.get('site'),
+                        site_value=data.get("site"),
                         inscription_id=insc_id,
                     )
 
@@ -178,9 +184,9 @@ class CorpusConsistencyValidator:
                         inscription_id=insc_id,
                         site=site_code,
                         site_full=site_name,
-                        site_raw=str(data.get('site', '') or ''),
-                        period=data.get('context', 'UNKNOWN'),
-                        support=data.get('support', 'UNKNOWN'),
+                        site_raw=str(data.get("site", "") or ""),
+                        period=data.get("context", "UNKNOWN"),
+                        support=data.get("support", "UNKNOWN"),
                         position=i,
                         context_before=context_before,
                         context_after=context_after,
@@ -214,9 +220,9 @@ class CorpusConsistencyValidator:
                 position_distribution={},
                 context_distribution={},
                 site_distribution={},
-                anomalies=[{'type': 'not_found', 'message': f'{word} not found in corpus'}],
+                anomalies=[{"type": "not_found", "message": f"{word} not found in corpus"}],
                 reading_validated=False,
-                reading_issues=['Word not found in corpus'],
+                reading_issues=["Word not found in corpus"],
                 generated=datetime.now().isoformat(),
             )
 
@@ -232,13 +238,13 @@ class CorpusConsistencyValidator:
         context_types = []
         for o in occurrences:
             if o.has_logogram and o.has_number:
-                context_types.append('logogram+number')
+                context_types.append("logogram+number")
             elif o.has_logogram:
-                context_types.append('logogram')
+                context_types.append("logogram")
             elif o.has_number:
-                context_types.append('number')
+                context_types.append("number")
             else:
-                context_types.append('other')
+                context_types.append("other")
         context_dist = Counter(context_types)
 
         # Site distribution
@@ -261,34 +267,40 @@ class CorpusConsistencyValidator:
 
         # Anomaly: appears at only one site when other sites have inscriptions
         if len(sites_found) == 1 and len(occurrences) > 5:
-            concentration = len(occurrences) / len(self.corpus.get('inscriptions', {}))
+            concentration = len(occurrences) / len(self.corpus.get("inscriptions", {}))
             if concentration > 0.01:  # More than 1% of corpus
-                anomalies.append({
-                    'type': 'site_concentration',
-                    'message': f'{word} appears at only {sites_found[0]} ({len(occurrences)} times)',
-                    'severity': 'HIGH' if len(occurrences) > 20 else 'MEDIUM',
-                    'implication': 'May be site-specific term or regional dialect',
-                })
+                anomalies.append(
+                    {
+                        "type": "site_concentration",
+                        "message": f"{word} appears at only {sites_found[0]} ({len(occurrences)} times)",
+                        "severity": "HIGH" if len(occurrences) > 20 else "MEDIUM",
+                        "implication": "May be site-specific term or regional dialect",
+                    }
+                )
 
         # Anomaly: inconsistent contexts
         if len(context_dist) > 2 and max(context_dist.values()) < len(occurrences) * 0.5:
-            anomalies.append({
-                'type': 'context_inconsistency',
-                'message': f'{word} appears in varied contexts: {dict(context_dist)}',
-                'severity': 'MEDIUM',
-                'implication': 'May have multiple functions or be a common word',
-            })
+            anomalies.append(
+                {
+                    "type": "context_inconsistency",
+                    "message": f"{word} appears in varied contexts: {dict(context_dist)}",
+                    "severity": "MEDIUM",
+                    "implication": "May have multiple functions or be a common word",
+                }
+            )
 
         # Anomaly: appears with and without numbers
-        if 'number' in context_dist and 'other' in context_dist:
-            num_pct = context_dist.get('number', 0) / len(occurrences)
+        if "number" in context_dist and "other" in context_dist:
+            num_pct = context_dist.get("number", 0) / len(occurrences)
             if 0.2 < num_pct < 0.8:
-                anomalies.append({
-                    'type': 'mixed_numerical_context',
-                    'message': f'{word} followed by number {num_pct*100:.1f}% of time',
-                    'severity': 'LOW',
-                    'implication': 'May have both administrative and non-administrative uses',
-                })
+                anomalies.append(
+                    {
+                        "type": "mixed_numerical_context",
+                        "message": f"{word} followed by number {num_pct * 100:.1f}% of time",
+                        "severity": "LOW",
+                        "implication": "May have both administrative and non-administrative uses",
+                    }
+                )
 
         # Validate proposed reading
         reading_validated = True
@@ -298,8 +310,10 @@ class CorpusConsistencyValidator:
             reading_lower = proposed_reading.lower()
 
             # Total/sum reading should appear at totaling positions
-            if 'total' in reading_lower or 'sum' in reading_lower or 'all' in reading_lower:
-                total_positions = position_dist.get('total_position', 0) + position_dist.get('end', 0)
+            if "total" in reading_lower or "sum" in reading_lower or "all" in reading_lower:
+                total_positions = position_dist.get("total_position", 0) + position_dist.get(
+                    "end", 0
+                )
                 if total_positions < len(occurrences) * 0.5:
                     reading_issues.append(
                         f"Reading '{proposed_reading}' expects totaling position, but "
@@ -308,10 +322,11 @@ class CorpusConsistencyValidator:
                     reading_validated = False
 
             # Deficit reading should have special marking or context
-            if 'deficit' in reading_lower or 'lacking' in reading_lower:
+            if "deficit" in reading_lower or "lacking" in reading_lower:
                 # Check if it co-occurs with KU-RO or similar
-                has_kuro = any('KU-RO' in str(o.context_before + o.context_after).upper()
-                               for o in occurrences)
+                has_kuro = any(
+                    "KU-RO" in str(o.context_before + o.context_after).upper() for o in occurrences
+                )
                 if not has_kuro and len(occurrences) > 3:
                     reading_issues.append(
                         f"Reading '{proposed_reading}' might expect co-occurrence with total term, "
@@ -319,13 +334,15 @@ class CorpusConsistencyValidator:
                     )
 
             # If reading implies commodity, should appear with logograms
-            commodity_terms = ['wine', 'oil', 'grain', 'olive', 'fig']
+            commodity_terms = ["wine", "oil", "grain", "olive", "fig"]
             if any(term in reading_lower for term in commodity_terms):
-                log_pct = (context_dist.get('logogram', 0) + context_dist.get('logogram+number', 0)) / len(occurrences)
+                log_pct = (
+                    context_dist.get("logogram", 0) + context_dist.get("logogram+number", 0)
+                ) / len(occurrences)
                 if log_pct < 0.3:
                     reading_issues.append(
                         f"Reading '{proposed_reading}' implies commodity, but only "
-                        f"{log_pct*100:.1f}% of occurrences are followed by logograms"
+                        f"{log_pct * 100:.1f}% of occurrences are followed by logograms"
                     )
 
         return ConsistencyReport(
@@ -351,10 +368,11 @@ class CorpusConsistencyValidator:
         results = {}
 
         # Get word frequencies from statistics
-        word_freqs = self.statistics.get('top_words', {}) if self.statistics else {}
+        word_freqs = self.statistics.get("top_words", {}) if self.statistics else {}
 
-        words_to_check = [w for w, f in word_freqs.items()
-                         if f >= min_frequency and '-' in w]  # Only syllabic words
+        words_to_check = [
+            w for w, f in word_freqs.items() if f >= min_frequency and "-" in w
+        ]  # Only syllabic words
 
         self.log(f"Validating {len(words_to_check)} words with frequency >= {min_frequency}")
 
@@ -373,12 +391,12 @@ class CorpusConsistencyValidator:
             output_path = VALIDATION_RESULTS_FILE
 
         data = {
-            'generated': datetime.now().isoformat(),
-            'total_words_validated': len(results),
-            'words': {word: asdict(report) for word, report in results.items()},
+            "generated": datetime.now().isoformat(),
+            "total_words_validated": len(results),
+            "words": {word: asdict(report) for word, report in results.items()},
         }
 
-        with open(output_path, 'w', encoding='utf-8') as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
 
         print(f"Results saved to: {output_path}")
@@ -435,37 +453,20 @@ def main():
     parser = argparse.ArgumentParser(
         description="Validate Linear A readings across the entire corpus"
     )
+    parser.add_argument("--word", "-w", type=str, help="Validate a specific word")
     parser.add_argument(
-        '--word', '-w',
-        type=str,
-        help='Validate a specific word'
+        "--reading", "-r", type=str, help='Proposed reading to validate (e.g., "total", "deficit")'
     )
+    parser.add_argument("--all", "-a", action="store_true", help="Validate all frequent words")
     parser.add_argument(
-        '--reading', '-r',
-        type=str,
-        help='Proposed reading to validate (e.g., "total", "deficit")'
-    )
-    parser.add_argument(
-        '--all', '-a',
-        action='store_true',
-        help='Validate all frequent words'
-    )
-    parser.add_argument(
-        '--min-freq', '-m',
+        "--min-freq",
+        "-m",
         type=int,
         default=5,
-        help='Minimum frequency for --all mode (default: 5)'
+        help="Minimum frequency for --all mode (default: 5)",
     )
-    parser.add_argument(
-        '--output', '-o',
-        type=str,
-        help='Output file for results'
-    )
-    parser.add_argument(
-        '--verbose', '-v',
-        action='store_true',
-        help='Show detailed output'
-    )
+    parser.add_argument("--output", "-o", type=str, help="Output file for results")
+    parser.add_argument("--verbose", "-v", action="store_true", help="Show detailed output")
 
     args = parser.parse_args()
 
@@ -493,19 +494,24 @@ def main():
         print(f"\nValidated {len(results)} words")
 
         # Find most concentrated words
-        concentrated = [(w, r) for w, r in results.items()
-                       if any(a['type'] == 'site_concentration' for a in r.anomalies)]
+        concentrated = [
+            (w, r)
+            for w, r in results.items()
+            if any(a["type"] == "site_concentration" for a in r.anomalies)
+        ]
         if concentrated:
             print(f"\nSite-concentrated words ({len(concentrated)}):")
             for word, report in sorted(concentrated, key=lambda x: -x[1].total_occurrences)[:10]:
-                sites = ', '.join(report.sites_found)
+                sites = ", ".join(report.sites_found)
                 print(f"  {word}: {report.total_occurrences} occurrences at {sites}")
 
         # Find words with reading issues
         inconsistent = [(w, r) for w, r in results.items() if r.functional_consistency < 0.5]
         if inconsistent:
             print(f"\nLow consistency words ({len(inconsistent)}):")
-            for word, report in sorted(inconsistent, key=lambda x: x[1].functional_consistency)[:10]:
+            for word, report in sorted(inconsistent, key=lambda x: x[1].functional_consistency)[
+                :10
+            ]:
                 print(f"  {word}: consistency={report.functional_consistency:.1%}")
 
         # Save all results
@@ -524,5 +530,5 @@ def main():
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

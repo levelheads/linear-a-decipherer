@@ -42,10 +42,10 @@ CLAIMS_FILE = DATA_DIR / "morphological_claims.json"
 
 class ClaimType(str, Enum):
     MORPHOLOGICAL = "morphological"  # Suffix/ending function
-    LEXICAL = "lexical"              # Word meaning
-    PHONOLOGICAL = "phonological"    # Sound patterns
-    SYNTACTIC = "syntactic"          # Word order/structure
-    SEMANTIC = "semantic"            # Meaning relationships
+    LEXICAL = "lexical"  # Word meaning
+    PHONOLOGICAL = "phonological"  # Sound patterns
+    SYNTACTIC = "syntactic"  # Word order/structure
+    SEMANTIC = "semantic"  # Meaning relationships
 
 
 class ConfidenceLevel(str, Enum):
@@ -59,15 +59,16 @@ class ConfidenceLevel(str, Enum):
 @dataclass
 class MorphologicalClaim:
     """A registered claim about Linear A morphology."""
+
     claim_id: str
     claim_type: ClaimType
-    element: str                    # The morpheme/word being claimed about
-    assertion: str                  # What is being claimed
-    hypothesis: str                 # Which linguistic hypothesis (luwian/semitic/pregreek/protogreek)
+    element: str  # The morpheme/word being claimed about
+    assertion: str  # What is being claimed
+    hypothesis: str  # Which linguistic hypothesis (luwian/semitic/pregreek/protogreek)
     confidence: ConfidenceLevel
-    evidence: List[Dict]            # Supporting evidence
-    phase: str                      # Which analysis phase
-    sample_size: int                # Number of examples
+    evidence: List[Dict]  # Supporting evidence
+    phase: str  # Which analysis phase
+    sample_size: int  # Number of examples
     contradicting_evidence: List[Dict]  # Counter-evidence
     timestamp: str
     superseded_by: Optional[str] = None  # If later claim replaces this
@@ -76,13 +77,14 @@ class MorphologicalClaim:
 @dataclass
 class Contradiction:
     """A detected contradiction between claims."""
+
     contradiction_id: str
-    claim_a: str                    # First claim ID
-    claim_b: str                    # Second claim ID
-    element: str                    # The element in conflict
-    description: str                # What the contradiction is
-    severity: str                   # HIGH/MEDIUM/LOW
-    resolution_guidance: str        # How to resolve
+    claim_a: str  # First claim ID
+    claim_b: str  # Second claim ID
+    element: str  # The element in conflict
+    description: str  # What the contradiction is
+    severity: str  # HIGH/MEDIUM/LOW
+    resolution_guidance: str  # How to resolve
     detected_at: str
 
 
@@ -111,29 +113,31 @@ class PhaseValidator:
         """Load existing claims from file."""
         if CLAIMS_FILE.exists():
             try:
-                with open(CLAIMS_FILE, 'r', encoding='utf-8') as f:
+                with open(CLAIMS_FILE, "r", encoding="utf-8") as f:
                     data = json.load(f)
-                    for claim_data in data.get('claims', []):
+                    for claim_data in data.get("claims", []):
                         claim = MorphologicalClaim(**claim_data)
                         self.claims[claim.claim_id] = claim
                         self.claim_index[claim.element].append(claim.claim_id)
-                    for contra_data in data.get('contradictions', []):
+                    for contra_data in data.get("contradictions", []):
                         self.contradictions.append(Contradiction(**contra_data))
-                self.log(f"Loaded {len(self.claims)} claims, {len(self.contradictions)} contradictions")
+                self.log(
+                    f"Loaded {len(self.claims)} claims, {len(self.contradictions)} contradictions"
+                )
             except Exception as e:
                 self.log(f"Error loading claims: {e}")
 
     def _save_claims(self):
         """Save claims to file."""
         data = {
-            'generated': datetime.now().isoformat(),
-            'total_claims': len(self.claims),
-            'total_contradictions': len(self.contradictions),
-            'claims': [asdict(c) for c in self.claims.values()],
-            'contradictions': [asdict(c) for c in self.contradictions],
+            "generated": datetime.now().isoformat(),
+            "total_claims": len(self.claims),
+            "total_contradictions": len(self.contradictions),
+            "claims": [asdict(c) for c in self.claims.values()],
+            "contradictions": [asdict(c) for c in self.contradictions],
         }
         CLAIMS_FILE.parent.mkdir(parents=True, exist_ok=True)
-        with open(CLAIMS_FILE, 'w', encoding='utf-8') as f:
+        with open(CLAIMS_FILE, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
         self.log(f"Saved {len(self.claims)} claims")
 
@@ -158,7 +162,7 @@ class PhaseValidator:
         evidence: List[Dict],
         phase: str,
         sample_size: int,
-        claim_type: str = "morphological"
+        claim_type: str = "morphological",
     ) -> Tuple[MorphologicalClaim, Optional[Contradiction]]:
         """
         Register a new morphological claim and check for contradictions.
@@ -222,10 +226,11 @@ class PhaseValidator:
             contradiction = None
 
             # Type 1: Different hypotheses with high confidence
-            if (existing.hypothesis != new_claim.hypothesis and
-                existing.confidence in [ConfidenceLevel.CERTAIN, ConfidenceLevel.PROBABLE] and
-                new_claim.confidence in [ConfidenceLevel.CERTAIN, ConfidenceLevel.PROBABLE]):
-
+            if (
+                existing.hypothesis != new_claim.hypothesis
+                and existing.confidence in [ConfidenceLevel.CERTAIN, ConfidenceLevel.PROBABLE]
+                and new_claim.confidence in [ConfidenceLevel.CERTAIN, ConfidenceLevel.PROBABLE]
+            ):
                 contradiction = Contradiction(
                     contradiction_id=self._generate_contradiction_id(),
                     claim_a=existing.claim_id,
@@ -246,9 +251,9 @@ class PhaseValidator:
                 )
 
             # Type 2: Same hypothesis, contradictory assertion
-            elif (existing.hypothesis == new_claim.hypothesis and
-                  self._assertions_contradict(existing.assertion, new_claim.assertion)):
-
+            elif existing.hypothesis == new_claim.hypothesis and self._assertions_contradict(
+                existing.assertion, new_claim.assertion
+            ):
                 contradiction = Contradiction(
                     contradiction_id=self._generate_contradiction_id(),
                     claim_a=existing.claim_id,
@@ -269,10 +274,13 @@ class PhaseValidator:
                 )
 
             # Type 3: Major sample size disparity
-            elif (existing.sample_size > 0 and new_claim.sample_size > 0 and
-                  max(existing.sample_size, new_claim.sample_size) /
-                  min(existing.sample_size, new_claim.sample_size) > 10):
-
+            elif (
+                existing.sample_size > 0
+                and new_claim.sample_size > 0
+                and max(existing.sample_size, new_claim.sample_size)
+                / min(existing.sample_size, new_claim.sample_size)
+                > 10
+            ):
                 smaller = existing if existing.sample_size < new_claim.sample_size else new_claim
                 larger = new_claim if existing.sample_size < new_claim.sample_size else existing
 
@@ -321,12 +329,13 @@ class PhaseValidator:
         ]
 
         for term1, term2 in opposites:
-            if (term1 in a1_lower and term2 in a2_lower) or \
-               (term2 in a1_lower and term1 in a2_lower):
+            if (term1 in a1_lower and term2 in a2_lower) or (
+                term2 in a1_lower and term1 in a2_lower
+            ):
                 return True
 
         # Percentage conflicts (e.g., "100% Semitic" vs "64% Luwian")
-        pct_pattern = r'(\d+)%'
+        pct_pattern = r"(\d+)%"
         matches_a1 = re.findall(pct_pattern, a1)
         matches_a2 = re.findall(pct_pattern, a2)
 
@@ -334,7 +343,7 @@ class PhaseValidator:
             # If both claim high percentages for different things
             if int(matches_a1[0]) > 80 and int(matches_a2[0]) > 80:
                 # Check if they're about different hypotheses
-                hyps = ['semitic', 'luwian', 'greek', 'pregreek']
+                hyps = ["semitic", "luwian", "greek", "pregreek"]
                 h1 = [h for h in hyps if h in a1_lower]
                 h2 = [h for h in hyps if h in a2_lower]
                 if h1 and h2 and h1[0] != h2[0]:
@@ -346,11 +355,13 @@ class PhaseValidator:
         """Mark an older claim as superseded by a newer one."""
         if old_claim_id in self.claims:
             self.claims[old_claim_id].superseded_by = new_claim_id
-            self.claims[old_claim_id].contradicting_evidence.append({
-                'reason': reason,
-                'superseded_by': new_claim_id,
-                'timestamp': datetime.now().isoformat(),
-            })
+            self.claims[old_claim_id].contradicting_evidence.append(
+                {
+                    "reason": reason,
+                    "superseded_by": new_claim_id,
+                    "timestamp": datetime.now().isoformat(),
+                }
+            )
             self._save_claims()
 
     def get_claims_for_element(self, element: str) -> List[MorphologicalClaim]:
@@ -381,10 +392,10 @@ class PhaseValidator:
         - "Semitic hypothesis: SUPPORTED"
         """
         results = {
-            'phases_scanned': 0,
-            'claims_extracted': 0,
-            'contradictions_found': 0,
-            'phase_summaries': {},
+            "phases_scanned": 0,
+            "claims_extracted": 0,
+            "contradictions_found": 0,
+            "phase_summaries": {},
         }
 
         if not ANALYSIS_DIR.exists():
@@ -392,26 +403,28 @@ class PhaseValidator:
             return results
 
         # Find all phase files
-        phase_files = list(ANALYSIS_DIR.glob("PHASE*.md")) + \
-                      list(ANALYSIS_DIR.glob("*phase*.md")) + \
-                      list(ANALYSIS_DIR.glob("MINOS_*.md"))
+        phase_files = (
+            list(ANALYSIS_DIR.glob("PHASE*.md"))
+            + list(ANALYSIS_DIR.glob("*phase*.md"))
+            + list(ANALYSIS_DIR.glob("MINOS_*.md"))
+        )
 
         for pf in phase_files:
-            results['phases_scanned'] += 1
+            results["phases_scanned"] += 1
             phase_name = pf.stem
 
             try:
-                content = pf.read_text(encoding='utf-8')
+                content = pf.read_text(encoding="utf-8")
                 claims = self._extract_claims_from_text(content, phase_name)
-                results['claims_extracted'] += len(claims)
-                results['phase_summaries'][phase_name] = {
-                    'claims_found': len(claims),
-                    'file': str(pf),
+                results["claims_extracted"] += len(claims)
+                results["phase_summaries"][phase_name] = {
+                    "claims_found": len(claims),
+                    "file": str(pf),
                 }
             except Exception as e:
                 self.log(f"Error processing {pf}: {e}")
 
-        results['contradictions_found'] = len(self.get_active_contradictions())
+        results["contradictions_found"] = len(self.get_active_contradictions())
         return results
 
     def _extract_claims_from_text(self, text: str, phase: str) -> List[Dict]:
@@ -426,38 +439,44 @@ class PhaseValidator:
         claims = []
 
         # Pattern 1: "-X ending: N% HYPOTHESIS"
-        ending_pattern = r'(-\w+)\s+ending[s]?:?\s*(\d+)%\s*(\w+)'
+        ending_pattern = r"(-\w+)\s+ending[s]?:?\s*(\d+)%\s*(\w+)"
         for match in re.finditer(ending_pattern, text, re.IGNORECASE):
             element, percentage, hypothesis = match.groups()
-            claims.append({
-                'element': element.upper(),
-                'assertion': f"{percentage}% {hypothesis}",
-                'hypothesis': hypothesis.lower(),
-                'phase': phase,
-            })
+            claims.append(
+                {
+                    "element": element.upper(),
+                    "assertion": f"{percentage}% {hypothesis}",
+                    "hypothesis": hypothesis.lower(),
+                    "phase": phase,
+                }
+            )
 
         # Pattern 2: "WORD = meaning (CONFIDENCE)"
-        lexical_pattern = r'([A-Z]+-[A-Z]+(?:-[A-Z]+)*)\s*=\s*([^(]+)\((\w+)\)'
+        lexical_pattern = r"([A-Z]+-[A-Z]+(?:-[A-Z]+)*)\s*=\s*([^(]+)\((\w+)\)"
         for match in re.finditer(lexical_pattern, text):
             word, meaning, confidence = match.groups()
-            claims.append({
-                'element': word.upper(),
-                'assertion': meaning.strip(),
-                'confidence': confidence.upper(),
-                'phase': phase,
-            })
+            claims.append(
+                {
+                    "element": word.upper(),
+                    "assertion": meaning.strip(),
+                    "confidence": confidence.upper(),
+                    "phase": phase,
+                }
+            )
 
         # Pattern 3: "hypothesis: VERDICT"
-        verdict_pattern = r'(luwian|semitic|pregreek|protogreek|proto-greek)[\s:]+(\w+)'
+        verdict_pattern = r"(luwian|semitic|pregreek|protogreek|proto-greek)[\s:]+(\w+)"
         for match in re.finditer(verdict_pattern, text, re.IGNORECASE):
             hypothesis, verdict = match.groups()
-            if verdict.upper() in ['SUPPORTED', 'CONTRADICTED', 'NEUTRAL', 'POSSIBLE', 'PROBABLE']:
-                claims.append({
-                    'element': 'CORPUS',
-                    'assertion': f"{hypothesis}: {verdict}",
-                    'hypothesis': hypothesis.lower().replace('-', ''),
-                    'phase': phase,
-                })
+            if verdict.upper() in ["SUPPORTED", "CONTRADICTED", "NEUTRAL", "POSSIBLE", "PROBABLE"]:
+                claims.append(
+                    {
+                        "element": "CORPUS",
+                        "assertion": f"{hypothesis}: {verdict}",
+                        "hypothesis": hypothesis.lower().replace("-", ""),
+                        "phase": phase,
+                    }
+                )
 
         return claims
 
@@ -493,15 +512,20 @@ class PhaseValidator:
                 print(f"  Resolution: {c.resolution_guidance}")
 
         # High-confidence claims
-        high_conf = [c for c in self.claims.values()
-                     if c.confidence in [ConfidenceLevel.CERTAIN, ConfidenceLevel.PROBABLE]
-                     and not c.superseded_by]
+        high_conf = [
+            c
+            for c in self.claims.values()
+            if c.confidence in [ConfidenceLevel.CERTAIN, ConfidenceLevel.PROBABLE]
+            and not c.superseded_by
+        ]
         if high_conf:
             print("\n" + "=" * 70)
             print("HIGH-CONFIDENCE CLAIMS (CERTAIN/PROBABLE)")
             print("=" * 70)
             for c in sorted(high_conf, key=lambda x: x.element)[:15]:
-                print(f"  {c.element}: {c.assertion} [{c.hypothesis.upper()}] - {c.confidence.value}")
+                print(
+                    f"  {c.element}: {c.assertion} [{c.hypothesis.upper()}] - {c.confidence.value}"
+                )
 
         print("\n" + "=" * 70)
 
@@ -511,50 +535,25 @@ def main():
         description="Validate consistency across Linear A analysis phases"
     )
     parser.add_argument(
-        '--check-all',
-        action='store_true',
-        help='Scan all phase files and check for contradictions'
+        "--check-all", action="store_true", help="Scan all phase files and check for contradictions"
     )
     parser.add_argument(
-        '--claim',
+        "--claim", type=str, help='Register a new claim (format: "ELEMENT = assertion")'
+    )
+    parser.add_argument(
+        "--hypothesis", type=str, default="unknown", help="Linguistic hypothesis for the claim"
+    )
+    parser.add_argument(
+        "--confidence",
         type=str,
-        help='Register a new claim (format: "ELEMENT = assertion")'
+        default="POSSIBLE",
+        choices=["CERTAIN", "PROBABLE", "POSSIBLE", "SPECULATIVE"],
+        help="Confidence level",
     )
-    parser.add_argument(
-        '--hypothesis',
-        type=str,
-        default='unknown',
-        help='Linguistic hypothesis for the claim'
-    )
-    parser.add_argument(
-        '--confidence',
-        type=str,
-        default='POSSIBLE',
-        choices=['CERTAIN', 'PROBABLE', 'POSSIBLE', 'SPECULATIVE'],
-        help='Confidence level'
-    )
-    parser.add_argument(
-        '--phase',
-        type=str,
-        default='manual',
-        help='Analysis phase name'
-    )
-    parser.add_argument(
-        '--sample-size',
-        type=int,
-        default=1,
-        help='Number of examples examined'
-    )
-    parser.add_argument(
-        '--element',
-        type=str,
-        help='Check claims for a specific element'
-    )
-    parser.add_argument(
-        '--verbose', '-v',
-        action='store_true',
-        help='Show detailed output'
-    )
+    parser.add_argument("--phase", type=str, default="manual", help="Analysis phase name")
+    parser.add_argument("--sample-size", type=int, default=1, help="Number of examples examined")
+    parser.add_argument("--element", type=str, help="Check claims for a specific element")
+    parser.add_argument("--verbose", "-v", action="store_true", help="Show detailed output")
 
     args = parser.parse_args()
 
@@ -575,8 +574,8 @@ def main():
 
     elif args.claim:
         # Parse claim format: "ELEMENT = assertion"
-        if '=' in args.claim:
-            parts = args.claim.split('=', 1)
+        if "=" in args.claim:
+            parts = args.claim.split("=", 1)
             element = parts[0].strip()
             assertion = parts[1].strip()
         else:
@@ -588,7 +587,7 @@ def main():
             assertion=assertion,
             hypothesis=args.hypothesis,
             confidence=args.confidence,
-            evidence=[{'source': 'CLI input', 'phase': args.phase}],
+            evidence=[{"source": "CLI input", "phase": args.phase}],
             phase=args.phase,
             sample_size=args.sample_size,
         )
@@ -610,7 +609,9 @@ def main():
             print(f"Claims for {args.element.upper()}:")
             for c in claims:
                 status = "[SUPERSEDED]" if c.superseded_by else ""
-                print(f"  [{c.claim_id}] {c.assertion} - {c.hypothesis} {c.confidence.value} {status}")
+                print(
+                    f"  [{c.claim_id}] {c.assertion} - {c.hypothesis} {c.confidence.value} {status}"
+                )
         else:
             print(f"No claims found for {args.element}")
 
@@ -620,5 +621,5 @@ def main():
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

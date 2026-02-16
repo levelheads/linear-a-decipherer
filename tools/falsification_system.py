@@ -43,9 +43,11 @@ HISTORY_FILE = DATA_DIR / "threshold_history.json"
 # FALSIFICATION THRESHOLDS
 # ============================================================================
 
+
 @dataclass
 class ThresholdCategory:
     """Definition of a hypothesis classification category."""
+
     name: str
     min_pct: float
     max_pct: float
@@ -55,53 +57,54 @@ class ThresholdCategory:
 
 
 THRESHOLDS = {
-    'ELIMINATED': ThresholdCategory(
-        name='ELIMINATED',
+    "ELIMINATED": ThresholdCategory(
+        name="ELIMINATED",
         min_pct=0.0,
         max_pct=5.0,
-        interpretation='Statistically indistinguishable from noise/chance matches',
-        action='Hypothesis rejected; no further testing unless new evidence',
-        color='red'
+        interpretation="Statistically indistinguishable from noise/chance matches",
+        action="Hypothesis rejected; no further testing unless new evidence",
+        color="red",
     ),
-    'WEAK': ThresholdCategory(
-        name='WEAK',
+    "WEAK": ThresholdCategory(
+        name="WEAK",
         min_pct=5.0,
         max_pct=15.0,
-        interpretation='Possible contact layer (loanwords) but not substrate/genetic',
-        action='Hypothesis retained as secondary; test for specific borrowing patterns',
-        color='orange'
+        interpretation="Possible contact layer (loanwords) but not substrate/genetic",
+        action="Hypothesis retained as secondary; test for specific borrowing patterns",
+        color="orange",
     ),
-    'MODERATE': ThresholdCategory(
-        name='MODERATE',
+    "MODERATE": ThresholdCategory(
+        name="MODERATE",
         min_pct=15.0,
         max_pct=25.0,
-        interpretation='Possible genetic affiliation; warrants detailed investigation',
-        action='Hypothesis prioritized; seek morphological/syntactic corroboration',
-        color='yellow'
+        interpretation="Possible genetic affiliation; warrants detailed investigation",
+        action="Hypothesis prioritized; seek morphological/syntactic corroboration",
+        color="yellow",
     ),
-    'STRONG': ThresholdCategory(
-        name='STRONG',
+    "STRONG": ThresholdCategory(
+        name="STRONG",
         min_pct=25.0,
         max_pct=100.0,
-        interpretation='Likely genetic relationship or deep contact',
-        action='Hypothesis primary focus; build comprehensive reading framework',
-        color='green'
+        interpretation="Likely genetic relationship or deep contact",
+        action="Hypothesis primary focus; build comprehensive reading framework",
+        color="green",
     ),
 }
 
 # Bayes factor interpretation (Kass & Raftery 1995)
 BAYES_FACTOR_INTERPRETATION = {
-    (0, 1): 'Negative (supports null)',
-    (1, 3): 'Not worth more than a bare mention',
-    (3, 20): 'Positive',
-    (20, 150): 'Strong',
-    (150, float('inf')): 'Very strong',
+    (0, 1): "Negative (supports null)",
+    (1, 3): "Not worth more than a bare mention",
+    (3, 20): "Positive",
+    (20, 150): "Strong",
+    (150, float("inf")): "Very strong",
 }
 
 
 @dataclass
 class ClassificationResult:
     """Result of classifying a hypothesis against thresholds."""
+
     hypothesis: str
     support_pct: float
     word_count: int
@@ -119,6 +122,7 @@ class ClassificationResult:
 @dataclass
 class ThresholdCrossing:
     """Record of a hypothesis crossing a threshold."""
+
     hypothesis: str
     old_category: str
     new_category: str
@@ -152,13 +156,15 @@ class FalsificationSystem:
         """Load hypothesis testing results."""
         try:
             if HYPOTHESIS_RESULTS_FILE.exists():
-                with open(HYPOTHESIS_RESULTS_FILE, 'r', encoding='utf-8') as f:
+                with open(HYPOTHESIS_RESULTS_FILE, "r", encoding="utf-8") as f:
                     self.hypothesis_results = json.load(f)
-                print(f"Loaded hypothesis results: {self.hypothesis_results.get('metadata', {}).get('words_tested', 0)} words")
+                print(
+                    f"Loaded hypothesis results: {self.hypothesis_results.get('metadata', {}).get('words_tested', 0)} words"
+                )
 
             if HISTORY_FILE.exists():
-                with open(HISTORY_FILE, 'r', encoding='utf-8') as f:
-                    self.threshold_history = json.load(f).get('crossings', [])
+                with open(HISTORY_FILE, "r", encoding="utf-8") as f:
+                    self.threshold_history = json.load(f).get("crossings", [])
 
             return True
 
@@ -169,19 +175,25 @@ class FalsificationSystem:
     def save_history(self):
         """Save threshold crossing history."""
         try:
-            with open(HISTORY_FILE, 'w', encoding='utf-8') as f:
-                json.dump({
-                    'metadata': {
-                        'description': 'Historical record of hypothesis threshold crossings',
-                        'last_updated': datetime.now().isoformat()
+            with open(HISTORY_FILE, "w", encoding="utf-8") as f:
+                json.dump(
+                    {
+                        "metadata": {
+                            "description": "Historical record of hypothesis threshold crossings",
+                            "last_updated": datetime.now().isoformat(),
+                        },
+                        "crossings": self.threshold_history,
                     },
-                    'crossings': self.threshold_history
-                }, f, indent=2, ensure_ascii=False)
+                    f,
+                    indent=2,
+                    ensure_ascii=False,
+                )
         except Exception as e:
             print(f"Error saving history: {e}")
 
-    def calculate_confidence_interval(self, successes: int, total: int,
-                                      confidence: float = 0.95) -> Tuple[float, float]:
+    def calculate_confidence_interval(
+        self, successes: int, total: int, confidence: float = 0.95
+    ) -> Tuple[float, float]:
         """
         Calculate Wilson score confidence interval for a proportion.
 
@@ -205,17 +217,16 @@ class FalsificationSystem:
         p_hat = successes / total
         n = total
 
-        denominator = 1 + z*z/n
-        center = (p_hat + z*z/(2*n)) / denominator
-        margin = (z / denominator) * sqrt((p_hat*(1-p_hat) + z*z/(4*n)) / n)
+        denominator = 1 + z * z / n
+        center = (p_hat + z * z / (2 * n)) / denominator
+        margin = (z / denominator) * sqrt((p_hat * (1 - p_hat) + z * z / (4 * n)) / n)
 
         lower = max(0, (center - margin) * 100)
         upper = min(100, (center + margin) * 100)
 
         return (round(lower, 2), round(upper, 2))
 
-    def calculate_bayes_factor(self, successes: int, total: int,
-                               null_rate: float = 0.05) -> float:
+    def calculate_bayes_factor(self, successes: int, total: int, null_rate: float = 0.05) -> float:
         """
         Calculate Bayes factor for hypothesis vs null (chance matches).
 
@@ -253,19 +264,22 @@ class FalsificationSystem:
         for (low, high), interpretation in BAYES_FACTOR_INTERPRETATION.items():
             if low <= bf < high:
                 return interpretation
-        return 'Very strong'
+        return "Very strong"
 
     def get_category(self, pct: float) -> str:
         """Get threshold category for a percentage."""
         for category, threshold in THRESHOLDS.items():
             if threshold.min_pct <= pct < threshold.max_pct:
                 return category
-        return 'STRONG' if pct >= 25 else 'ELIMINATED'
+        return "STRONG" if pct >= 25 else "ELIMINATED"
 
-    def classify_hypothesis(self, hypothesis: str,
-                           support_pct: Optional[float] = None,
-                           word_count: Optional[int] = None,
-                           total_words: Optional[int] = None) -> ClassificationResult:
+    def classify_hypothesis(
+        self,
+        hypothesis: str,
+        support_pct: Optional[float] = None,
+        word_count: Optional[int] = None,
+        total_words: Optional[int] = None,
+    ) -> ClassificationResult:
         """
         Classify a hypothesis against falsification thresholds.
 
@@ -280,13 +294,13 @@ class FalsificationSystem:
         """
         # Get data from results or use overrides
         if support_pct is None or word_count is None:
-            summaries = self.hypothesis_results.get('hypothesis_summaries', {})
+            summaries = self.hypothesis_results.get("hypothesis_summaries", {})
             hyp_data = summaries.get(hypothesis, {})
-            supported = hyp_data.get('supported', 0)
-            total = sum(hyp_data.get(k, 0) for k in ['supported', 'neutral', 'contradicted'])
+            supported = hyp_data.get("supported", 0)
+            total = sum(hyp_data.get(k, 0) for k in ["supported", "neutral", "contradicted"])
 
             if total == 0:
-                total = self.hypothesis_results.get('metadata', {}).get('words_tested', 0)
+                total = self.hypothesis_results.get("metadata", {}).get("words_tested", 0)
 
             word_count = supported
             total_words = total
@@ -306,16 +320,16 @@ class FalsificationSystem:
         # Check for threshold crossings
         threshold_crossed_from = None
         for crossing in self.threshold_history:
-            if crossing['hypothesis'] == hypothesis:
-                if crossing['new_category'] == category and crossing['old_category'] != category:
-                    threshold_crossed_from = crossing['old_category']
+            if crossing["hypothesis"] == hypothesis:
+                if crossing["new_category"] == category and crossing["old_category"] != category:
+                    threshold_crossed_from = crossing["old_category"]
                     break
 
         # Generate notes
         notes = []
         if ci[0] < 5:
             notes.append("Lower CI bound below ELIMINATED threshold - hypothesis uncertain")
-        if ci[1] > 25 and category in ['WEAK', 'MODERATE']:
+        if ci[1] > 25 and category in ["WEAK", "MODERATE"]:
             notes.append("Upper CI bound in STRONG range - more data could change classification")
         if bf < 1:
             notes.append("Bayes factor <1 suggests results could be chance")
@@ -334,22 +348,23 @@ class FalsificationSystem:
             bayes_factor_vs_null=round(bf, 2),
             bayes_interpretation=bf_interpretation,
             threshold_crossed_from=threshold_crossed_from,
-            notes=notes
+            notes=notes,
         )
 
     def classify_all(self) -> Dict[str, ClassificationResult]:
         """Classify all hypotheses."""
         results = {}
 
-        hypotheses = ['luwian', 'semitic', 'pregreek', 'protogreek']
+        hypotheses = ["luwian", "semitic", "pregreek", "protogreek"]
 
         for hyp in hypotheses:
             results[hyp] = self.classify_hypothesis(hyp)
 
         return results
 
-    def record_threshold_crossing(self, hypothesis: str, old_pct: float,
-                                  new_pct: float, trigger: str):
+    def record_threshold_crossing(
+        self, hypothesis: str, old_pct: float, new_pct: float, trigger: str
+    ):
         """Record a hypothesis crossing a threshold."""
         old_category = self.get_category(old_pct)
         new_category = self.get_category(new_pct)
@@ -362,7 +377,7 @@ class FalsificationSystem:
                 old_pct=round(old_pct, 2),
                 new_pct=round(new_pct, 2),
                 timestamp=datetime.now().isoformat(),
-                trigger=trigger
+                trigger=trigger,
             )
             self.threshold_history.append(asdict(crossing))
             self.save_history()
@@ -370,8 +385,9 @@ class FalsificationSystem:
 
         return None
 
-    def test_significance(self, hypothesis: str, observed_pct: float,
-                         sample_size: int = 198) -> Dict:
+    def test_significance(
+        self, hypothesis: str, observed_pct: float, sample_size: int = 198
+    ) -> Dict:
         """
         Test if observed support is significantly different from chance.
 
@@ -392,24 +408,27 @@ class FalsificationSystem:
         from math import comb, pow as mpow
 
         def binomial_pmf(k, n, p):
-            return comb(n, k) * mpow(p, k) * mpow(1-p, n-k)
+            return comb(n, k) * mpow(p, k) * mpow(1 - p, n - k)
 
         # P(X >= observed | H0)
-        p_value = sum(binomial_pmf(k, sample_size, null_rate)
-                     for k in range(observed_count, sample_size + 1))
+        p_value = sum(
+            binomial_pmf(k, sample_size, null_rate) for k in range(observed_count, sample_size + 1)
+        )
 
         significant = p_value < 0.05
 
         return {
-            'hypothesis': hypothesis,
-            'observed_pct': observed_pct,
-            'observed_count': observed_count,
-            'sample_size': sample_size,
-            'null_rate': null_rate * 100,
-            'p_value': round(p_value, 6),
-            'significant_at_05': significant,
-            'interpretation': 'Significantly above chance' if significant else 'Not significantly different from chance',
-            'effect_size': round((observed_pct - null_rate * 100) / 100, 3)
+            "hypothesis": hypothesis,
+            "observed_pct": observed_pct,
+            "observed_count": observed_count,
+            "sample_size": sample_size,
+            "null_rate": null_rate * 100,
+            "p_value": round(p_value, 6),
+            "significant_at_05": significant,
+            "interpretation": "Significantly above chance"
+            if significant
+            else "Not significantly different from chance",
+            "effect_size": round((observed_pct - null_rate * 100) / 100, 3),
         }
 
     def generate_report(self) -> Dict:
@@ -420,33 +439,35 @@ class FalsificationSystem:
         ranked = sorted(results.items(), key=lambda x: x[1].support_pct, reverse=True)
 
         report = {
-            'metadata': {
-                'generated': datetime.now().isoformat(),
-                'method': 'Explicit Falsification Thresholds',
-                'thresholds': {k: {'min': v.min_pct, 'max': v.max_pct, 'interpretation': v.interpretation}
-                              for k, v in THRESHOLDS.items()},
-                'total_words_tested': self.hypothesis_results.get('metadata', {}).get('words_tested', 0)
+            "metadata": {
+                "generated": datetime.now().isoformat(),
+                "method": "Explicit Falsification Thresholds",
+                "thresholds": {
+                    k: {"min": v.min_pct, "max": v.max_pct, "interpretation": v.interpretation}
+                    for k, v in THRESHOLDS.items()
+                },
+                "total_words_tested": self.hypothesis_results.get("metadata", {}).get(
+                    "words_tested", 0
+                ),
             },
-            'classifications': {hyp: asdict(result) for hyp, result in results.items()},
-            'ranking': [
+            "classifications": {hyp: asdict(result) for hyp, result in results.items()},
+            "ranking": [
                 {
-                    'rank': i + 1,
-                    'hypothesis': hyp,
-                    'support_pct': result.support_pct,
-                    'category': result.category,
-                    'ci_95': result.confidence_interval
+                    "rank": i + 1,
+                    "hypothesis": hyp,
+                    "support_pct": result.support_pct,
+                    "category": result.category,
+                    "ci_95": result.confidence_interval,
                 }
                 for i, (hyp, result) in enumerate(ranked)
             ],
-            'eliminated_hypotheses': [
-                hyp for hyp, result in results.items()
-                if result.category == 'ELIMINATED'
+            "eliminated_hypotheses": [
+                hyp for hyp, result in results.items() if result.category == "ELIMINATED"
             ],
-            'active_hypotheses': [
-                hyp for hyp, result in results.items()
-                if result.category != 'ELIMINATED'
+            "active_hypotheses": [
+                hyp for hyp, result in results.items() if result.category != "ELIMINATED"
             ],
-            'threshold_history': self.threshold_history
+            "threshold_history": self.threshold_history,
         }
 
         return report
@@ -478,24 +499,28 @@ class FalsificationSystem:
 
         print("\nTHRESHOLD DEFINITIONS:")
         for category, threshold in THRESHOLDS.items():
-            print(f"  {category:12} {threshold.min_pct:>5.1f}% - {threshold.max_pct:>5.1f}%  {threshold.interpretation[:40]}...")
+            print(
+                f"  {category:12} {threshold.min_pct:>5.1f}% - {threshold.max_pct:>5.1f}%  {threshold.interpretation[:40]}..."
+            )
 
         print("\n" + "─" * 70)
         print("HYPOTHESIS RANKINGS")
         print("─" * 70)
 
-        for item in report['ranking']:
-            category = item['category']
-            symbol = {'ELIMINATED': '✗', 'WEAK': '○', 'MODERATE': '◐', 'STRONG': '●'}[category]
-            ci = item['ci_95']
-            print(f"  {item['rank']}. {symbol} {item['hypothesis']:12} {item['support_pct']:5.1f}% [{category:10}] CI: [{ci[0]:.1f}%, {ci[1]:.1f}%]")
+        for item in report["ranking"]:
+            category = item["category"]
+            symbol = {"ELIMINATED": "✗", "WEAK": "○", "MODERATE": "◐", "STRONG": "●"}[category]
+            ci = item["ci_95"]
+            print(
+                f"  {item['rank']}. {symbol} {item['hypothesis']:12} {item['support_pct']:5.1f}% [{category:10}] CI: [{ci[0]:.1f}%, {ci[1]:.1f}%]"
+            )
 
         print("\n" + "─" * 70)
         print("SUMMARY")
         print("─" * 70)
 
-        eliminated = report['eliminated_hypotheses']
-        active = report['active_hypotheses']
+        eliminated = report["eliminated_hypotheses"]
+        active = report["active_hypotheses"]
 
         if eliminated:
             print(f"\n  ELIMINATED ({len(eliminated)}): {', '.join(eliminated)}")
@@ -503,14 +528,16 @@ class FalsificationSystem:
         if active:
             print(f"\n  ACTIVE ({len(active)}):")
             for hyp in active:
-                result = report['classifications'][hyp]
+                result = report["classifications"][hyp]
                 print(f"    • {hyp}: {result['category']} - {result['interpretation'][:50]}...")
 
         # Threshold history
-        if report['threshold_history']:
+        if report["threshold_history"]:
             print("\n  Recent Threshold Crossings:")
-            for crossing in report['threshold_history'][-5:]:
-                print(f"    • {crossing['hypothesis']}: {crossing['old_category']} → {crossing['new_category']} ({crossing['timestamp'][:10]})")
+            for crossing in report["threshold_history"][-5:]:
+                print(
+                    f"    • {crossing['hypothesis']}: {crossing['old_category']} → {crossing['new_category']} ({crossing['timestamp'][:10]})"
+                )
 
         print("\n" + "=" * 70)
 
@@ -520,37 +547,27 @@ def main():
         description="Classify hypotheses against explicit falsification thresholds"
     )
     parser.add_argument(
-        '--classify', '-c',
+        "--classify",
+        "-c",
         type=str,
-        metavar='HYPOTHESIS',
-        help='Classify a specific hypothesis (luwian, semitic, pregreek, protogreek)'
+        metavar="HYPOTHESIS",
+        help="Classify a specific hypothesis (luwian, semitic, pregreek, protogreek)",
     )
     parser.add_argument(
-        '--all', '-a',
-        action='store_true',
-        help='Classify all hypotheses and generate report'
+        "--all", "-a", action="store_true", help="Classify all hypotheses and generate report"
     )
     parser.add_argument(
-        '--test-significance', '-t',
+        "--test-significance",
+        "-t",
         nargs=2,
-        metavar=('HYPOTHESIS', 'PCT'),
-        help='Test if observed percentage is significantly above chance'
+        metavar=("HYPOTHESIS", "PCT"),
+        help="Test if observed percentage is significantly above chance",
     )
     parser.add_argument(
-        '--threshold-history',
-        action='store_true',
-        help='Show threshold crossing history'
+        "--threshold-history", action="store_true", help="Show threshold crossing history"
     )
-    parser.add_argument(
-        '--output', '-o',
-        type=str,
-        help='Output path for JSON report'
-    )
-    parser.add_argument(
-        '--verbose', '-v',
-        action='store_true',
-        help='Verbose output'
-    )
+    parser.add_argument("--output", "-o", type=str, help="Output path for JSON report")
+    parser.add_argument("--verbose", "-v", action="store_true", help="Verbose output")
 
     args = parser.parse_args()
 
@@ -583,7 +600,9 @@ def main():
             print("\nThreshold Crossing History:")
             for crossing in system.threshold_history:
                 print(f"\n  {crossing['timestamp'][:10]}: {crossing['hypothesis']}")
-                print(f"    {crossing['old_category']} ({crossing['old_pct']}%) → {crossing['new_category']} ({crossing['new_pct']}%)")
+                print(
+                    f"    {crossing['old_category']} ({crossing['old_pct']}%) → {crossing['new_category']} ({crossing['new_pct']}%)"
+                )
                 print(f"    Trigger: {crossing['trigger']}")
         return 0
 
@@ -593,7 +612,7 @@ def main():
 
         if args.output:
             output_path = Path(args.output)
-            with open(output_path, 'w', encoding='utf-8') as f:
+            with open(output_path, "w", encoding="utf-8") as f:
                 json.dump(report, f, indent=2, ensure_ascii=False)
             print(f"\nReport saved to: {output_path}")
 
@@ -602,5 +621,5 @@ def main():
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

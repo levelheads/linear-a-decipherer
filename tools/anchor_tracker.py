@@ -61,16 +61,17 @@ KNOWLEDGE_FILE = PROJECT_ROOT / "linear-a-decipherer" / "KNOWLEDGE.md"
 
 
 # Confidence levels (ordered from lowest to highest)
-CONFIDENCE_LEVELS = ['SPECULATIVE', 'POSSIBLE', 'LOW', 'MEDIUM', 'PROBABLE', 'HIGH', 'CERTAIN']
+CONFIDENCE_LEVELS = ["SPECULATIVE", "POSSIBLE", "LOW", "MEDIUM", "PROBABLE", "HIGH", "CERTAIN"]
 CONFIDENCE_RANK = {level: i for i, level in enumerate(CONFIDENCE_LEVELS)}
 
 # Anchor statuses
-ANCHOR_STATUS = ['CONFIRMED', 'QUESTIONED', 'DEMOTED', 'REJECTED']
+ANCHOR_STATUS = ["CONFIRMED", "QUESTIONED", "DEMOTED", "REJECTED"]
 
 
 @dataclass
 class CascadeResult:
     """Result of a cascade analysis."""
+
     anchor_id: str
     new_status: str
     affected_readings: List[Dict]
@@ -89,18 +90,19 @@ class CascadeResult:
 # Level 5: Morphological patterns (LOW-MEDIUM)
 # Level 6: Lexical matches (LOW)
 ANCHOR_LEVEL_MAX_CONFIDENCE = {
-    1: 'CERTAIN',
-    2: 'HIGH',
-    3: 'HIGH',
-    4: 'MEDIUM',
-    5: 'MEDIUM',  # LOW-MEDIUM, use MEDIUM as upper bound
-    6: 'LOW',
+    1: "CERTAIN",
+    2: "HIGH",
+    3: "HIGH",
+    4: "MEDIUM",
+    5: "MEDIUM",  # LOW-MEDIUM, use MEDIUM as upper bound
+    6: "LOW",
 }
 
 
 @dataclass
 class ValidationResult:
     """Result of validating dependencies against KNOWLEDGE.md."""
+
     is_valid: bool
     missing_readings: List[str]
     orphan_readings: List[str]
@@ -129,7 +131,7 @@ class AnchorTracker:
         # Dependency graph
         self.anchor_to_readings = defaultdict(set)  # anchor -> set of readings
         self.reading_to_anchors = defaultdict(set)  # reading -> set of anchors
-        self.reading_supports = defaultdict(set)    # reading -> set of anchors it supports
+        self.reading_supports = defaultdict(set)  # reading -> set of anchors it supports
 
     def log(self, msg: str):
         if self.verbose:
@@ -138,22 +140,22 @@ class AnchorTracker:
     def load_data(self) -> bool:
         """Load anchors and reading dependencies."""
         try:
-            with open(ANCHORS_FILE, 'r', encoding='utf-8') as f:
+            with open(ANCHORS_FILE, "r", encoding="utf-8") as f:
                 data = json.load(f)
-                self.anchors = data.get('anchors', {})
+                self.anchors = data.get("anchors", {})
 
-            with open(DEPENDENCIES_FILE, 'r', encoding='utf-8') as f:
+            with open(DEPENDENCIES_FILE, "r", encoding="utf-8") as f:
                 data = json.load(f)
-                self.readings = data.get('readings', {})
-                self.cascade_rules = data.get('cascade_rules', {}).get('rules', [])
+                self.readings = data.get("readings", {})
+                self.cascade_rules = data.get("cascade_rules", {}).get("rules", [])
 
             # Build dependency graph
             for reading_id, reading_data in self.readings.items():
-                for anchor_id in reading_data.get('depends_on', []):
+                for anchor_id in reading_data.get("depends_on", []):
                     self.anchor_to_readings[anchor_id].add(reading_id)
                     self.reading_to_anchors[reading_id].add(anchor_id)
 
-                for anchor_id in reading_data.get('supports', []):
+                for anchor_id in reading_data.get("supports", []):
                     self.reading_supports[reading_id].add(anchor_id)
 
             print(f"Loaded {len(self.anchors)} anchors and {len(self.readings)} readings")
@@ -166,16 +168,16 @@ class AnchorTracker:
     def save_data(self):
         """Save updated dependencies back to JSON."""
         try:
-            with open(DEPENDENCIES_FILE, 'r', encoding='utf-8') as f:
+            with open(DEPENDENCIES_FILE, "r", encoding="utf-8") as f:
                 data = json.load(f)
 
-            data['readings'] = self.readings
+            data["readings"] = self.readings
             # Ensure metadata exists before updating
-            if 'metadata' not in data:
-                data['metadata'] = {}
-            data['metadata']['last_updated'] = datetime.now().isoformat()
+            if "metadata" not in data:
+                data["metadata"] = {}
+            data["metadata"]["last_updated"] = datetime.now().isoformat()
 
-            with open(DEPENDENCIES_FILE, 'w', encoding='utf-8') as f:
+            with open(DEPENDENCIES_FILE, "w", encoding="utf-8") as f:
                 json.dump(data, f, indent=2, ensure_ascii=False)
 
             print(f"Saved updates to {DEPENDENCIES_FILE}")
@@ -196,30 +198,30 @@ class AnchorTracker:
         2. Single-hypothesis support caps at PROBABLE (Principle 4)
         """
         reading = self.readings.get(reading_id, {})
-        anchor_ids = reading.get('depends_on', [])
+        anchor_ids = reading.get("depends_on", [])
 
         if not anchor_ids:
-            return 'SPECULATIVE'
+            return "SPECULATIVE"
 
         # Find minimum anchor confidence
-        min_rank = float('inf')
+        min_rank = float("inf")
 
         for anchor_id in anchor_ids:
             anchor = self.anchors.get(anchor_id, {})
-            confidence = anchor.get('confidence', 'SPECULATIVE')
+            confidence = anchor.get("confidence", "SPECULATIVE")
             rank = self.get_confidence_rank(confidence)
             if rank < min_rank:
                 min_rank = rank
 
-        if min_rank == float('inf'):
-            return 'SPECULATIVE'
+        if min_rank == float("inf"):
+            return "SPECULATIVE"
 
         max_conf = CONFIDENCE_LEVELS[min_rank]
 
         # Apply single-hypothesis cap
-        supported_hypotheses = reading.get('supported_hypotheses', [])
-        if len(supported_hypotheses) == 1 and max_conf in ['HIGH', 'CERTAIN']:
-            max_conf = 'PROBABLE'
+        supported_hypotheses = reading.get("supported_hypotheses", [])
+        if len(supported_hypotheses) == 1 and max_conf in ["HIGH", "CERTAIN"]:
+            max_conf = "PROBABLE"
             self.log(f"  {reading_id}: capped at PROBABLE (single-hypothesis support)")
 
         return max_conf
@@ -246,7 +248,7 @@ class AnchorTracker:
                 affected_anchors=[],
                 total_affected=0,
                 cascade_depth=0,
-                warnings=[f"Unknown anchor: {anchor_id}"]
+                warnings=[f"Unknown anchor: {anchor_id}"],
             )
 
         affected_readings = []
@@ -256,14 +258,14 @@ class AnchorTracker:
         max_depth = 0
 
         # BFS from the anchor
-        queue = deque([(anchor_id, 0, 'anchor')])
+        queue = deque([(anchor_id, 0, "anchor")])
         visited.add(anchor_id)
 
         while queue:
             node_id, depth, node_type = queue.popleft()
             max_depth = max(max_depth, depth)
 
-            if node_type == 'anchor':
+            if node_type == "anchor":
                 # Find all readings that depend on this anchor
                 for reading_id in self.anchor_to_readings.get(node_id, []):
                     if reading_id in visited:
@@ -271,69 +273,75 @@ class AnchorTracker:
                     visited.add(reading_id)
 
                     reading = self.readings.get(reading_id, {})
-                    current_conf = reading.get('confidence', 'SPECULATIVE')
+                    current_conf = reading.get("confidence", "SPECULATIVE")
 
                     # Determine new confidence based on status change
-                    if new_status == 'REJECTED':
-                        new_conf = 'SPECULATIVE'
-                        action = 'Demote to SPECULATIVE (anchor rejected)'
-                    elif new_status == 'DEMOTED':
+                    if new_status == "REJECTED":
+                        new_conf = "SPECULATIVE"
+                        action = "Demote to SPECULATIVE (anchor rejected)"
+                    elif new_status == "DEMOTED":
                         # Cap at POSSIBLE
-                        if self.get_confidence_rank(current_conf) > self.get_confidence_rank('POSSIBLE'):
-                            new_conf = 'POSSIBLE'
-                            action = 'Cap at POSSIBLE (anchor demoted)'
+                        if self.get_confidence_rank(current_conf) > self.get_confidence_rank(
+                            "POSSIBLE"
+                        ):
+                            new_conf = "POSSIBLE"
+                            action = "Cap at POSSIBLE (anchor demoted)"
                         else:
                             new_conf = current_conf
-                            action = 'No change (already at or below POSSIBLE)'
-                    elif new_status == 'QUESTIONED':
+                            action = "No change (already at or below POSSIBLE)"
+                    elif new_status == "QUESTIONED":
                         # Flag for review, suggest one level down
                         current_rank = self.get_confidence_rank(current_conf)
                         if current_rank > 0:
                             new_conf = CONFIDENCE_LEVELS[current_rank - 1]
-                            action = f'Suggest downgrade to {new_conf} (anchor questioned)'
+                            action = f"Suggest downgrade to {new_conf} (anchor questioned)"
                         else:
                             new_conf = current_conf
-                            action = 'Already at minimum confidence'
+                            action = "Already at minimum confidence"
                     else:
                         new_conf = current_conf
-                        action = 'Unknown status - no change'
+                        action = "Unknown status - no change"
 
-                    affected_readings.append({
-                        'reading_id': reading_id,
-                        'meaning': reading.get('meaning', 'Unknown'),
-                        'current_confidence': current_conf,
-                        'new_confidence': new_conf,
-                        'action': action,
-                        'cascade_depth': depth + 1,
-                    })
+                    affected_readings.append(
+                        {
+                            "reading_id": reading_id,
+                            "meaning": reading.get("meaning", "Unknown"),
+                            "current_confidence": current_conf,
+                            "new_confidence": new_conf,
+                            "action": action,
+                            "cascade_depth": depth + 1,
+                        }
+                    )
 
                     # Check if this reading supports other anchors
                     for supported_anchor in self.reading_supports.get(reading_id, []):
                         if supported_anchor not in visited:
-                            queue.append((supported_anchor, depth + 1, 'anchor_via_reading'))
+                            queue.append((supported_anchor, depth + 1, "anchor_via_reading"))
 
-            elif node_type == 'anchor_via_reading':
+            elif node_type == "anchor_via_reading":
                 # This anchor is supported by an affected reading
                 anchor = self.anchors.get(node_id, {})
-                affected_anchors.append({
-                    'anchor_id': node_id,
-                    'name': anchor.get('name', 'Unknown'),
-                    'current_confidence': anchor.get('confidence', 'SPECULATIVE'),
-                    'note': 'Supporting evidence weakened - review recommended',
-                    'cascade_depth': depth,
-                })
+                affected_anchors.append(
+                    {
+                        "anchor_id": node_id,
+                        "name": anchor.get("name", "Unknown"),
+                        "current_confidence": anchor.get("confidence", "SPECULATIVE"),
+                        "note": "Supporting evidence weakened - review recommended",
+                        "cascade_depth": depth,
+                    }
+                )
 
                 # Continue cascade through this anchor
                 for reading_id in self.anchor_to_readings.get(node_id, []):
                     if reading_id not in visited:
                         visited.add(reading_id)
-                        queue.append((reading_id, depth + 1, 'reading'))
+                        queue.append((reading_id, depth + 1, "reading"))
 
         # Generate warnings
         if len(affected_readings) > 5:
             warnings.append(f"MAJOR CASCADE: {len(affected_readings)} readings affected")
 
-        if any(r['current_confidence'] == 'CERTAIN' for r in affected_readings):
+        if any(r["current_confidence"] == "CERTAIN" for r in affected_readings):
             warnings.append("WARNING: CERTAIN-confidence readings affected - review carefully")
 
         if affected_anchors:
@@ -346,7 +354,7 @@ class AnchorTracker:
             affected_anchors=affected_anchors,
             total_affected=len(affected_readings) + len(affected_anchors),
             cascade_depth=max_depth,
-            warnings=warnings
+            warnings=warnings,
         )
 
     def auto_cascade_propagate(self, anchor_id: str, new_status: str) -> CascadeResult:
@@ -375,22 +383,24 @@ class AnchorTracker:
         # Apply confidence changes to readings
         alerts = []
         for affected in result.affected_readings:
-            reading_id = affected['reading_id']
-            new_conf = affected['new_confidence']
+            reading_id = affected["reading_id"]
+            new_conf = affected["new_confidence"]
 
             if reading_id in self.readings:
-                old_conf = self.readings[reading_id].get('confidence', 'SPECULATIVE')
+                old_conf = self.readings[reading_id].get("confidence", "SPECULATIVE")
 
                 # Update the reading confidence
-                self.readings[reading_id]['confidence'] = new_conf
-                self.readings[reading_id]['cascade_note'] = (
+                self.readings[reading_id]["confidence"] = new_conf
+                self.readings[reading_id]["cascade_note"] = (
                     f"Auto-cascaded {datetime.now().strftime('%Y-%m-%d')}: "
                     f"{old_conf} → {new_conf} (anchor {anchor_id} {new_status})"
                 )
 
                 # Check alert threshold
                 if self.alert_threshold:
-                    if self.get_confidence_rank(new_conf) < self.get_confidence_rank(self.alert_threshold):
+                    if self.get_confidence_rank(new_conf) < self.get_confidence_rank(
+                        self.alert_threshold
+                    ):
                         alerts.append(
                             f"ALERT: {reading_id} dropped to {new_conf} "
                             f"(below threshold {self.alert_threshold})"
@@ -413,8 +423,8 @@ class AnchorTracker:
         - Level 6: LOW (lexical matches)
         """
         anchor = self.anchors.get(anchor_id, {})
-        level = anchor.get('level', 6)  # Default to lowest level
-        return ANCHOR_LEVEL_MAX_CONFIDENCE.get(level, 'LOW')
+        level = anchor.get("level", 6)  # Default to lowest level
+        return ANCHOR_LEVEL_MAX_CONFIDENCE.get(level, "LOW")
 
     def enforce_anchor_hierarchy_constraints(self) -> List[Dict]:
         """
@@ -430,15 +440,15 @@ class AnchorTracker:
         adjustments = []
 
         for reading_id, reading in self.readings.items():
-            current_conf = reading.get('confidence', 'SPECULATIVE')
+            current_conf = reading.get("confidence", "SPECULATIVE")
             current_rank = self.get_confidence_rank(current_conf)
 
             # Find the constraining anchor (weakest or lowest level)
-            anchor_ids = reading.get('depends_on', [])
+            anchor_ids = reading.get("depends_on", [])
             if not anchor_ids:
                 continue
 
-            min_allowed_rank = float('inf')
+            min_allowed_rank = float("inf")
             constraining_anchor = None
             constraint_reason = None
 
@@ -446,7 +456,7 @@ class AnchorTracker:
                 anchor = self.anchors.get(anchor_id, {})
 
                 # Check anchor's own confidence
-                anchor_conf = anchor.get('confidence', 'SPECULATIVE')
+                anchor_conf = anchor.get("confidence", "SPECULATIVE")
                 anchor_rank = self.get_confidence_rank(anchor_conf)
 
                 # Check anchor's level max
@@ -465,21 +475,23 @@ class AnchorTracker:
                         constraint_reason = f"level {anchor.get('level', '?')} max ({level_max})"
 
             # Check if reading exceeds constraint
-            if current_rank > min_allowed_rank and min_allowed_rank != float('inf'):
+            if current_rank > min_allowed_rank and min_allowed_rank != float("inf"):
                 new_conf = CONFIDENCE_LEVELS[min_allowed_rank]
 
-                adjustments.append({
-                    'reading_id': reading_id,
-                    'old_confidence': current_conf,
-                    'new_confidence': new_conf,
-                    'constraining_anchor': constraining_anchor,
-                    'reason': constraint_reason
-                })
+                adjustments.append(
+                    {
+                        "reading_id": reading_id,
+                        "old_confidence": current_conf,
+                        "new_confidence": new_conf,
+                        "constraining_anchor": constraining_anchor,
+                        "reason": constraint_reason,
+                    }
+                )
 
                 # Apply the adjustment
-                self.readings[reading_id]['confidence'] = new_conf
-                self.readings[reading_id]['max_confidence'] = new_conf
-                self.readings[reading_id]['cascade_note'] = (
+                self.readings[reading_id]["confidence"] = new_conf
+                self.readings[reading_id]["max_confidence"] = new_conf
+                self.readings[reading_id]["cascade_note"] = (
                     f"Hierarchy constraint {datetime.now().strftime('%Y-%m-%d')}: "
                     f"capped by {constraining_anchor} ({constraint_reason})"
                 )
@@ -510,8 +522,8 @@ class AnchorTracker:
         lines.append(f"Anchor: {result.anchor_id}")
         lines.append(f"  Name: {anchor.get('name', 'Unknown')}")
         if include_hierarchy:
-            level = anchor.get('level', '?')
-            level_max = ANCHOR_LEVEL_MAX_CONFIDENCE.get(level, 'N/A')
+            level = anchor.get("level", "?")
+            level_max = ANCHOR_LEVEL_MAX_CONFIDENCE.get(level, "N/A")
             lines.append(f"  Hierarchy Level: {level} (max confidence: {level_max})")
         lines.append(f"  Status Change: → {result.new_status}")
         lines.append("")
@@ -538,19 +550,33 @@ class AnchorTracker:
             lines.append("-" * 40)
 
             # Group by confidence change type
-            demoted = [r for r in result.affected_readings if r['new_confidence'] != r['current_confidence']]
-            unchanged = [r for r in result.affected_readings if r['new_confidence'] == r['current_confidence']]
+            demoted = [
+                r
+                for r in result.affected_readings
+                if r["new_confidence"] != r["current_confidence"]
+            ]
+            unchanged = [
+                r
+                for r in result.affected_readings
+                if r["new_confidence"] == r["current_confidence"]
+            ]
 
             if demoted:
                 lines.append(f"\n  Demoted ({len(demoted)}):")
-                for r in sorted(demoted, key=lambda x: -self.get_confidence_rank(x['current_confidence'])):
-                    lines.append(f"    {r['reading_id']}: {r['current_confidence']} → {r['new_confidence']}")
+                for r in sorted(
+                    demoted, key=lambda x: -self.get_confidence_rank(x["current_confidence"])
+                ):
+                    lines.append(
+                        f"    {r['reading_id']}: {r['current_confidence']} → {r['new_confidence']}"
+                    )
                     lines.append(f"      Meaning: {r['meaning']}")
 
             if unchanged:
                 lines.append(f"\n  Unchanged ({len(unchanged)}):")
                 for r in unchanged[:5]:  # Show first 5
-                    lines.append(f"    {r['reading_id']}: {r['current_confidence']} (already at or below)")
+                    lines.append(
+                        f"    {r['reading_id']}: {r['current_confidence']} (already at or below)"
+                    )
                 if len(unchanged) > 5:
                     lines.append(f"    ... and {len(unchanged) - 5} more")
 
@@ -565,10 +591,15 @@ class AnchorTracker:
         lines.append("")
         lines.append("=" * 70)
 
-        return '\n'.join(lines)
+        return "\n".join(lines)
 
-    def register_reading(self, reading_id: str, depends_on: List[str],
-                        meaning: str = "", confidence: str = "SPECULATIVE") -> bool:
+    def register_reading(
+        self,
+        reading_id: str,
+        depends_on: List[str],
+        meaning: str = "",
+        confidence: str = "SPECULATIVE",
+    ) -> bool:
         """
         Register a new reading with its anchor dependencies.
 
@@ -587,7 +618,7 @@ class AnchorTracker:
                 print(f"Warning: Unknown anchor {anchor_id}")
 
         # Compute max confidence
-        temp_reading = {'depends_on': depends_on}
+        temp_reading = {"depends_on": depends_on}
         self.readings[reading_id] = temp_reading
         max_conf = self.compute_max_confidence(reading_id)
 
@@ -598,14 +629,14 @@ class AnchorTracker:
 
         # Register
         self.readings[reading_id] = {
-            'meaning': meaning,
-            'confidence': confidence,
-            'max_confidence': max_conf,
-            'depends_on': depends_on,
-            'supports': [],
-            'evidence_sources': [],
-            'cascade_note': '',
-            'registered': datetime.now().isoformat()
+            "meaning": meaning,
+            "confidence": confidence,
+            "max_confidence": max_conf,
+            "depends_on": depends_on,
+            "supports": [],
+            "evidence_sources": [],
+            "cascade_note": "",
+            "registered": datetime.now().isoformat(),
         }
 
         # Update graph
@@ -638,29 +669,31 @@ class AnchorTracker:
 
         # Check for unknown anchor references
         for reading_id, reading in self.readings.items():
-            for anchor_id in reading.get('depends_on', []):
+            for anchor_id in reading.get("depends_on", []):
                 if anchor_id not in self.anchors:
                     warnings.append(f"Reading {reading_id} references unknown anchor: {anchor_id}")
                     is_valid = False
 
         # Check for orphan readings (no dependencies)
         for reading_id, reading in self.readings.items():
-            if not reading.get('depends_on'):
+            if not reading.get("depends_on"):
                 orphan_readings.append(reading_id)
                 warnings.append(f"Orphan reading (no dependencies): {reading_id}")
 
         # Check confidence violations
         for reading_id, reading in self.readings.items():
-            current_conf = reading.get('confidence', 'SPECULATIVE')
+            current_conf = reading.get("confidence", "SPECULATIVE")
             max_conf = self.compute_max_confidence(reading_id)
 
             if self.get_confidence_rank(current_conf) > self.get_confidence_rank(max_conf):
-                confidence_violations.append({
-                    'reading': reading_id,
-                    'current': current_conf,
-                    'max_allowed': max_conf,
-                    'violation': f"Exceeds max by {self.get_confidence_rank(current_conf) - self.get_confidence_rank(max_conf)} levels"
-                })
+                confidence_violations.append(
+                    {
+                        "reading": reading_id,
+                        "current": current_conf,
+                        "max_allowed": max_conf,
+                        "violation": f"Exceeds max by {self.get_confidence_rank(current_conf) - self.get_confidence_rank(max_conf)} levels",
+                    }
+                )
                 is_valid = False
 
         # Check for circular dependencies using DFS
@@ -682,19 +715,19 @@ class AnchorTracker:
                 color[node] = GRAY
                 path.append(node)
 
-                if node_type == 'anchor':
+                if node_type == "anchor":
                     for reading in self.anchor_to_readings.get(node, []):
-                        dfs(reading, 'reading')
-                elif node_type == 'reading':
+                        dfs(reading, "reading")
+                elif node_type == "reading":
                     for anchor in self.reading_supports.get(node, []):
-                        dfs(anchor, 'anchor')
+                        dfs(anchor, "anchor")
 
                 path.pop()
                 color[node] = BLACK
 
             for anchor_id in self.anchors:
                 if color[anchor_id] == WHITE:
-                    dfs(anchor_id, 'anchor')
+                    dfs(anchor_id, "anchor")
 
             return cycles
 
@@ -710,7 +743,7 @@ class AnchorTracker:
             orphan_readings=orphan_readings,
             confidence_violations=confidence_violations,
             circular_dependencies=circular_deps,
-            warnings=warnings
+            warnings=warnings,
         )
 
     def get_reading_info(self, reading_id: str) -> Dict:
@@ -722,30 +755,32 @@ class AnchorTracker:
                     reading_id = rid
                     break
             else:
-                return {'error': f'Reading not found: {reading_id}'}
+                return {"error": f"Reading not found: {reading_id}"}
 
         reading = self.readings[reading_id]
         anchor_details = []
 
-        for anchor_id in reading.get('depends_on', []):
+        for anchor_id in reading.get("depends_on", []):
             anchor = self.anchors.get(anchor_id, {})
-            anchor_details.append({
-                'id': anchor_id,
-                'name': anchor.get('name', 'Unknown'),
-                'level': anchor.get('level', 0),
-                'confidence': anchor.get('confidence', 'SPECULATIVE'),
-                'limitations': anchor.get('limitations', [])
-            })
+            anchor_details.append(
+                {
+                    "id": anchor_id,
+                    "name": anchor.get("name", "Unknown"),
+                    "level": anchor.get("level", 0),
+                    "confidence": anchor.get("confidence", "SPECULATIVE"),
+                    "limitations": anchor.get("limitations", []),
+                }
+            )
 
         return {
-            'reading_id': reading_id,
-            'meaning': reading.get('meaning', 'Unknown'),
-            'confidence': reading.get('confidence', 'SPECULATIVE'),
-            'max_confidence': self.compute_max_confidence(reading_id),
-            'anchor_dependencies': anchor_details,
-            'supports_anchors': list(reading.get('supports', [])),
-            'evidence_sources': reading.get('evidence_sources', []),
-            'cascade_note': reading.get('cascade_note', '')
+            "reading_id": reading_id,
+            "meaning": reading.get("meaning", "Unknown"),
+            "confidence": reading.get("confidence", "SPECULATIVE"),
+            "max_confidence": self.compute_max_confidence(reading_id),
+            "anchor_dependencies": anchor_details,
+            "supports_anchors": list(reading.get("supports", [])),
+            "evidence_sources": reading.get("evidence_sources", []),
+            "cascade_note": reading.get("cascade_note", ""),
         }
 
     def generate_graph_ascii(self) -> str:
@@ -758,22 +793,22 @@ class AnchorTracker:
         # Group by anchor level
         anchors_by_level = defaultdict(list)
         for anchor_id, anchor in self.anchors.items():
-            level = anchor.get('level', 0)
+            level = anchor.get("level", 0)
             anchors_by_level[level].append((anchor_id, anchor))
 
         for level in sorted(anchors_by_level.keys()):
             lines.append(f"LEVEL {level} {'─' * 50}")
             for anchor_id, anchor in anchors_by_level[level]:
-                conf = anchor.get('confidence', '?')
-                name = anchor.get('name', anchor_id)[:40]
+                conf = anchor.get("confidence", "?")
+                name = anchor.get("name", anchor_id)[:40]
                 lines.append(f"  ◆ [{conf:8}] {name}")
 
                 # Show dependent readings
                 readings = self.anchor_to_readings.get(anchor_id, [])
                 for reading_id in sorted(readings)[:5]:
                     reading = self.readings.get(reading_id, {})
-                    r_conf = reading.get('confidence', '?')
-                    meaning = reading.get('meaning', '')[:30]
+                    r_conf = reading.get("confidence", "?")
+                    meaning = reading.get("meaning", "")[:30]
                     lines.append(f"      └─► {reading_id} [{r_conf}] {meaning}")
 
                 if len(readings) > 5:
@@ -781,7 +816,7 @@ class AnchorTracker:
 
             lines.append("")
 
-        return '\n'.join(lines)
+        return "\n".join(lines)
 
     def print_cascade_report(self, result: CascadeResult):
         """Print formatted cascade analysis report."""
@@ -854,84 +889,56 @@ def main():
         description="Track anchor-reading dependencies and compute cascade effects"
     )
     parser.add_argument(
-        '--cascade', '-c',
+        "--cascade",
+        "-c",
         type=str,
-        metavar='ANCHOR_ID',
-        help='Compute cascade from anchor status change'
+        metavar="ANCHOR_ID",
+        help="Compute cascade from anchor status change",
     )
     parser.add_argument(
-        '--to', '-t',
+        "--to",
+        "-t",
         type=str,
-        choices=['QUESTIONED', 'DEMOTED', 'REJECTED'],
-        default='QUESTIONED',
-        help='New status for cascade analysis'
+        choices=["QUESTIONED", "DEMOTED", "REJECTED"],
+        default="QUESTIONED",
+        help="New status for cascade analysis",
     )
     parser.add_argument(
-        '--auto-cascade',
-        action='store_true',
-        help='Automatically propagate confidence changes (use with --cascade)'
+        "--auto-cascade",
+        action="store_true",
+        help="Automatically propagate confidence changes (use with --cascade)",
     )
     parser.add_argument(
-        '--alert-threshold',
+        "--alert-threshold",
         type=str,
         choices=CONFIDENCE_LEVELS,
-        metavar='LEVEL',
-        help='Output warnings when readings drop below this confidence level'
+        metavar="LEVEL",
+        help="Output warnings when readings drop below this confidence level",
     )
     parser.add_argument(
-        '--enforce-hierarchy',
-        action='store_true',
-        help='Enforce anchor hierarchy constraints on all readings'
+        "--enforce-hierarchy",
+        action="store_true",
+        help="Enforce anchor hierarchy constraints on all readings",
     )
     parser.add_argument(
-        '--register', '-r',
-        type=str,
-        metavar='READING_ID',
-        help='Register a new reading'
+        "--register", "-r", type=str, metavar="READING_ID", help="Register a new reading"
     )
     parser.add_argument(
-        '--depends-on', '-d',
-        type=str,
-        help='Comma-separated anchor IDs for --register'
+        "--depends-on", "-d", type=str, help="Comma-separated anchor IDs for --register"
+    )
+    parser.add_argument("--meaning", "-m", type=str, default="", help="Meaning for --register")
+    parser.add_argument(
+        "--confidence", type=str, default="SPECULATIVE", help="Initial confidence for --register"
     )
     parser.add_argument(
-        '--meaning', '-m',
-        type=str,
-        default='',
-        help='Meaning for --register'
+        "--validate", "-V", action="store_true", help="Validate dependency consistency"
     )
+    parser.add_argument("--graph", "-g", action="store_true", help="Show dependency graph")
     parser.add_argument(
-        '--confidence',
-        type=str,
-        default='SPECULATIVE',
-        help='Initial confidence for --register'
+        "--reading", type=str, metavar="READING_ID", help="Show info about a specific reading"
     )
-    parser.add_argument(
-        '--validate', '-V',
-        action='store_true',
-        help='Validate dependency consistency'
-    )
-    parser.add_argument(
-        '--graph', '-g',
-        action='store_true',
-        help='Show dependency graph'
-    )
-    parser.add_argument(
-        '--reading',
-        type=str,
-        metavar='READING_ID',
-        help='Show info about a specific reading'
-    )
-    parser.add_argument(
-        '--list-anchors', '-l',
-        action='store_true',
-        help='List all anchors'
-    )
-    parser.add_argument(
-        '--verbose', '-v',
-        action='store_true',
-        help='Verbose output'
-    )
+    parser.add_argument("--list-anchors", "-l", action="store_true", help="List all anchors")
+    parser.add_argument("--verbose", "-v", action="store_true", help="Verbose output")
 
     args = parser.parse_args()
 
@@ -950,9 +957,9 @@ def main():
     if args.list_anchors:
         print("\nRegistered Anchors:")
         for anchor_id, anchor in tracker.anchors.items():
-            level = anchor.get('level', 0)
-            conf = anchor.get('confidence', '?')
-            name = anchor.get('name', anchor_id)
+            level = anchor.get("level", 0)
+            conf = anchor.get("confidence", "?")
+            name = anchor.get("name", anchor_id)
             print(f"  Level {level} [{conf:8}] {anchor_id}")
             print(f"    {name}")
         return 0
@@ -994,13 +1001,8 @@ def main():
         if not args.depends_on:
             print("Error: --depends-on required with --register")
             return 1
-        anchors = [a.strip() for a in args.depends_on.split(',')]
-        tracker.register_reading(
-            args.register,
-            anchors,
-            args.meaning,
-            args.confidence
-        )
+        anchors = [a.strip() for a in args.depends_on.split(",")]
+        tracker.register_reading(args.register, anchors, args.meaning, args.confidence)
         tracker.save_data()
         return 0
 
@@ -1015,23 +1017,23 @@ def main():
 
     if args.reading:
         info = tracker.get_reading_info(args.reading)
-        if 'error' in info:
+        if "error" in info:
             print(f"Error: {info['error']}")
             return 1
 
         print(f"\n{info['reading_id']} = '{info['meaning']}'")
         print(f"  Confidence: {info['confidence']} (max: {info['max_confidence']})")
         print("\n  Dependencies:")
-        for dep in info['anchor_dependencies']:
+        for dep in info["anchor_dependencies"]:
             print(f"    ◆ {dep['id']} [{dep['confidence']}]")
             print(f"      {dep['name']}")
-            if dep['limitations']:
+            if dep["limitations"]:
                 print(f"      Limitations: {dep['limitations'][0][:60]}...")
 
-        if info['supports_anchors']:
+        if info["supports_anchors"]:
             print(f"\n  Supports anchors: {', '.join(info['supports_anchors'])}")
 
-        if info['cascade_note']:
+        if info["cascade_note"]:
             print(f"\n  Cascade note: {info['cascade_note']}")
 
         return 0
@@ -1044,5 +1046,5 @@ def main():
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

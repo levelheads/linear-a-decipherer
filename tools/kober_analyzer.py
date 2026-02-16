@@ -62,19 +62,19 @@ class KoberAnalyzer:
 
         # Analysis results
         self.results = {
-            'metadata': {
-                'generated': None,
-                'corpus_size': 0,
-                'min_frequency': min_frequency,
+            "metadata": {
+                "generated": None,
+                "corpus_size": 0,
+                "min_frequency": min_frequency,
             },
-            'sign_analysis': {},
-            'word_analysis': {},
-            'pattern_analysis': {},
-            'inflection_analysis': {},
-            'triplet_analysis': {},
-            'co_occurrence': {},
-            'paradigm_candidates': [],
-            'findings': [],
+            "sign_analysis": {},
+            "word_analysis": {},
+            "pattern_analysis": {},
+            "inflection_analysis": {},
+            "triplet_analysis": {},
+            "co_occurrence": {},
+            "paradigm_candidates": [],
+            "findings": [],
         }
 
     def log(self, message: str):
@@ -87,22 +87,22 @@ class KoberAnalyzer:
         try:
             # Load corpus
             corpus_path = DATA_DIR / "corpus.json"
-            with open(corpus_path, 'r', encoding='utf-8') as f:
+            with open(corpus_path, "r", encoding="utf-8") as f:
                 self.corpus = json.load(f)
             print(f"Loaded corpus: {len(self.corpus['inscriptions'])} inscriptions")
 
             # Load signs
             signs_path = DATA_DIR / "signs.json"
-            with open(signs_path, 'r', encoding='utf-8') as f:
+            with open(signs_path, "r", encoding="utf-8") as f:
                 self.signs = json.load(f)
             print(f"Loaded signs: {self.signs['total_signs']} unique signs")
 
             # Load statistics
             stats_path = DATA_DIR / "statistics.json"
-            with open(stats_path, 'r', encoding='utf-8') as f:
+            with open(stats_path, "r", encoding="utf-8") as f:
                 self.statistics = json.load(f)
 
-            self.results['metadata']['corpus_size'] = len(self.corpus['inscriptions'])
+            self.results["metadata"]["corpus_size"] = len(self.corpus["inscriptions"])
             return True
 
         except Exception as e:
@@ -124,30 +124,40 @@ class KoberAnalyzer:
         """
         print("\n[Phase 1] Analyzing sign frequencies...")
 
-        sign_data = self.signs['signs']
+        sign_data = self.signs["signs"]
         frequencies = []
 
         for sign, data in sign_data.items():
-            freq = data['total_occurrences']
+            freq = data["total_occurrences"]
             if freq >= self.min_frequency:
-                frequencies.append({
-                    'sign': sign,
-                    'frequency': freq,
-                    'initial_pct': round(data['position_frequency']['initial'] / freq * 100, 1) if freq > 0 else 0,
-                    'medial_pct': round(data['position_frequency']['medial'] / freq * 100, 1) if freq > 0 else 0,
-                    'final_pct': round(data['position_frequency']['final'] / freq * 100, 1) if freq > 0 else 0,
-                    'standalone_pct': round(data['contexts']['standalone'] / freq * 100, 1) if freq > 0 else 0,
-                })
+                frequencies.append(
+                    {
+                        "sign": sign,
+                        "frequency": freq,
+                        "initial_pct": round(data["position_frequency"]["initial"] / freq * 100, 1)
+                        if freq > 0
+                        else 0,
+                        "medial_pct": round(data["position_frequency"]["medial"] / freq * 100, 1)
+                        if freq > 0
+                        else 0,
+                        "final_pct": round(data["position_frequency"]["final"] / freq * 100, 1)
+                        if freq > 0
+                        else 0,
+                        "standalone_pct": round(data["contexts"]["standalone"] / freq * 100, 1)
+                        if freq > 0
+                        else 0,
+                    }
+                )
 
         # Sort by frequency
-        frequencies.sort(key=lambda x: x['frequency'], reverse=True)
+        frequencies.sort(key=lambda x: x["frequency"], reverse=True)
 
-        self.results['sign_analysis']['frequency_ranking'] = frequencies
-        self.results['sign_analysis']['total_analyzed'] = len(frequencies)
+        self.results["sign_analysis"]["frequency_ranking"] = frequencies
+        self.results["sign_analysis"]["total_analyzed"] = len(frequencies)
 
         # Identify high-frequency signs (potential grammatical markers)
-        high_freq = [s for s in frequencies if s['frequency'] >= 50]
-        self.results['sign_analysis']['high_frequency_signs'] = high_freq
+        high_freq = [s for s in frequencies if s["frequency"] >= 50]
+        self.results["sign_analysis"]["high_frequency_signs"] = high_freq
 
         self.log(f"Analyzed {len(frequencies)} signs with freq >= {self.min_frequency}")
         self.log(f"Found {len(high_freq)} high-frequency signs (>= 50 occurrences)")
@@ -165,78 +175,82 @@ class KoberAnalyzer:
         """
         print("\n[Phase 2] Analyzing positional patterns...")
 
-        sign_data = self.signs['signs']
+        sign_data = self.signs["signs"]
         positional = {
-            'initial_preference': [],  # Signs that prefer word-initial
-            'medial_preference': [],   # Signs that prefer word-medial
-            'final_preference': [],    # Signs that prefer word-final
-            'flexible': [],            # Signs with no strong preference
+            "initial_preference": [],  # Signs that prefer word-initial
+            "medial_preference": [],  # Signs that prefer word-medial
+            "final_preference": [],  # Signs that prefer word-final
+            "flexible": [],  # Signs with no strong preference
         }
 
         for sign, data in sign_data.items():
-            freq = data['total_occurrences']
+            freq = data["total_occurrences"]
             if freq < self.min_frequency:
                 continue
 
             # Calculate position percentages
-            pos = data['position_frequency']
-            standalone = data['contexts']['standalone']
+            pos = data["position_frequency"]
+            standalone = data["contexts"]["standalone"]
             non_standalone = freq - standalone
 
             if non_standalone < 5:
                 continue  # Need sufficient multi-syllabic occurrences
 
-            initial_pct = pos['initial'] / non_standalone * 100 if non_standalone > 0 else 0
-            medial_pct = pos['medial'] / non_standalone * 100 if non_standalone > 0 else 0
-            final_pct = pos['final'] / non_standalone * 100 if non_standalone > 0 else 0
+            initial_pct = pos["initial"] / non_standalone * 100 if non_standalone > 0 else 0
+            medial_pct = pos["medial"] / non_standalone * 100 if non_standalone > 0 else 0
+            final_pct = pos["final"] / non_standalone * 100 if non_standalone > 0 else 0
 
             entry = {
-                'sign': sign,
-                'frequency': freq,
-                'initial_pct': round(initial_pct, 1),
-                'medial_pct': round(medial_pct, 1),
-                'final_pct': round(final_pct, 1),
+                "sign": sign,
+                "frequency": freq,
+                "initial_pct": round(initial_pct, 1),
+                "medial_pct": round(medial_pct, 1),
+                "final_pct": round(final_pct, 1),
             }
 
             # Classify by preference (>60% in one position = strong preference)
             if initial_pct >= 60:
-                entry['position'] = 'initial'
-                entry['strength'] = 'strong' if initial_pct >= 75 else 'moderate'
-                positional['initial_preference'].append(entry)
+                entry["position"] = "initial"
+                entry["strength"] = "strong" if initial_pct >= 75 else "moderate"
+                positional["initial_preference"].append(entry)
             elif final_pct >= 60:
-                entry['position'] = 'final'
-                entry['strength'] = 'strong' if final_pct >= 75 else 'moderate'
-                positional['final_preference'].append(entry)
+                entry["position"] = "final"
+                entry["strength"] = "strong" if final_pct >= 75 else "moderate"
+                positional["final_preference"].append(entry)
             elif medial_pct >= 50:
-                entry['position'] = 'medial'
-                entry['strength'] = 'moderate'
-                positional['medial_preference'].append(entry)
+                entry["position"] = "medial"
+                entry["strength"] = "moderate"
+                positional["medial_preference"].append(entry)
             else:
-                entry['position'] = 'flexible'
-                positional['flexible'].append(entry)
+                entry["position"] = "flexible"
+                positional["flexible"].append(entry)
 
         # Sort each category by frequency
         for category in positional:
-            positional[category].sort(key=lambda x: x['frequency'], reverse=True)
+            positional[category].sort(key=lambda x: x["frequency"], reverse=True)
 
-        self.results['pattern_analysis']['positional'] = positional
+        self.results["pattern_analysis"]["positional"] = positional
 
         # Generate findings
-        if positional['initial_preference']:
-            self.results['findings'].append({
-                'category': 'positional',
-                'finding': f"{len(positional['initial_preference'])} signs prefer word-initial position (potential prefixes/determinatives)",
-                'signs': [s['sign'] for s in positional['initial_preference'][:10]],
-                'confidence': 'HIGH',
-            })
+        if positional["initial_preference"]:
+            self.results["findings"].append(
+                {
+                    "category": "positional",
+                    "finding": f"{len(positional['initial_preference'])} signs prefer word-initial position (potential prefixes/determinatives)",
+                    "signs": [s["sign"] for s in positional["initial_preference"][:10]],
+                    "confidence": "HIGH",
+                }
+            )
 
-        if positional['final_preference']:
-            self.results['findings'].append({
-                'category': 'positional',
-                'finding': f"{len(positional['final_preference'])} signs prefer word-final position (potential suffixes/case endings)",
-                'signs': [s['sign'] for s in positional['final_preference'][:10]],
-                'confidence': 'HIGH',
-            })
+        if positional["final_preference"]:
+            self.results["findings"].append(
+                {
+                    "category": "positional",
+                    "finding": f"{len(positional['final_preference'])} signs prefer word-final position (potential suffixes/case endings)",
+                    "signs": [s["sign"] for s in positional["final_preference"][:10]],
+                    "confidence": "HIGH",
+                }
+            )
 
         self.log(f"Initial preference: {len(positional['initial_preference'])} signs")
         self.log(f"Medial preference: {len(positional['medial_preference'])} signs")
@@ -251,32 +265,34 @@ class KoberAnalyzer:
         """Extract all words from corpus with their contexts."""
         words = defaultdict(list)
 
-        for insc_id, data in self.corpus['inscriptions'].items():
-            if '_parse_error' in data:
+        for insc_id, data in self.corpus["inscriptions"].items():
+            if "_parse_error" in data:
                 continue
 
-            transliterated = data.get('transliteratedWords', [])
+            transliterated = data.get("transliteratedWords", [])
 
             for idx, word in enumerate(transliterated):
-                if not word or word in ['\n', '𐄁', '', '—', '≈']:
+                if not word or word in ["\n", "𐄁", "", "—", "≈"]:
                     continue
                 # Skip numerals
-                if re.match(r'^[\d\s.¹²³⁴⁵⁶⁷⁸⁹⁰/₀₁₂₃₄₅₆₇₈○◎—|]+$', word):
+                if re.match(r"^[\d\s.¹²³⁴⁵⁶⁷⁸⁹⁰/₀₁₂₃₄₅₆₇₈○◎—|]+$", word):
                     continue
                 # Skip logograms (all caps with no hyphens)
-                if re.match(r'^[A-Z*\d+\[\]]+$', word) and '-' not in word:
+                if re.match(r"^[A-Z*\d+\[\]]+$", word) and "-" not in word:
                     continue
                 # Skip lacuna markers
-                if word.startswith('𐝫'):
+                if word.startswith("𐝫"):
                     continue
 
                 # Record word with context
-                words[word].append({
-                    'inscription': insc_id,
-                    'position': idx,
-                    'site': data.get('site', ''),
-                    'context': data.get('context', ''),
-                })
+                words[word].append(
+                    {
+                        "inscription": insc_id,
+                        "position": idx,
+                        "site": data.get("site", ""),
+                        "context": data.get("context", ""),
+                    }
+                )
 
         return dict(words)
 
@@ -300,34 +316,35 @@ class KoberAnalyzer:
         # Filter by minimum frequency
         frequent_words = [(w, f) for w, f in sorted_words if f >= self.min_frequency]
 
-        self.results['word_analysis']['total_unique_words'] = len(all_words)
-        self.results['word_analysis']['words_above_threshold'] = len(frequent_words)
-        self.results['word_analysis']['top_words'] = [
-            {'word': w, 'frequency': f} for w, f in frequent_words[:50]
+        self.results["word_analysis"]["total_unique_words"] = len(all_words)
+        self.results["word_analysis"]["words_above_threshold"] = len(frequent_words)
+        self.results["word_analysis"]["top_words"] = [
+            {"word": w, "frequency": f} for w, f in frequent_words[:50]
         ]
 
         # Word length distribution
         lengths = Counter()
         for word in all_words:
-            syllables = word.split('-')
+            syllables = word.split("-")
             lengths[len(syllables)] += 1
 
-        self.results['word_analysis']['length_distribution'] = dict(lengths.most_common())
+        self.results["word_analysis"]["length_distribution"] = dict(lengths.most_common())
 
         # Identify potential function words (very high frequency)
         function_word_candidates = [
-            {'word': w, 'frequency': f}
-            for w, f in frequent_words if f >= 20
+            {"word": w, "frequency": f} for w, f in frequent_words if f >= 20
         ]
-        self.results['word_analysis']['function_word_candidates'] = function_word_candidates
+        self.results["word_analysis"]["function_word_candidates"] = function_word_candidates
 
         if function_word_candidates:
-            self.results['findings'].append({
-                'category': 'word_analysis',
-                'finding': f"Identified {len(function_word_candidates)} high-frequency words (possible function words or common terms)",
-                'examples': [fw['word'] for fw in function_word_candidates[:5]],
-                'confidence': 'MEDIUM',
-            })
+            self.results["findings"].append(
+                {
+                    "category": "word_analysis",
+                    "finding": f"Identified {len(function_word_candidates)} high-frequency words (possible function words or common terms)",
+                    "examples": [fw["word"] for fw in function_word_candidates[:5]],
+                    "confidence": "MEDIUM",
+                }
+            )
 
         self.log(f"Total unique words: {len(all_words)}")
         self.log(f"Words above threshold: {len(frequent_words)}")
@@ -352,17 +369,16 @@ class KoberAnalyzer:
         print("\n[Phase 4] Detecting inflection patterns (Kober Method)...")
 
         # Only analyze words with >= 2 syllables
-        multi_syllable = {w: occs for w, occs in all_words.items()
-                         if '-' in w and len(occs) >= 2}
+        multi_syllable = {w: occs for w, occs in all_words.items() if "-" in w and len(occs) >= 2}
 
         # Group by prefix (first 1-2 syllables)
         prefix_groups = defaultdict(list)
         for word in multi_syllable:
-            syllables = word.split('-')
+            syllables = word.split("-")
             if len(syllables) >= 2:
                 # Try both 1-syllable and 2-syllable prefixes
                 prefix1 = syllables[0]
-                prefix2 = '-'.join(syllables[:2]) if len(syllables) >= 3 else None
+                prefix2 = "-".join(syllables[:2]) if len(syllables) >= 3 else None
 
                 prefix_groups[prefix1].append(word)
                 if prefix2:
@@ -375,64 +391,70 @@ class KoberAnalyzer:
                 # Get unique suffixes
                 suffixes = []
                 for word in set(words):
-                    syllables = word.split('-')
-                    prefix_len = len(prefix.split('-'))
-                    suffix = '-'.join(syllables[prefix_len:]) if len(syllables) > prefix_len else ''
+                    syllables = word.split("-")
+                    prefix_len = len(prefix.split("-"))
+                    suffix = "-".join(syllables[prefix_len:]) if len(syllables) > prefix_len else ""
                     if suffix:
-                        suffixes.append({'word': word, 'suffix': suffix, 'freq': len(all_words.get(word, []))})
+                        suffixes.append(
+                            {"word": word, "suffix": suffix, "freq": len(all_words.get(word, []))}
+                        )
 
                 if len(suffixes) >= 2:
-                    paradigm_candidates.append({
-                        'prefix': prefix,
-                        'variants': suffixes,
-                        'total_attestations': sum(s['freq'] for s in suffixes),
-                    })
+                    paradigm_candidates.append(
+                        {
+                            "prefix": prefix,
+                            "variants": suffixes,
+                            "total_attestations": sum(s["freq"] for s in suffixes),
+                        }
+                    )
 
         # Sort by total attestations
-        paradigm_candidates.sort(key=lambda x: x['total_attestations'], reverse=True)
+        paradigm_candidates.sort(key=lambda x: x["total_attestations"], reverse=True)
 
         # Keep top paradigm candidates
         top_paradigms = paradigm_candidates[:30]
-        self.results['inflection_analysis']['paradigm_candidates'] = top_paradigms
+        self.results["inflection_analysis"]["paradigm_candidates"] = top_paradigms
 
         # Extract recurring suffixes
         suffix_counter = Counter()
         for word in multi_syllable:
-            syllables = word.split('-')
+            syllables = word.split("-")
             if len(syllables) >= 2:
                 # Final syllable
                 suffix_counter[syllables[-1]] += len(all_words[word])
                 # Final two syllables (for disyllabic suffixes)
                 if len(syllables) >= 3:
-                    disyl_suffix = '-'.join(syllables[-2:])
+                    disyl_suffix = "-".join(syllables[-2:])
                     suffix_counter[disyl_suffix] += len(all_words[word])
 
         common_suffixes = [
-            {'suffix': s, 'frequency': f}
-            for s, f in suffix_counter.most_common(20)
-            if f >= 10
+            {"suffix": s, "frequency": f} for s, f in suffix_counter.most_common(20) if f >= 10
         ]
-        self.results['inflection_analysis']['common_suffixes'] = common_suffixes
+        self.results["inflection_analysis"]["common_suffixes"] = common_suffixes
 
         # Generate findings
         if top_paradigms:
-            self.results['findings'].append({
-                'category': 'inflection',
-                'finding': f"Identified {len(top_paradigms)} potential paradigm groups (words sharing roots)",
-                'top_example': {
-                    'prefix': top_paradigms[0]['prefix'],
-                    'variants': [v['word'] for v in top_paradigms[0]['variants'][:5]],
-                },
-                'confidence': 'HIGH',
-            })
+            self.results["findings"].append(
+                {
+                    "category": "inflection",
+                    "finding": f"Identified {len(top_paradigms)} potential paradigm groups (words sharing roots)",
+                    "top_example": {
+                        "prefix": top_paradigms[0]["prefix"],
+                        "variants": [v["word"] for v in top_paradigms[0]["variants"][:5]],
+                    },
+                    "confidence": "HIGH",
+                }
+            )
 
         if common_suffixes:
-            self.results['findings'].append({
-                'category': 'inflection',
-                'finding': f"Found {len(common_suffixes)} recurring suffix patterns (potential grammatical endings)",
-                'examples': [s['suffix'] for s in common_suffixes[:5]],
-                'confidence': 'MEDIUM',
-            })
+            self.results["findings"].append(
+                {
+                    "category": "inflection",
+                    "finding": f"Found {len(common_suffixes)} recurring suffix patterns (potential grammatical endings)",
+                    "examples": [s["suffix"] for s in common_suffixes[:5]],
+                    "confidence": "MEDIUM",
+                }
+            )
 
         self.log(f"Paradigm candidates: {len(top_paradigms)}")
         self.log(f"Common suffixes: {len(common_suffixes)}")
@@ -458,19 +480,22 @@ class KoberAnalyzer:
         triplets = []
 
         # Get all words with 3+ syllables
-        words_3plus = {w: occs for w, occs in all_words.items()
-                       if len(w.split('-')) >= 3 and len(occs) >= 2}
+        words_3plus = {
+            w: occs for w, occs in all_words.items() if len(w.split("-")) >= 3 and len(occs) >= 2
+        }
 
         # Group by first two syllables (root)
         root_groups = defaultdict(list)
         for word in words_3plus:
-            syllables = word.split('-')
-            root = '-'.join(syllables[:2])
-            root_groups[root].append({
-                'word': word,
-                'suffix': '-'.join(syllables[2:]),
-                'frequency': len(all_words[word]),
-            })
+            syllables = word.split("-")
+            root = "-".join(syllables[:2])
+            root_groups[root].append(
+                {
+                    "word": word,
+                    "suffix": "-".join(syllables[2:]),
+                    "frequency": len(all_words[word]),
+                }
+            )
 
         # Find triplets (3+ variants with same root)
         for root, variants in root_groups.items():
@@ -478,22 +503,26 @@ class KoberAnalyzer:
                 # Get unique endings
                 unique_endings = {}
                 for v in variants:
-                    if v['suffix'] not in unique_endings:
-                        unique_endings[v['suffix']] = v
+                    if v["suffix"] not in unique_endings:
+                        unique_endings[v["suffix"]] = v
 
                 if len(unique_endings) >= 3:
-                    triplets.append({
-                        'root': root,
-                        'variants': list(unique_endings.values()),
-                        'total_attestations': sum(v['frequency'] for v in unique_endings.values()),
-                        'endings': list(unique_endings.keys()),
-                    })
+                    triplets.append(
+                        {
+                            "root": root,
+                            "variants": list(unique_endings.values()),
+                            "total_attestations": sum(
+                                v["frequency"] for v in unique_endings.values()
+                            ),
+                            "endings": list(unique_endings.keys()),
+                        }
+                    )
 
         # Sort by attestations
-        triplets.sort(key=lambda x: x['total_attestations'], reverse=True)
+        triplets.sort(key=lambda x: x["total_attestations"], reverse=True)
 
-        self.results['triplet_analysis']['triplets'] = triplets[:20]
-        self.results['triplet_analysis']['total_found'] = len(triplets)
+        self.results["triplet_analysis"]["triplets"] = triplets[:20]
+        self.results["triplet_analysis"]["total_found"] = len(triplets)
 
         # Also find pairs (2 variants) which are also significant
         pairs = []
@@ -501,28 +530,34 @@ class KoberAnalyzer:
             if len(variants) >= 2:
                 unique_endings = {}
                 for v in variants:
-                    if v['suffix'] not in unique_endings:
-                        unique_endings[v['suffix']] = v
+                    if v["suffix"] not in unique_endings:
+                        unique_endings[v["suffix"]] = v
 
                 if len(unique_endings) == 2:
-                    pairs.append({
-                        'root': root,
-                        'variants': list(unique_endings.values()),
-                        'total_attestations': sum(v['frequency'] for v in unique_endings.values()),
-                    })
+                    pairs.append(
+                        {
+                            "root": root,
+                            "variants": list(unique_endings.values()),
+                            "total_attestations": sum(
+                                v["frequency"] for v in unique_endings.values()
+                            ),
+                        }
+                    )
 
-        pairs.sort(key=lambda x: x['total_attestations'], reverse=True)
-        self.results['triplet_analysis']['pairs'] = pairs[:20]
-        self.results['triplet_analysis']['total_pairs'] = len(pairs)
+        pairs.sort(key=lambda x: x["total_attestations"], reverse=True)
+        self.results["triplet_analysis"]["pairs"] = pairs[:20]
+        self.results["triplet_analysis"]["total_pairs"] = len(pairs)
 
         if triplets:
-            self.results['findings'].append({
-                'category': 'triplets',
-                'finding': f"Detected {len(triplets)} Kober Triplets (words sharing root with 3+ variant endings)",
-                'significance': 'BREAKTHROUGH - suggests grammatical inflection system',
-                'top_example': triplets[0] if triplets else None,
-                'confidence': 'HIGH',
-            })
+            self.results["findings"].append(
+                {
+                    "category": "triplets",
+                    "finding": f"Detected {len(triplets)} Kober Triplets (words sharing root with 3+ variant endings)",
+                    "significance": "BREAKTHROUGH - suggests grammatical inflection system",
+                    "top_example": triplets[0] if triplets else None,
+                    "confidence": "HIGH",
+                }
+            )
 
         self.log(f"Triplets found: {len(triplets)}")
         self.log(f"Pairs found: {len(pairs)}")
@@ -543,21 +578,21 @@ class KoberAnalyzer:
         print("\n[Phase 6] Analyzing sign co-occurrences...")
 
         # Build co-occurrence matrix from sign data
-        sign_data = self.signs['signs']
+        sign_data = self.signs["signs"]
 
         # Identify strongest co-occurrences
         strong_pairs = []
         for sign, data in sign_data.items():
-            if data['total_occurrences'] < self.min_frequency:
+            if data["total_occurrences"] < self.min_frequency:
                 continue
 
-            co_occs = data.get('co_occurrences', {})
+            co_occs = data.get("co_occurrences", {})
             for other_sign, count in co_occs.items():
                 if count >= 5:  # Minimum co-occurrence threshold
                     # Calculate mutual information-like score
-                    sign_freq = data['total_occurrences']
+                    sign_freq = data["total_occurrences"]
                     other_data = sign_data.get(other_sign, {})
-                    other_freq = other_data.get('total_occurrences', 0)
+                    other_freq = other_data.get("total_occurrences", 0)
 
                     if other_freq > 0:
                         # Simple association score
@@ -568,36 +603,40 @@ class KoberAnalyzer:
                         else:
                             association = observed
 
-                        strong_pairs.append({
-                            'signs': [sign, other_sign],
-                            'co_occurrences': count,
-                            'sign1_freq': sign_freq,
-                            'sign2_freq': other_freq,
-                            'association_score': round(association, 2),
-                        })
+                        strong_pairs.append(
+                            {
+                                "signs": [sign, other_sign],
+                                "co_occurrences": count,
+                                "sign1_freq": sign_freq,
+                                "sign2_freq": other_freq,
+                                "association_score": round(association, 2),
+                            }
+                        )
 
         # Deduplicate (A-B and B-A are the same)
         seen = set()
         unique_pairs = []
         for pair in strong_pairs:
-            key = tuple(sorted(pair['signs']))
+            key = tuple(sorted(pair["signs"]))
             if key not in seen:
                 seen.add(key)
                 unique_pairs.append(pair)
 
         # Sort by association score
-        unique_pairs.sort(key=lambda x: x['association_score'], reverse=True)
+        unique_pairs.sort(key=lambda x: x["association_score"], reverse=True)
 
-        self.results['co_occurrence']['strong_pairs'] = unique_pairs[:30]
-        self.results['co_occurrence']['total_strong_pairs'] = len(unique_pairs)
+        self.results["co_occurrence"]["strong_pairs"] = unique_pairs[:30]
+        self.results["co_occurrence"]["total_strong_pairs"] = len(unique_pairs)
 
         if unique_pairs:
-            self.results['findings'].append({
-                'category': 'co_occurrence',
-                'finding': f"Found {len(unique_pairs)} significant sign co-occurrence patterns",
-                'top_pairs': [f"{p['signs'][0]}-{p['signs'][1]}" for p in unique_pairs[:5]],
-                'confidence': 'MEDIUM',
-            })
+            self.results["findings"].append(
+                {
+                    "category": "co_occurrence",
+                    "finding": f"Found {len(unique_pairs)} significant sign co-occurrence patterns",
+                    "top_pairs": [f"{p['signs'][0]}-{p['signs'][1]}" for p in unique_pairs[:5]],
+                    "confidence": "MEDIUM",
+                }
+            )
 
         self.log(f"Strong co-occurrence pairs: {len(unique_pairs)}")
 
@@ -617,34 +656,40 @@ class KoberAnalyzer:
         print("\n[Phase 7] Investigating K-R paradigm...")
 
         kr_forms = []
-        kr_pattern = re.compile(r'^K[AEIOU]-.*-R[AEIOU]$|^K[AEIOU]-R[AEIOU]$', re.IGNORECASE)
+        kr_pattern = re.compile(r"^K[AEIOU]-.*-R[AEIOU]$|^K[AEIOU]-R[AEIOU]$", re.IGNORECASE)
 
         for word, occurrences in all_words.items():
             if kr_pattern.match(word):
-                kr_forms.append({
-                    'word': word,
-                    'frequency': len(occurrences),
-                    'sites': list(set(o['site'] for o in occurrences if o['site'])),
-                })
+                kr_forms.append(
+                    {
+                        "word": word,
+                        "frequency": len(occurrences),
+                        "sites": list(set(o["site"] for o in occurrences if o["site"])),
+                    }
+                )
 
-        kr_forms.sort(key=lambda x: x['frequency'], reverse=True)
+        kr_forms.sort(key=lambda x: x["frequency"], reverse=True)
 
-        self.results['paradigm_candidates'].append({
-            'paradigm': 'K-R Root',
-            'description': 'Words with K-vowel-R-vowel pattern (ku-ro, ki-ro, ka-i-ro, etc.)',
-            'forms': kr_forms,
-            'hypothesis': 'May indicate ablaut system (vowel alternation for grammatical meaning) or derivational morphology',
-            'significance': 'HIGH - if confirmed, reveals major morphological pattern',
-        })
+        self.results["paradigm_candidates"].append(
+            {
+                "paradigm": "K-R Root",
+                "description": "Words with K-vowel-R-vowel pattern (ku-ro, ki-ro, ka-i-ro, etc.)",
+                "forms": kr_forms,
+                "hypothesis": "May indicate ablaut system (vowel alternation for grammatical meaning) or derivational morphology",
+                "significance": "HIGH - if confirmed, reveals major morphological pattern",
+            }
+        )
 
         if len(kr_forms) >= 2:
-            self.results['findings'].append({
-                'category': 'paradigm',
-                'finding': f"K-R paradigm confirmed: {len(kr_forms)} forms with K-V-R-V pattern",
-                'forms': [f['word'] for f in kr_forms[:5]],
-                'confidence': 'HIGH',
-                'next_steps': 'Verify all K-R forms across corpus; test for semantic/functional relationships',
-            })
+            self.results["findings"].append(
+                {
+                    "category": "paradigm",
+                    "finding": f"K-R paradigm confirmed: {len(kr_forms)} forms with K-V-R-V pattern",
+                    "forms": [f["word"] for f in kr_forms[:5]],
+                    "confidence": "HIGH",
+                    "next_steps": "Verify all K-R forms across corpus; test for semantic/functional relationships",
+                }
+            )
 
         self.log(f"K-R paradigm forms: {len(kr_forms)}")
 
@@ -672,13 +717,13 @@ class KoberAnalyzer:
         self.investigate_kr_paradigm(all_words)
 
         # Finalize metadata
-        self.results['metadata']['generated'] = datetime.now().isoformat()
+        self.results["metadata"]["generated"] = datetime.now().isoformat()
 
         return True
 
     def save_results(self, output_path: Path):
         """Save analysis results to JSON."""
-        with open(output_path, 'w', encoding='utf-8') as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             json.dump(self.results, f, ensure_ascii=False, indent=2)
         print(f"\nResults saved to: {output_path}")
 
@@ -693,24 +738,24 @@ class KoberAnalyzer:
         print(f"Words analyzed: {self.results['word_analysis'].get('total_unique_words', 0)}")
 
         print("\n--- KEY FINDINGS ---")
-        for i, finding in enumerate(self.results['findings'], 1):
+        for i, finding in enumerate(self.results["findings"], 1):
             print(f"\n{i}. [{finding['confidence']}] {finding['finding']}")
-            if 'examples' in finding:
+            if "examples" in finding:
                 print(f"   Examples: {', '.join(finding['examples'][:5])}")
-            if 'top_example' in finding and finding['top_example']:
-                if isinstance(finding['top_example'], dict):
-                    prefix = finding['top_example'].get('prefix', '')
-                    variants = finding['top_example'].get('variants', [])
+            if "top_example" in finding and finding["top_example"]:
+                if isinstance(finding["top_example"], dict):
+                    prefix = finding["top_example"].get("prefix", "")
+                    variants = finding["top_example"].get("variants", [])
                     if prefix:
                         print(f"   Top: {prefix}- → {', '.join(str(v) for v in variants[:3])}")
 
         # Paradigm candidates
-        if self.results['paradigm_candidates']:
+        if self.results["paradigm_candidates"]:
             print("\n--- PARADIGM CANDIDATES ---")
-            for paradigm in self.results['paradigm_candidates']:
+            for paradigm in self.results["paradigm_candidates"]:
                 print(f"\n• {paradigm['paradigm']}")
                 print(f"  {paradigm['description']}")
-                forms = paradigm.get('forms', [])
+                forms = paradigm.get("forms", [])
                 if forms:
                     print(f"  Forms: {', '.join(f['word'] for f in forms[:5])}")
 
@@ -724,21 +769,21 @@ def main():
         description="Run Kober Method pattern analysis on Linear A corpus"
     )
     parser.add_argument(
-        '--output', '-o',
+        "--output",
+        "-o",
         type=str,
-        default='data/pattern_report.json',
-        help='Output path for pattern report (default: data/pattern_report.json)'
+        default="data/pattern_report.json",
+        help="Output path for pattern report (default: data/pattern_report.json)",
     )
     parser.add_argument(
-        '--verbose', '-v',
-        action='store_true',
-        help='Show detailed analysis progress'
+        "--verbose", "-v", action="store_true", help="Show detailed analysis progress"
     )
     parser.add_argument(
-        '--min-freq', '-m',
+        "--min-freq",
+        "-m",
         type=int,
         default=3,
-        help='Minimum frequency threshold for analysis (default: 3)'
+        help="Minimum frequency threshold for analysis (default: 3)",
     )
 
     args = parser.parse_args()
@@ -758,5 +803,5 @@ def main():
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

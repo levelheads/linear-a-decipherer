@@ -42,11 +42,15 @@ def _safe_get(obj: dict[str, Any], *keys: str, default: Any = None) -> Any:
 
 def _submodule_status() -> str:
     try:
-        lines = subprocess.check_output(
-            ["git", "submodule", "status"],
-            cwd=PROJECT_ROOT,
-            text=True,
-        ).strip().splitlines()
+        lines = (
+            subprocess.check_output(
+                ["git", "submodule", "status"],
+                cwd=PROJECT_ROOT,
+                text=True,
+            )
+            .strip()
+            .splitlines()
+        )
         return lines[0].strip() if lines else "none"
     except Exception:
         return "unknown"
@@ -130,14 +134,22 @@ def build_report() -> dict[str, Any]:
         "comparative_access": {
             "sigla_static_signs": _safe_get(sigla, "statistics", "total_signs", default=None),
             "sigla_sites_covered": _safe_get(sigla, "statistics", "sites_covered", default=[]),
-            "damos_vocab_total": _safe_get(damos, "vocabulary_stats", "total_entries", default=None),
-            "damos_cognate_words": _safe_get(damos, "cognates_stats", "identical_words", default=None),
+            "damos_vocab_total": _safe_get(
+                damos, "vocabulary_stats", "total_entries", default=None
+            ),
+            "damos_cognate_words": _safe_get(
+                damos, "cognates_stats", "identical_words", default=None
+            ),
             "oracc_terms_total": _safe_get(oracc, "metadata", "total_terms", default=None),
             "oracc_generated": _safe_get(oracc, "metadata", "generated", default=None),
-            "gorila_index_inscriptions": _safe_get(gorila, "statistics", "total_inscriptions", default=None),
+            "gorila_index_inscriptions": _safe_get(
+                gorila, "statistics", "total_inscriptions", default=None
+            ),
         },
         "data_quality": {
-            "validation_critical_errors": _safe_get(validation, "summary", "critical_errors", default=None),
+            "validation_critical_errors": _safe_get(
+                validation, "summary", "critical_errors", default=None
+            ),
             "validation_warnings": _safe_get(validation, "summary", "warnings", default=None),
             "warning_sample": validation.get("warnings", [])[:8],
             "missing_context_count": missing_context_count,
@@ -219,7 +231,9 @@ def render_markdown(report: dict[str, Any], json_path: Path) -> str:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Generate a corpus access readiness audit snapshot.")
+    parser = argparse.ArgumentParser(
+        description="Generate a corpus access readiness audit snapshot."
+    )
     parser.add_argument(
         "--output",
         "-o",

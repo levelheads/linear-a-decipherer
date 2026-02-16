@@ -77,7 +77,7 @@ class CorpusLookup:
         """Load and index corpus data."""
         try:
             corpus_path = DATA_DIR / "corpus.json"
-            with open(corpus_path, 'r', encoding='utf-8') as f:
+            with open(corpus_path, "r", encoding="utf-8") as f:
                 self.corpus = json.load(f)
 
             self._build_index()
@@ -91,117 +91,124 @@ class CorpusLookup:
         """Build search indexes for fast lookup."""
         print("Building search index...")
 
-        for insc_id, data in self.corpus['inscriptions'].items():
-            if '_parse_error' in data:
+        for insc_id, data in self.corpus["inscriptions"].items():
+            if "_parse_error" in data:
                 continue
 
-            transliterated = data.get('transliteratedWords', [])
+            transliterated = data.get("transliteratedWords", [])
 
             for idx, word in enumerate(transliterated):
-                if not word or word == '\n':
+                if not word or word == "\n":
                     continue
 
                 # Index the word
                 if word not in self.word_index:
                     self.word_index[word] = []
 
-                self.word_index[word].append({
-                    'inscription': insc_id,
-                    'position': idx,
-                    'site': data.get('site', ''),
-                    'site_code': self._extract_site_code(insc_id),
-                    'period': data.get('context', ''),
-                    'support': data.get('support', ''),
-                })
+                self.word_index[word].append(
+                    {
+                        "inscription": insc_id,
+                        "position": idx,
+                        "site": data.get("site", ""),
+                        "site_code": self._extract_site_code(insc_id),
+                        "period": data.get("context", ""),
+                        "support": data.get("support", ""),
+                    }
+                )
 
                 # Index individual signs
-                if '-' in word:
-                    for sign in word.split('-'):
-                        sign_clean = re.sub(r'[₀₁₂₃₄₅₆₇₈₉]', '', sign).upper()
+                if "-" in word:
+                    for sign in word.split("-"):
+                        sign_clean = re.sub(r"[₀₁₂₃₄₅₆₇₈₉]", "", sign).upper()
                         if sign_clean and len(sign_clean) <= 6:
                             if sign_clean not in self.sign_index:
                                 self.sign_index[sign_clean] = []
-                            self.sign_index[sign_clean].append({
-                                'inscription': insc_id,
-                                'position': idx,
-                                'word': word,
-                            })
+                            self.sign_index[sign_clean].append(
+                                {
+                                    "inscription": insc_id,
+                                    "position": idx,
+                                    "word": word,
+                                }
+                            )
 
         print(f"Indexed {len(self.word_index)} unique words, {len(self.sign_index)} unique signs")
 
     def _extract_site_code(self, inscription_id: str) -> str:
         """Extract site code from inscription ID."""
-        match = re.match(r'^([A-Z]+)', inscription_id)
-        return match.group(1) if match else ''
+        match = re.match(r"^([A-Z]+)", inscription_id)
+        return match.group(1) if match else ""
 
     def _get_context(self, inscription_id: str, position: int, context_size: int) -> dict:
         """Get surrounding words for context."""
-        data = self.corpus['inscriptions'].get(inscription_id, {})
-        words = data.get('transliteratedWords', [])
+        data = self.corpus["inscriptions"].get(inscription_id, {})
+        words = data.get("transliteratedWords", [])
 
         start = max(0, position - context_size)
         end = min(len(words), position + context_size + 1)
 
         context_words = []
         for i in range(start, end):
-            w = words[i] if i < len(words) else ''
-            if w == '\n':
-                w = '|'  # Line break marker
+            w = words[i] if i < len(words) else ""
+            if w == "\n":
+                w = "|"  # Line break marker
             context_words.append(w)
 
         # Calculate relative position
         relative_pos = position - start
 
         return {
-            'words': context_words,
-            'target_position': relative_pos,
-            'before': context_words[:relative_pos],
-            'after': context_words[relative_pos + 1:] if relative_pos + 1 < len(context_words) else [],
+            "words": context_words,
+            "target_position": relative_pos,
+            "before": context_words[:relative_pos],
+            "after": context_words[relative_pos + 1 :]
+            if relative_pos + 1 < len(context_words)
+            else [],
         }
 
     def _identify_adjacent_elements(self, inscription_id: str, position: int) -> dict:
         """Identify logograms, numerals, and other elements near the word."""
-        data = self.corpus['inscriptions'].get(inscription_id, {})
-        words = data.get('transliteratedWords', [])
+        data = self.corpus["inscriptions"].get(inscription_id, {})
+        words = data.get("transliteratedWords", [])
 
         result = {
-            'preceding_logogram': None,
-            'following_logogram': None,
-            'following_numeral': None,
-            'line_number': 0,
+            "preceding_logogram": None,
+            "following_logogram": None,
+            "following_numeral": None,
+            "line_number": 0,
         }
 
         # Count newlines to determine line number
         line_num = 1
         for i in range(position):
-            if i < len(words) and words[i] == '\n':
+            if i < len(words) and words[i] == "\n":
                 line_num += 1
-        result['line_number'] = line_num
+        result["line_number"] = line_num
 
         # Check preceding word
         if position > 0:
-            prev = words[position - 1] if position - 1 < len(words) else ''
-            if prev and re.match(r'^[A-Z*\d+\[\]]+$', prev) and '-' not in prev:
-                result['preceding_logogram'] = prev
+            prev = words[position - 1] if position - 1 < len(words) else ""
+            if prev and re.match(r"^[A-Z*\d+\[\]]+$", prev) and "-" not in prev:
+                result["preceding_logogram"] = prev
 
         # Check following words
         for i in range(position + 1, min(position + 3, len(words))):
-            w = words[i] if i < len(words) else ''
-            if w == '\n':
+            w = words[i] if i < len(words) else ""
+            if w == "\n":
                 break
             # Check if logogram
-            if w and re.match(r'^[A-Z*\d+\[\]]+$', w) and '-' not in w:
-                if not result['following_logogram']:
-                    result['following_logogram'] = w
+            if w and re.match(r"^[A-Z*\d+\[\]]+$", w) and "-" not in w:
+                if not result["following_logogram"]:
+                    result["following_logogram"] = w
             # Check if numeral
-            if w and re.match(r'^[\d\s.¹²³⁴⁵⁶⁷⁸⁹⁰/₀₁₂₃₄₅₆₇₈○◎—|≈]+$', w):
-                if not result['following_numeral']:
-                    result['following_numeral'] = w
+            if w and re.match(r"^[\d\s.¹²³⁴⁵⁶⁷⁸⁹⁰/₀₁₂₃₄₅₆₇₈○◎—|≈]+$", w):
+                if not result["following_numeral"]:
+                    result["following_numeral"] = w
 
         return result
 
-    def search_exact(self, query: str, site_filter: str = None,
-                     period_filter: str = None, context_size: int = 0) -> List[dict]:
+    def search_exact(
+        self, query: str, site_filter: str = None, period_filter: str = None, context_size: int = 0
+    ) -> List[dict]:
         """Search for exact word match (case-insensitive)."""
         results = []
 
@@ -214,38 +221,43 @@ class CorpusLookup:
 
         for match in matches:
             # Apply filters
-            if site_filter and not match['site_code'].startswith(site_filter.upper()):
+            if site_filter and not match["site_code"].startswith(site_filter.upper()):
                 continue
-            if period_filter and match['period'] != period_filter:
+            if period_filter and match["period"] != period_filter:
                 continue
 
             result = {
-                'word': query,
-                'inscription': match['inscription'],
-                'position': match['position'],
-                'site': match['site'],
-                'site_code': match['site_code'],
-                'period': match['period'],
-                'support': match['support'],
+                "word": query,
+                "inscription": match["inscription"],
+                "position": match["position"],
+                "site": match["site"],
+                "site_code": match["site_code"],
+                "period": match["period"],
+                "support": match["support"],
             }
 
             # Add context if requested
             if context_size > 0:
-                result['context'] = self._get_context(
-                    match['inscription'], match['position'], context_size
+                result["context"] = self._get_context(
+                    match["inscription"], match["position"], context_size
                 )
 
             # Add adjacent element info
-            result['adjacent'] = self._identify_adjacent_elements(
-                match['inscription'], match['position']
+            result["adjacent"] = self._identify_adjacent_elements(
+                match["inscription"], match["position"]
             )
 
             results.append(result)
 
         return results
 
-    def search_wildcard(self, pattern: str, site_filter: str = None,
-                        period_filter: str = None, context_size: int = 0) -> List[dict]:
+    def search_wildcard(
+        self,
+        pattern: str,
+        site_filter: str = None,
+        period_filter: str = None,
+        context_size: int = 0,
+    ) -> List[dict]:
         """Search using wildcard pattern (* = any, ? = single char)."""
         results = []
 
@@ -260,8 +272,13 @@ class CorpusLookup:
 
         return results
 
-    def search_regex(self, pattern: str, site_filter: str = None,
-                     period_filter: str = None, context_size: int = 0) -> List[dict]:
+    def search_regex(
+        self,
+        pattern: str,
+        site_filter: str = None,
+        period_filter: str = None,
+        context_size: int = 0,
+    ) -> List[dict]:
         """Search using regular expression."""
         results = []
 
@@ -278,34 +295,37 @@ class CorpusLookup:
 
         return results
 
-    def search_sign(self, sign: str, site_filter: str = None,
-                    period_filter: str = None) -> List[dict]:
+    def search_sign(
+        self, sign: str, site_filter: str = None, period_filter: str = None
+    ) -> List[dict]:
         """Search for a specific sign (syllabogram) in any word."""
         results = []
 
-        sign_upper = re.sub(r'[₀₁₂₃₄₅₆₇₈₉]', '', sign).upper()
+        sign_upper = re.sub(r"[₀₁₂₃₄₅₆₇₈₉]", "", sign).upper()
         matches = self.sign_index.get(sign_upper, [])
 
         for match in matches:
-            insc_id = match['inscription']
-            data = self.corpus['inscriptions'].get(insc_id, {})
+            insc_id = match["inscription"]
+            data = self.corpus["inscriptions"].get(insc_id, {})
 
             # Apply filters
             site_code = self._extract_site_code(insc_id)
             if site_filter and not site_code.startswith(site_filter.upper()):
                 continue
-            period = data.get('context', '')
+            period = data.get("context", "")
             if period_filter and period != period_filter:
                 continue
 
-            results.append({
-                'sign': sign_upper,
-                'word': match['word'],
-                'inscription': insc_id,
-                'position': match['position'],
-                'site': data.get('site', ''),
-                'period': period,
-            })
+            results.append(
+                {
+                    "sign": sign_upper,
+                    "word": match["word"],
+                    "inscription": insc_id,
+                    "position": match["position"],
+                    "site": data.get("site", ""),
+                    "period": period,
+                }
+            )
 
         return results
 
@@ -319,16 +339,16 @@ class CorpusLookup:
 
         if not results:
             return {
-                'word': word,
-                'total_occurrences': 0,
-                'verified': False,
-                'message': 'Word not found in corpus',
-                'sites': {},
-                'periods': {},
-                'contexts': {},
-                'consistency_score': 0,
-                'verdict': 'NOT_FOUND',
-                'first_principle_6': 'FAIL',
+                "word": word,
+                "total_occurrences": 0,
+                "verified": False,
+                "message": "Word not found in corpus",
+                "sites": {},
+                "periods": {},
+                "contexts": {},
+                "consistency_score": 0,
+                "verdict": "NOT_FOUND",
+                "first_principle_6": "FAIL",
             }
 
         # Analyze distribution
@@ -337,18 +357,18 @@ class CorpusLookup:
         contexts = defaultdict(int)
 
         for r in results:
-            sites[r['site_code']] += 1
-            if r['period']:
-                periods[r['period']] += 1
+            sites[r["site_code"]] += 1
+            if r["period"]:
+                periods[r["period"]] += 1
 
             # Categorize by context
-            adj = r['adjacent']
-            if adj['following_logogram']:
-                contexts['pre_logogram'] += 1
-            elif adj['following_numeral']:
-                contexts['pre_numeral'] += 1
+            adj = r["adjacent"]
+            if adj["following_logogram"]:
+                contexts["pre_logogram"] += 1
+            elif adj["following_numeral"]:
+                contexts["pre_numeral"] += 1
             else:
-                contexts['other'] += 1
+                contexts["other"] += 1
 
         # Determine consistency
         consistency_score = 0
@@ -366,15 +386,15 @@ class CorpusLookup:
             consistency_score += 1
 
         verification = {
-            'word': word,
-            'total_occurrences': len(results),
-            'sites': dict(sites),
-            'periods': dict(periods),
-            'contexts': dict(contexts),
-            'consistency_score': consistency_score,
-            'verified': consistency_score >= 2,
-            'verdict': 'CONSISTENT' if consistency_score >= 2 else 'NEEDS_REVIEW',
-            'first_principle_6': 'PASS' if consistency_score >= 2 else 'PARTIAL',
+            "word": word,
+            "total_occurrences": len(results),
+            "sites": dict(sites),
+            "periods": dict(periods),
+            "contexts": dict(contexts),
+            "consistency_score": consistency_score,
+            "verified": consistency_score >= 2,
+            "verdict": "CONSISTENT" if consistency_score >= 2 else "NEEDS_REVIEW",
+            "first_principle_6": "PASS" if consistency_score >= 2 else "PARTIAL",
         }
 
         return verification
@@ -385,106 +405,75 @@ class CorpusLookup:
         verification = self.verify_reading_consistency(word)
 
         report = []
-        report.append(f"{'='*60}")
+        report.append(f"{'=' * 60}")
         report.append(f"ATTESTATION REPORT: {word}")
-        report.append(f"{'='*60}")
+        report.append(f"{'=' * 60}")
         report.append(f"Total occurrences: {verification['total_occurrences']}")
         report.append(f"Sites: {', '.join(f'{k}({v})' for k, v in verification['sites'].items())}")
-        report.append(f"Periods: {', '.join(f'{k}({v})' for k, v in verification['periods'].items())}")
-        report.append(f"Contexts: {', '.join(f'{k}({v})' for k, v in verification['contexts'].items())}")
+        report.append(
+            f"Periods: {', '.join(f'{k}({v})' for k, v in verification['periods'].items())}"
+        )
+        report.append(
+            f"Contexts: {', '.join(f'{k}({v})' for k, v in verification['contexts'].items())}"
+        )
         report.append(f"\nFirst Principle #6 Verification: {verification['first_principle_6']}")
         report.append(f"Verdict: {verification['verdict']}")
-        report.append(f"\n{'='*60}")
+        report.append(f"\n{'=' * 60}")
         report.append("ATTESTATIONS:")
-        report.append(f"{'='*60}")
+        report.append(f"{'=' * 60}")
 
         for i, r in enumerate(results[:20], 1):  # Limit to 20 for display
-            ctx = r.get('context', {})
-            before = ' '.join(ctx.get('before', []))
-            after = ' '.join(ctx.get('after', []))
-            adj = r.get('adjacent', {})
+            ctx = r.get("context", {})
+            before = " ".join(ctx.get("before", []))
+            after = " ".join(ctx.get("after", []))
+            adj = r.get("adjacent", {})
 
             report.append(f"\n{i}. {r['inscription']} (Line {adj.get('line_number', '?')})")
             report.append(f"   Site: {r['site']} | Period: {r['period']}")
             report.append(f"   Context: {before} [{word}] {after}")
-            if adj.get('following_logogram'):
+            if adj.get("following_logogram"):
                 report.append(f"   Following logogram: {adj['following_logogram']}")
-            if adj.get('following_numeral'):
+            if adj.get("following_numeral"):
                 report.append(f"   Following numeral: {adj['following_numeral']}")
 
         if len(results) > 20:
             report.append(f"\n... and {len(results) - 20} more occurrences")
 
-        report.append(f"\n{'='*60}")
+        report.append(f"\n{'=' * 60}")
 
-        return '\n'.join(report)
+        return "\n".join(report)
 
 
 def main():
     parser = argparse.ArgumentParser(
         description="Search Linear A corpus for cross-reference verification"
     )
+    parser.add_argument("pattern", nargs="?", help="Search pattern (word, wildcard, or regex)")
+    parser.add_argument("--exact", "-e", action="store_true", help="Exact match (default)")
     parser.add_argument(
-        'pattern',
-        nargs='?',
-        help='Search pattern (word, wildcard, or regex)'
+        "--wildcard", "-w", action="store_true", help="Wildcard match (* = any, ? = single char)"
+    )
+    parser.add_argument("--regex", "-r", action="store_true", help="Regular expression match")
+    parser.add_argument(
+        "--sign", "-s", action="store_true", help="Search for sign (syllabogram) in any word"
     )
     parser.add_argument(
-        '--exact', '-e',
-        action='store_true',
-        help='Exact match (default)'
-    )
-    parser.add_argument(
-        '--wildcard', '-w',
-        action='store_true',
-        help='Wildcard match (* = any, ? = single char)'
-    )
-    parser.add_argument(
-        '--regex', '-r',
-        action='store_true',
-        help='Regular expression match'
-    )
-    parser.add_argument(
-        '--sign', '-s',
-        action='store_true',
-        help='Search for sign (syllabogram) in any word'
-    )
-    parser.add_argument(
-        '--context', '-c',
+        "--context",
+        "-c",
         type=int,
         default=2,
-        help='Number of words context on each side (default: 2)'
+        help="Number of words context on each side (default: 2)",
+    )
+    parser.add_argument("--site", type=str, help="Filter by site code (e.g., HT, KH, ZA)")
+    parser.add_argument("--period", type=str, help="Filter by period (e.g., LMIB, MMIII)")
+    parser.add_argument(
+        "--verify", action="store_true", help="Run First Principle #6 consistency verification"
     )
     parser.add_argument(
-        '--site',
-        type=str,
-        help='Filter by site code (e.g., HT, KH, ZA)'
+        "--report", action="store_true", help="Generate detailed attestation report"
     )
-    parser.add_argument(
-        '--period',
-        type=str,
-        help='Filter by period (e.g., LMIB, MMIII)'
-    )
-    parser.add_argument(
-        '--verify',
-        action='store_true',
-        help='Run First Principle #6 consistency verification'
-    )
-    parser.add_argument(
-        '--report',
-        action='store_true',
-        help='Generate detailed attestation report'
-    )
-    parser.add_argument(
-        '--output', '-o',
-        type=str,
-        help='Write results to JSON file'
-    )
-    parser.add_argument(
-        '--verbose', '-v',
-        action='store_true',
-        help='Show detailed output'
-    )
+    parser.add_argument("--output", "-o", type=str, help="Write results to JSON file")
+    parser.add_argument("--verbose", "-v", action="store_true", help="Show detailed output")
 
     args = parser.parse_args()
 
@@ -507,9 +496,9 @@ def main():
     if args.verify:
         # Run consistency verification
         verification = lookup.verify_reading_consistency(args.pattern)
-        print(f"\n{'='*60}")
+        print(f"\n{'=' * 60}")
         print(f"FIRST PRINCIPLE #6 VERIFICATION: {args.pattern}")
-        print(f"{'='*60}")
+        print(f"{'=' * 60}")
         print(f"Total occurrences: {verification['total_occurrences']}")
         print(f"Sites: {verification['sites']}")
         print(f"Periods: {verification['periods']}")
@@ -517,7 +506,7 @@ def main():
         print(f"Consistency score: {verification['consistency_score']}/3")
         print(f"Verdict: {verification['verdict']}")
         print(f"First Principle #6: {verification['first_principle_6']}")
-        print(f"{'='*60}")
+        print(f"{'=' * 60}")
         return 0
 
     # Regular search
@@ -535,31 +524,36 @@ def main():
 
     if args.output:
         output_path = PROJECT_ROOT / args.output
-        with open(output_path, 'w', encoding='utf-8') as f:
-            json.dump({
-                'query': args.pattern,
-                'total_results': len(results),
-                'results': results,
-            }, f, ensure_ascii=False, indent=2)
+        with open(output_path, "w", encoding="utf-8") as f:
+            json.dump(
+                {
+                    "query": args.pattern,
+                    "total_results": len(results),
+                    "results": results,
+                },
+                f,
+                ensure_ascii=False,
+                indent=2,
+            )
         print(f"Results saved to: {output_path}")
     else:
         # Print to console
-        print(f"\n{'='*60}")
+        print(f"\n{'=' * 60}")
         for i, r in enumerate(results[:30], 1):  # Limit display to 30
             print(f"{i}. {r['inscription']} ({r['site_code']}, {r.get('period', 'N/A')})")
-            if 'context' in r:
-                ctx = r['context']
-                before = ' '.join(ctx.get('before', []))
-                after = ' '.join(ctx.get('after', []))
+            if "context" in r:
+                ctx = r["context"]
+                before = " ".join(ctx.get("before", []))
+                after = " ".join(ctx.get("after", []))
                 print(f"   {before} [{r['word']}] {after}")
 
         if len(results) > 30:
             print(f"\n... and {len(results) - 30} more results")
 
-        print(f"{'='*60}")
+        print(f"{'=' * 60}")
 
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

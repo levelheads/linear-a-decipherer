@@ -337,9 +337,7 @@ def classify_severity(
             f"Word-level mismatch rate reached {max_mismatch:.2%}, indicating strong pipeline disagreement."
         )
     elif max_mismatch > 0:
-        rationale.append(
-            f"Maximum word-level mismatch rate observed: {max_mismatch:.2%}."
-        )
+        rationale.append(f"Maximum word-level mismatch rate observed: {max_mismatch:.2%}.")
 
     if not rationale:
         rationale.append("No significant parity drift detected.")
@@ -496,7 +494,9 @@ def main() -> int:
             "status": severity["level"],
             "dataset_sizes": summarize_sizes(summaries),
             "top_delta": deltas[0] if deltas else None,
-            "top_word_mismatch": max(pairwise, key=lambda row: row["mismatch_rate"]) if pairwise else None,
+            "top_word_mismatch": max(pairwise, key=lambda row: row["mismatch_rate"])
+            if pairwise
+            else None,
         },
         "tool_summaries": [summary.__dict__ for summary in summaries],
         "metric_deltas": deltas,
@@ -509,7 +509,9 @@ def main() -> int:
 
     output_path = Path(args.output).expanduser().resolve()
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    output_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    output_path.write_text(
+        json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
 
     if not args.quiet:
         print("=" * 60)

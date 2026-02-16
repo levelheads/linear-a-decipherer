@@ -38,93 +38,86 @@ DATA_DIR = PROJECT_ROOT / "data"
 # Sources: GORILA, archaeological site reports
 SITE_CHRONOLOGY_DEFAULTS = {
     # Major administrative centers - mostly LMIB
-    'HT': 'LMIB',      # Hagia Triada - destroyed LMIB
-    'HTW': 'LMIB',     # Hagia Triada nodules/sealings
-    'HTZ': 'LMIB',     # Hagia Triada stone vessels
-    'KH': 'LMIB',      # Khania - destroyed LMIB
-    'KHW': 'LMIB',     # Khania nodules/sealings
-    'KHZ': 'LMIB',     # Khania stone vessels
-    'ZA': 'LMIB',      # Zakros - destroyed LMIB
-    'ZAW': 'LMIB',     # Zakros nodules
-    'ZAZ': 'LMIB',     # Zakros stone vessels
-
+    "HT": "LMIB",  # Hagia Triada - destroyed LMIB
+    "HTW": "LMIB",  # Hagia Triada nodules/sealings
+    "HTZ": "LMIB",  # Hagia Triada stone vessels
+    "KH": "LMIB",  # Khania - destroyed LMIB
+    "KHW": "LMIB",  # Khania nodules/sealings
+    "KHZ": "LMIB",  # Khania stone vessels
+    "ZA": "LMIB",  # Zakros - destroyed LMIB
+    "ZAW": "LMIB",  # Zakros nodules
+    "ZAZ": "LMIB",  # Zakros stone vessels
     # Knossos - mixed periods
-    'KN': 'LMIB',      # Default, but varies
-    'KNW': 'LMIB',     # Knossos nodules
-    'KNZ': 'LMIB',     # Knossos stone vessels (includes 2024 scepter)
-
+    "KN": "LMIB",  # Default, but varies
+    "KNW": "LMIB",  # Knossos nodules
+    "KNZ": "LMIB",  # Knossos stone vessels (includes 2024 scepter)
     # Phaistos - earlier periods (palace period)
-    'PH': 'MMIII',     # Phaistos - many early tablets
-    'PHW': 'MMIII',    # Phaistos nodules
-    'PHZ': 'MMIII',    # Phaistos stone vessels
-
+    "PH": "MMIII",  # Phaistos - many early tablets
+    "PHW": "MMIII",  # Phaistos nodules
+    "PHZ": "MMIII",  # Phaistos stone vessels
     # Malia - varied periods
-    'MA': 'MMIII',     # Malia
-    'MAW': 'MMIII',    # Malia nodules
-    'MAZ': 'MMIII',    # Malia stone vessels
-
+    "MA": "MMIII",  # Malia
+    "MAW": "MMIII",  # Malia nodules
+    "MAZ": "MMIII",  # Malia stone vessels
     # Peak sanctuaries and religious sites - typically LMIA-LMIB
-    'IOZ': 'LMIA',     # Mt. Iouktas peak sanctuary
-    'SYZ': 'LMIB',     # Kato Symi sanctuary
-    'PKZ': 'LMIB',     # Palaikastro stone vessels
-    'PSZ': 'LMIB',     # Psychro Cave
-    'PSIZ': 'LMIB',    # Psychro Cave (variant)
-
+    "IOZ": "LMIA",  # Mt. Iouktas peak sanctuary
+    "SYZ": "LMIB",  # Kato Symi sanctuary
+    "PKZ": "LMIB",  # Palaikastro stone vessels
+    "PSZ": "LMIB",  # Psychro Cave
+    "PSIZ": "LMIB",  # Psychro Cave (variant)
     # Other major sites
-    'PK': 'LMIB',      # Palaikastro
-    'PE': 'LMIB',      # Petras
-    'PEW': 'LMIB',     # Petras nodules
-    'PEZ': 'LMIB',     # Petras stone vessels
-    'TY': 'LMIB',      # Tylissos
-    'TYW': 'LMIB',     # Tylissos nodules
-    'TYZ': 'LMIB',     # Tylissos stone vessels
-    'ARKH': 'LMIA',    # Arkhanes
-    'ARKHZ': 'LMIA',   # Arkhanes stone vessels
-    'ARZ': 'LMIA',     # Arkhalkhori
-    'ARGZ': 'LMIA',    # Arkhalkhori (variant)
-    'GO': 'LMIB',      # Gournia
-    'GOW': 'LMIB',     # Gournia nodules
-
+    "PK": "LMIB",  # Palaikastro
+    "PE": "LMIB",  # Petras
+    "PEW": "LMIB",  # Petras nodules
+    "PEZ": "LMIB",  # Petras stone vessels
+    "TY": "LMIB",  # Tylissos
+    "TYW": "LMIB",  # Tylissos nodules
+    "TYZ": "LMIB",  # Tylissos stone vessels
+    "ARKH": "LMIA",  # Arkhanes
+    "ARKHZ": "LMIA",  # Arkhanes stone vessels
+    "ARZ": "LMIA",  # Arkhalkhori
+    "ARGZ": "LMIA",  # Arkhalkhori (variant)
+    "GO": "LMIB",  # Gournia
+    "GOW": "LMIB",  # Gournia nodules
     # Cycladic and off-Crete sites
-    'THE': 'LMIA',     # Thera (pre-eruption)
-    'THEZ': 'LMIA',    # Thera stone vessels
-    'KE': 'LMIB',      # Kea
-    'KEW': 'LMIB',     # Kea nodules
-    'KEZ': 'LMIB',     # Kea stone vessels
-    'KYZ': 'LMIB',     # Kythera
-    'MYZ': 'LMIIIA',   # Mycenae (later reuse)
-    'MILZ': 'LMIB',    # Miletos
-    'TROZ': 'LBI',     # Troy
-
+    "THE": "LMIA",  # Thera (pre-eruption)
+    "THEZ": "LMIA",  # Thera stone vessels
+    "KE": "LMIB",  # Kea
+    "KEW": "LMIB",  # Kea nodules
+    "KEZ": "LMIB",  # Kea stone vessels
+    "KYZ": "LMIB",  # Kythera
+    "MYZ": "LMIIIA",  # Mycenae (later reuse)
+    "MILZ": "LMIB",  # Miletos
+    "TROZ": "LBI",  # Troy
     # Minor sites with sparse evidence
-    'PYR': 'LMIB',     # Pyrgos
-    'PYRW': 'LMIB',
-    'PYRZ': 'LMIB',
-    'MOZ': 'LMIB',     # Mokhilos
-    'VRYZ': 'LMIB',    # Vrysinas
-    'APZ': 'LMIB',     # Apodoulou
-    'CRZ': 'LMIB',     # Crete (general)
-    'CR': 'LMIB',
-    'KAMZ': 'LMIB',    # Kamilari
-    'KANZ': 'LMIB',    # Kannia
-    'KOZ': 'LMIB',     # Kophinas
-    'KO': 'LMIB',
-    'MIZ': 'LMIB',     # Milos
-    'MI': 'LMIB',
-    'SAMW': 'LMIB',    # Samothrace
-    'TELZ': 'LBI',     # Tel Haror (Levant)
-    'TIZ': 'LMIIIA',   # Tiryns (later reuse)
+    "PYR": "LMIB",  # Pyrgos
+    "PYRW": "LMIB",
+    "PYRZ": "LMIB",
+    "MOZ": "LMIB",  # Mokhilos
+    "VRYZ": "LMIB",  # Vrysinas
+    "APZ": "LMIB",  # Apodoulou
+    "CRZ": "LMIB",  # Crete (general)
+    "CR": "LMIB",
+    "KAMZ": "LMIB",  # Kamilari
+    "KANZ": "LMIB",  # Kannia
+    "KOZ": "LMIB",  # Kophinas
+    "KO": "LMIB",
+    "MIZ": "LMIB",  # Milos
+    "MI": "LMIB",
+    "SAMW": "LMIB",  # Samothrace
+    "TELZ": "LBI",  # Tel Haror (Levant)
+    "TIZ": "LMIIIA",  # Tiryns (later reuse)
 }
 
 # Support type chronology hints (some object types are period-specific)
 SUPPORT_CHRONOLOGY_HINTS = {
-    'Nodule': 'LMIB',        # Most nodules from LMIB destruction levels
-    'Roundel': 'LMIB',       # Most roundels from LMIB
-    'Tablet': None,          # Tablets span all periods
-    'Stone vessel': None,    # Vessels span all periods
-    'Clay vessel': None,
-    'Metal object': None,
-    'ivory object': 'LMIB',  # Recent discoveries (Knossos scepter)
+    "Nodule": "LMIB",  # Most nodules from LMIB destruction levels
+    "Roundel": "LMIB",  # Most roundels from LMIB
+    "Tablet": None,  # Tablets span all periods
+    "Stone vessel": None,  # Vessels span all periods
+    "Clay vessel": None,
+    "Metal object": None,
+    "ivory object": "LMIB",  # Recent discoveries (Knossos scepter)
 }
 
 
@@ -137,11 +130,11 @@ class ChronologyEnricher:
         self.corpus = None
         self.changes = []
         self.stats = {
-            'total_inscriptions': 0,
-            'missing_before': 0,
-            'inferred': 0,
-            'by_method': Counter(),
-            'by_period': Counter(),
+            "total_inscriptions": 0,
+            "missing_before": 0,
+            "inferred": 0,
+            "by_method": Counter(),
+            "by_period": Counter(),
         }
 
     def log(self, message: str):
@@ -156,17 +149,18 @@ class ChronologyEnricher:
             print(f"Error: corpus.json not found at {corpus_path}")
             return False
 
-        with open(corpus_path, 'r', encoding='utf-8') as f:
+        with open(corpus_path, "r", encoding="utf-8") as f:
             self.corpus = json.load(f)
 
-        self.stats['total_inscriptions'] = len(self.corpus['inscriptions'])
+        self.stats["total_inscriptions"] = len(self.corpus["inscriptions"])
         return True
 
     def extract_site_code(self, inscription_id: str) -> str:
         """Extract site code from inscription ID."""
         import re
-        match = re.match(r'^([A-Z]+)', inscription_id)
-        return match.group(1) if match else ''
+
+        match = re.match(r"^([A-Z]+)", inscription_id)
+        return match.group(1) if match else ""
 
     def infer_chronology(self, inscription_id: str, data: dict) -> tuple:
         """
@@ -178,7 +172,7 @@ class ChronologyEnricher:
             - confidence: 'high', 'medium', 'low'
         """
         site_code = self.extract_site_code(inscription_id)
-        support = data.get('support', '')
+        support = data.get("support", "")
 
         # Method 1: Site-specific default
         if site_code in SITE_CHRONOLOGY_DEFAULTS:
@@ -190,62 +184,64 @@ class ChronologyEnricher:
                 if hint and hint != chronology:
                     # Support type conflicts with site default
                     # Prefer site-specific data, but note lower confidence
-                    return chronology, 'site_default_support_conflict', 'medium'
+                    return chronology, "site_default_support_conflict", "medium"
 
-            return chronology, 'site_default', 'high'
+            return chronology, "site_default", "high"
 
         # Method 2: Support-type hint
         if support in SUPPORT_CHRONOLOGY_HINTS and SUPPORT_CHRONOLOGY_HINTS[support]:
-            return SUPPORT_CHRONOLOGY_HINTS[support], 'support_hint', 'medium'
+            return SUPPORT_CHRONOLOGY_HINTS[support], "support_hint", "medium"
 
         # Method 3: General LMIB default (most Linear A is from LMIB destruction)
         # This is the period of maximum destruction across Crete
-        return 'LMIB', 'general_default', 'low'
+        return "LMIB", "general_default", "low"
 
     def process_inscriptions(self):
         """Process all inscriptions, inferring missing chronology."""
-        for inscription_id, data in self.corpus['inscriptions'].items():
-            current_context = data.get('context', '')
+        for inscription_id, data in self.corpus["inscriptions"].items():
+            current_context = data.get("context", "")
 
             if not current_context:
-                self.stats['missing_before'] += 1
+                self.stats["missing_before"] += 1
 
                 # Infer chronology
                 inferred, method, confidence = self.infer_chronology(inscription_id, data)
 
                 if inferred:
-                    self.changes.append({
-                        'inscription': inscription_id,
-                        'inferred': inferred,
-                        'method': method,
-                        'confidence': confidence,
-                        'site': data.get('site', ''),
-                        'support': data.get('support', ''),
-                    })
+                    self.changes.append(
+                        {
+                            "inscription": inscription_id,
+                            "inferred": inferred,
+                            "method": method,
+                            "confidence": confidence,
+                            "site": data.get("site", ""),
+                            "support": data.get("support", ""),
+                        }
+                    )
 
-                    self.stats['inferred'] += 1
-                    self.stats['by_method'][method] += 1
-                    self.stats['by_period'][inferred] += 1
+                    self.stats["inferred"] += 1
+                    self.stats["by_method"][method] += 1
+                    self.stats["by_period"][inferred] += 1
 
                     self.log(f"{inscription_id}: {inferred} ({method}, {confidence})")
 
                     # Apply change unless dry run
                     if not self.dry_run:
-                        data['context'] = inferred
-                        data['context_inferred'] = True
-                        data['context_method'] = method
-                        data['context_confidence'] = confidence
+                        data["context"] = inferred
+                        data["context_inferred"] = True
+                        data["context_method"] = method
+                        data["context_confidence"] = confidence
 
     def save_corpus(self, output_path: Path):
         """Save enriched corpus."""
         # Update attribution
-        self.corpus['attribution']['enriched'] = datetime.now().isoformat()
-        self.corpus['attribution']['enrichment_note'] = (
-            'Chronology (context) field enriched for missing entries. '
-            'Inferred values marked with context_inferred=true.'
+        self.corpus["attribution"]["enriched"] = datetime.now().isoformat()
+        self.corpus["attribution"]["enrichment_note"] = (
+            "Chronology (context) field enriched for missing entries. "
+            "Inferred values marked with context_inferred=true."
         )
 
-        with open(output_path, 'w', encoding='utf-8') as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             json.dump(self.corpus, f, ensure_ascii=False, indent=2)
 
     def print_summary(self):
@@ -257,14 +253,14 @@ class ChronologyEnricher:
         print(f"Missing chronology before: {self.stats['missing_before']}")
         print(f"Chronology inferred: {self.stats['inferred']}")
 
-        if self.stats['by_method']:
+        if self.stats["by_method"]:
             print("\nBy inference method:")
-            for method, count in self.stats['by_method'].most_common():
+            for method, count in self.stats["by_method"].most_common():
                 print(f"  {method}: {count}")
 
-        if self.stats['by_period']:
+        if self.stats["by_period"]:
             print("\nBy inferred period:")
-            for period, count in self.stats['by_period'].most_common():
+            for period, count in self.stats["by_period"].most_common():
                 print(f"  {period}: {count}")
 
         if self.dry_run:
@@ -274,18 +270,18 @@ class ChronologyEnricher:
     def generate_changes_report(self, output_path: Path):
         """Generate detailed report of all changes."""
         report = {
-            'generated': datetime.now().isoformat(),
-            'summary': {
-                'total_inscriptions': self.stats['total_inscriptions'],
-                'missing_before': self.stats['missing_before'],
-                'inferred': self.stats['inferred'],
-                'by_method': dict(self.stats['by_method']),
-                'by_period': dict(self.stats['by_period']),
+            "generated": datetime.now().isoformat(),
+            "summary": {
+                "total_inscriptions": self.stats["total_inscriptions"],
+                "missing_before": self.stats["missing_before"],
+                "inferred": self.stats["inferred"],
+                "by_method": dict(self.stats["by_method"]),
+                "by_period": dict(self.stats["by_period"]),
             },
-            'changes': self.changes,
+            "changes": self.changes,
         }
 
-        with open(output_path, 'w', encoding='utf-8') as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             json.dump(report, f, ensure_ascii=False, indent=2)
 
         print(f"\nDetailed report: {output_path}")
@@ -296,26 +292,27 @@ def main():
         description="Enrich Linear A corpus with inferred chronology data"
     )
     parser.add_argument(
-        '--dry-run', '-n',
-        action='store_true',
-        help='Show what would be changed without modifying files'
+        "--dry-run",
+        "-n",
+        action="store_true",
+        help="Show what would be changed without modifying files",
     )
     parser.add_argument(
-        '--verbose', '-v',
-        action='store_true',
-        help='Show detailed reasoning for each inference'
+        "--verbose", "-v", action="store_true", help="Show detailed reasoning for each inference"
     )
     parser.add_argument(
-        '--output', '-o',
+        "--output",
+        "-o",
         type=str,
-        default='data/corpus.json',
-        help='Output path for enriched corpus (default: data/corpus.json)'
+        default="data/corpus.json",
+        help="Output path for enriched corpus (default: data/corpus.json)",
     )
     parser.add_argument(
-        '--report', '-r',
+        "--report",
+        "-r",
         type=str,
-        default='data/chronology_enrichment_report.json',
-        help='Path for detailed changes report'
+        default="data/chronology_enrichment_report.json",
+        help="Path for detailed changes report",
     )
 
     args = parser.parse_args()
@@ -351,5 +348,5 @@ def main():
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

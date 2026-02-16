@@ -44,43 +44,61 @@ OUTPUT_DIR = DATA_DIR / "audit"
 
 # Known commodity logograms
 COMMODITY_LOGOGRAMS = {
-    'GRA', 'VIN', 'OLE', 'OLIV', 'FIC', 'FAR', 'CYP',  # goods
-    'OVI', 'CAP', 'SUS', 'BOS',  # animals
-    'VIR', 'MUL',  # people
-    'TELA',  # textiles
+    "GRA",
+    "VIN",
+    "OLE",
+    "OLIV",
+    "FIC",
+    "FAR",
+    "CYP",  # goods
+    "OVI",
+    "CAP",
+    "SUS",
+    "BOS",  # animals
+    "VIR",
+    "MUL",  # people
+    "TELA",  # textiles
     # Ligature variants
-    'OLE+U', 'OLE+A', 'OLE+E', 'OLE+KI', 'OLE+MI', 'OLE+TU', 'OLE+DI',
-    'VIN+A', 'VIN+DU',
-    'GRA+PA', 'GRA+A',
+    "OLE+U",
+    "OLE+A",
+    "OLE+E",
+    "OLE+KI",
+    "OLE+MI",
+    "OLE+TU",
+    "OLE+DI",
+    "VIN+A",
+    "VIN+DU",
+    "GRA+PA",
+    "GRA+A",
 }
 
 # Administrative function words (candidates for positional analysis)
-FUNCTION_WORD_CANDIDATES = {'TE', 'KU-RO', 'KI-RO', 'SA-RA₂', 'A-DU', 'DA-RE'}
+FUNCTION_WORD_CANDIDATES = {"TE", "KU-RO", "KI-RO", "SA-RA₂", "A-DU", "DA-RE"}
 
 # Fraction mappings (Unicode superscript → Fraction object)
 FRACTION_MAP = {
-    '¹⁄₂': Fraction(1, 2),
-    '½': Fraction(1, 2),
-    '¹⁄₄': Fraction(1, 4),
-    '¼': Fraction(1, 4),
-    '³⁄₄': Fraction(3, 4),
-    '¾': Fraction(3, 4),
-    '¹⁄₃': Fraction(1, 3),
-    '⅓': Fraction(1, 3),
-    '²⁄₃': Fraction(2, 3),
-    '⅔': Fraction(2, 3),
-    '¹⁄₈': Fraction(1, 8),
-    '⅛': Fraction(1, 8),
-    '³⁄₈': Fraction(3, 8),
-    '⅜': Fraction(3, 8),
-    '¹⁄₁₆': Fraction(1, 16),
-    '~¹⁄₆': Fraction(1, 6),  # approximate
-    '¹⁄₆': Fraction(1, 6),
-    'J': Fraction(1, 4),  # AB 164
-    'E': Fraction(1, 2),  # AB 162
-    'F': Fraction(1, 3),  # AB 163
-    'K': Fraction(1, 8),  # AB 165
-    'L': Fraction(1, 16), # AB 166
+    "¹⁄₂": Fraction(1, 2),
+    "½": Fraction(1, 2),
+    "¹⁄₄": Fraction(1, 4),
+    "¼": Fraction(1, 4),
+    "³⁄₄": Fraction(3, 4),
+    "¾": Fraction(3, 4),
+    "¹⁄₃": Fraction(1, 3),
+    "⅓": Fraction(1, 3),
+    "²⁄₃": Fraction(2, 3),
+    "⅔": Fraction(2, 3),
+    "¹⁄₈": Fraction(1, 8),
+    "⅛": Fraction(1, 8),
+    "³⁄₈": Fraction(3, 8),
+    "⅜": Fraction(3, 8),
+    "¹⁄₁₆": Fraction(1, 16),
+    "~¹⁄₆": Fraction(1, 6),  # approximate
+    "¹⁄₆": Fraction(1, 6),
+    "J": Fraction(1, 4),  # AB 164
+    "E": Fraction(1, 2),  # AB 162
+    "F": Fraction(1, 3),  # AB 163
+    "K": Fraction(1, 8),  # AB 165
+    "L": Fraction(1, 16),  # AB 166
 }
 
 
@@ -88,9 +106,11 @@ FRACTION_MAP = {
 # DATA CLASSES
 # ============================================================================
 
+
 @dataclass
 class TotalValidation:
     """Result of validating a KU-RO total."""
+
     tablet_id: str
     kuro_value: Fraction
     computed_sum: Fraction
@@ -104,6 +124,7 @@ class TotalValidation:
 @dataclass
 class CooccurrenceData:
     """Token-commodity co-occurrence statistics."""
+
     token: str
     commodities: Dict[str, int]  # commodity → count
     total_occurrences: int
@@ -114,6 +135,7 @@ class CooccurrenceData:
 @dataclass
 class PositionalAnalysis:
     """Positional analysis for a function word candidate."""
+
     word: str
     total_occurrences: int
     position_distribution: Dict[str, int]  # INITIAL, MEDIAL, FINAL
@@ -128,6 +150,7 @@ class PositionalAnalysis:
 # ============================================================================
 # CORPUS AUDITOR
 # ============================================================================
+
 
 class CorpusAuditor:
     """
@@ -146,9 +169,9 @@ class CorpusAuditor:
     def load_corpus(self) -> bool:
         """Load the corpus data."""
         try:
-            with open(CORPUS_FILE, 'r', encoding='utf-8') as f:
+            with open(CORPUS_FILE, "r", encoding="utf-8") as f:
                 self.corpus = json.load(f)
-            self.inscriptions = self.corpus.get('inscriptions', {})
+            self.inscriptions = self.corpus.get("inscriptions", {})
             print(f"Loaded {len(self.inscriptions)} inscriptions")
             return True
         except Exception as e:
@@ -168,13 +191,13 @@ class CorpusAuditor:
             pass
 
         # Try parsing "X Y/Z" format
-        match = re.match(r'^(\d+)\s+(\d+)/(\d+)$', token)
+        match = re.match(r"^(\d+)\s+(\d+)/(\d+)$", token)
         if match:
             whole, num, denom = int(match.group(1)), int(match.group(2)), int(match.group(3))
             return Fraction(whole * denom + num, denom)
 
         # Try parsing "X/Y" format
-        match = re.match(r'^(\d+)/(\d+)$', token)
+        match = re.match(r"^(\d+)/(\d+)$", token)
         if match:
             return Fraction(int(match.group(1)), int(match.group(2)))
 
@@ -186,14 +209,14 @@ class CorpusAuditor:
         if token in COMMODITY_LOGOGRAMS:
             return True
         # Check for ligature (contains +)
-        if '+' in token:
-            base = token.split('+')[0]
-            return base in {'OLE', 'VIN', 'GRA', 'FIC', 'CYP', 'VIR', 'TELA'}
+        if "+" in token:
+            base = token.split("+")[0]
+            return base in {"OLE", "VIN", "GRA", "FIC", "CYP", "VIR", "TELA"}
         return False
 
     def _is_word(self, token: str) -> bool:
         """Check if token is a syllabic word (not number, divider, newline, logogram)."""
-        if token in {'\n', '𐄁', '', ' '}:
+        if token in {"\n", "𐄁", "", " "}:
             return False
         if self._parse_number(token) is not None:
             return False
@@ -201,15 +224,15 @@ class CorpusAuditor:
             return False
         if token.startswith('"'):
             return False
-        if token == '*':  # Reject bare asterisk only
+        if token == "*":  # Reject bare asterisk only
             return False
         # *NNN-XX patterns are valid entity names (undeciphered sign codes) - allow them
         return True
 
     def _extract_site(self, tablet_id: str) -> str:
         """Extract site code from tablet ID."""
-        match = re.match(r'^([A-Z]+)', tablet_id)
-        return match.group(1) if match else 'UNKNOWN'
+        match = re.match(r"^([A-Z]+)", tablet_id)
+        return match.group(1) if match else "UNKNOWN"
 
     # ========================================================================
     # 1. ARITHMETIC VALIDATION
@@ -228,20 +251,20 @@ class CorpusAuditor:
         results = []
 
         for tablet_id, data in self.inscriptions.items():
-            words = data.get('transliteratedWords', [])
-            if 'KU-RO' not in words:
+            words = data.get("transliteratedWords", [])
+            if "KU-RO" not in words:
                 continue
 
             self.log(f"Validating {tablet_id}...")
 
             # Find KU-RO position(s)
-            kuro_indices = [i for i, w in enumerate(words) if w == 'KU-RO']
+            kuro_indices = [i for i, w in enumerate(words) if w == "KU-RO"]
 
             for kuro_idx in kuro_indices:
                 # Get KU-RO value (next numeric tokens)
                 kuro_value = Fraction(0)
                 for i in range(kuro_idx + 1, min(kuro_idx + 4, len(words))):
-                    if words[i] == '\n':
+                    if words[i] == "\n":
                         break
                     num = self._parse_number(words[i])
                     if num is not None:
@@ -259,7 +282,7 @@ class CorpusAuditor:
                 for i in range(kuro_idx):
                     token = words[i]
 
-                    if token == '\n':
+                    if token == "\n":
                         if current_entity and current_amount > 0:
                             items.append((current_entity, current_amount))
                             computed_sum += current_amount
@@ -283,27 +306,29 @@ class CorpusAuditor:
                 difference = abs(kuro_value - computed_sum)
                 if difference == 0:
                     matches = True
-                    confidence = 'VERIFIED'
+                    confidence = "VERIFIED"
                 elif difference <= Fraction(1, 4):
                     matches = False
-                    confidence = 'PARTIAL'  # Small discrepancy (rounding?)
+                    confidence = "PARTIAL"  # Small discrepancy (rounding?)
                 elif len(items) == 0:
                     matches = False
-                    confidence = 'INCOMPLETE'  # Can't verify without items
+                    confidence = "INCOMPLETE"  # Can't verify without items
                 else:
                     matches = False
-                    confidence = 'MISMATCH'
+                    confidence = "MISMATCH"
 
-                results.append(TotalValidation(
-                    tablet_id=tablet_id,
-                    kuro_value=kuro_value,
-                    computed_sum=computed_sum,
-                    items=items,
-                    matches=matches,
-                    difference=difference,
-                    confidence=confidence,
-                    notes=f"{len(items)} items parsed"
-                ))
+                results.append(
+                    TotalValidation(
+                        tablet_id=tablet_id,
+                        kuro_value=kuro_value,
+                        computed_sum=computed_sum,
+                        items=items,
+                        matches=matches,
+                        difference=difference,
+                        confidence=confidence,
+                        notes=f"{len(items)} items parsed",
+                    )
+                )
 
         return results
 
@@ -314,35 +339,50 @@ class CorpusAuditor:
         print("=" * 70)
 
         # Summary
-        verified = sum(1 for r in results if r.confidence == 'VERIFIED')
-        partial = sum(1 for r in results if r.confidence == 'PARTIAL')
-        mismatch = sum(1 for r in results if r.confidence == 'MISMATCH')
-        incomplete = sum(1 for r in results if r.confidence == 'INCOMPLETE')
+        verified = sum(1 for r in results if r.confidence == "VERIFIED")
+        partial = sum(1 for r in results if r.confidence == "PARTIAL")
+        mismatch = sum(1 for r in results if r.confidence == "MISMATCH")
+        incomplete = sum(1 for r in results if r.confidence == "INCOMPLETE")
 
         print(f"\nSummary: {len(results)} KU-RO instances analyzed")
-        print(f"  VERIFIED:   {verified:3d} ({100*verified/len(results):.1f}%)" if results else "")
-        print(f"  PARTIAL:    {partial:3d} ({100*partial/len(results):.1f}%)" if results else "")
-        print(f"  MISMATCH:   {mismatch:3d} ({100*mismatch/len(results):.1f}%)" if results else "")
-        print(f"  INCOMPLETE: {incomplete:3d} ({100*incomplete/len(results):.1f}%)" if results else "")
+        print(
+            f"  VERIFIED:   {verified:3d} ({100 * verified / len(results):.1f}%)" if results else ""
+        )
+        print(
+            f"  PARTIAL:    {partial:3d} ({100 * partial / len(results):.1f}%)" if results else ""
+        )
+        print(
+            f"  MISMATCH:   {mismatch:3d} ({100 * mismatch / len(results):.1f}%)" if results else ""
+        )
+        print(
+            f"  INCOMPLETE: {incomplete:3d} ({100 * incomplete / len(results):.1f}%)"
+            if results
+            else ""
+        )
 
         # Detail on mismatches (most interesting for research)
         if mismatch > 0:
             print("\n--- MISMATCHES (require investigation) ---")
             for r in results:
-                if r.confidence == 'MISMATCH':
+                if r.confidence == "MISMATCH":
                     print(f"\n{r.tablet_id}:")
                     print(f"  KU-RO value:  {float(r.kuro_value):.4f}")
                     print(f"  Computed sum: {float(r.computed_sum):.4f}")
                     print(f"  Difference:   {float(r.difference):.4f}")
-                    print(f"  Items: {r.items[:5]}..." if len(r.items) > 5 else f"  Items: {r.items}")
+                    print(
+                        f"  Items: {r.items[:5]}..." if len(r.items) > 5 else f"  Items: {r.items}"
+                    )
 
         # Fraction value inference
         print("\n--- FRACTION CONSISTENCY CHECK ---")
-        fraction_tablets = [r for r in results if r.kuro_value != int(r.kuro_value) or
-                          r.computed_sum != int(r.computed_sum)]
+        fraction_tablets = [
+            r
+            for r in results
+            if r.kuro_value != int(r.kuro_value) or r.computed_sum != int(r.computed_sum)
+        ]
         print(f"Tablets with fractions: {len(fraction_tablets)}")
         if fraction_tablets:
-            verified_fracs = [r for r in fraction_tablets if r.confidence == 'VERIFIED']
+            verified_fracs = [r for r in fraction_tablets if r.confidence == "VERIFIED"]
             print(f"  Verified with fractions: {len(verified_fracs)}")
             print("  (These constrain fraction sign values)")
 
@@ -362,13 +402,13 @@ class CorpusAuditor:
         token_counts = Counter()
 
         for tablet_id, data in self.inscriptions.items():
-            words = data.get('transliteratedWords', [])
+            words = data.get("transliteratedWords", [])
 
             # Process line by line
             lines = []
             current_line = []
             for w in words:
-                if w == '\n':
+                if w == "\n":
                     if current_line:
                         lines.append(current_line)
                     current_line = []
@@ -386,7 +426,7 @@ class CorpusAuditor:
                     token_counts[token] += 1
                     for commodity in commodities_in_line:
                         # Normalize ligatures to base
-                        base_commodity = commodity.split('+')[0] if '+' in commodity else commodity
+                        base_commodity = commodity.split("+")[0] if "+" in commodity else commodity
                         cooccurrence[token][base_commodity] += 1
 
         # Build results
@@ -396,7 +436,7 @@ class CorpusAuditor:
             if total < 2:  # Skip hapax
                 continue
 
-            primary = max(commodities.keys(), key=lambda c: commodities[c]) if commodities else ''
+            primary = max(commodities.keys(), key=lambda c: commodities[c]) if commodities else ""
             primary_count = commodities.get(primary, 0)
             specificity = primary_count / sum(commodities.values()) if commodities else 0
 
@@ -405,7 +445,7 @@ class CorpusAuditor:
                 commodities=dict(commodities),
                 total_occurrences=total,
                 primary_commodity=primary,
-                specificity=specificity
+                specificity=specificity,
             )
 
         return results
@@ -426,17 +466,21 @@ class CorpusAuditor:
         print("These tokens strongly associate with one commodity type:\n")
         high_spec = [t for t in sorted_tokens if t.specificity > 0.8 and t.total_occurrences >= 3]
         for t in high_spec[:20]:
-            print(f"  {t.token:20s} → {t.primary_commodity:6s} "
-                  f"({t.specificity:.0%}, n={t.total_occurrences})")
+            print(
+                f"  {t.token:20s} → {t.primary_commodity:6s} "
+                f"({t.specificity:.0%}, n={t.total_occurrences})"
+            )
 
         # Low specificity tokens (likely function words or general terms)
         print("\n--- LOW SPECIFICITY (<40% any commodity) ---")
         print("These tokens appear across multiple commodity types:\n")
-        low_spec = [t for t in sorted_tokens if t.specificity < 0.4 and
-                    sum(t.commodities.values()) >= 3]
+        low_spec = [
+            t for t in sorted_tokens if t.specificity < 0.4 and sum(t.commodities.values()) >= 3
+        ]
         for t in low_spec[:15]:
-            comm_str = ', '.join(f"{c}:{n}" for c, n in
-                                sorted(t.commodities.items(), key=lambda x: -x[1])[:3])
+            comm_str = ", ".join(
+                f"{c}:{n}" for c, n in sorted(t.commodities.items(), key=lambda x: -x[1])[:3]
+            )
             print(f"  {t.token:20s} → [{comm_str}] (n={t.total_occurrences})")
 
         # Commodity distribution summary
@@ -469,8 +513,8 @@ class CorpusAuditor:
         total = 0
 
         for tablet_id, data in self.inscriptions.items():
-            words = data.get('transliteratedWords', [])
-            scribe = data.get('scribe', 'Unknown')
+            words = data.get("transliteratedWords", [])
+            scribe = data.get("scribe", "Unknown")
             site = self._extract_site(tablet_id)
 
             # Find word occurrences
@@ -484,31 +528,31 @@ class CorpusAuditor:
                 # Determine line position
                 # Find line boundaries
                 line_start = idx
-                while line_start > 0 and words[line_start - 1] != '\n':
+                while line_start > 0 and words[line_start - 1] != "\n":
                     line_start -= 1
                 line_end = idx
-                while line_end < len(words) - 1 and words[line_end + 1] != '\n':
+                while line_end < len(words) - 1 and words[line_end + 1] != "\n":
                     line_end += 1
 
                 line_len = line_end - line_start + 1
                 pos_in_line = idx - line_start
 
                 if pos_in_line == 0:
-                    position_dist['INITIAL'] += 1
+                    position_dist["INITIAL"] += 1
                 elif pos_in_line == line_len - 1:
-                    position_dist['FINAL'] += 1
+                    position_dist["FINAL"] += 1
                 else:
-                    position_dist['MEDIAL'] += 1
+                    position_dist["MEDIAL"] += 1
 
                 # Get neighbors (skip newlines)
                 left_idx = idx - 1
-                while left_idx >= 0 and words[left_idx] == '\n':
+                while left_idx >= 0 and words[left_idx] == "\n":
                     left_idx -= 1
                 if left_idx >= 0:
                     left_neighbors[words[left_idx]] += 1
 
                 right_idx = idx + 1
-                while right_idx < len(words) and words[right_idx] == '\n':
+                while right_idx < len(words) and words[right_idx] == "\n":
                     right_idx += 1
                 if right_idx < len(words):
                     right_neighbors[words[right_idx]] += 1
@@ -516,6 +560,7 @@ class CorpusAuditor:
         # Calculate position entropy
         if total > 0:
             import math
+
             probs = [c / total for c in position_dist.values()]
             entropy = -sum(p * math.log2(p) for p in probs if p > 0)
             max_entropy = math.log2(3)  # 3 positions
@@ -524,9 +569,9 @@ class CorpusAuditor:
             normalized_entropy = 0
 
         # Infer role hypothesis
-        if position_dist.get('INITIAL', 0) / total > 0.6 if total > 0 else False:
+        if position_dist.get("INITIAL", 0) / total > 0.6 if total > 0 else False:
             role = "Header/Topic marker (line-initial)"
-        elif position_dist.get('FINAL', 0) / total > 0.6 if total > 0 else False:
+        elif position_dist.get("FINAL", 0) / total > 0.6 if total > 0 else False:
             role = "Total/Summary marker (line-final)"
         elif normalized_entropy < 0.5:
             role = "Fixed position function word"
@@ -542,7 +587,7 @@ class CorpusAuditor:
             right_neighbors=right_neighbors,
             scribe_distribution=dict(scribe_dist),
             site_distribution=dict(site_dist),
-            role_hypothesis=role
+            role_hypothesis=role,
         )
 
     def print_function_word_report(self, analysis: PositionalAnalysis):
@@ -555,33 +600,33 @@ class CorpusAuditor:
 
         print("\n--- POSITION DISTRIBUTION ---")
         total = analysis.total_occurrences or 1
-        for pos in ['INITIAL', 'MEDIAL', 'FINAL']:
+        for pos in ["INITIAL", "MEDIAL", "FINAL"]:
             count = analysis.position_distribution.get(pos, 0)
-            bar = '█' * int(50 * count / total)
-            print(f"  {pos:8s}: {count:3d} ({100*count/total:5.1f}%) {bar}")
+            bar = "█" * int(50 * count / total)
+            print(f"  {pos:8s}: {count:3d} ({100 * count / total:5.1f}%) {bar}")
 
         print(f"\nPosition entropy: {analysis.line_position_entropy:.3f} (0=fixed, 1=uniform)")
         print(f"Role hypothesis: {analysis.role_hypothesis}")
 
         print("\n--- TOP LEFT NEIGHBORS ---")
         for token, count in analysis.left_neighbors.most_common(10):
-            if token not in {'\n', '𐄁'}:
+            if token not in {"\n", "𐄁"}:
                 print(f"  {token:20s}: {count}")
 
         print("\n--- TOP RIGHT NEIGHBORS ---")
         for token, count in analysis.right_neighbors.most_common(10):
-            if token not in {'\n', '𐄁'}:
+            if token not in {"\n", "𐄁"}:
                 print(f"  {token:20s}: {count}")
 
         print("\n--- SITE DISTRIBUTION ---")
-        for site, count in sorted(analysis.site_distribution.items(),
-                                  key=lambda x: -x[1]):
+        for site, count in sorted(analysis.site_distribution.items(), key=lambda x: -x[1]):
             print(f"  {site:4s}: {count:3d}")
 
         if len(analysis.scribe_distribution) > 1:
             print("\n--- SCRIBE DISTRIBUTION ---")
-            for scribe, count in sorted(analysis.scribe_distribution.items(),
-                                        key=lambda x: -x[1])[:5]:
+            for scribe, count in sorted(analysis.scribe_distribution.items(), key=lambda x: -x[1])[
+                :5
+            ]:
                 if scribe:
                     print(f"  {scribe[:25]:25s}: {count:3d}")
 
@@ -595,29 +640,25 @@ class CorpusAuditor:
         print("LINEAR A CORPUS AUDIT")
         print("=" * 70)
 
-        results = {
-            'totals': None,
-            'cooccurrence': None,
-            'function_words': {}
-        }
+        results = {"totals": None, "cooccurrence": None, "function_words": {}}
 
         # 1. Arithmetic validation
         print("\n[1/3] Running arithmetic validation...")
         totals = self.validate_totals()
-        results['totals'] = totals
+        results["totals"] = totals
         self.print_totals_report(totals)
 
         # 2. Co-occurrence analysis
         print("\n[2/3] Building co-occurrence matrix...")
         coocc = self.build_cooccurrence()
-        results['cooccurrence'] = coocc
+        results["cooccurrence"] = coocc
         self.print_cooccurrence_report(coocc)
 
         # 3. Function word analysis for key candidates
         print("\n[3/3] Analyzing function words...")
-        for word in ['TE', 'KU-RO', 'KI-RO']:
+        for word in ["TE", "KU-RO", "KI-RO"]:
             analysis = self.analyze_function_word(word)
-            results['function_words'][word] = analysis
+            results["function_words"][word] = analysis
             self.print_function_word_report(analysis)
 
         return results
@@ -630,46 +671,46 @@ class CorpusAuditor:
 
         # Convert to serializable format
         output = {
-            'metadata': {
-                'generated': str(Path(__file__).name),
-                'inscriptions_analyzed': len(self.inscriptions),
+            "metadata": {
+                "generated": str(Path(__file__).name),
+                "inscriptions_analyzed": len(self.inscriptions),
             },
-            'totals_validation': [
+            "totals_validation": [
                 {
-                    'tablet_id': r.tablet_id,
-                    'kuro_value': float(r.kuro_value),
-                    'computed_sum': float(r.computed_sum),
-                    'matches': r.matches,
-                    'difference': float(r.difference),
-                    'confidence': r.confidence,
-                    'item_count': len(r.items),
+                    "tablet_id": r.tablet_id,
+                    "kuro_value": float(r.kuro_value),
+                    "computed_sum": float(r.computed_sum),
+                    "matches": r.matches,
+                    "difference": float(r.difference),
+                    "confidence": r.confidence,
+                    "item_count": len(r.items),
                 }
-                for r in (results.get('totals') or [])
+                for r in (results.get("totals") or [])
             ],
-            'cooccurrence_summary': {
+            "cooccurrence_summary": {
                 token: {
-                    'commodities': data.commodities,
-                    'total': data.total_occurrences,
-                    'primary': data.primary_commodity,
-                    'specificity': data.specificity,
+                    "commodities": data.commodities,
+                    "total": data.total_occurrences,
+                    "primary": data.primary_commodity,
+                    "specificity": data.specificity,
                 }
-                for token, data in list((results.get('cooccurrence') or {}).items())[:100]
+                for token, data in list((results.get("cooccurrence") or {}).items())[:100]
             },
-            'function_word_analysis': {
+            "function_word_analysis": {
                 word: {
-                    'occurrences': a.total_occurrences,
-                    'position_distribution': a.position_distribution,
-                    'entropy': a.line_position_entropy,
-                    'role_hypothesis': a.role_hypothesis,
-                    'top_left_neighbors': dict(a.left_neighbors.most_common(10)),
-                    'top_right_neighbors': dict(a.right_neighbors.most_common(10)),
-                    'site_distribution': a.site_distribution,
+                    "occurrences": a.total_occurrences,
+                    "position_distribution": a.position_distribution,
+                    "entropy": a.line_position_entropy,
+                    "role_hypothesis": a.role_hypothesis,
+                    "top_left_neighbors": dict(a.left_neighbors.most_common(10)),
+                    "top_right_neighbors": dict(a.right_neighbors.most_common(10)),
+                    "site_distribution": a.site_distribution,
                 }
-                for word, a in (results.get('function_words') or {}).items()
-            }
+                for word, a in (results.get("function_words") or {}).items()
+            },
         }
 
-        with open(output_path, 'w', encoding='utf-8') as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             json.dump(output, f, indent=2, ensure_ascii=False)
 
         print(f"\nResults saved to: {output_path}")
@@ -679,22 +720,26 @@ class CorpusAuditor:
 # CLI
 # ============================================================================
 
+
 def main():
     parser = argparse.ArgumentParser(
-        description='Corpus Auditor for Linear A - structural analysis without language assumptions'
+        description="Corpus Auditor for Linear A - structural analysis without language assumptions"
     )
-    parser.add_argument('--totals', action='store_true',
-                       help='Validate KU-RO arithmetic totals')
-    parser.add_argument('--cooccurrence', action='store_true',
-                       help='Build token-commodity co-occurrence matrix')
-    parser.add_argument('--function-word', type=str, metavar='WORD',
-                       help='Analyze positional distribution of a function word')
-    parser.add_argument('--all', action='store_true',
-                       help='Run full audit (totals + cooccurrence + function words)')
-    parser.add_argument('--save', action='store_true',
-                       help='Save results to JSON')
-    parser.add_argument('--verbose', '-v', action='store_true',
-                       help='Verbose output')
+    parser.add_argument("--totals", action="store_true", help="Validate KU-RO arithmetic totals")
+    parser.add_argument(
+        "--cooccurrence", action="store_true", help="Build token-commodity co-occurrence matrix"
+    )
+    parser.add_argument(
+        "--function-word",
+        type=str,
+        metavar="WORD",
+        help="Analyze positional distribution of a function word",
+    )
+    parser.add_argument(
+        "--all", action="store_true", help="Run full audit (totals + cooccurrence + function words)"
+    )
+    parser.add_argument("--save", action="store_true", help="Save results to JSON")
+    parser.add_argument("--verbose", "-v", action="store_true", help="Verbose output")
 
     args = parser.parse_args()
 
@@ -713,22 +758,22 @@ def main():
     else:
         if args.totals:
             totals = auditor.validate_totals()
-            results['totals'] = totals
+            results["totals"] = totals
             auditor.print_totals_report(totals)
 
         if args.cooccurrence:
             coocc = auditor.build_cooccurrence()
-            results['cooccurrence'] = coocc
+            results["cooccurrence"] = coocc
             auditor.print_cooccurrence_report(coocc)
 
         if args.function_word:
             analysis = auditor.analyze_function_word(args.function_word)
-            results['function_words'] = {args.function_word: analysis}
+            results["function_words"] = {args.function_word: analysis}
             auditor.print_function_word_report(analysis)
 
     if args.save and results:
         auditor.save_results(results)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

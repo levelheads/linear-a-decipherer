@@ -76,7 +76,8 @@ def pick_candidates(
     if explicit:
         wanted = {item.casefold() for item in explicit}
         selected = [
-            row for row in integrated_rows
+            row
+            for row in integrated_rows
             if isinstance(row.get("word"), str) and row["word"].casefold() in wanted
         ]
         # Preserve explicit order
@@ -123,10 +124,7 @@ def classify_candidate(
     missing_anchor_refs = [dep for dep in depends_on if dep not in anchors]
     has_valid_trace = bool(depends_on) and not missing_anchor_refs
 
-    suggested = [
-        dep for dep in HYPOTHESIS_TO_ANCHORS.get(best_hypothesis, [])
-        if dep in anchors
-    ]
+    suggested = [dep for dep in HYPOTHESIS_TO_ANCHORS.get(best_hypothesis, []) if dep in anchors]
     resolvable = (not has_valid_trace) and bool(suggested)
 
     if has_valid_trace:
@@ -191,7 +189,9 @@ def apply_resolution(
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Pre-check dependency-trace completeness for promotions")
+    parser = argparse.ArgumentParser(
+        description="Pre-check dependency-trace completeness for promotions"
+    )
     parser.add_argument(
         "--candidates",
         help="Comma-separated word list to check (default: auto-pick from integrated results)",
@@ -279,9 +279,9 @@ def main() -> int:
         # Re-classify after writes for final status
         checks = [classify_candidate(row, readings, anchors) for row in candidates]
         dependency_obj.setdefault("metadata", {})
-        dependency_obj["metadata"]["dependency_trace_resolver_last_run"] = (
-            datetime.now(timezone.utc).isoformat()
-        )
+        dependency_obj["metadata"]["dependency_trace_resolver_last_run"] = datetime.now(
+            timezone.utc
+        ).isoformat()
         Path(args.dependencies).expanduser().resolve().write_text(
             json.dumps(dependency_obj, ensure_ascii=False, indent=2) + "\n",
             encoding="utf-8",
@@ -323,7 +323,9 @@ def main() -> int:
 
     output_path = Path(args.output).expanduser().resolve()
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    output_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    output_path.write_text(
+        json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
 
     print("=" * 60)
     print("DEPENDENCY TRACE RESOLVER")

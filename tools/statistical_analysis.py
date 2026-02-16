@@ -57,8 +57,8 @@ class StatisticalAnalyzer:
         self.signs = None
         self.statistics = None
         self.results = {
-            'metadata': {
-                'generated': None,
+            "metadata": {
+                "generated": None,
             }
         }
 
@@ -71,15 +71,15 @@ class StatisticalAnalyzer:
         """Load corpus and sign data."""
         try:
             corpus_path = DATA_DIR / "corpus.json"
-            with open(corpus_path, 'r', encoding='utf-8') as f:
+            with open(corpus_path, "r", encoding="utf-8") as f:
                 self.corpus = json.load(f)
 
             signs_path = DATA_DIR / "signs.json"
-            with open(signs_path, 'r', encoding='utf-8') as f:
+            with open(signs_path, "r", encoding="utf-8") as f:
                 self.signs = json.load(f)
 
             stats_path = DATA_DIR / "statistics.json"
-            with open(stats_path, 'r', encoding='utf-8') as f:
+            with open(stats_path, "r", encoding="utf-8") as f:
                 self.statistics = json.load(f)
 
             print(f"Loaded {len(self.corpus['inscriptions'])} inscriptions")
@@ -91,24 +91,24 @@ class StatisticalAnalyzer:
 
     def _extract_site_code(self, inscription_id: str) -> str:
         """Extract site code from inscription ID."""
-        match = re.match(r'^([A-Z]+)', inscription_id)
-        return match.group(1) if match else ''
+        match = re.match(r"^([A-Z]+)", inscription_id)
+        return match.group(1) if match else ""
 
     def _extract_words(self, inscriptions: Dict) -> Counter:
         """Extract word frequencies from a set of inscriptions."""
         word_freq = Counter()
 
         for insc_id, data in inscriptions.items():
-            if '_parse_error' in data:
+            if "_parse_error" in data:
                 continue
 
-            transliterated = data.get('transliteratedWords', [])
+            transliterated = data.get("transliteratedWords", [])
             for word in transliterated:
-                if not word or word in ['\n', '𐄁', '', '—', '≈']:
+                if not word or word in ["\n", "𐄁", "", "—", "≈"]:
                     continue
-                if re.match(r'^[\d\s.¹²³⁴⁵⁶⁷⁸⁹⁰/₀₁₂₃₄₅₆₇₈○◎—|]+$', word):
+                if re.match(r"^[\d\s.¹²³⁴⁵⁶⁷⁸⁹⁰/₀₁₂₃₄₅₆₇₈○◎—|]+$", word):
                     continue
-                if word.startswith('𐝫'):
+                if word.startswith("𐝫"):
                     continue
                 word_freq[word] += 1
 
@@ -168,8 +168,8 @@ class StatisticalAnalyzer:
 
         # Group inscriptions by period
         periods = defaultdict(dict)
-        for insc_id, data in self.corpus['inscriptions'].items():
-            period = data.get('context', '')
+        for insc_id, data in self.corpus["inscriptions"].items():
+            period = data.get("context", "")
             if period:
                 periods[period][insc_id] = data
 
@@ -179,19 +179,19 @@ class StatisticalAnalyzer:
             period_words[period] = self._extract_words(inscriptions)
 
         results = {
-            'periods_analyzed': list(periods.keys()),
-            'inscription_counts': {p: len(inscriptions) for p, inscriptions in periods.items()},
-            'word_counts': {p: sum(wf.values()) for p, wf in period_words.items()},
-            'unique_words': {p: len(wf) for p, wf in period_words.items()},
-            'comparisons': [],
+            "periods_analyzed": list(periods.keys()),
+            "inscription_counts": {p: len(inscriptions) for p, inscriptions in periods.items()},
+            "word_counts": {p: sum(wf.values()) for p, wf in period_words.items()},
+            "unique_words": {p: len(wf) for p, wf in period_words.items()},
+            "comparisons": [],
         }
 
         # Compare major periods
-        major_periods = ['MMII', 'MMIII', 'LMIA', 'LMIB']
+        major_periods = ["MMII", "MMIII", "LMIA", "LMIB"]
         available = [p for p in major_periods if p in period_words]
 
         for i, p1 in enumerate(available):
-            for p2 in available[i+1:]:
+            for p2 in available[i + 1 :]:
                 words1 = set(period_words[p1].keys())
                 words2 = set(period_words[p2].keys())
 
@@ -199,17 +199,23 @@ class StatisticalAnalyzer:
                 unique_to_p1 = words1 - words2
                 unique_to_p2 = words2 - words1
 
-                results['comparisons'].append({
-                    'period1': p1,
-                    'period2': p2,
-                    'jaccard_similarity': round(self._jaccard_similarity(words1, words2), 3),
-                    'shared_words': len(shared),
-                    'unique_to_p1': len(unique_to_p1),
-                    'unique_to_p2': len(unique_to_p2),
-                    'top_shared': [w for w in shared if period_words[p1][w] >= 2 and period_words[p2][w] >= 2][:10],
-                })
+                results["comparisons"].append(
+                    {
+                        "period1": p1,
+                        "period2": p2,
+                        "jaccard_similarity": round(self._jaccard_similarity(words1, words2), 3),
+                        "shared_words": len(shared),
+                        "unique_to_p1": len(unique_to_p1),
+                        "unique_to_p2": len(unique_to_p2),
+                        "top_shared": [
+                            w
+                            for w in shared
+                            if period_words[p1][w] >= 2 and period_words[p2][w] >= 2
+                        ][:10],
+                    }
+                )
 
-        self.results['chronology'] = results
+        self.results["chronology"] = results
         return results
 
     # =========================================================================
@@ -226,14 +232,14 @@ class StatisticalAnalyzer:
 
         # Default to major sites
         if sites is None:
-            sites = ['HT', 'KH', 'ZA', 'PH', 'KN', 'MA']
+            sites = ["HT", "KH", "ZA", "PH", "KN", "MA"]
 
         # Group inscriptions by site
         site_inscriptions = defaultdict(dict)
-        for insc_id, data in self.corpus['inscriptions'].items():
+        for insc_id, data in self.corpus["inscriptions"].items():
             site_code = self._extract_site_code(insc_id)
             # Normalize site codes (e.g., HTW -> HT)
-            base_site = re.match(r'^([A-Z]{2,3})', site_code)
+            base_site = re.match(r"^([A-Z]{2,3})", site_code)
             if base_site:
                 base = base_site.group(1)
                 for target in sites:
@@ -248,29 +254,31 @@ class StatisticalAnalyzer:
                 site_words[site] = self._extract_words(inscriptions)
 
         results = {
-            'sites_analyzed': list(site_words.keys()),
-            'inscription_counts': {s: len(site_inscriptions[s]) for s in site_words},
-            'word_counts': {s: sum(wf.values()) for s, wf in site_words.items()},
-            'unique_words': {s: len(wf) for s, wf in site_words.items()},
-            'comparisons': [],
-            'site_specific_words': {},
+            "sites_analyzed": list(site_words.keys()),
+            "inscription_counts": {s: len(site_inscriptions[s]) for s in site_words},
+            "word_counts": {s: sum(wf.values()) for s, wf in site_words.items()},
+            "unique_words": {s: len(wf) for s, wf in site_words.items()},
+            "comparisons": [],
+            "site_specific_words": {},
         }
 
         # Compare sites
         available_sites = list(site_words.keys())
         for i, s1 in enumerate(available_sites):
-            for s2 in available_sites[i+1:]:
+            for s2 in available_sites[i + 1 :]:
                 words1 = set(site_words[s1].keys())
                 words2 = set(site_words[s2].keys())
 
-                results['comparisons'].append({
-                    'site1': s1,
-                    'site2': s2,
-                    'jaccard_similarity': round(self._jaccard_similarity(words1, words2), 3),
-                    'shared_words': len(words1 & words2),
-                    'unique_to_s1': len(words1 - words2),
-                    'unique_to_s2': len(words2 - words1),
-                })
+                results["comparisons"].append(
+                    {
+                        "site1": s1,
+                        "site2": s2,
+                        "jaccard_similarity": round(self._jaccard_similarity(words1, words2), 3),
+                        "shared_words": len(words1 & words2),
+                        "unique_to_s1": len(words1 - words2),
+                        "unique_to_s2": len(words2 - words1),
+                    }
+                )
 
         # Find site-specific words (appear at one site but not others)
         for site in available_sites:
@@ -285,9 +293,9 @@ class StatisticalAnalyzer:
             unique_freq = [(w, site_words[site][w]) for w in unique if site_words[site][w] >= 2]
             unique_freq.sort(key=lambda x: x[1], reverse=True)
 
-            results['site_specific_words'][site] = unique_freq[:10]
+            results["site_specific_words"][site] = unique_freq[:10]
 
-        self.results['regional'] = results
+        self.results["regional"] = results
         return results
 
     # =========================================================================
@@ -306,12 +314,12 @@ class StatisticalAnalyzer:
         administrative = {}
         religious = {}
 
-        for insc_id, data in self.corpus['inscriptions'].items():
-            support = data.get('support', '').lower()
+        for insc_id, data in self.corpus["inscriptions"].items():
+            support = data.get("support", "").lower()
 
-            if 'tablet' in support or 'nodule' in support or 'roundel' in support:
+            if "tablet" in support or "nodule" in support or "roundel" in support:
                 administrative[insc_id] = data
-            elif 'stone' in support or 'metal' in support:
+            elif "stone" in support or "metal" in support:
                 religious[insc_id] = data
 
         # Extract word frequencies
@@ -322,31 +330,33 @@ class StatisticalAnalyzer:
         relig_vocab = set(relig_words.keys())
 
         results = {
-            'administrative': {
-                'inscriptions': len(administrative),
-                'total_words': sum(admin_words.values()),
-                'unique_words': len(admin_words),
+            "administrative": {
+                "inscriptions": len(administrative),
+                "total_words": sum(admin_words.values()),
+                "unique_words": len(admin_words),
             },
-            'religious': {
-                'inscriptions': len(religious),
-                'total_words': sum(relig_words.values()),
-                'unique_words': len(relig_words),
+            "religious": {
+                "inscriptions": len(religious),
+                "total_words": sum(relig_words.values()),
+                "unique_words": len(relig_words),
             },
-            'jaccard_similarity': round(self._jaccard_similarity(admin_vocab, relig_vocab), 3),
-            'shared_words': len(admin_vocab & relig_vocab),
-            'admin_only': len(admin_vocab - relig_vocab),
-            'religious_only': len(relig_vocab - admin_vocab),
-            'top_admin_only': [(w, admin_words[w]) for w in (admin_vocab - relig_vocab)
-                               if admin_words[w] >= 3][:10],
-            'top_religious_only': [(w, relig_words[w]) for w in (relig_vocab - admin_vocab)
-                                   if relig_words[w] >= 2][:10],
+            "jaccard_similarity": round(self._jaccard_similarity(admin_vocab, relig_vocab), 3),
+            "shared_words": len(admin_vocab & relig_vocab),
+            "admin_only": len(admin_vocab - relig_vocab),
+            "religious_only": len(relig_vocab - admin_vocab),
+            "top_admin_only": [
+                (w, admin_words[w]) for w in (admin_vocab - relig_vocab) if admin_words[w] >= 3
+            ][:10],
+            "top_religious_only": [
+                (w, relig_words[w]) for w in (relig_vocab - admin_vocab) if relig_words[w] >= 2
+            ][:10],
         }
 
         # Sort by frequency
-        results['top_admin_only'].sort(key=lambda x: x[1], reverse=True)
-        results['top_religious_only'].sort(key=lambda x: x[1], reverse=True)
+        results["top_admin_only"].sort(key=lambda x: x[1], reverse=True)
+        results["top_religious_only"].sort(key=lambda x: x[1], reverse=True)
 
-        self.results['register'] = results
+        self.results["register"] = results
         return results
 
     # =========================================================================
@@ -361,25 +371,25 @@ class StatisticalAnalyzer:
         """
         print("\n[Positions] Analyzing sign positional distributions...")
 
-        sign_data = self.signs['signs']
+        sign_data = self.signs["signs"]
         results = {
-            'signs_analyzed': 0,
-            'significant_preferences': [],
-            'random_distribution': [],
+            "signs_analyzed": 0,
+            "significant_preferences": [],
+            "random_distribution": [],
         }
 
         for sign, data in sign_data.items():
-            total = data['total_occurrences']
+            total = data["total_occurrences"]
             if total < 20:  # Need sufficient data
                 continue
 
-            results['signs_analyzed'] += 1
+            results["signs_analyzed"] += 1
 
-            pos = data['position_frequency']
-            standalone = data['contexts']['standalone']
+            pos = data["position_frequency"]
+            standalone = data["contexts"]["standalone"]
 
             # Observed frequencies
-            observed = [pos['initial'], pos['medial'], pos['final']]
+            observed = [pos["initial"], pos["medial"], pos["final"]]
             total_pos = sum(observed)
 
             if total_pos < 10:
@@ -395,33 +405,33 @@ class StatisticalAnalyzer:
             significant = chi_sq > 5.99
 
             position_pcts = {
-                'initial': round(pos['initial'] / total_pos * 100, 1) if total_pos > 0 else 0,
-                'medial': round(pos['medial'] / total_pos * 100, 1) if total_pos > 0 else 0,
-                'final': round(pos['final'] / total_pos * 100, 1) if total_pos > 0 else 0,
+                "initial": round(pos["initial"] / total_pos * 100, 1) if total_pos > 0 else 0,
+                "medial": round(pos["medial"] / total_pos * 100, 1) if total_pos > 0 else 0,
+                "final": round(pos["final"] / total_pos * 100, 1) if total_pos > 0 else 0,
             }
 
             # Determine dominant position
             dominant = max(position_pcts, key=position_pcts.get)
 
             entry = {
-                'sign': sign,
-                'total': total,
-                'chi_squared': round(chi_sq, 2),
-                'significant': significant,
-                'dominant_position': dominant,
-                'dominant_pct': position_pcts[dominant],
-                'positions': position_pcts,
+                "sign": sign,
+                "total": total,
+                "chi_squared": round(chi_sq, 2),
+                "significant": significant,
+                "dominant_position": dominant,
+                "dominant_pct": position_pcts[dominant],
+                "positions": position_pcts,
             }
 
             if significant:
-                results['significant_preferences'].append(entry)
+                results["significant_preferences"].append(entry)
             else:
-                results['random_distribution'].append(entry)
+                results["random_distribution"].append(entry)
 
         # Sort by chi-squared
-        results['significant_preferences'].sort(key=lambda x: x['chi_squared'], reverse=True)
+        results["significant_preferences"].sort(key=lambda x: x["chi_squared"], reverse=True)
 
-        self.results['positions'] = results
+        self.results["positions"] = results
         return results
 
     # =========================================================================
@@ -438,38 +448,40 @@ class StatisticalAnalyzer:
         print("\n[Entropy] Calculating distribution entropy...")
 
         # Sign frequency entropy
-        sign_freqs = [data['total_occurrences'] for data in self.signs['signs'].values()]
+        sign_freqs = [data["total_occurrences"] for data in self.signs["signs"].values()]
         sign_entropy = self._entropy(sign_freqs)
 
         # Word frequency entropy
-        word_freqs = list(self.statistics['top_words'].values())
+        word_freqs = list(self.statistics["top_words"].values())
         word_entropy = self._entropy(word_freqs)
 
         # Position entropy for each sign
         position_entropies = []
-        for sign, data in self.signs['signs'].items():
-            pos = data['position_frequency']
-            pos_freqs = [pos['initial'], pos['medial'], pos['final']]
+        for sign, data in self.signs["signs"].items():
+            pos = data["position_frequency"]
+            pos_freqs = [pos["initial"], pos["medial"], pos["final"]]
             if sum(pos_freqs) >= 10:
-                position_entropies.append({
-                    'sign': sign,
-                    'entropy': round(self._entropy(pos_freqs), 3),
-                    'max_entropy': round(math.log2(3), 3),  # Max entropy for 3 categories
-                })
+                position_entropies.append(
+                    {
+                        "sign": sign,
+                        "entropy": round(self._entropy(pos_freqs), 3),
+                        "max_entropy": round(math.log2(3), 3),  # Max entropy for 3 categories
+                    }
+                )
 
         # Sort by entropy (low entropy = strong preference)
-        position_entropies.sort(key=lambda x: x['entropy'])
+        position_entropies.sort(key=lambda x: x["entropy"])
 
         results = {
-            'sign_frequency_entropy': round(sign_entropy, 3),
-            'max_sign_entropy': round(math.log2(len(sign_freqs)), 3),
-            'word_frequency_entropy': round(word_entropy, 3),
-            'max_word_entropy': round(math.log2(len(word_freqs)), 3),
-            'low_position_entropy_signs': position_entropies[:15],  # Strong positional preference
-            'high_position_entropy_signs': position_entropies[-10:],  # Flexible position
+            "sign_frequency_entropy": round(sign_entropy, 3),
+            "max_sign_entropy": round(math.log2(len(sign_freqs)), 3),
+            "word_frequency_entropy": round(word_entropy, 3),
+            "max_word_entropy": round(math.log2(len(word_freqs)), 3),
+            "low_position_entropy_signs": position_entropies[:15],  # Strong positional preference
+            "high_position_entropy_signs": position_entropies[-10:],  # Flexible position
         }
 
-        self.results['entropy'] = results
+        self.results["entropy"] = results
         return results
 
     # =========================================================================
@@ -489,13 +501,13 @@ class StatisticalAnalyzer:
         self.analyze_positions()
         self.analyze_entropy()
 
-        self.results['metadata']['generated'] = datetime.now().isoformat()
+        self.results["metadata"]["generated"] = datetime.now().isoformat()
 
         return self.results
 
     def save_results(self, output_path: Path):
         """Save results to JSON."""
-        with open(output_path, 'w', encoding='utf-8') as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             json.dump(self.results, f, ensure_ascii=False, indent=2)
         print(f"\nResults saved to: {output_path}")
 
@@ -506,86 +518,83 @@ class StatisticalAnalyzer:
         print("=" * 60)
 
         # Chronology
-        if 'chronology' in self.results:
+        if "chronology" in self.results:
             print("\n[CHRONOLOGY]")
-            chr = self.results['chronology']
-            for comp in chr['comparisons'][:3]:
-                print(f"  {comp['period1']} vs {comp['period2']}: Jaccard={comp['jaccard_similarity']:.3f}")
+            chr = self.results["chronology"]
+            for comp in chr["comparisons"][:3]:
+                print(
+                    f"  {comp['period1']} vs {comp['period2']}: Jaccard={comp['jaccard_similarity']:.3f}"
+                )
 
         # Regional
-        if 'regional' in self.results:
+        if "regional" in self.results:
             print("\n[REGIONAL]")
-            reg = self.results['regional']
-            for comp in reg['comparisons'][:3]:
-                print(f"  {comp['site1']} vs {comp['site2']}: Jaccard={comp['jaccard_similarity']:.3f}")
+            reg = self.results["regional"]
+            for comp in reg["comparisons"][:3]:
+                print(
+                    f"  {comp['site1']} vs {comp['site2']}: Jaccard={comp['jaccard_similarity']:.3f}"
+                )
 
-            if reg.get('site_specific_words'):
+            if reg.get("site_specific_words"):
                 print("\n  Site-specific words:")
-                for site, words in reg['site_specific_words'].items():
+                for site, words in reg["site_specific_words"].items():
                     if words:
                         print(f"    {site}: {', '.join(w[0] for w in words[:5])}")
 
         # Register
-        if 'register' in self.results:
+        if "register" in self.results:
             print("\n[REGISTER]")
-            reg = self.results['register']
+            reg = self.results["register"]
             print(f"  Admin vs Religious Jaccard: {reg['jaccard_similarity']:.3f}")
             print(f"  Admin-only words: {reg['admin_only']}")
             print(f"  Religious-only words: {reg['religious_only']}")
 
         # Positions
-        if 'positions' in self.results:
+        if "positions" in self.results:
             print("\n[POSITIONS]")
-            pos = self.results['positions']
+            pos = self.results["positions"]
             print(f"  Signs with significant preference: {len(pos['significant_preferences'])}")
-            top_prefs = pos['significant_preferences'][:5]
+            top_prefs = pos["significant_preferences"][:5]
             for p in top_prefs:
                 print(f"    {p['sign']}: {p['dominant_position']} ({p['dominant_pct']}%)")
 
         # Entropy
-        if 'entropy' in self.results:
+        if "entropy" in self.results:
             print("\n[ENTROPY]")
-            ent = self.results['entropy']
-            print(f"  Sign distribution entropy: {ent['sign_frequency_entropy']:.3f} / {ent['max_sign_entropy']:.3f}")
-            print(f"  Word distribution entropy: {ent['word_frequency_entropy']:.3f} / {ent['max_word_entropy']:.3f}")
+            ent = self.results["entropy"]
+            print(
+                f"  Sign distribution entropy: {ent['sign_frequency_entropy']:.3f} / {ent['max_sign_entropy']:.3f}"
+            )
+            print(
+                f"  Word distribution entropy: {ent['word_frequency_entropy']:.3f} / {ent['max_word_entropy']:.3f}"
+            )
 
         print("\n" + "=" * 60)
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Statistical analysis of Linear A corpus"
+    parser = argparse.ArgumentParser(description="Statistical analysis of Linear A corpus")
+    parser.add_argument(
+        "command",
+        nargs="?",
+        default="summary",
+        choices=["chronology", "regional", "register", "positions", "entropy", "summary"],
+        help="Analysis to run (default: summary)",
     )
     parser.add_argument(
-        'command',
-        nargs='?',
-        default='summary',
-        choices=['chronology', 'regional', 'register', 'positions', 'entropy', 'summary'],
-        help='Analysis to run (default: summary)'
+        "--sites", type=str, nargs="+", help="Sites for regional comparison (e.g., HT KH ZA)"
     )
     parser.add_argument(
-        '--sites',
+        "--compare", type=str, nargs=2, help="Periods for chronology comparison (e.g., MMIII LMIB)"
+    )
+    parser.add_argument(
+        "--output",
+        "-o",
         type=str,
-        nargs='+',
-        help='Sites for regional comparison (e.g., HT KH ZA)'
+        default="data/statistical_report.json",
+        help="Output path for results",
     )
-    parser.add_argument(
-        '--compare',
-        type=str,
-        nargs=2,
-        help='Periods for chronology comparison (e.g., MMIII LMIB)'
-    )
-    parser.add_argument(
-        '--output', '-o',
-        type=str,
-        default='data/statistical_report.json',
-        help='Output path for results'
-    )
-    parser.add_argument(
-        '--verbose', '-v',
-        action='store_true',
-        help='Show detailed progress'
-    )
+    parser.add_argument("--verbose", "-v", action="store_true", help="Show detailed progress")
 
     args = parser.parse_args()
 
@@ -595,15 +604,15 @@ def main():
         return 1
 
     # Run requested analysis
-    if args.command == 'chronology':
+    if args.command == "chronology":
         analyzer.analyze_chronology()
-    elif args.command == 'regional':
+    elif args.command == "regional":
         analyzer.analyze_regional(sites=args.sites)
-    elif args.command == 'register':
+    elif args.command == "register":
         analyzer.analyze_register()
-    elif args.command == 'positions':
+    elif args.command == "positions":
         analyzer.analyze_positions()
-    elif args.command == 'entropy':
+    elif args.command == "entropy":
         analyzer.analyze_entropy()
     else:  # summary
         analyzer.generate_summary()
@@ -616,5 +625,5 @@ def main():
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())
