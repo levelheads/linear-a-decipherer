@@ -179,7 +179,7 @@ cd linear-a-decipherer
 git submodule update --init
 
 # Generate analysis data
-python tools/parse_lineara_corpus.py
+python3 tools/parse_lineara_corpus.py
 ```
 
 ### Quick Start
@@ -253,19 +253,19 @@ The project includes 55 Python analysis scripts organized by function (stdlib-on
 
 ```bash
 # Test a word against all hypotheses
-python tools/hypothesis_tester.py --word ku-ro
+python3 tools/hypothesis_tester.py --word ku-ro
 
 # Compare vocabulary across sites
-python tools/regional_analyzer.py --all
+python3 tools/regional_analyzer.py --all
 
 # Validate K-R paradigm corpus-wide
-python tools/kr_paradigm_validator.py --all
+python3 tools/kr_paradigm_validator.py --all
 
 # Search corpus with context
-python tools/corpus_lookup.py --report ku-ro
+python3 tools/corpus_lookup.py --report ku-ro
 
 # Run negative evidence analysis
-python tools/negative_evidence.py --hypothesis all
+python3 tools/negative_evidence.py --hypothesis all
 ```
 
 **Full tool guide**: [TOOLS_GUIDE.md](linear-a-decipherer/TOOLS_GUIDE.md)

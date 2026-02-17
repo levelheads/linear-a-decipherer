@@ -179,8 +179,6 @@ class CommodityValidator:
     def validate_word(self, target_word: str) -> Optional[CommodityMapping]:
         """Exhaustively validate a single word's commodity association."""
         # Collect all occurrences
-        occurrences = []  # (tablet_id, line, commodities_on_line, position_of_word, position_of_commodity)
-
         word_tablets = set()
         commodity_counter = Counter()
         site_counter = Counter()

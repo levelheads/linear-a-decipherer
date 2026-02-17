@@ -386,7 +386,6 @@ class StatisticalAnalyzer:
             results["signs_analyzed"] += 1
 
             pos = data["position_frequency"]
-            standalone = data["contexts"]["standalone"]
 
             # Observed frequencies
             observed = [pos["initial"], pos["medial"], pos["final"]]

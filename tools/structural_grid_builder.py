@@ -404,7 +404,6 @@ class StructuralGridBuilder:
         for formula in top_formulas:
             seq = formula.get("sequence", [])
             formula_str = formula.get("formula", " ".join(seq))
-            occurrences = formula.get("occurrences", 0)
 
             for word in seq:
                 w = word.upper()
@@ -603,8 +602,6 @@ class StructuralGridBuilder:
 
         templates = []
         for ttype, count in template_types.items():
-            template_data = structures.get(ttype, structures.get(f"{ttype}_texts", []))
-
             template = {
                 "type": ttype,
                 "count": count,

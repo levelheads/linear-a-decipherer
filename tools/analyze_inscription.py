@@ -6,7 +6,7 @@ End-to-end analysis pipeline following First Principles methodology:
 1. Fetch inscription from corpus
 2. Identify all available anchors
 3. Run Kober Method pattern analysis
-4. Test against all 4 linguistic hypotheses
+4. Test against all 7 linguistic hypotheses
 5. Cross-reference verification (Principle #6)
 6. Generate structured report following SKILL.md template
 
@@ -15,7 +15,7 @@ Usage:
 
 Examples:
     python tools/analyze_inscription.py HT13
-    python tools/analyze_inscription.py HT13 --output analyses/HT13.md
+    python tools/analyze_inscription.py HT13 --output analysis/HT13.md
     python tools/analyze_inscription.py HT13 --json
 
 Output:

@@ -1387,8 +1387,6 @@ class HypothesisTester:
             for length_group in formulas.get("by_length", {}).values():
                 for formula in length_group:
                     sequence = formula.get("sequence", [])
-                    occurrences = formula.get("occurrences", 0)
-                    is_libation = formula.get("is_libation_related", False)
 
                     for word in sequence:
                         if "-" in word:  # Syllabic words only
@@ -1791,7 +1789,6 @@ class HypothesisTester:
         }
 
         word_upper = word.upper()
-        word_lower = word.lower()
         syllables = word_upper.split("-")
         reconstructed = "".join(syllables).lower()
 
@@ -2161,7 +2158,6 @@ class HypothesisTester:
 
         Returns comprehensive role-hypothesis matrix.
         """
-        word_upper = word.upper()
         result = {
             "word": word,
             "role_matrix": {},

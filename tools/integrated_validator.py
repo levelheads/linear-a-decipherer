@@ -47,7 +47,7 @@ DATA_DIR = PROJECT_ROOT / "data"
 
 # Import components (with fallbacks)
 try:
-    from anchor_tracker import AnchorTracker, CascadeResult
+    from anchor_tracker import AnchorTracker
 except ImportError:
     AnchorTracker = None
 

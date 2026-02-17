@@ -18,7 +18,7 @@ Before contributing, read and understand:
 | 1 | **KOBER** | Let data lead; never start with language assumptions |
 | 2 | **VENTRIS** | Abandon theories when evidence contradicts |
 | 3 | **ANCHORS** | Build from certain to speculative (follow hierarchy) |
-| 4 | **MULTI-HYP** | Test ALL four linguistic hypotheses |
+| 4 | **MULTI-HYP** | Test ALL seven linguistic hypotheses |
 | 5 | **NEGATIVE** | Consider what's absent, not just present |
 | 6 | **CORPUS** | Verify readings across entire corpus |
 
@@ -36,7 +36,7 @@ Adding transliterations, images, or references for inscriptions.
 - Cite primary source (GORILA reference, publication, database URL)
 - Use standard AB# notation for sign numbers
 - Note any damage or uncertainty
-- Place in `analyses/` with date-stamped filename
+- Place in `analysis/` with date-stamped filename
 
 **Issue Template**: Use "New Corpus Data" template
 
@@ -58,7 +58,7 @@ Suggesting interpretations for sign sequences.
 
 **Requirements**:
 - Start with anchor verification (what level?)
-- Test against ALL FOUR hypotheses (Luwian, Semitic, Pre-Greek, Proto-Greek)
+- Test against ALL SEVEN hypotheses (Luwian, Semitic, Pre-Greek, Proto-Greek, Hurrian, Hattic, Etruscan)
 - Document complete evidence chain
 - Calibrate confidence appropriately
 - Verify across ALL corpus occurrences

@@ -91,7 +91,7 @@ This file indexes all reference materials used in the Linear A decipherment proj
 - Handle: administrative style with numerals and 6 fraction signs
 - Found in "Fetish Shrine" at Anetaki plot, Knossos (Neopalatial, 1700-1450 BCE)
 - First confirmed Linear A at Knossos cult center
-- See `analyses/KNOSSOS_SCEPTER_DATA_2026-01-09.md` for detailed extraction
+- See `analysis/KNOSSOS_SCEPTER_DATA_2026-01-09.md` for detailed extraction
 
 ---
 

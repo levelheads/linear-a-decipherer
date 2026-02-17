@@ -231,7 +231,6 @@ class BayesianHypothesisTester:
         likelihoods = {h: 0.1 for h in self.priors}
 
         word_upper = word.upper()
-        syllables = word_upper.split("-")
         consonants = extract_consonants(word)
 
         # Check Luwian lexicon
@@ -445,8 +444,6 @@ class BayesianHypothesisTester:
             # Simple approximation based on posterior and effective sample size
             # More rigorous would use MCMC
             effective_n = frequency + 1
-            alpha = post * effective_n
-            beta = (1 - post) * effective_n + 1
             # 95% credible interval from Beta distribution
             lower = max(0, post - 1.96 * math.sqrt(post * (1 - post) / effective_n))
             upper = min(1, post + 1.96 * math.sqrt(post * (1 - post) / effective_n))

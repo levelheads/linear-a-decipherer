@@ -19,6 +19,7 @@ Usage:
 This script ensures project success by maintaining consistent version control.
 """
 
+import argparse
 import subprocess
 import sys
 import re
@@ -197,7 +198,7 @@ def pre_commit_check() -> bool:
         print("✓ README.md updated with tools/ changes")
 
     # Check 5: Analyses have proper structure
-    analysis_files = [f for f in staged_files if f.startswith("analyses/") and f.endswith(".md")]
+    analysis_files = [f for f in staged_files if f.startswith("analysis/") and f.endswith(".md")]
     for af in analysis_files:
         filepath = PROJECT_ROOT / af
         if filepath.exists():
@@ -237,7 +238,7 @@ def generate_commit_summary() -> str:
     for f in files:
         if f.startswith("tools/"):
             categories["tools"].append(f)
-        elif f.startswith("analyses/"):
+        elif f.startswith("analysis/"):
             categories["analyses"].append(f)
         elif f.endswith(".md"):
             categories["docs"].append(f)
@@ -361,6 +362,28 @@ def parse_citation_cff() -> Optional[Dict[str, str]]:
     return result if result else None
 
 
+def _parse_version_from_file(path: Path, pattern: str) -> Optional[str]:
+    if not path.exists():
+        return None
+    content = path.read_text()
+    match = re.search(pattern, content, re.MULTILINE)
+    return match.group(1).strip() if match else None
+
+
+def _normalize_version(version: str) -> str:
+    return version.lstrip("vV")
+
+
+def _parse_pyproject_version() -> Optional[str]:
+    return _parse_version_from_file(PROJECT_ROOT / "pyproject.toml", r'^version\s*=\s*"([^"]+)"')
+
+
+def _parse_changelog_version() -> Optional[str]:
+    changelog_path = PROJECT_ROOT / "linear-a-decipherer" / "CHANGELOG.md"
+    match = _parse_version_from_file(changelog_path, r"^##\s*[^\(]+\(\s*(v[\d\.]+)")
+    return match.lstrip("vV") if match else None
+
+
 def release_check():
     """Pre-release checklist and validation."""
     print("=" * 60)
@@ -395,6 +418,42 @@ def release_check():
             issues.append("CITATION.cff missing 'date-released' field")
             print("  ✗ Missing 'date-released' field")
 
+    print()
+
+    print("Checking version metadata alignment...")
+    py_version = _parse_pyproject_version()
+    changelog_version = _parse_changelog_version()
+    citation_version = citation.get("version") if citation else None
+    for label, version in [
+        ("pyproject", py_version),
+        ("CITATION.cff", citation_version),
+        ("CHANGELOG", changelog_version),
+    ]:
+        if version:
+            print(f"  {label}: {version}")
+        else:
+            print(f"  {label}: MISSING")
+    available_versions = {
+        label: _normalize_version(version)
+        for label, version in {
+            "pyproject": py_version,
+            "CITATION.cff": citation_version,
+            "CHANGELOG": changelog_version,
+        }.items()
+        if version
+    }
+    if available_versions:
+        normative = next(iter(available_versions.values()))
+        mismatches = [
+            label for label, version in available_versions.items() if version != normative
+        ]
+        if mismatches:
+            print("  ✗ Version mismatch detected")
+            issues.append(
+                f"Version mismatch across metadata ({', '.join(sorted(available_versions))})"
+            )
+        else:
+            print("  ✓ Versions aligned")
     print()
 
     # Check 2: Uncommitted changes
@@ -469,20 +528,28 @@ If any box unchecked → DO NOT TAG
     return len(issues) == 0
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="git workflow helper for Linear A Decipherer",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="Available commands: status, pre-commit, summary, sync, release",
+    )
+    parser.add_argument(
+        "command",
+        nargs="?",
+        choices=["status", "pre-commit", "summary", "sync", "release"],
+        help="subcommand to run",
+    )
+    return parser.parse_args()
+
+
 def main():
-    if len(sys.argv) < 2:
-        print("Usage: python tools/git_manager.py <command>")
-        print()
-        print("Commands:")
-        print("  status      - Show current git status")
-        print("  pre-commit  - Run pre-commit checks")
-        print("  summary     - Generate commit message summary")
-        print("  sync        - Full synchronization check")
-        print("  release     - Pre-release checklist")
+    args = parse_args()
+    if not args.command:
+        print("No command specified.")
         return 1
 
-    command = sys.argv[1]
-
+    command = args.command
     if command == "status":
         print_status()
     elif command == "pre-commit":
@@ -495,10 +562,6 @@ def main():
     elif command == "release":
         success = release_check()
         return 0 if success else 1
-    else:
-        print(f"Unknown command: {command}")
-        return 1
-
     return 0
 
 

@@ -259,9 +259,6 @@ class ORACCConnector:
 
         self.log("Building comprehensive static dictionary...")
 
-        # Vocabulary organized by semantic category
-        vocabulary = {}
-
         # ============================================================
         # CATEGORY 1: TOTALING AND QUANTITIES
         # ============================================================

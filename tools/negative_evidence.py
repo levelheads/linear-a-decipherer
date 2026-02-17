@@ -746,8 +746,6 @@ class NegativeEvidenceAnalyzer:
         word_freqs = self._extract_words_from_corpus() or dict(self.statistics.get("top_words", {}))
 
         for cluster_info in PREGREEK_EXPECTATIONS["phonology"]["characteristic_clusters"]:
-            pattern = cluster_info["pattern"]
-            found = 0
             for word, freq in word_freqs.items():
                 # Note: Linear A CV structure can't directly write -nth-, -ss- clusters
                 # They would appear as TA-TA (for tt), SA-SA (for ss), etc.
@@ -1296,7 +1294,6 @@ class NegativeEvidenceAnalyzer:
 
             # Hurrian vs Hattic: suffix vs prefix dominance
             hurrian_hits = len(hurrian["predictions"])
-            hattic_hits = len(hattic["predictions"])
             hattic_violations = len(hattic["violations"])
             if hurrian_hits > 0 and hattic_violations > 0:
                 word_contradictions.append(

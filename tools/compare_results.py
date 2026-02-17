@@ -10,6 +10,7 @@ Usage:
     python3 tools/compare_results.py
 """
 
+import argparse
 import json
 import sys
 from pathlib import Path
@@ -505,21 +506,63 @@ def print_overall_summary(hypo_stats):
     print(sep)
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Compare hypothesis/batch results before and after a fix",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    parser.add_argument(
+        "--hypo-pre",
+        type=Path,
+        default=HYPO_PRE,
+        help="pre-fix hypothesis results JSON",
+    )
+    parser.add_argument(
+        "--hypo-post",
+        type=Path,
+        default=HYPO_POST,
+        help="post-fix hypothesis results JSON",
+    )
+    parser.add_argument(
+        "--batch-pre",
+        type=Path,
+        default=BATCH_PRE,
+        help="pre-fix batch analysis results JSON",
+    )
+    parser.add_argument(
+        "--batch-post",
+        type=Path,
+        default=BATCH_POST,
+        help="post-fix batch analysis results JSON",
+    )
+    return parser.parse_args()
+
+
 # ===========================================================================
 # Main
 # ===========================================================================
 
 
 def main():
-    for path in [HYPO_PRE, HYPO_POST, BATCH_PRE, BATCH_POST]:
+    args = parse_args()
+    missing = []
+    for label, path in [
+        ("pre-fix hypothesis", args.hypo_pre),
+        ("post-fix hypothesis", args.hypo_post),
+        ("pre-fix batch", args.batch_pre),
+        ("post-fix batch", args.batch_post),
+    ]:
         if not path.exists():
-            print(f"ERROR: File not found: {path}")
-            sys.exit(1)
+            missing.append((label, path))
+    if missing:
+        for label, path in missing:
+            print(f"ERROR: File not found: {path} ({label})")
+        sys.exit(1)
 
-    hypo_pre = load_json(HYPO_PRE)
-    hypo_post = load_json(HYPO_POST)
-    batch_pre = load_json(BATCH_PRE)
-    batch_post = load_json(BATCH_POST)
+    hypo_pre = load_json(args.hypo_pre)
+    hypo_post = load_json(args.hypo_post)
+    batch_pre = load_json(args.batch_pre)
+    batch_post = load_json(args.batch_post)
 
     print()
     hypo_stats = compare_hypothesis_results(hypo_pre, hypo_post)

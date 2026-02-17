@@ -653,26 +653,6 @@ class ContextualAnalyzer:
         """
         print("Extracting commodity triplets (Challenge 3)...")
 
-        # Known commodity logograms
-        commodity_logograms = [
-            "GRA",
-            "VIN",
-            "OLE",
-            "OLIV",
-            "CYP",
-            "AROM",
-            "TELA",
-            "LANA",
-            "BOS",
-            "OVIS",
-            "CAP",
-            "SUS",
-            "HORD",
-            "NI",
-            "FIC",
-            "CUM",
-        ]
-
         triplets = []
         slot_word_freq = Counter()
         slot_by_logogram = defaultdict(list)

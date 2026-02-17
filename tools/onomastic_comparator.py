@@ -281,7 +281,6 @@ class OnomasticComparator:
             if examples:
                 culture_lengths = []
                 for ex in examples:
-                    name = ex.get("name", "")
                     # Rough syllable count from name (split on capitals for Akkadian)
                     if culture in ("akkadian", "ugaritic"):
                         culture_lengths.append(3)  # Typically 3-part
