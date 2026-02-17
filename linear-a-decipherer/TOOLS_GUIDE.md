@@ -129,7 +129,7 @@ This contract is applied by:
 
 4. **Update knowledge management**
    - Add to ANALYSIS_INDEX.md (Thematic section)
-   - Document in LESSONS_LEARNED.md if methodology refined
+   - Document in ENGINEERING_PRACTICES.md if methodology refined
 
 **Output location**: analysis/completed/thematic/[PATTERN]_analysis.md
 
@@ -314,7 +314,7 @@ This contract is applied by:
 
 ### hypothesis_tester.py
 
-**Purpose**: Test word against all four linguistic hypotheses
+**Purpose**: Test word against all seven linguistic hypotheses
 
 **Input**:
 - Word/sequence
@@ -405,6 +405,123 @@ This contract is applied by:
 
 ---
 
+---
+
+## BREAKTHROUGH Tools (2026-02-17)
+
+Four new tools were added as part of the BREAKTHROUGH sub-projects, extending hypothesis testing from 4 to 7 hypotheses:
+
+### structural_grid_builder.py
+
+**Purpose**: Build a "Ventris Grid" — grammatical category identification from structural patterns
+
+**Input**:
+- `--all` - Run full grid analysis
+- `--build` - Build category grid
+- `--constraints` - Show constraint analysis
+- `--entropy` - Show entropy calculations
+
+**Output**: `data/ventris_grid.json` — 27 grammatical categories (14 significant)
+
+### admin_isomorphism_scorer.py
+
+**Purpose**: Score administrative template isomorphisms across 6 Bronze Age writing systems
+
+**Input**:
+- `--all` - Run full analysis
+- `--score` - Score isomorphisms
+- `--identify` - Identify template matches
+- `--khania` - Khania-specific analysis
+
+**Output**: `data/admin_isomorphism.json` — 36 template comparisons, 46 positional identifications
+
+### morphological_predictor.py
+
+**Purpose**: Generate and test morphological predictions from hypothesis frameworks
+
+**Input**:
+- `--all` - Run full analysis
+- `--decompose` - Decompose words morphologically
+- `--predict` - Generate predictions
+- `--infix-hunt` - Search for infixes
+- `--typology` - Typological comparison
+
+**Output**: `data/morphological_predictions.json` — 481 predictions (71 hits, 14.8%), 20 infixes
+
+### onomastic_comparator.py
+
+**Purpose**: Compare Linear A names against Bronze Age onomastic traditions
+
+**Input**:
+- `--all` - Run full analysis
+- `--compare` - Cross-tradition comparison
+- `--theophoric` - Theophoric element analysis
+- `--regional` - Regional name distribution
+
+**Output**: `data/onomastic_analysis.json` — 111 name profiles, 46 theophoric elements
+
+---
+
+## Reading Attempt Tools (2026-02-17)
+
+Three new tools for transitioning from evidence accumulation to tablet reading:
+
+### reading_readiness_scorer.py
+
+**Purpose**: Score all tablets by how "readable" they are, combining all available evidence
+
+**Input**:
+- `--tablet [ID]` - Score single tablet
+- `--all` - Score all tablets, rank by readiness
+- `--top N` - Show top N most readable tablets
+- `--output FILE` - Save to JSON
+
+**Output**: `data/reading_readiness.json` — per-tablet composite scores (coverage, arithmetic, structure, size)
+
+**Key metrics**: Weights — 40% coverage, 25% arithmetic, 15% structural, 10% size, 10% unknown penalty
+
+### arithmetic_verifier.py
+
+**Purpose**: Diagnose KU-RO arithmetic mismatches and produce Rosetta skeletons
+
+**Input**:
+- `--tablet [ID]` - Verify single tablet
+- `--all` - Verify all KU-RO tablets
+- `--diagnose` - Diagnose mismatches
+- `--skeleton [ID]` - Output Rosetta skeleton
+- `--output FILE` - Save to JSON
+
+**Output**: `data/arithmetic_verification.json` — 6 VERIFIED, 23 MISMATCH (diagnosed), 5 INCOMPLETE
+
+**Mismatch categories**: lacuna (8), missing_entries (7), fraction_parsing (4), multi_commodity (2), multi_kuro (2)
+
+### commodity_validator.py
+
+**Purpose**: Promote co-occurrence observations to validated functional anchors
+
+**Input**:
+- `--word [WORD]` - Validate single word
+- `--all` - Validate all high-specificity words
+- `--threshold [FLOAT]` - Minimum specificity (default: 0.8)
+- `--output FILE` - Save to JSON
+
+**Output**: `data/commodity_anchors.json` — 15 validated mappings (6 STRONG_ANCHOR, 9 CANDIDATE)
+
+**Promotion levels**: FUNCTIONAL_ANCHOR (≥95%, no exceptions), STRONG_ANCHOR (≥80%), CANDIDATE (≥threshold)
+
+---
+
+### Extended Tools (4→7 hypotheses)
+
+The following existing tools were extended to support all 7 hypotheses (luwian, semitic, pregreek, protogreek, hurrian, hattic, etruscan):
+
+- `hypothesis_tester.py` — per-word hypothesis testing
+- `falsification_system.py` — falsification threshold classification
+- `negative_evidence.py` — absence pattern analysis
+- `bayesian_hypothesis_tester.py` — Bayesian posterior calculation (7 + isolate)
+
+---
+
 ### "I want to validate a proposed reading"
 
 **Example**: Validate KU-RO = "total"
@@ -427,7 +544,7 @@ This contract is applied by:
 
 4. **Update knowledge management**
    - If validated, update CONFIRMED_READINGS.md
-   - If contradictions found, document in LESSONS_LEARNED.md
+   - If contradictions found, document in ENGINEERING_PRACTICES.md
 
 **Output location**: data/consistency_validation.json
 
@@ -682,7 +799,7 @@ Implements three audit functions from quantitative corpus linguistics:
 
 1. Use appropriate tool for task
 2. Document all commands run
-3. Test ALL four hypotheses (P4)
+3. Test ALL seven hypotheses (P4)
 4. Check for negative evidence (P5)
 
 ### After Analysis
@@ -690,7 +807,7 @@ Implements three audit functions from quantitative corpus linguistics:
 1. Update ANALYSIS_INDEX.md
 2. Add discoveries to FINDINGS_LOG.md
 3. If HIGH+ confidence, update CONFIRMED_READINGS.md
-4. If methodology refined, update LESSONS_LEARNED.md
+4. If methodology refined, update ENGINEERING_PRACTICES.md
 5. If major finding, update STATE_OF_KNOWLEDGE.md
 
 ---
@@ -702,7 +819,7 @@ Implements three audit functions from quantitative corpus linguistics:
 | Wrong | Right | Why |
 |-------|-------|-----|
 | hypothesis_tester without corpus_lookup | corpus_lookup THEN hypothesis_tester | Need occurrence data first |
-| Single-hypothesis testing | All four hypotheses | P4 requires multi-hypothesis |
+| Single-hypothesis testing | All seven hypotheses | P4 requires multi-hypothesis |
 | Trust high scores blindly | Check evidence quality | Score is heuristic, not proof |
 
 ### Data Issues
@@ -758,7 +875,7 @@ This tool chains together discovery, hypothesis testing, validation, and synthes
 
 **Stages**:
 1. **DISCOVER**: Extract all words with frequency counts
-2. **HYPOTHESIZE**: Test each word against four linguistic hypotheses
+2. **HYPOTHESIZE**: Test each word against seven linguistic hypotheses
 3. **VALIDATE**: Check cross-corpus consistency (First Principle #6)
 4. **SYNTHESIZE**: Aggregate findings and generate recommendations
 
@@ -792,7 +909,7 @@ python tools/batch_pipeline.py --full --site HT --min-freq 5
 
 **First Principles Compliance**:
 - P1 (Kober): Patterns analyzed before language assumption
-- P4 (Multi-Hypothesis): All four hypotheses tested automatically
+- P4 (Multi-Hypothesis): All seven hypotheses tested automatically
 - P6 (Cross-Corpus): Every reading verified corpus-wide
 
 **Critical impact**: Scales analysis from 14 inscriptions (0.81%) to full corpus (1,722 inscriptions)
@@ -804,8 +921,8 @@ python tools/batch_pipeline.py --full --site HT --min-freq 5
 - [FIRST_PRINCIPLES.md](FIRST_PRINCIPLES.md) - Methodology
 - [SKILL.md](SKILL.md) - Operational procedures
 - [ANALYSIS_INDEX.md](ANALYSIS_INDEX.md) - What's been done
-- [LESSONS_LEARNED.md](LESSONS_LEARNED.md) - Tool-specific lessons
+- [ENGINEERING_PRACTICES.md](ENGINEERING_PRACTICES.md) - Tool-specific lessons
 
 ---
 
-*Guide maintained as part of the Linear A Decipherment Project knowledge management system.*
+*Guide maintained as part of the Linear A Decipherment Project knowledge management system. 55 tools as of v0.7.0.*

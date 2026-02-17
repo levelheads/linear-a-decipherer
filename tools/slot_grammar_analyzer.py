@@ -446,7 +446,7 @@ class GrammaticalPredictor:
     """
     Generate hypothesis-specific predictions for grammatical roles.
 
-    For each of the four hypotheses (Luwian, Semitic, Pre-Greek, Proto-Greek),
+    For each of the seven hypotheses (Luwian, Semitic, Pre-Greek, Proto-Greek, Hurrian, Hattic, Etruscan),
     predicts what morphological markers should appear on words in the [X] slot
     if they belong to specific grammatical roles.
     """
@@ -569,7 +569,15 @@ class PatternMatcher:
         """
         self.log(f"Matching {len(triplets)} slot words against predictions...")
 
-        hypotheses = ["luwian", "semitic", "pregreek", "protogreek"]
+        hypotheses = [
+            "luwian",
+            "semitic",
+            "pregreek",
+            "protogreek",
+            "hurrian",
+            "hattic",
+            "etruscan",
+        ]
         roles = list(GRAMMATICAL_ROLES.keys())
 
         results = {
@@ -835,7 +843,15 @@ class SynthesisEngine:
         """
         Rank hypotheses by their overall match quality.
         """
-        hypotheses = ["luwian", "semitic", "pregreek", "protogreek"]
+        hypotheses = [
+            "luwian",
+            "semitic",
+            "pregreek",
+            "protogreek",
+            "hurrian",
+            "hattic",
+            "etruscan",
+        ]
         rankings = []
 
         for hyp in hypotheses:
@@ -874,7 +890,18 @@ class SynthesisEngine:
 
         # Find suffixes that match only one hypothesis strongly
         suffix_analysis = defaultdict(
-            lambda: {h: 0 for h in ["luwian", "semitic", "pregreek", "protogreek"]}
+            lambda: {
+                h: 0
+                for h in [
+                    "luwian",
+                    "semitic",
+                    "pregreek",
+                    "protogreek",
+                    "hurrian",
+                    "hattic",
+                    "etruscan",
+                ]
+            }
         )
 
         for word, data in match_results.get("word_matches", {}).items():
@@ -962,7 +989,7 @@ class SynthesisEngine:
             "P1_KOBER": "PASS",  # We analyzed patterns before assuming language
             "P2_VENTRIS": "PASS",  # We're tracking what fails
             "P3_ANCHORS": "PASS",  # We built from logograms outward
-            "P4_MULTI_HYP": "PASS",  # We tested all four hypotheses
+            "P4_MULTI_HYP": "PASS",  # We tested all seven hypotheses
             "P5_NEGATIVE": self._check_negative_evidence(match_results),
             "P6_CORPUS": validation_status.get("P6_corpus_consistency", "UNKNOWN"),
         }
@@ -972,7 +999,15 @@ class SynthesisEngine:
     def _check_negative_evidence(self, match_results: dict) -> str:
         """Check if we properly considered negative evidence (P5)."""
         # Count hypotheses with zero or very low matches
-        hypotheses = ["luwian", "semitic", "pregreek", "protogreek"]
+        hypotheses = [
+            "luwian",
+            "semitic",
+            "pregreek",
+            "protogreek",
+            "hurrian",
+            "hattic",
+            "etruscan",
+        ]
         low_matches = 0
 
         for hyp in hypotheses:
@@ -1058,8 +1093,8 @@ class SlotGrammarAnalyzer:
         predictor = GrammaticalPredictor()
         self.results["prediction_matrix"] = predictor.get_prediction_matrix()
 
-        print("Generated prediction matrix for 4 hypotheses x 7 roles")
-        for hyp in ["luwian", "semitic", "pregreek", "protogreek"]:
+        print("Generated prediction matrix for 7 hypotheses x 7 roles")
+        for hyp in ["luwian", "semitic", "pregreek", "protogreek", "hurrian", "hattic", "etruscan"]:
             markers = predictor.get_all_markers_for_hypothesis(hyp)
             print(f"  {hyp.upper()}: {len(markers)} unique markers")
 

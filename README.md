@@ -13,7 +13,7 @@ A rigorous methodology system for analyzing undeciphered Minoan Bronze Age inscr
 
 ## Research Status (February 2026)
 
-> **Working hypothesis validated through systematic tool-based corpus analysis.** Proto-Greek **ELIMINATED** at 2.5% support, consistent with prior scholarly observations on phonological mismatch (Gordon 1966, Beekes 2014). Luwian morphology validated as **DOMINANT** at 35.0%. Methodology compliance at **100%** (160/160 words). 11 registered anchor types. 28 high-confidence batch words.
+> **v0.7.0 (2026-02-17)**: First connected tablet readings produced. **3 tablets read** (HT 85a, HT 117a, HT 9b) with arithmetic-verified KU-RO totals. **Libation formula complete alignment** across 34 inscriptions at 14 sites. **6 commodity functional anchors** validated. 55 analysis tools. 7 linguistic hypotheses tested; **5 ELIMINATED**. Only **Luwian** (STRONG, 35.0%) and **Semitic** (MODERATE, 17.5%) survive.
 
 **Best-fit model**: Linear A records a **contact language** with three distinct layers, building on proposals by Gordon (1966), Palmer (1958), and Beekes (2014):
 
@@ -34,7 +34,7 @@ The system uses a methodology derived from the successful Linear B decipherment 
 ### Key Features
 
 - **Evidence-based reasoning chains** - Every interpretation documented with explicit evidence
-- **Multi-hypothesis testing** - All readings tested against Luwian, Semitic, Pre-Greek, and Proto-Greek frameworks
+- **Multi-hypothesis testing** - All readings tested against seven linguistic frameworks (Luwian, Semitic, Pre-Greek, Proto-Greek, Hurrian, Hattic, Etruscan); 5/7 ELIMINATED
 - **Anchor-based expansion** - Building from confirmed toponyms and Linear B cognates outward
 - **Corpus-wide verification** - Proposed readings validated across all 1,721 inscriptions
 - **Calibrated confidence** - Explicit uncertainty quantification for all claims
@@ -51,7 +51,7 @@ The system operates under six inviolable principles derived from Alice Kober's m
 | 1 | **KOBER** | Let data lead; never start with language assumptions |
 | 2 | **VENTRIS** | Abandon theories when evidence contradicts |
 | 3 | **ANCHORS** | Build from certain to speculative |
-| 4 | **MULTI-HYP** | Test ALL four linguistic hypotheses |
+| 4 | **MULTI-HYP** | Test ALL seven linguistic hypotheses |
 | 5 | **NEGATIVE** | Consider what's absent, not just present |
 | 6 | **CORPUS** | Readings must work across entire corpus |
 
@@ -84,20 +84,26 @@ See [METHODOLOGY.md](linear-a-decipherer/METHODOLOGY.md) for pre-flight checklis
 
 | Hypothesis | Support | Batch Score | Status | Key Proponents |
 |------------|---------|-------------|--------|----------------|
-| **Luwian/Anatolian** | **35.0%** (56 words) | 234.0 | **DOMINANT** - morphological particles pervasive | Palmer (1958), Finkelberg (1990, 1998) |
-| **Semitic (loans)** | **17.5%** (28 words) | 234.85 | STRONG - administrative vocabulary | Gordon (1966), Best (1972) |
-| **Pre-Greek Substrate** | 2.5% (4 words) | 80.0 | Base layer; toponyms, divine names | Beekes (2014), Furnée (1972) |
-| **Proto-Greek** | **3.1%** (5 words) | 147.75 | **ELIMINATED** - phonological mismatch | Georgiev (1963), Mosenkis (2019) |
+| **Luwian/Anatolian** | **35.0%** (56 words) | 234.0 | **STRONG** - morphological particles pervasive | Palmer (1958), Finkelberg (1990, 1998) |
+| **Semitic (loans)** | **17.5%** (28 words) | 234.85 | **MODERATE** - administrative vocabulary | Gordon (1966), Best (1972) |
+| Pre-Greek Substrate | 2.5% (4 words) | 80.0 | **ELIMINATED** - base layer only | Beekes (2014), Furnée (1972) |
+| Proto-Greek | 3.1% (5 words) | 147.75 | **ELIMINATED** - phonological mismatch | Georgiev (1963), Mosenkis (2019) |
+| Hurrian | <5% | — | **ELIMINATED** - no ergative patterns | Monti (2002), van Soesbergen (2017) |
+| Hattic | <5% | — | **ELIMINATED** - no prefixing morphology | Schrijver (2018) |
+| Etruscan | <5% | — | **ELIMINATED** - no shared cognates | Facchetti (2001) |
 
-#### Bayesian Results (`bayesian_hypothesis_tester.py`, 160 words — calibrated priors)
+#### Bayesian Results (`bayesian_hypothesis_tester.py`, 160 words — 7 hypotheses + isolate)
 
-| Hypothesis | Mean Posterior | 95% CI | Status |
-|------------|----------------|--------|--------|
-| **Luwian/Anatolian** | **35.1%** | [14.2%, 42.9%] | **DOMINANT** |
-| Isolate (null) | 32.8% | — | Active null hypothesis |
-| Semitic (loans) | 15.8% | — | LOANS |
-| Pre-Greek Substrate | 13.5% | — | SUBSTRATE |
-| **Proto-Greek** | **2.8%** | [2.4%, 7.8%] | **ELIMINATED** |
+| Hypothesis | Mean Posterior | Status |
+|------------|----------------|--------|
+| **Luwian/Anatolian** | **31.6%** | **STRONG** |
+| Isolate (null) | 29.9% | Active null hypothesis |
+| Semitic (loans) | 13.0% | **MODERATE** |
+| Hurrian | 10.1% | ELIMINATED (falsification <5%) |
+| Pre-Greek Substrate | <5% | ELIMINATED |
+| Proto-Greek | <5% | ELIMINATED |
+| Hattic | <5% | ELIMINATED |
+| Etruscan | <5% | ELIMINATED |
 
 > **Note**: Batch word-count percentages and Bayesian posteriors are not directly comparable. Batch counts how many words best-fit each hypothesis; Bayesian uses calibrated priors and probabilistic inference. Both confirm the same pattern: Luwian dominant, Proto-Greek eliminated. See [KNOWLEDGE.md](linear-a-decipherer/KNOWLEDGE.md#hypothesis-scorecard) for full methodology.
 
@@ -137,7 +143,7 @@ linear-a-decipherer/
 │   ├── KNOWLEDGE.md          # Reference tables: readings, hypotheses, anchors
 │   ├── CHANGELOG.md          # Chronological discovery journal
 │   ├── ANALYSIS_INDEX.md     # Registry of all analyses
-│   ├── LESSONS_LEARNED.md    # Project methodology insights
+│   ├── TOOLS_GUIDE.md        # Task-based tool selection guide
 │   └── references/           # Bibliography, hypotheses, sign list
 │
 ├── analysis/                 # Research outputs
@@ -145,7 +151,7 @@ linear-a-decipherer/
 │   ├── completed/            # Finished inscription/thematic analyses
 │   └── archive/              # Historical phase analyses
 │
-├── tools/                    # 48 Python analysis scripts
+├── tools/                    # 55 Python analysis scripts
 ├── external/lineara/         # Corpus data (git submodule)
 ├── data/                     # Generated JSON files
 └── templates/                # Document templates
@@ -179,8 +185,7 @@ python tools/parse_lineara_corpus.py
 ### Quick Start
 
 1. **Current Program State**: [MASTER_STATE.md](linear-a-decipherer/MASTER_STATE.md) — canonical current metrics and campaign status
-2. **Project Overview**: [PROJECT_REVIEW.md](PROJECT_REVIEW.md) — historical strategic review
-3. **Read First Principles**: [METHODOLOGY.md](linear-a-decipherer/METHODOLOGY.md) — six inviolable principles
+2. **Read First Principles**: [METHODOLOGY.md](linear-a-decipherer/METHODOLOGY.md) — six inviolable principles
 4. **Reference Knowledge Tables**: [KNOWLEDGE.md](linear-a-decipherer/KNOWLEDGE.md)
 5. **See Example Analysis**: [HT13_ANALYSIS.md](linear-a-decipherer/examples/HT13_ANALYSIS.md)
 
@@ -188,7 +193,7 @@ python tools/parse_lineara_corpus.py
 
 ## Analysis Tools
 
-The project includes 48 Python analysis scripts organized by function (stdlib-only, no external dependencies):
+The project includes 55 Python analysis scripts organized by function (stdlib-only, no external dependencies):
 
 ### Core Analysis
 
@@ -196,7 +201,7 @@ The project includes 48 Python analysis scripts organized by function (stdlib-on
 |------|-------------|
 | `analyze_inscription.py` | Full analysis pipeline for specific tablets |
 | `kober_analyzer.py` | Frequency/positional analysis (Kober Method) |
-| `hypothesis_tester.py` | Multi-hypothesis testing (all 4 frameworks) |
+| `hypothesis_tester.py` | Multi-hypothesis testing (all 7 frameworks) |
 | `batch_pipeline.py` | Multi-stage corpus analysis (discover → hypothesize → validate → synthesize) |
 
 ### Pattern Detection
@@ -219,6 +224,9 @@ The project includes 48 Python analysis scripts organized by function (stdlib-on
 | `corpus_consistency_validator.py` | First Principle #6 verification |
 | `regional_analyzer.py` | Site-by-site vocabulary comparison |
 | `corpus_auditor.py` | Structure audit, arithmetic validation |
+| `arithmetic_verifier.py` | KU-RO mismatch diagnosis, Rosetta skeletons |
+| `commodity_validator.py` | Co-occurrence → functional anchor promotion |
+| `reading_readiness_scorer.py` | Tablet readability ranking |
 | `phase_validator.py` | Detect contradictions between phases |
 
 ### External Database Connectors
@@ -302,7 +310,8 @@ This project integrates the [lineara.xyz](https://lineara.xyz) corpus as a git s
 | **Feb 16, 2026** | v0.5.0: Infrastructure audit — issue templates, pre-commit, test scaffold, 48 tools |
 | **Feb 16, 2026** | v0.6.0: Compliance breakthrough (10% → 100%), 6 new analyses, 2 promotions, 2 anchors |
 | **Feb 16, 2026** | v0.6.1: Libation formula inflectional paradigm; prior art attribution (Finkelberg 1990, Davis 2014, Thomas 2020) |
-| **Ongoing** | Strategic Plan: Paradigm completion, synthesis |
+| **Feb 17, 2026** | v0.7.0: First connected readings (3 tablets + libation formula); 6 commodity anchors; 55 tools; ~30 stale files archived |
+| **Ongoing** | Strategic Plan: Expand reading attempts, paradigm completion |
 
 ### OPERATION MINOS III + BREAKTHROUGH Key Findings (Feb 2026)
 
@@ -355,7 +364,7 @@ This project integrates the [lineara.xyz](https://lineara.xyz) corpus as a git s
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines. All contributions must:
 
 - Follow all six First Principles
-- Test all four linguistic hypotheses
+- Test all seven linguistic hypotheses
 - Verify readings across corpus
 - Use calibrated confidence levels
 
@@ -402,7 +411,7 @@ This project builds on decades of scholarly work on Linear A. Key contributions 
 - Systematic multi-hypothesis testing framework with tool-validated percentages
 - Anchor hierarchy formalization for confidence calibration
 - Regional administration systematization (HT vs KH parallel systems)
-- 48 Python analysis tools for corpus-wide verification (stdlib-only)
+- 55 Python analysis tools for corpus-wide verification (stdlib-only)
 
 **Novel interpretations**:
 - **\*118 = Word-final consonant** — proves Linear A had closed syllables (CVC), explaining why Greeks dropped 123 signs
@@ -410,7 +419,10 @@ This project builds on decades of scholarly work on Linear A. Key contributions 
 - Contact language model formalization with tool-validated layer percentages
 - Khania parallel system documentation (zero K-R vocabulary)
 - *301 distributional profile and phoneme candidates
-- Proto-Greek definitively eliminated (2.5% support vs 30.3% Luwian)
+- 5/7 hypotheses definitively eliminated; Luwian STRONG (35.0%), Semitic MODERATE (17.5%)
+- First connected tablet readings with arithmetic proof (HT 85a, HT 117a, HT 9b)
+- 6 commodity functional anchors validated (100% specificity each)
+- Libation formula complete alignment across 34 inscriptions at 14 sites
 
 ---
 

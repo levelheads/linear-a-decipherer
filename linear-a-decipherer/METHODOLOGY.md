@@ -54,11 +54,11 @@ Self-check: *"Am I building from confirmed anchors outward, or from speculation 
 **Always test Luwian, Semitic, Pre-Greek, AND Proto-Greek readings.**
 
 No single hypothesis has achieved decipherment. Therefore:
-- EVERY proposed reading must be tested against ALL four hypotheses
+- EVERY proposed reading must be tested against ALL seven hypotheses
 - Document which hypotheses the reading supports/contradicts
 - If reading works under ONE hypothesis only → Max confidence: PROBABLE
 
-Self-check: *"Have I tested this reading against ALL four major hypotheses?"*
+Self-check: *"Have I tested this reading against ALL seven major hypotheses?"*
 
 ### Principle 5: NEGATIVE EVIDENCE
 
@@ -118,7 +118,7 @@ Review outcome options: CONFIRMED, DEMOTED (update all dependent readings), REJE
 
 ---
 
-## Part 3: Four Hypotheses Framework
+## Part 3: Seven Hypotheses Framework
 
 ### 1. Luwian/Anatolian (Palmer, Finkelberg)
 
@@ -150,7 +150,33 @@ Review outcome options: CONFIRMED, DEMOTED (update all dependent readings), REJE
 | ku-ro | kyrios | lord/complete |
 | ma-te | mētēr | mother |
 
-**Note:** Currently assessed as WEAKEST hypothesis (low /o/ frequency, absent Greek morphology)
+**Note:** ELIMINATED (2026-02-17) — 2.8% Bayesian posterior, below 5% falsification threshold
+
+### 5. Hurrian (Monti 2002, van Soesbergen 2017)
+
+**Method:** Compare agglutinative morphology; test ergative patterns
+- Hurrian uses SOV word order, ergative case system
+- Test for -nni, -šše suffixes characteristic of Hurrian
+
+**Note:** ELIMINATED (2026-02-17) — Bayesian posterior 0.101, falsification <5%
+
+### 6. Hattic (Schrijver 2018)
+
+**Method:** Compare isolating/prefixing patterns; test temple terminology
+- Hattic is a pre-Hittite language isolate with prefixing morphology
+- Very small comparative corpus limits testing
+
+**Note:** ELIMINATED (2026-02-17) — Bayesian posterior <5%, falsification <5%
+
+### 7. Etruscan (Facchetti 2001, Facchetti & Negri 2003)
+
+**Method:** Compare Mediterranean isolate patterns; test phonological inventory
+- Etruscan shares some Mediterranean substrate features
+- Facchetti has retreated from strong affiliation claims
+
+**Note:** ELIMINATED (2026-02-17) — Bayesian posterior <5%, falsification <5%
+
+> **BREAKTHROUGH Note (2026-02-17)**: As of this date, only **Luwian** (STRONG, 35.0%) and **Semitic** (MODERATE, 17.5%) survive falsification. Proto-Greek, Pre-Greek, Hurrian, Hattic, and Etruscan are all ELIMINATED (<5%). All seven must still be tested for methodology compliance, but analytical focus should prioritize the two surviving hypotheses.
 
 ---
 
@@ -182,7 +208,7 @@ Apply Linear B values to homomorphic signs. Confidence levels:
 ### Step 4: Multi-Hypothesis Analysis
 
 ```
-FOR each linguistic hypothesis H in {Luwian, Semitic, Pre-Greek, Proto-Greek}:
+FOR each linguistic hypothesis H in {Luwian, Semitic, Pre-Greek, Proto-Greek, Hurrian, Hattic, Etruscan}:
     1. Generate candidate reading using H's rules
     2. Search H's lexicon for matches
     3. Check morphological plausibility
@@ -241,7 +267,7 @@ FIRST PRINCIPLES PRE-FLIGHT CHECK
 [ ] I will analyze patterns BEFORE assuming a language [P1]
 [ ] I am prepared to abandon my hypothesis if evidence contradicts [P2]
 [ ] I have identified all available anchors [P3]
-[ ] I will test against ALL four linguistic hypotheses [P4]
+[ ] I will test against ALL seven linguistic hypotheses [P4]
 [ ] I will consider what the data DOESN'T show [P5]
 [ ] I will verify readings across the ENTIRE corpus [P6]
 
@@ -262,8 +288,8 @@ FIRST PRINCIPLES VERIFICATION
 [3] ANCHORS: Were readings built from confirmed anchors outward?
     [PASS / FAIL / PARTIAL] Anchors used: ___
 
-[4] MULTI-HYP: Were ALL four hypotheses tested?
-    [PASS / FAIL / PARTIAL] Results: Luwian___ Semitic___ Pre-Greek___ Proto-Greek___
+[4] MULTI-HYP: Were ALL seven hypotheses tested?
+    [PASS / FAIL / PARTIAL] Results: Luwian___ Semitic___ Pre-Greek___ Proto-Greek___ Hurrian___ Hattic___ Etruscan___
 
 [5] NEGATIVE: Was absence of patterns considered?
     [PASS / FAIL / PARTIAL] Absences noted: ___
@@ -313,6 +339,8 @@ Explicit thresholds for hypothesis acceptance/rejection:
 | **MODERATE** | 15-25% | Possible genetic affiliation | Prioritize investigation |
 | **STRONG** | >25% | Likely genetic relationship | Primary focus |
 
+**BREAKTHROUGH Results (2026-02-17)**: 5/7 hypotheses ELIMINATED (<5%). Luwian STRONG (35.0%), Semitic MODERATE (17.5%).
+
 **Tool**: `tools/falsification_system.py`
 
 ### Regional Weighting Formula
@@ -349,13 +377,16 @@ Cascade rules:
 
 Calibrated priors for hypothesis testing:
 
-| Hypothesis | Prior | Rationale |
-|------------|-------|-----------|
-| Luwian | 0.25 | Geographic proximity; Palmer/Finkelberg case |
-| Semitic | 0.15 | Trade routes; Gordon's evidence |
-| Pre-Greek | 0.20 | Substrate theory; Beekes' lexicon |
-| Proto-Greek | 0.05 | Low /o/ argues strongly against |
-| Isolate | 0.35 | Conservative null hypothesis |
+| Hypothesis | Prior | Posterior (2026-02-17) | Status |
+|------------|-------|------------------------|--------|
+| Luwian | 0.25 | 0.316 | **STRONG** |
+| Isolate | 0.35 | 0.299 | Active null |
+| Semitic | 0.15 | 0.130 | **MODERATE** |
+| Hurrian | 0.05 | 0.101 | ELIMINATED |
+| Pre-Greek | 0.20 | <0.05 | ELIMINATED |
+| Proto-Greek | 0.05 | <0.05 | ELIMINATED |
+| Hattic | 0.02 | <0.05 | ELIMINATED |
+| Etruscan | 0.02 | <0.05 | ELIMINATED |
 
 **Tool**: `tools/bayesian_hypothesis_tester.py`
 
@@ -369,6 +400,9 @@ Canonical absences that constrain hypotheses:
 | Greek case endings | Proto-Greek | CERTAIN absence | ELIMINATED |
 | to-so (Greek total) | Proto-Greek | CERTAIN absence | Different vocabulary |
 | Triconsonantal morphology | Semitic | PROBABLE absence | Loans, not genetic |
+| Ergative case markers | Hurrian | PROBABLE absence | No SOV/ergative pattern |
+| Prefixing morphology | Hattic | PROBABLE absence | No consistent prefixes |
+| Mediterranean isolate cognates | Etruscan | PROBABLE absence | No shared vocabulary |
 
 **Data**: `data/negative_evidence_catalog.json`
 
@@ -400,3 +434,4 @@ Raw hypothesis score
 
 *Methodology document consolidating FIRST_PRINCIPLES.md, SKILL.md, and CLAUDE_REFERENCE.md*
 *Part 7 added 2026-02-01: Quantitative methods addressing methodology critique*
+*Updated 2026-02-17: Four → Seven hypotheses framework (BREAKTHROUGH); 5/7 ELIMINATED*

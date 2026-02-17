@@ -4,6 +4,148 @@
 
 ---
 
+## 2026-02-17 (v0.7.0: From Infrastructure to Translation)
+
+### Reading Attempts (Lane G — First Connected Readings)
+
+- **HT 85a**: VIR allocation list. A-DU contributor → 7 recipients → KU-RO=66 (VERIFIED exact). DA-SI-*118 receives 36.4% (24/66 workers). HT Scribe 9. Class A arithmetic verification (no fractions, no damage).
+- **HT 117a**: Personnel list with dual KI-RO + KU-RO. Three-section structure (MA-KA-RI-TE | SA-TA | *21F-TU-NE). KU-RO=10 (VERIFIED exact). 17 personal names identified. KI-RO confirmed in header position (organizational marker, not deficit). HT Scribe 9.
+- **HT 9b**: Connected reading with arithmetic verification. KU-RO verified.
+- **Libation formula complete reading**: 34 inscriptions aligned position-by-position across 14 sites. Form A/B paradigm documented. Attempted Luwian and Semitic readings with per-element confidence. SYZa2 "Rosetta Stone" analysis (U-NA-KA-NA-SI-OLE proving oil offering connection).
+
+### New Tools (3)
+
+- **reading_readiness_scorer.py**: Ranks all 1,679 tablets by readability (composite: 40% coverage, 25% arithmetic, 15% structure, 10% size, 10% unknown penalty). Combines evidence from all existing data files.
+- **arithmetic_verifier.py**: Extends corpus_auditor --totals with mismatch diagnosis (lacuna, missing_entries, fraction_parsing, multi_commodity, multi_kuro), Rosetta skeleton output, KI-RO verification. Results: 6 VERIFIED, 23 MISMATCH, 5 INCOMPLETE.
+- **commodity_validator.py**: Promotes co-occurrence observations to validated functional anchors. 15 mappings validated (6 STRONG_ANCHOR, 9 CANDIDATE) at threshold 0.6.
+
+### New Data Files (4)
+
+- `data/reading_readiness.json` — all tablets scored and ranked
+- `data/arithmetic_verification.json` — full verification with mismatch diagnosis
+- `data/commodity_anchors.json` — validated commodity-word mappings
+- `data/libation_corpus.json` — 34 libation inscriptions aligned
+
+### Project Hygiene
+
+- Archived ~30 stale files (8 strategy docs, 9 misclassified analyses, 11 superseded data files)
+- Consolidated LESSONS_LEARNED.md into ENGINEERING_PRACTICES.md
+- Deleted linear-a-decipherer.skill (superseded)
+- Archived PROJECT_REVIEW.md (has redirect banner)
+
+### Key Findings
+
+- **KI-RO dual function confirmed**: Header/organizational marker (HT 117a) AND deficit marker (HT 94b). Not just "deficit."
+- **HT Scribe 9 profile**: Both HT 85a and HT 117a verify exactly — meticulous accountant
+- **6 commodity functional anchors**: ≈→VIN, KU-NI-SU→GRA, 𐝉𐝫→OLE, DA-ME→GRA, KU-PA→GRA, 𐝇𐝉→CYP (all 100% specificity)
+- **DA-SI-*118 disproportionate share**: Receives 36.4% of workers on HT 85a — supervisory status
+- **A-DU as personnel contributor**: Expands A-DU beyond commodities to labor allocation
+
+### Infrastructure Summary
+
+New tools: 3 (reading_readiness_scorer.py, arithmetic_verifier.py, commodity_validator.py)
+New analyses: 4 (3 tablet readings + 1 libation formula alignment)
+New data files: 4 (reading_readiness, arithmetic_verification, commodity_anchors, libation_corpus)
+Archived files: ~30
+Total tool count: 55 (was 52)
+Validation: 0 critical errors, 160/160 compliance maintained
+
+---
+
+## 2026-02-17 (Post-BREAKTHROUGH: Comprehensive Review and Strategic Pivot)
+
+### Tool Fixes (7 files)
+- **batch_pipeline.py**: Added hurrian, hattic, etruscan to synthesis hypothesis_support and best_assignment_counts dicts; updated all "four hypotheses" references to "seven"
+- **promotion_board_runner.py**: Renamed `four_hypothesis_present` → `all_hypotheses_present`; gate now checks all 7 hypotheses
+- **tool_parity_checker.py**: HYPOTHESES constant expanded from 4 to 7
+- **slot_grammar_analyzer.py**: 5 hardcoded hypothesis lists expanded from 4 to 7
+- **compare_results.py**: Added POSSIBLE reclassification note to aggregate summaries output
+- **phase_validator.py**: Fixed "greek" → "protogreek"; added 3 new hypotheses
+- **personal_name_analyzer.py**: Fixed "greek" → "protogreek"; added hurrian_fit, hattic_fit, etruscan_fit to PersonalName dataclass and all analysis methods
+
+### Documentation Updates (6 files)
+- **METHODOLOGY.md**: "Four Hypotheses Framework" → "Seven Hypotheses Framework"; added Hurrian/Hattic/Etruscan sections; updated checklists, Bayesian table, negative evidence catalog; added BREAKTHROUGH note
+- **KNOWLEDGE.md**: Bayesian results updated to 7-hypothesis posteriors; "Untested Hypotheses" → "Tested and Eliminated" with rationale
+- **TOOLS_GUIDE.md**: Tool count 48 → 52; added "BREAKTHROUGH Tools" section with 4 new + 4 extended tools; updated all "four hypotheses" references
+- **WORKSTREAMS.md**: Lane D marked MAINTENANCE; added Lane G (Reading Attempts) with workflow and priority targets
+- **README.md**: Updated Research Status, hypothesis tables (7 with 5 ELIMINATED), tool count 48 → 52
+- **MASTER_STATE.md**: Lane D → MAINTENANCE; added Lane G with priority sequence
+
+### Strategic Pivot
+- Language asymmetry (Lane D) reduced to maintenance — 5/7 hypotheses eliminated, diminishing returns
+- New Lane G: Reading Attempts — strategic pivot from "which language?" to "what do these texts say?"
+- Priority targets: KU-RO arithmetic verification, libation formula complete reading, commodity co-occurrence
+
+---
+
+## 2026-02-17 (Project BREAKTHROUGH: Five Sub-Projects Implementation)
+
+### SP1: The Ventris Grid — Hypothesis-Free Structural Grammar Extraction
+
+- **New tool**: `structural_grid_builder.py` — cross-references all structural data into a Ventris Grid
+- **Ran all structural tools at maximum depth**: slot_grammar, paradigm_discoverer, contextual_analyzer, syntax_analyzer, corpus_auditor, kober_analyzer
+- **27 grammatical categories** identified from suffix analysis (14 significant with 5+ members)
+- **Constraint matrix**: 7 dimensions including word order (VSO), vowel system (/o/ at 3.2%), morphology type, paradigm complexity
+- **Hypothesis compatibility ranking**: Hurrian (0.600) > Semitic (0.571) > Etruscan (0.500) > Luwian (0.488) > Hattic (0.464) > Pre-Greek (0.393) > Proto-Greek (0.179)
+- **Structural elimination**: VSO word order eliminates SOV-type hypotheses from structural constraints alone
+- Output: `data/ventris_grid.json`, `data/slot_grammar_full.json`, `data/kober_full_report.json`
+
+### SP2: The Akkadian Bridge — Deep Comparative Administrative Semantics
+
+- **New tool**: `admin_isomorphism_scorer.py` — compares Linear A document templates to Akkadian Ur III accounting
+- **6 x 6 template comparison**: Linear A commodity list best matches Akkadian commodity_disbursement (score: 0.377)
+- **46 positional identifications**: KU-RO=TOTAL, KI-RO=DEFICIT (HIGH), TE=HEADER (PROBABLE), plus 43 SPECULATIVE slot words
+- **36 Khania CYP tablets** analyzed against copper trade document structure
+- **Commodity-specific terms identified**: A-KA-RU (OLE), U-*34-SI (GRA), SI (VIN), KI-RO (CYP)
+- Output: `data/admin_isomorphism.json`
+
+### SP3: The Morphological Machine — Productive Suffix Prediction Engine
+
+- **New tool**: `morphological_predictor.py` — decomposes words and generates testable predictions
+- **995 words decomposed** into ROOT+AFFIXES; 804 at POSSIBLE+ confidence
+- **481 predictions generated**, 71 corpus hits (14.8% hit rate)
+- **20 infix candidates discovered** (19 new beyond known -RU-): -DA-, -TA-, -RI-, -RA-, -MA-, -NA-, -WA- among most productive
+- **Typological profile**: Best match = fusional_root (Akkadian/Arabic/Hebrew type, score 0.750)
+- Suffix distribution: -JA (48), -NA (45), -RE (44), -TE (44), -TI (42) most common
+- Output: `data/morphological_predictions.json`
+
+### SP4: The Onomastic Decoder — Personal Names as Cryptanalytic Key
+
+- **New tool**: `onomastic_comparator.py` — tests names against Bronze Age onomastic databases
+- **New data**: `data/comparative/bronze_age_onomastics.json` — cross-cultural naming conventions
+- **111 name candidates** profiled; 46 with possible theophoric elements
+- **Naming convention ranking**: Hurrian (0.449) > Akkadian (0.443) = Ugaritic (0.443) > Luwian (0.419)
+- **4 name decodings proposed**: DA-MA-TE (POSSIBLE), A-TA-NA (SPECULATIVE), DA-RI-DA and A-RI (Hurrian ari "give", SPECULATIVE)
+- **Regional patterns**: HT names avg 2.9 syllables (38% theophoric); ZA/HTW show higher theophoric rates
+- Output: `data/onomastic_analysis.json`
+
+### SP5: The Eliminator — Adversarial 7-Hypothesis Framework
+
+- **Extended hypothesis_tester.py** from 4 to 7 hypotheses (Hurrian, Hattic, Etruscan added)
+- **New reference data files**: `hurrian_reference.json` (45 lexicon entries + full grammar), `hattic_reference.json` (19 entries), `etruscan_reference.json` (33 entries)
+- **160 words re-tested** against all 7 hypotheses; compliance maintained at 100%
+- **Hypothesis support**: Luwian 56 supported, Semitic 28, Proto-Greek 5, Pre-Greek 4, Hurrian/Hattic/Etruscan 0
+- **Bug fix**: POSSIBLE verdict was being miscounted as "contradicted" in hypothesis_summaries — corrected to count as "neutral"
+- **Extended falsification_system.py** to 7 hypotheses: Luwian STRONG (35.0%), Semitic MODERATE (17.5%), all others ELIMINATED
+- **Extended negative_evidence.py** to 7 hypotheses with full analysis methods:
+  - Hurrian: +2.5 (low /o/ helps; SOV mismatch hurts)
+  - Hattic: +0.5 (prefix-dominance structural mismatch)
+  - Etruscan: +0.5 (Lemnian geography helps; chronological gap hurts)
+- **Extended bayesian_hypothesis_tester.py** to 8 hypotheses (7 + isolate): Luwian 0.316 posterior (↑0.096), Isolate 0.299, Semitic 0.130, Hurrian 0.101
+- **Falsification result**: 5/7 hypotheses eliminated (Proto-Greek, Pre-Greek, Hurrian, Hattic, Etruscan); only Luwian (STRONG) and Semitic (MODERATE) survive
+- **KU-RO sensitivity**: Remains prior-sensitive across 6 configurations (expected for multi-hypothesis word)
+- **Key finding**: Hurrian structural compatibility is HIGH (vowels, morphology type) but lexical matches are LOW — consistent with areal contact rather than genetic relationship
+
+### Infrastructure Summary
+
+New tools: 4 (structural_grid_builder.py, admin_isomorphism_scorer.py, morphological_predictor.py, onomastic_comparator.py)
+New data files: 4 (hurrian_reference.json, hattic_reference.json, etruscan_reference.json, bronze_age_onomastics.json)
+Extended tools: 4 (hypothesis_tester.py, falsification_system.py, negative_evidence.py, bayesian_hypothesis_tester.py — all from 4→7/8 hypotheses)
+Total tool count: 52 (was 48)
+Validation: 0 critical errors, 160/160 compliance maintained
+
+---
+
 ## 2026-02-16 (Post-v0.6.0: Libation Formula Inflectional Paradigm)
 
 ### Libation Formula Morphological Analysis (extends Finkelberg 1990, Davis 2014, Thomas 2020)

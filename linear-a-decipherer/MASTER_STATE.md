@@ -2,7 +2,7 @@
 
 **Canonical operational source of truth for active status, metrics, campaigns, and release readiness.**
 
-**Last Updated**: 2026-02-16
+**Last Updated**: 2026-02-17
 **Scope**: Current state only (not full historical narrative)
 **Historical log**: `linear-a-decipherer/CHANGELOG.md`
 
@@ -31,12 +31,26 @@ If any other file conflicts with this one, this file wins.
 | Hypothesis run word set | 160 words (freq >= 2) | `data/hypothesis_results.json` |
 | Batch pipeline word set | 160 words | `data/batch_analysis_results.json` |
 | High-confidence batch words | 28 | `data/batch_analysis_results.json` |
-| Integrated validated words | 160 | `data/integrated_results.json` (run 2026-02-16) |
-| Methodology compliance | 160/160 (100.0%) | `data/integrated_results.json` (run 2026-02-16) |
+| Integrated validated words | 160 | `data/integrated_results.json` (run 2026-02-17) |
+| Methodology compliance | 160/160 (100.0%) | `data/integrated_results.json` (run 2026-02-17) |
 | Registered anchor types | 11 | `data/anchors.json` |
 | Corpus validation status | PASS with 8 warnings, 0 critical errors | `data/validation_report.json` |
-| Tool count (Python scripts) | 48 | `tools/*.py` |
-| Current release version | v0.6.1 | `CITATION.cff`, local tags |
+| Hypotheses tested | 7 | `data/hypothesis_results.json` |
+| Grammatical categories identified | 27 (14 significant) | `data/ventris_grid.json` |
+| Contextual formulas extracted | 87 | `data/contextual_analysis_full.json` |
+| Morphological predictions tested | 481 (71 hits, 14.8%) | `data/morphological_predictions.json` |
+| Infixes identified | 20 (1 known + 19 new) | `data/morphological_predictions.json` |
+| Name candidates profiled | 111 (46 theophoric) | `data/onomastic_analysis.json` |
+| Admin template comparisons | 36 (6x6 grid) | `data/admin_isomorphism.json` |
+| Falsification: Active hypotheses | 2/7 (Luwian STRONG 35.0%, Semitic MODERATE 17.5%) | `data/falsification_report.json` |
+| Falsification: Eliminated | 5/7 (Proto-Greek, Pre-Greek, Hurrian, Hattic, Etruscan) | `data/falsification_report.json` |
+| Bayesian top posterior | Luwian 0.316, Isolate 0.299, Semitic 0.130 | `data/bayesian_corpus_results.json` |
+| Negative evidence ranking | Luwian +3.5 > Hurrian +2.5 > Hattic/Etruscan +0.5 > Greek -15.0 | `data/negative_evidence_report.json` |
+| Commodity functional anchors | 6 strong + 9 candidates | `data/commodity_anchors.json` |
+| KU-RO arithmetic verified | 6/34 EXACT MATCH | `data/arithmetic_verification.json` |
+| Reading attempts completed | 3 tablets + 1 thematic | `analysis/completed/inscriptions/HT*_READING.md` |
+| Tool count (Python scripts) | 55 | `tools/*.py` |
+| Current release version | v0.7.0 | `CITATION.cff`, local tags |
 
 ---
 
@@ -52,6 +66,16 @@ If any other file conflicts with this one, this file wins.
 | Cross-corpus consistency | `python tools/corpus_consistency_validator.py --all --min-freq 5 --output data/consistency_validation.json` | `data/consistency_validation.json` |
 | Integrated compliance | `python tools/integrated_validator.py --all --output data/integrated_results.json` | `data/integrated_results.json` |
 | Index refresh | `python tools/update_index.py --write` | `linear-a-decipherer/ANALYSIS_INDEX.md` |
+| Falsification thresholds | `python tools/falsification_system.py --all --output data/falsification_report.json` | `data/falsification_report.json` |
+| Bayesian posteriors | `python tools/bayesian_hypothesis_tester.py --corpus --output data/bayesian_corpus_results.json` | `data/bayesian_corpus_results.json` |
+| Negative evidence | `python tools/negative_evidence.py --hypothesis all --output data/negative_evidence_report.json` | `data/negative_evidence_report.json` |
+| Ventris Grid | `python tools/structural_grid_builder.py --output data/ventris_grid.json` | `data/ventris_grid.json` |
+| Admin isomorphism | `python tools/admin_isomorphism_scorer.py --output data/admin_isomorphism.json` | `data/admin_isomorphism.json` |
+| Morphological predictions | `python tools/morphological_predictor.py --output data/morphological_predictions.json` | `data/morphological_predictions.json` |
+| Onomastic comparison | `python tools/onomastic_comparator.py --output data/onomastic_analysis.json` | `data/onomastic_analysis.json` |
+| Reading readiness | `python tools/reading_readiness_scorer.py --all --output data/reading_readiness.json` | `data/reading_readiness.json` |
+| Arithmetic verification | `python tools/arithmetic_verifier.py --all --output data/arithmetic_verification.json` | `data/arithmetic_verification.json` |
+| Commodity validation | `python tools/commodity_validator.py --all --output data/commodity_anchors.json` | `data/commodity_anchors.json` |
 
 ---
 
@@ -93,8 +117,9 @@ Priority sequence:
 
 ### Lane D: Language Asymmetry Campaign
 
-**Status**: ACTIVE
+**Status**: MAINTENANCE (2026-02-17)
 **Goal**: Refine base-language model through adversarial hypothesis testing.
+**Note**: 5/7 hypotheses eliminated; focus on Luwian (STRONG) + Semitic (MODERATE) only. Reduced to maintenance — re-run validators only when new evidence surfaces.
 
 Priority sequence:
 
@@ -112,6 +137,22 @@ Current throughput target:
 1. Weekly mixed batch + deep-dive cadence
 2. Non-HT site balancing in queue selection
 3. Coverage and site-bias report each cycle
+
+### Lane G: Reading Attempts
+
+**Status**: ACTIVE (2026-02-17)
+**Goal**: Produce connected readings of specific tablets using accumulated evidence.
+
+**Completed (v0.7.0)**:
+1. HT 85a reading — VIR allocation, KU-RO=66 VERIFIED, 7 recipients (A-DU contributor)
+2. HT 117a reading — Personnel list, KU-RO=10 VERIFIED, dual KI-RO+KU-RO, 3-section structure
+3. HT 9b reading — Connected reading with arithmetic verification
+4. Libation formula complete alignment — 34 inscriptions, 14 sites, Form A/B paradigm
+
+**Next priorities**:
+1. Additional KU-RO tablets — expand verified set beyond 6
+2. Commodity co-occurrence exploitation (6 strong anchors + 9 candidates)
+3. High-density anchored tablets — connected reading attempts
 
 ### Lane F: Release and Process Excellence
 
@@ -166,7 +207,7 @@ No reading may be promoted without a complete evidence packet.
 
 | Check | Status | Evidence |
 |-------|--------|----------|
-| Local tags align with CITATION version lineage | PASS | tags `v0.2.0`, `v0.3.0`, `v0.4.0`, `v0.4.1`, `v0.5.0`, `v0.6.0` |
+| Local tags align with CITATION version lineage | PASS | tags `v0.2.0`, `v0.3.0`, `v0.4.0`, `v0.4.1`, `v0.5.0`, `v0.6.0`, `v0.6.1` |
 | CITATION version/date present | PASS | `CITATION.cff` |
 | Validator commands in CI use execution flags | TARGETED | `.github/workflows/validate.yml` |
 | Canonical-state guard enabled in CI | TARGETED | `.github/workflows/validate.yml` |

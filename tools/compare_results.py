@@ -246,6 +246,8 @@ def compare_hypothesis_results(pre, post):
 
     print(thin)
     print("  HYPOTHESIS AGGREGATE SUMMARIES (supported/contradicted/neutral)")
+    print("  NOTE: Post-POSSIBLE-fix (2026-02-17) reclassified POSSIBLE as neutral,")
+    print("        not contradicted. Large deltas in 'contradicted' are expected.")
     print(thin)
     all_hyps = sorted(set(hs_pre.keys()) | set(hs_post.keys()))
     for h in all_hyps:

@@ -2,14 +2,17 @@
 """
 Multi-Hypothesis Tester for Linear A
 
-Tests proposed Linear A readings against four mandatory linguistic hypotheses:
+Tests proposed Linear A readings against seven linguistic hypotheses:
 1. Luwian/Anatolian (Palmer, Finkelberg)
 2. Semitic - West Semitic/Akkadian (Gordon, Best)
 3. Pre-Greek Substrate (Beekes, Furnée)
 4. Proto-Greek (Georgiev, Mosenkis)
+5. Hurrian (Wegner, Wilhelm — expanded Feb 2026)
+6. Hattic (Soysal, Girbal — expanded Feb 2026)
+7. Etruscan/Tyrsenian (Bonfante, Wallace — expanded Feb 2026)
 
 This tool implements First Principle #4 (MULTI-HYPOTHESIS TESTING):
-"Always test Luwian, Semitic, Pre-Greek, AND Proto-Greek readings."
+"Always test against ALL available linguistic hypotheses."
 
 Usage:
     python tools/hypothesis_tester.py [--word WORD] [--all] [--output FILE]
@@ -812,6 +815,162 @@ GREEK_LEXICON = {
     },
 }
 
+# ===========================================================================
+# HURRIAN REFERENCE DATA
+# Sources: Wegner (2007), Wilhelm (1995), Nuzi archives, von Dassow (Alalakh)
+# ===========================================================================
+
+HURRIAN_LEXICON = {
+    # Administrative vocabulary (HIGH confidence from Nuzi/Alalakh)
+    "ewri": {"meaning": "lord, king, ruler", "confidence": "HIGH", "source": "Wegner"},
+    "eni": {"meaning": "god, deity", "confidence": "HIGH", "source": "Wegner"},
+    "atti": {"meaning": "father", "confidence": "HIGH", "source": "Wegner"},
+    "nera": {"meaning": "mother", "confidence": "MEDIUM", "source": "Wegner"},
+    "sena": {"meaning": "brother", "confidence": "HIGH", "source": "Wegner"},
+    "ela": {"meaning": "sister", "confidence": "MEDIUM", "source": "Wegner"},
+    "puru": {"meaning": "house, temple", "confidence": "HIGH", "source": "Wegner"},
+    "arde": {"meaning": "city, town", "confidence": "HIGH", "source": "Wegner"},
+    "awari": {"meaning": "field, estate", "confidence": "HIGH", "source": "Wegner"},
+    "tuppi": {"meaning": "tablet, document", "confidence": "HIGH", "source": "Nuzi"},
+    "tive": {"meaning": "word, thing, matter", "confidence": "HIGH", "source": "Wegner"},
+    "aste": {"meaning": "woman, lady", "confidence": "HIGH", "source": "Nuzi"},
+    "sarri": {"meaning": "king (Akkadian loan)", "confidence": "HIGH", "source": "Nuzi"},
+    "kussi": {"meaning": "throne, seat", "confidence": "MEDIUM", "source": "Wegner"},
+    "hassi": {"meaning": "oil, ointment", "confidence": "MEDIUM", "source": "Nuzi"},
+    "sije": {"meaning": "water", "confidence": "HIGH", "source": "Wegner"},
+    "hari": {"meaning": "road, way", "confidence": "MEDIUM", "source": "Wegner"},
+    "sukri": {"meaning": "gift, offering", "confidence": "HIGH", "source": "Wegner"},
+    "keldi": {"meaning": "health, well-being", "confidence": "HIGH", "source": "Wegner"},
+    "tadi": {"meaning": "love", "confidence": "HIGH", "source": "Wegner"},
+    "uri": {"meaning": "foot, base", "confidence": "MEDIUM", "source": "Wegner"},
+    "sarni": {"meaning": "penalty, compensation", "confidence": "MEDIUM", "source": "Nuzi"},
+    "kirenzi": {"meaning": "release, freedom", "confidence": "MEDIUM", "source": "Nuzi"},
+    # Verbal roots
+    "ar": {"meaning": "give", "confidence": "HIGH", "source": "Wegner"},
+    "un": {"meaning": "come, bring", "confidence": "HIGH", "source": "Wegner"},
+    "ag": {"meaning": "lead, bring", "confidence": "MEDIUM", "source": "Wegner"},
+    "pal": {"meaning": "know, understand", "confidence": "MEDIUM", "source": "Wegner"},
+    "fur": {"meaning": "see, look", "confidence": "MEDIUM", "source": "Wegner"},
+    "sid": {"meaning": "curse, bewitch", "confidence": "MEDIUM", "source": "Wegner"},
+    "tehhi": {"meaning": "approach, enter", "confidence": "MEDIUM", "source": "Wegner"},
+    "passi": {"meaning": "send, message", "confidence": "MEDIUM", "source": "Nuzi"},
+    "undi": {"meaning": "offering, dedication", "confidence": "MEDIUM", "source": "Wegner"},
+    # Divine names
+    "tessub": {"meaning": "Storm God (chief deity)", "confidence": "HIGH", "source": "Wegner"},
+    "sauska": {"meaning": "love/war goddess (=Ishtar)", "confidence": "HIGH", "source": "Wegner"},
+    "kumarbi": {"meaning": "father of gods", "confidence": "HIGH", "source": "Wegner"},
+    "hepat": {"meaning": "solar goddess", "confidence": "HIGH", "source": "Wegner"},
+    "simige": {"meaning": "sun god", "confidence": "HIGH", "source": "Wegner"},
+    "kusuh": {"meaning": "moon god", "confidence": "HIGH", "source": "Wegner"},
+    "allani": {"meaning": "lady (of underworld)", "confidence": "MEDIUM", "source": "Wegner"},
+    # Morphological elements
+    "ne": {"meaning": "definite article (sg)", "confidence": "HIGH", "source": "Wegner"},
+    "na": {"meaning": "definite article (pl)", "confidence": "HIGH", "source": "Wegner"},
+    "sse": {"meaning": "ergative/abstract", "confidence": "HIGH", "source": "Wegner"},
+    "va": {"meaning": "genitive/dative", "confidence": "HIGH", "source": "Wegner"},
+    "da": {"meaning": "allative/ablative", "confidence": "HIGH", "source": "Wegner"},
+    "ra": {"meaning": "comitative", "confidence": "MEDIUM", "source": "Wegner"},
+    "ma": {"meaning": "conjunction 'and'", "confidence": "HIGH", "source": "Wegner"},
+}
+
+HURRIAN_PHONOLOGICAL_MARKERS = {
+    "vowel_system": ["a", "e", "i", "u"],
+    "no_o": True,
+    "agglutinative": True,
+    "ergative": True,
+    "sov_word_order": True,
+    "suffixation_primary": True,
+}
+
+# ===========================================================================
+# HATTIC REFERENCE DATA
+# Sources: Soysal (2004), Schuster (1974-2002), Girbal (1986)
+# ===========================================================================
+
+HATTIC_LEXICON = {
+    "estan": {"meaning": "sun god", "confidence": "HIGH", "source": "Soysal"},
+    "taru": {"meaning": "storm god", "confidence": "HIGH", "source": "Soysal"},
+    "katte": {"meaning": "king", "confidence": "HIGH", "source": "Soysal"},
+    "katti": {"meaning": "queen", "confidence": "HIGH", "source": "Soysal"},
+    "fur": {"meaning": "land, earth", "confidence": "HIGH", "source": "Soysal"},
+    "zinar": {"meaning": "deity, divine", "confidence": "MEDIUM", "source": "Soysal"},
+    "pinu": {"meaning": "child, offspring", "confidence": "MEDIUM", "source": "Soysal"},
+    "tuh": {"meaning": "temple, shrine", "confidence": "MEDIUM", "source": "Soysal"},
+    "washap": {"meaning": "god, divinity", "confidence": "MEDIUM", "source": "Soysal"},
+    "kas": {"meaning": "cup, vessel", "confidence": "MEDIUM", "source": "Soysal"},
+    "tuel": {"meaning": "house, building", "confidence": "MEDIUM", "source": "Soysal"},
+    "telipinu": {"meaning": "vegetation god", "confidence": "HIGH", "source": "Soysal"},
+    "inara": {"meaning": "goddess", "confidence": "MEDIUM", "source": "Soysal"},
+    "wurunsemu": {"meaning": "Sun Goddess of Arinna", "confidence": "HIGH", "source": "Soysal"},
+    "le": {"meaning": "1sg subject prefix", "confidence": "HIGH", "source": "Girbal"},
+    "wa": {"meaning": "2sg/3sg subject prefix", "confidence": "HIGH", "source": "Girbal"},
+    "ta": {"meaning": "plural prefix", "confidence": "HIGH", "source": "Girbal"},
+    "te": {"meaning": "collective/abstract prefix", "confidence": "MEDIUM", "source": "Girbal"},
+    "sa": {"meaning": "causative prefix", "confidence": "MEDIUM", "source": "Girbal"},
+}
+
+HATTIC_PHONOLOGICAL_MARKERS = {
+    "vowel_system": ["a", "e", "i", "u"],
+    "no_o": True,
+    "agglutinative": True,
+    "prefixing_dominant": True,
+    "sov_word_order": True,
+}
+
+# ===========================================================================
+# ETRUSCAN/TYRSENIAN REFERENCE DATA
+# Sources: Bonfante (2002), Wallace (2008), Rix (1991)
+# ===========================================================================
+
+ETRUSCAN_LEXICON = {
+    # Administrative vocabulary
+    "zilath": {"meaning": "magistrate, praetor", "confidence": "HIGH", "source": "Bonfante"},
+    "lucumo": {"meaning": "king, chief", "confidence": "HIGH", "source": "Bonfante"},
+    "maru": {"meaning": "magistrate", "confidence": "HIGH", "source": "Bonfante"},
+    "spura": {"meaning": "city, state", "confidence": "HIGH", "source": "Bonfante"},
+    "tular": {"meaning": "boundary, border", "confidence": "HIGH", "source": "Bonfante"},
+    "avil": {"meaning": "year", "confidence": "HIGH", "source": "Bonfante"},
+    "zilc": {"meaning": "magistracy year", "confidence": "HIGH", "source": "Bonfante"},
+    "methlum": {"meaning": "people, community", "confidence": "MEDIUM", "source": "Wallace"},
+    "suth": {"meaning": "tomb, grave", "confidence": "HIGH", "source": "Bonfante"},
+    "tur": {"meaning": "gift, dedication", "confidence": "MEDIUM", "source": "Bonfante"},
+    # Religious vocabulary
+    "ais": {"meaning": "god, deity", "confidence": "HIGH", "source": "Bonfante"},
+    "aisna": {"meaning": "divine, sacred", "confidence": "HIGH", "source": "Bonfante"},
+    "fanu": {"meaning": "sanctuary, temple", "confidence": "HIGH", "source": "Bonfante"},
+    "celi": {"meaning": "earth, ground", "confidence": "MEDIUM", "source": "Wallace"},
+    "neri": {"meaning": "water", "confidence": "MEDIUM", "source": "Wallace"},
+    "vacl": {"meaning": "libation, offering", "confidence": "HIGH", "source": "Bonfante"},
+    "zusle": {"meaning": "offering/sacrifice", "confidence": "MEDIUM", "source": "Bonfante"},
+    # Kinship
+    "clan": {"meaning": "son", "confidence": "HIGH", "source": "Bonfante"},
+    "sec": {"meaning": "daughter", "confidence": "HIGH", "source": "Bonfante"},
+    "puia": {"meaning": "wife", "confidence": "HIGH", "source": "Bonfante"},
+    "ati": {"meaning": "mother", "confidence": "HIGH", "source": "Bonfante"},
+    "apa": {"meaning": "father", "confidence": "MEDIUM", "source": "Bonfante"},
+    # Divine names
+    "tinia": {"meaning": "Jupiter/chief god", "confidence": "HIGH", "source": "Bonfante"},
+    "uni": {"meaning": "Juno/goddess", "confidence": "HIGH", "source": "Bonfante"},
+    "turan": {"meaning": "Venus/love goddess", "confidence": "HIGH", "source": "Bonfante"},
+    "fufluns": {"meaning": "Bacchus/wine god", "confidence": "HIGH", "source": "Bonfante"},
+    "thesan": {"meaning": "dawn goddess", "confidence": "HIGH", "source": "Bonfante"},
+    # Morphological elements
+    "s": {"meaning": "genitive I suffix", "confidence": "HIGH", "source": "Wallace"},
+    "al": {"meaning": "genitive II / pertinentive", "confidence": "HIGH", "source": "Wallace"},
+    "si": {"meaning": "dative suffix", "confidence": "HIGH", "source": "Wallace"},
+    "ce": {"meaning": "past tense marker", "confidence": "HIGH", "source": "Wallace"},
+    "c": {"meaning": "conjunction 'and' (enclitic)", "confidence": "HIGH", "source": "Wallace"},
+}
+
+ETRUSCAN_PHONOLOGICAL_MARKERS = {
+    "vowel_system": ["a", "e", "i", "u"],
+    "no_o": True,
+    "no_voiced_stops": True,
+    "agglutinative": True,
+    "suffixation_primary": True,
+    "sov_word_order": True,
+}
+
 # Greek phonetic patterns expected in Linear A (if Greek)
 GREEK_PHONOLOGY_EXPECTATIONS = {
     # Expected vowel distribution
@@ -1006,6 +1165,138 @@ CASE_MARKER_PREDICTIONS = {
             "source": "Ventris & Chadwick (1973)",
         },
     },
+    "hurrian": {
+        "RECIPIENT": {
+            "markers": ["-va", "-a"],
+            "description": "Hurrian dative/allative",
+            "confidence": "MEDIUM",
+            "source": "Wegner (2007)",
+        },
+        "SOURCE": {
+            "markers": ["-dan", "-ne-dan"],
+            "description": "Hurrian ablative",
+            "confidence": "MEDIUM",
+            "source": "Wegner (2007)",
+        },
+        "AGENT": {
+            "markers": ["-sse", "-ze"],
+            "description": "Hurrian ergative",
+            "confidence": "MEDIUM",
+            "source": "Wegner (2007)",
+        },
+        "BENEFICIARY": {
+            "markers": ["-va", "-da"],
+            "description": "Hurrian dative/allative",
+            "confidence": "MEDIUM",
+            "source": "Wegner (2007)",
+        },
+        "POSSESSOR": {
+            "markers": ["-ve", "-we", "-vi"],
+            "description": "Hurrian genitive",
+            "confidence": "MEDIUM",
+            "source": "Wegner (2007)",
+        },
+        "QUANTITY_MOD": {
+            "markers": ["-he", "-iffu"],
+            "description": "Hurrian adjectival derivation",
+            "confidence": "LOW",
+            "source": "Wegner (2007)",
+        },
+        "QUALITY_MOD": {
+            "markers": ["-he", "-uhhe"],
+            "description": "Hurrian adjectival/agent",
+            "confidence": "LOW",
+            "source": "Wegner (2007)",
+        },
+    },
+    "hattic": {
+        "RECIPIENT": {
+            "markers": ["-du"],
+            "description": "Hattic dative? (poorly attested)",
+            "confidence": "LOW",
+            "source": "Girbal (1986)",
+        },
+        "SOURCE": {
+            "markers": ["-el"],
+            "description": "Hattic ablative? (poorly attested)",
+            "confidence": "LOW",
+            "source": "Girbal (1986)",
+        },
+        "AGENT": {
+            "markers": ["le-", "wa-", "a-"],
+            "description": "Hattic subject prefixes",
+            "confidence": "MEDIUM",
+            "source": "Girbal (1986)",
+        },
+        "BENEFICIARY": {
+            "markers": ["-du", "-il"],
+            "description": "Hattic dative/locative",
+            "confidence": "LOW",
+            "source": "Girbal (1986)",
+        },
+        "POSSESSOR": {
+            "markers": ["-un"],
+            "description": "Hattic genitive?",
+            "confidence": "LOW",
+            "source": "Girbal (1986)",
+        },
+        "QUANTITY_MOD": {
+            "markers": ["ta-"],
+            "description": "Hattic plural/collective prefix",
+            "confidence": "LOW",
+            "source": "Girbal (1986)",
+        },
+        "QUALITY_MOD": {
+            "markers": ["te-"],
+            "description": "Hattic abstract prefix",
+            "confidence": "LOW",
+            "source": "Girbal (1986)",
+        },
+    },
+    "etruscan": {
+        "RECIPIENT": {
+            "markers": ["-si", "-le"],
+            "description": "Etruscan dative/pertinentive",
+            "confidence": "MEDIUM",
+            "source": "Wallace (2008)",
+        },
+        "SOURCE": {
+            "markers": ["-is"],
+            "description": "Etruscan ablative",
+            "confidence": "MEDIUM",
+            "source": "Wallace (2008)",
+        },
+        "AGENT": {
+            "markers": ["-Ø", ""],
+            "description": "Etruscan nominative (unmarked)",
+            "confidence": "MEDIUM",
+            "source": "Wallace (2008)",
+        },
+        "BENEFICIARY": {
+            "markers": ["-si", "-le"],
+            "description": "Etruscan dative",
+            "confidence": "MEDIUM",
+            "source": "Wallace (2008)",
+        },
+        "POSSESSOR": {
+            "markers": ["-s", "-al", "-l"],
+            "description": "Etruscan genitive I/II",
+            "confidence": "HIGH",
+            "source": "Wallace (2008)",
+        },
+        "QUANTITY_MOD": {
+            "markers": ["-na", "-c"],
+            "description": "Etruscan adjectival/enclitic",
+            "confidence": "LOW",
+            "source": "Wallace (2008)",
+        },
+        "QUALITY_MOD": {
+            "markers": ["-na"],
+            "description": "Etruscan adjectival",
+            "confidence": "LOW",
+            "source": "Wallace (2008)",
+        },
+    },
 }
 
 # Grammatical roles that can fill the [X] slot in [X] + LOGOGRAM + NUMBER
@@ -1050,6 +1341,9 @@ class HypothesisTester:
                 "semitic": {"supported": 0, "contradicted": 0, "neutral": 0},
                 "pregreek": {"supported": 0, "contradicted": 0, "neutral": 0},
                 "protogreek": {"supported": 0, "contradicted": 0, "neutral": 0},
+                "hurrian": {"supported": 0, "contradicted": 0, "neutral": 0},
+                "hattic": {"supported": 0, "contradicted": 0, "neutral": 0},
+                "etruscan": {"supported": 0, "contradicted": 0, "neutral": 0},
             },
             "contextual_analysis": {},
         }
@@ -1130,7 +1424,7 @@ class HypothesisTester:
 
     def test_formula_against_hypotheses(self, formula_words: List[str]) -> dict:
         """
-        Test a formulaic sequence against all four hypotheses.
+        Test a formulaic sequence against all seven hypotheses.
 
         Formulas are significant because:
         - They may preserve archaic language forms
@@ -1893,12 +2187,311 @@ class HypothesisTester:
         return result
 
     # =========================================================================
+    # HYPOTHESIS 5: HURRIAN
+    # =========================================================================
+
+    def test_hurrian(self, word: str) -> dict:
+        """
+        Test word against Hurrian hypothesis.
+
+        Checks for:
+        - Hurrian lexical matches
+        - Hurrian morphological patterns (suffixation, -ne article, ergative -sse)
+        - Vowel system compatibility (no /o/)
+        - Agglutinative structure
+        """
+        result = {
+            "hypothesis": "Hurrian",
+            "score": 0,
+            "verdict": "NEUTRAL",
+            "evidence": [],
+            "lexical_matches": [],
+            "negative_evidence": [],
+        }
+
+        word_upper = word.upper()
+        syllables = word_upper.split("-")
+        word_norm = word_upper.replace("-", "").lower()
+
+        # Check Hurrian lexicon
+        for hurr_word, data in HURRIAN_LEXICON.items():
+            hurr_norm = hurr_word.upper().replace("-", "")
+            if word_norm == hurr_word or word_upper == hurr_norm:
+                base_score = (
+                    2.0
+                    if data["confidence"] == "HIGH"
+                    else (1.0 if data["confidence"] == "MEDIUM" else 0.5)
+                )
+                result["score"] += base_score
+                result["lexical_matches"].append(
+                    {
+                        "hurrian": hurr_word,
+                        "meaning": data["meaning"],
+                        "confidence": data["confidence"],
+                        "match_type": "exact",
+                    }
+                )
+            elif len(word_norm) >= 3 and len(hurr_word) >= 3:
+                if word_norm[:3] == hurr_word[:3]:
+                    result["score"] += 0.3
+                    result["lexical_matches"].append(
+                        {
+                            "hurrian": hurr_word,
+                            "meaning": data["meaning"],
+                            "confidence": "LOW",
+                            "match_type": "partial",
+                        }
+                    )
+
+        # Check Hurrian morphological markers
+        hurrian_suffixes = {
+            "-NE": ("definite article sg", 0.5),
+            "-NA": ("definite article pl / plural", 0.5),
+            "-SSE": ("ergative case", 0.5),
+            "-SE": ("possible ergative", 0.3),
+            "-VA": ("genitive/dative", 0.4),
+            "-DA": ("allative/ablative", 0.4),
+            "-RA": ("comitative", 0.3),
+            "-MA": ("conjunction", 0.3),
+            "-TI": ("possible verbal -tti", 0.2),
+        }
+
+        if len(syllables) >= 2:
+            final = "-" + syllables[-1]
+            if final in hurrian_suffixes:
+                desc, bonus = hurrian_suffixes[final]
+                result["score"] += bonus
+                result["evidence"].append(f"Final syllable {final} matches Hurrian {desc}")
+
+        # Vowel system compatibility (no /o/ is a strong positive)
+        has_o = any("O" in syl for syl in syllables if not syl.startswith("*"))
+        if not has_o and len(syllables) >= 2:
+            result["score"] += 0.2
+            result["evidence"].append("No /o/ in word — compatible with Hurrian 4-vowel system")
+        elif has_o:
+            result["negative_evidence"].append("Contains /o/ — Hurrian lacks this vowel")
+
+        # Agglutinative structure bonus (longer words more likely agglutinative)
+        if len(syllables) >= 4:
+            result["score"] += 0.2
+            result["evidence"].append(
+                f"Polysyllabic ({len(syllables)} syllables) — consistent with agglutination"
+            )
+
+        # Word order: SOV is expected for Hurrian but Linear A shows VSO tendency
+        # This is noted as a structural mismatch but doesn't reduce individual word scores
+
+        # Determine verdict
+        if result["score"] >= 2.5:
+            result["verdict"] = "SUPPORTED"
+        elif result["score"] >= 1.5:
+            result["verdict"] = "POSSIBLE"
+        elif result["score"] >= 0.5:
+            result["verdict"] = "NEUTRAL"
+        else:
+            result["verdict"] = "NEUTRAL"
+
+        return result
+
+    # =========================================================================
+    # HYPOTHESIS 6: HATTIC
+    # =========================================================================
+
+    def test_hattic(self, word: str) -> dict:
+        """
+        Test word against Hattic hypothesis.
+
+        Checks for:
+        - Hattic lexical matches (small corpus)
+        - Hattic prefixing morphology (key discriminator)
+        - Vowel system compatibility
+        """
+        result = {
+            "hypothesis": "Hattic",
+            "score": 0,
+            "verdict": "NEUTRAL",
+            "evidence": [],
+            "lexical_matches": [],
+            "negative_evidence": [],
+        }
+
+        word_upper = word.upper()
+        syllables = word_upper.split("-")
+        word_norm = word_upper.replace("-", "").lower()
+
+        # Check Hattic lexicon (small — 19 entries)
+        for hat_word, data in HATTIC_LEXICON.items():
+            hat_norm = hat_word.upper().replace("-", "")
+            if word_norm == hat_word or word_upper == hat_norm:
+                base_score = (
+                    1.5
+                    if data["confidence"] == "HIGH"
+                    else (0.75 if data["confidence"] == "MEDIUM" else 0.3)
+                )
+                result["score"] += base_score
+                result["lexical_matches"].append(
+                    {
+                        "hattic": hat_word,
+                        "meaning": data["meaning"],
+                        "confidence": data["confidence"],
+                        "match_type": "exact",
+                    }
+                )
+            elif len(word_norm) >= 3 and len(hat_word) >= 3:
+                if word_norm[:3] == hat_word[:3]:
+                    result["score"] += 0.2
+                    result["lexical_matches"].append(
+                        {
+                            "hattic": hat_word,
+                            "meaning": data["meaning"],
+                            "confidence": "LOW",
+                            "match_type": "partial",
+                        }
+                    )
+
+        # Check Hattic prefixes (key feature — Hattic is prefix-dominant)
+        hattic_prefixes = {
+            "LE-": ("1sg subject", 0.3),
+            "WA-": ("2sg/3sg subject", 0.3),
+            "A-": ("3sg subject", 0.2),
+            "TA-": ("plural", 0.3),
+            "TE-": ("collective/abstract", 0.2),
+            "SA-": ("causative", 0.2),
+        }
+
+        if len(syllables) >= 2:
+            initial = syllables[0] + "-"
+            if initial in hattic_prefixes:
+                desc, bonus = hattic_prefixes[initial]
+                result["score"] += bonus
+                result["evidence"].append(
+                    f"Initial syllable {initial} matches Hattic prefix {desc}"
+                )
+
+        # NEGATIVE: Linear A is suffix-dominant, Hattic is prefix-dominant
+        # This is a major structural mismatch
+        result["negative_evidence"].append(
+            "STRUCTURAL MISMATCH: Linear A is suffix-dominant; Hattic is prefix-dominant"
+        )
+
+        # Vowel system: no /o/ is compatible
+        has_o = any("O" in syl for syl in syllables if not syl.startswith("*"))
+        if not has_o and len(syllables) >= 2:
+            result["evidence"].append("No /o/ — compatible with Hattic 4-vowel system")
+
+        if result["score"] >= 2.0:
+            result["verdict"] = "SUPPORTED"
+        elif result["score"] >= 1.0:
+            result["verdict"] = "POSSIBLE"
+        elif result["score"] >= 0.5:
+            result["verdict"] = "NEUTRAL"
+        else:
+            result["verdict"] = "NEUTRAL"
+
+        return result
+
+    # =========================================================================
+    # HYPOTHESIS 7: ETRUSCAN/TYRSENIAN
+    # =========================================================================
+
+    def test_etruscan(self, word: str) -> dict:
+        """
+        Test word against Etruscan/Tyrsenian hypothesis.
+
+        Checks for:
+        - Etruscan lexical matches
+        - Etruscan morphological patterns (-s genitive, -si dative, -al pertinentive)
+        - Vowel system compatibility (no /o/)
+        - Lemnian connection (Aegean Tyrsenian)
+        """
+        result = {
+            "hypothesis": "Etruscan",
+            "score": 0,
+            "verdict": "NEUTRAL",
+            "evidence": [],
+            "lexical_matches": [],
+            "negative_evidence": [],
+        }
+
+        word_upper = word.upper()
+        syllables = word_upper.split("-")
+        word_norm = word_upper.replace("-", "").lower()
+
+        # Check Etruscan lexicon
+        for etr_word, data in ETRUSCAN_LEXICON.items():
+            etr_norm = etr_word.upper().replace("-", "")
+            if word_norm == etr_word or word_upper == etr_norm:
+                base_score = (
+                    1.5
+                    if data["confidence"] == "HIGH"
+                    else (0.75 if data["confidence"] == "MEDIUM" else 0.3)
+                )
+                result["score"] += base_score
+                result["lexical_matches"].append(
+                    {
+                        "etruscan": etr_word,
+                        "meaning": data["meaning"],
+                        "confidence": data["confidence"],
+                        "match_type": "exact",
+                    }
+                )
+            elif len(word_norm) >= 3 and len(etr_word) >= 3:
+                if word_norm[:3] == etr_word[:3]:
+                    result["score"] += 0.2
+                    result["lexical_matches"].append(
+                        {
+                            "etruscan": etr_word,
+                            "meaning": data["meaning"],
+                            "confidence": "LOW",
+                            "match_type": "partial",
+                        }
+                    )
+
+        # Check Etruscan morphological markers
+        etruscan_suffixes = {
+            "-SI": ("dative case", 0.4),
+            "-SE": ("possible genitive + vowel", 0.2),
+            "-RA": ("possible plural + vowel", 0.2),
+            "-RE": ("possible necessitative -ri", 0.2),
+            "-NE": ("possible agent noun", 0.2),
+        }
+
+        if len(syllables) >= 2:
+            final = "-" + syllables[-1]
+            if final in etruscan_suffixes:
+                desc, bonus = etruscan_suffixes[final]
+                result["score"] += bonus
+                result["evidence"].append(f"Final syllable {final} matches Etruscan {desc}")
+
+        # Vowel system: no /o/ matches Etruscan
+        has_o = any("O" in syl for syl in syllables if not syl.startswith("*"))
+        if not has_o and len(syllables) >= 2:
+            result["score"] += 0.15
+            result["evidence"].append("No /o/ — compatible with Etruscan (merged *o > u)")
+
+        # Geographic plausibility: Lemnian in the Aegean
+        result["evidence"].append(
+            "Tyrsenian family includes Lemnian (Aegean), providing geographic plausibility"
+        )
+
+        if result["score"] >= 2.0:
+            result["verdict"] = "SUPPORTED"
+        elif result["score"] >= 1.0:
+            result["verdict"] = "POSSIBLE"
+        elif result["score"] >= 0.5:
+            result["verdict"] = "NEUTRAL"
+        else:
+            result["verdict"] = "NEUTRAL"
+
+        return result
+
+    # =========================================================================
     # MAIN TESTING FUNCTIONS
     # =========================================================================
 
     def test_word(self, word: str, frequency: int = 1) -> dict:
         """
-        Test a single word against all four hypotheses.
+        Test a single word against all seven hypotheses.
 
         Returns complete multi-hypothesis analysis.
         """
@@ -1910,6 +2503,9 @@ class HypothesisTester:
                 "semitic": self.test_semitic(word),
                 "pregreek": self.test_pregreek(word),
                 "protogreek": self.test_protogreek(word),
+                "hurrian": self.test_hurrian(word),
+                "hattic": self.test_hattic(word),
+                "etruscan": self.test_etruscan(word),
             },
             "synthesis": {},
             "contextual_info": {},
@@ -2013,7 +2609,7 @@ class HypothesisTester:
                 verdict = data["verdict"]
                 if verdict == "SUPPORTED":
                     self.results["hypothesis_summaries"][hyp]["supported"] += 1
-                elif verdict == "NEUTRAL":
+                elif verdict in ("NEUTRAL", "POSSIBLE"):
                     self.results["hypothesis_summaries"][hyp]["neutral"] += 1
                 else:
                     self.results["hypothesis_summaries"][hyp]["contradicted"] += 1
@@ -2133,18 +2729,21 @@ def main():
             print(f"\n{hyp.upper()}: {data['verdict']} (score: {data['score']})")
             if data.get("evidence"):
                 for ev in data["evidence"]:
-                    obs = ev.get("observation", ev.get("element", ev.get("type", "unknown")))
-                    interp = ev.get("interpretation", ev.get("meaning", ""))
-                    print(f"  - {obs}: {interp}")
-            if data.get("cognates_found") or data.get("root_matches") or data.get("greek_cognates"):
-                cognates = (
-                    data.get("cognates_found")
-                    or data.get("root_matches")
-                    or data.get("greek_cognates")
-                )
-                for cog in cognates:
-                    meaning = cog.get("meaning", cog.get("interpretation", ""))
-                    print(f"  - Cognate: {meaning}")
+                    if isinstance(ev, str):
+                        print(f"  - {ev}")
+                    else:
+                        obs = ev.get("observation", ev.get("element", ev.get("type", "unknown")))
+                        interp = ev.get("interpretation", ev.get("meaning", ""))
+                        print(f"  - {obs}: {interp}")
+            cognate_keys = ["cognates_found", "root_matches", "greek_cognates", "lexical_matches"]
+            for ckey in cognate_keys:
+                if data.get(ckey):
+                    for cog in data[ckey]:
+                        meaning = cog.get("meaning", cog.get("interpretation", ""))
+                        match_type = cog.get("match_type", "")
+                        if meaning:
+                            print(f"  - Cognate ({match_type}): {meaning}")
+                    break
 
         print("\nSYNTHESIS:")
         print(f"  Best hypothesis: {analysis['synthesis']['best_hypothesis']}")

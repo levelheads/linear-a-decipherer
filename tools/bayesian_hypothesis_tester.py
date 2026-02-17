@@ -83,11 +83,14 @@ except ImportError:
 
 # Calibrated priors based on external evidence
 DEFAULT_PRIORS = {
-    "luwian": 0.25,  # Geographic proximity, Palmer/Finkelberg case
-    "semitic": 0.15,  # Trade routes, Gordon's administrative vocabulary
-    "pregreek": 0.20,  # Substrate theory, Beekes' lexicon of Pre-Greek
-    "protogreek": 0.05,  # Low /o/ frequency strongly argues against
-    "isolate": 0.35,  # Conservative null hypothesis
+    "luwian": 0.22,  # Geographic proximity, Palmer/Finkelberg case
+    "semitic": 0.12,  # Trade routes, Gordon's administrative vocabulary
+    "pregreek": 0.15,  # Substrate theory, Beekes' lexicon of Pre-Greek
+    "protogreek": 0.03,  # Low /o/ frequency strongly argues against
+    "hurrian": 0.10,  # Agglutinative, 4-vowel (no /o/), 2nd millennium Levant
+    "hattic": 0.03,  # Prefix-dominant — structural mismatch with Linear A
+    "etruscan": 0.02,  # Lemnian/Tyrsenian Aegean presence; chronological gap
+    "isolate": 0.33,  # Conservative null hypothesis
 }
 
 # Prior rationales
@@ -121,6 +124,24 @@ PRIOR_RATIONALES = {
         "No definitive genetic affiliation established",
         "Davis (2014) 'isolated language' consensus",
         "Methodologically important to test against null",
+    ],
+    "hurrian": [
+        "Agglutinative morphology with suffixation — compatible with Linear A",
+        "4-vowel system (a,e,i,u, no /o/) matches Linear A's near-zero /o/",
+        "2nd millennium BCE Levant presence (Nuzi, Alalakh, Mittani)",
+        "SOV word order conflicts with Linear A VSO tendency",
+    ],
+    "hattic": [
+        "Pre-Indo-European Anatolian language",
+        "CRITICAL: Prefix-dominant morphology contradicts Linear A suffix-dominant pattern",
+        "Known primarily from Hattic-Hittite bilinguals; small reference corpus",
+        "Low prior reflects structural mismatch",
+    ],
+    "etruscan": [
+        "Tyrsenian family includes Lemnian (Aegean) — geographic plausibility",
+        "Suffixing morphology compatible with Linear A",
+        "Chronological gap: Etruscan texts 7th c. BCE vs Linear A 17th-15th c. BCE",
+        "Vowel syncope in Etruscan differs from Linear A full vowels",
     ],
 }
 
@@ -207,13 +228,7 @@ class BayesianHypothesisTester:
 
         Returns likelihood values for each hypothesis.
         """
-        likelihoods = {
-            "luwian": 0.1,  # Base rate
-            "semitic": 0.1,
-            "pregreek": 0.1,
-            "protogreek": 0.1,
-            "isolate": 0.1,
-        }
+        likelihoods = {h: 0.1 for h in self.priors}
 
         word_upper = word.upper()
         syllables = word_upper.split("-")
@@ -251,6 +266,22 @@ class BayesianHypothesisTester:
                 boost = 0.3 if sig == "HIGH" else 0.2 if sig == "MEDIUM" else 0.1
                 likelihoods["pregreek"] += boost
 
+        # Hurrian: lexical matches from hypothesis_results if available
+        if self.hypothesis_results:
+            word_data = self.hypothesis_results.get("word_analyses", {}).get(word_upper, {})
+            hurr_data = word_data.get("hypotheses", {}).get("hurrian", {})
+            if hurr_data.get("score", 0) > 0:
+                likelihoods.setdefault("hurrian", 0.1)
+                likelihoods["hurrian"] += min(0.3, hurr_data["score"] * 0.1)
+            hatt_data = word_data.get("hypotheses", {}).get("hattic", {})
+            if hatt_data.get("score", 0) > 0:
+                likelihoods.setdefault("hattic", 0.1)
+                likelihoods["hattic"] += min(0.3, hatt_data["score"] * 0.1)
+            etr_data = word_data.get("hypotheses", {}).get("etruscan", {})
+            if etr_data.get("score", 0) > 0:
+                likelihoods.setdefault("etruscan", 0.1)
+                likelihoods["etruscan"] += min(0.3, etr_data["score"] * 0.1)
+
         # Normalize to [0, 1] range
         for hyp in likelihoods:
             likelihoods[hyp] = min(1.0, likelihoods[hyp])
@@ -261,13 +292,7 @@ class BayesianHypothesisTester:
         """
         Calculate likelihood based on morphological patterns.
         """
-        likelihoods = {
-            "luwian": 0.1,
-            "semitic": 0.1,
-            "pregreek": 0.1,
-            "protogreek": 0.1,
-            "isolate": 0.1,
-        }
+        likelihoods = {h: 0.1 for h in self.priors}
 
         word_upper = word.upper()
         syllables = word_upper.split("-")
@@ -296,6 +321,30 @@ class BayesianHypothesisTester:
         if len(syllables) >= 2 and syllables[0] == syllables[1]:  # Gemination
             likelihoods["pregreek"] += 0.1
 
+        # Hurrian morphology (agglutinative, case suffixes)
+        if "hurrian" in likelihoods:
+            hurrian_suffixes = ["NE", "DA", "NA", "WA", "SSE", "SE"]
+            if syllables and syllables[-1] in hurrian_suffixes:
+                likelihoods["hurrian"] += 0.15
+            if len(syllables) >= 4:  # Agglutinative polysyllabic
+                likelihoods["hurrian"] += 0.1
+
+        # Hattic morphology (prefix-dominant — mostly negative for Linear A)
+        if "hattic" in likelihoods:
+            hattic_prefixes = ["WA", "A", "TA", "TE", "TU"]
+            if syllables and syllables[0] in hattic_prefixes:
+                likelihoods["hattic"] += 0.1
+            # Suffix-heavy words are negative for Hattic
+            common_suffixes = ["ME", "SI", "JA", "TE", "TI"]
+            if syllables and syllables[-1] in common_suffixes:
+                likelihoods["hattic"] *= 0.8  # Reduce
+
+        # Etruscan morphology (suffixing, genitive -s)
+        if "etruscan" in likelihoods:
+            etruscan_suffixes = ["SI", "SA", "LE", "KE", "NE"]
+            if syllables and syllables[-1] in etruscan_suffixes:
+                likelihoods["etruscan"] += 0.1
+
         # Isolate gets boost for unmatched patterns
         if max(likelihoods.values()) < 0.2:
             likelihoods["isolate"] += 0.2
@@ -310,13 +359,7 @@ class BayesianHypothesisTester:
         """
         Calculate likelihood based on phonological patterns.
         """
-        likelihoods = {
-            "luwian": 0.1,
-            "semitic": 0.1,
-            "pregreek": 0.1,
-            "protogreek": 0.1,
-            "isolate": 0.1,
-        }
+        likelihoods = {h: 0.1 for h in self.priors}
 
         word_upper = word.upper()
         syllables = word_upper.split("-")
@@ -336,11 +379,18 @@ class BayesianHypothesisTester:
             if o_freq < 0.1:
                 likelihoods["protogreek"] *= 0.5
                 likelihoods["isolate"] += 0.1
+                # Low /o/ supports Hurrian (4-vowel system: a,e,i,u)
+                if "hurrian" in likelihoods:
+                    likelihoods["hurrian"] += 0.15
 
             # High /a/ compatible with Anatolian/Semitic
             if a_freq > 0.4:
                 likelihoods["luwian"] += 0.1
                 likelihoods["semitic"] += 0.1
+
+            # /o/ presence argues against Hurrian
+            if o_freq > 0.2 and "hurrian" in likelihoods:
+                likelihoods["hurrian"] *= 0.7
 
         # Labialized consonants (Luwian feature)
         for syl in syllables:
@@ -492,27 +542,46 @@ class BayesianHypothesisTester:
         # Test different prior configurations
         prior_configs = {
             "default": DEFAULT_PRIORS.copy(),
-            "uniform": {h: 0.2 for h in DEFAULT_PRIORS},
+            "uniform": {h: 1.0 / len(DEFAULT_PRIORS) for h in DEFAULT_PRIORS},
             "luwian_dominant": {
-                "luwian": 0.4,
-                "semitic": 0.15,
-                "pregreek": 0.15,
-                "protogreek": 0.05,
-                "isolate": 0.25,
+                "luwian": 0.35,
+                "semitic": 0.10,
+                "pregreek": 0.10,
+                "protogreek": 0.03,
+                "hurrian": 0.08,
+                "hattic": 0.02,
+                "etruscan": 0.02,
+                "isolate": 0.30,
             },
             "semitic_dominant": {
-                "luwian": 0.2,
-                "semitic": 0.35,
-                "pregreek": 0.15,
-                "protogreek": 0.05,
-                "isolate": 0.25,
+                "luwian": 0.15,
+                "semitic": 0.30,
+                "pregreek": 0.10,
+                "protogreek": 0.03,
+                "hurrian": 0.08,
+                "hattic": 0.02,
+                "etruscan": 0.02,
+                "isolate": 0.30,
+            },
+            "hurrian_dominant": {
+                "luwian": 0.15,
+                "semitic": 0.10,
+                "pregreek": 0.10,
+                "protogreek": 0.03,
+                "hurrian": 0.25,
+                "hattic": 0.02,
+                "etruscan": 0.02,
+                "isolate": 0.33,
             },
             "skeptical": {
-                "luwian": 0.15,
-                "semitic": 0.1,
-                "pregreek": 0.15,
-                "protogreek": 0.05,
-                "isolate": 0.55,
+                "luwian": 0.10,
+                "semitic": 0.08,
+                "pregreek": 0.10,
+                "protogreek": 0.03,
+                "hurrian": 0.06,
+                "hattic": 0.02,
+                "etruscan": 0.02,
+                "isolate": 0.59,
             },
         }
 

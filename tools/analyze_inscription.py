@@ -300,7 +300,7 @@ class InscriptionAnalyzer:
         """
         Run multi-hypothesis testing on key words.
 
-        Following Principle #4: Test ALL four hypotheses
+        Following Principle #4: Test ALL seven hypotheses
         """
         # Import hypothesis tester logic
         from hypothesis_tester import HypothesisTester

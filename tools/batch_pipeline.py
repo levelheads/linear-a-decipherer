@@ -7,7 +7,7 @@ This addresses the critical gap: only 0.81% of corpus analyzed.
 
 Pipeline stages:
 1. DISCOVER: Extract all words meeting frequency threshold
-2. HYPOTHESIZE: Test each word against four linguistic hypotheses
+2. HYPOTHESIZE: Test each word against seven linguistic hypotheses
 3. VALIDATE: Check corpus-wide consistency
 4. SYNTHESIZE: Aggregate findings and update knowledge base
 
@@ -20,7 +20,7 @@ Usage:
 
 First Principles Compliance:
     - P1 (Kober): Patterns analyzed before language assumption
-    - P4 (Multi-Hypothesis): All four hypotheses tested automatically
+    - P4 (Multi-Hypothesis): All seven hypotheses tested automatically
     - P6 (Cross-Corpus): Every reading verified corpus-wide
 
 Attribution:
@@ -391,17 +391,17 @@ class BatchPipeline:
         return coverage
 
     # =========================================================================
-    # STAGE 2: HYPOTHESIZE - Test against four hypotheses
+    # STAGE 2: HYPOTHESIZE - Test against seven hypotheses
     # =========================================================================
 
     def stage_hypothesize(self, max_words: Optional[int] = None) -> dict:
         """
-        Test each discovered word against all four linguistic hypotheses.
+        Test each discovered word against all seven linguistic hypotheses.
 
         Uses hypothesis_tester.py for each word.
         """
         self.log("=" * 50)
-        self.log("STAGE 2: HYPOTHESIZE - Testing against four hypotheses")
+        self.log("STAGE 2: HYPOTHESIZE - Testing against seven hypotheses")
         self.log("=" * 50)
 
         if self.dry_run:
@@ -589,12 +589,18 @@ class BatchPipeline:
             "semitic": {"total_score": 0, "word_count": 0, "best_words": []},
             "pregreek": {"total_score": 0, "word_count": 0, "best_words": []},
             "protogreek": {"total_score": 0, "word_count": 0, "best_words": []},
+            "hurrian": {"total_score": 0, "word_count": 0, "best_words": []},
+            "hattic": {"total_score": 0, "word_count": 0, "best_words": []},
+            "etruscan": {"total_score": 0, "word_count": 0, "best_words": []},
         }
         best_assignment_counts = {
             "luwian": 0,
             "semitic": 0,
             "pregreek": 0,
             "protogreek": 0,
+            "hurrian": 0,
+            "hattic": 0,
+            "etruscan": 0,
         }
 
         # Categorize findings

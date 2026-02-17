@@ -221,7 +221,7 @@ After analysis work, update these files before committing:
 | `linear-a-decipherer/ANALYSIS_INDEX.md` | After each analysis (add entry) |
 | `linear-a-decipherer/KNOWLEDGE.md` | When readings, hypotheses, or anchors change |
 | `linear-a-decipherer/CHANGELOG.md` | When discoveries are made (chronological log) |
-| `linear-a-decipherer/LESSONS_LEARNED.md` | When methodology is refined |
+| `ENGINEERING_PRACTICES.md` | When methodology or tooling is refined |
 
 **Note**: `MASTER_STATE.md` is canonical for current operations. `CHANGELOG.md` is the historical narrative.
 

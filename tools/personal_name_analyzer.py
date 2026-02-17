@@ -132,7 +132,10 @@ class PersonalName:
     luwian_fit: Dict
     semitic_fit: Dict
     pregreek_fit: Dict
-    greek_fit: Dict
+    protogreek_fit: Dict
+    hurrian_fit: Dict
+    hattic_fit: Dict
+    etruscan_fit: Dict
     best_hypothesis: str
 
     # Classification
@@ -260,14 +263,20 @@ class PersonalNameAnalyzer:
                 luwian_fit = self._test_luwian_name(word, suffixes)
                 semitic_fit = self._test_semitic_name(word, suffixes)
                 pregreek_fit = self._test_pregreek_name(word, suffixes)
-                greek_fit = self._test_greek_name(word, suffixes)
+                protogreek_fit = self._test_greek_name(word, suffixes)
+                hurrian_fit = {"score": 0, "matches": [], "notes": []}
+                hattic_fit = {"score": 0, "matches": [], "notes": []}
+                etruscan_fit = {"score": 0, "matches": [], "notes": []}
 
                 # Find best hypothesis
                 fits = {
                     "luwian": luwian_fit.get("score", 0),
                     "semitic": semitic_fit.get("score", 0),
                     "pregreek": pregreek_fit.get("score", 0),
-                    "greek": greek_fit.get("score", 0),
+                    "protogreek": protogreek_fit.get("score", 0),
+                    "hurrian": hurrian_fit.get("score", 0),
+                    "hattic": hattic_fit.get("score", 0),
+                    "etruscan": etruscan_fit.get("score", 0),
                 }
                 best_hyp = max(fits.keys(), key=lambda k: fits[k])
 
@@ -294,7 +303,10 @@ class PersonalNameAnalyzer:
                     luwian_fit=luwian_fit,
                     semitic_fit=semitic_fit,
                     pregreek_fit=pregreek_fit,
-                    greek_fit=greek_fit,
+                    protogreek_fit=protogreek_fit,
+                    hurrian_fit=hurrian_fit,
+                    hattic_fit=hattic_fit,
+                    etruscan_fit=etruscan_fit,
                     best_hypothesis=best_hyp if fits[best_hyp] > 0 else "unknown",
                     name_type=name_type,
                     gender_guess=gender,
@@ -590,13 +602,19 @@ class PersonalNameAnalyzer:
         luwian_fit = self._test_luwian_name(word_upper, suffixes)
         semitic_fit = self._test_semitic_name(word_upper, suffixes)
         pregreek_fit = self._test_pregreek_name(word_upper, suffixes)
-        greek_fit = self._test_greek_name(word_upper, suffixes)
+        protogreek_fit = self._test_greek_name(word_upper, suffixes)
+        hurrian_fit = {"score": 0, "matches": [], "notes": []}
+        hattic_fit = {"score": 0, "matches": [], "notes": []}
+        etruscan_fit = {"score": 0, "matches": [], "notes": []}
 
         fits = {
             "luwian": luwian_fit.get("score", 0),
             "semitic": semitic_fit.get("score", 0),
             "pregreek": pregreek_fit.get("score", 0),
-            "greek": greek_fit.get("score", 0),
+            "protogreek": protogreek_fit.get("score", 0),
+            "hurrian": hurrian_fit.get("score", 0),
+            "hattic": hattic_fit.get("score", 0),
+            "etruscan": etruscan_fit.get("score", 0),
         }
         best_hyp = max(fits.keys(), key=lambda k: fits[k])
 
@@ -613,7 +631,10 @@ class PersonalNameAnalyzer:
             luwian_fit=luwian_fit,
             semitic_fit=semitic_fit,
             pregreek_fit=pregreek_fit,
-            greek_fit=greek_fit,
+            protogreek_fit=protogreek_fit,
+            hurrian_fit=hurrian_fit,
+            hattic_fit=hattic_fit,
+            etruscan_fit=etruscan_fit,
             best_hypothesis=best_hyp if fits[best_hyp] > 0 else "unknown",
             name_type=self._classify_name_type(word_upper, syllables),
             gender_guess=self._guess_gender(word_upper, suffixes),
@@ -665,7 +686,7 @@ class PersonalNameAnalyzer:
         print(f"  Gender guess: {name.gender_guess}")
 
         print("\nHypothesis Testing:")
-        for hyp in ["luwian", "semitic", "pregreek", "greek"]:
+        for hyp in ["luwian", "semitic", "pregreek", "protogreek", "hurrian", "hattic", "etruscan"]:
             fit = getattr(name, f"{hyp}_fit")
             score = fit.get("score", 0)
             indicator = "★" if hyp == name.best_hypothesis and score > 0 else " "

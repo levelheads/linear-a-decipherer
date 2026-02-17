@@ -325,11 +325,20 @@ def main() -> int:
         if isinstance(anchor, dict) and str(anchor.get("falsification_condition", "")).strip():
             anchors_with_falsification += 1
 
-    four_hypothesis_present = False
+    all_hypotheses_present = False
     if hypothesis_entry:
         hypotheses = hypothesis_entry.get("hypotheses", {})
-        four_hypothesis_present = all(
-            k in hypotheses for k in ("luwian", "semitic", "pregreek", "protogreek")
+        all_hypotheses_present = all(
+            k in hypotheses
+            for k in (
+                "luwian",
+                "semitic",
+                "pregreek",
+                "protogreek",
+                "hurrian",
+                "hattic",
+                "etruscan",
+            )
         )
 
     direct_anchor_contradiction = any(
@@ -356,8 +365,8 @@ def main() -> int:
     )
     gate_results["multi_hypothesis_run"] = _gate(
         required=True,
-        passed=four_hypothesis_present,
-        evidence="All four hypotheses present in hypothesis_results",
+        passed=all_hypotheses_present,
+        evidence="All seven hypotheses present in hypothesis_results",
     )
     gate_results["cross_corpus_consistency"] = _gate(
         required=True,

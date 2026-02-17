@@ -192,6 +192,101 @@ PREGREEK_EXPECTATIONS = {
     },
 }
 
+HURRIAN_EXPECTATIONS = {
+    "name": "Hurrian",
+    "vowel_distribution": {
+        "expected": {"a": 0.35, "e": 0.15, "i": 0.25, "u": 0.20, "o": 0.05},
+        "tolerance": 0.10,
+        "critical_note": "Hurrian has 4 vowels (a,e,i,u) with near-zero /o/",
+    },
+    "morphology": {
+        "case_suffixes": [
+            {"pattern": "-NE", "function": "article/definite", "expected_freq": "high"},
+            {"pattern": "-DA", "function": "ablative", "expected_freq": "medium"},
+            {"pattern": "-NA", "function": "dative", "expected_freq": "medium"},
+            {"pattern": "-WA", "function": "genitive", "expected_freq": "medium"},
+            {"pattern": "-SSE", "function": "ergative", "expected_freq": "medium"},
+        ],
+        "verbal_suffixes": [
+            {"pattern": "-MA", "function": "negative/prohibitive", "expected_freq": "low"},
+            {"pattern": "-TA", "function": "past tense", "expected_freq": "medium"},
+            {"pattern": "-TI", "function": "transitive", "expected_freq": "medium"},
+        ],
+        "agglutination": {
+            "description": "Hurrian is agglutinative — words should show multiple stacked suffixes",
+            "expected_avg_syllables": 3.0,
+            "min_suffix_chains": 2,
+        },
+    },
+    "word_order": {
+        "expected": "SOV",
+        "note": "Hurrian is consistently SOV; Linear A shows VSO tendency — CRITICAL MISMATCH",
+    },
+    "phonotactics": {
+        "no_initial_clusters": True,
+        "no_word_final_consonants": True,
+        "note": "Hurrian words end in vowels, compatible with CV syllabary",
+    },
+}
+
+HATTIC_EXPECTATIONS = {
+    "name": "Hattic",
+    "morphology": {
+        "prefixes": [
+            {"pattern": "WA-", "function": "plural marker", "expected_freq": "medium"},
+            {"pattern": "A-", "function": "possessive/article", "expected_freq": "high"},
+            {"pattern": "TA-", "function": "verbal prefix", "expected_freq": "medium"},
+            {"pattern": "TE-", "function": "3sg subject", "expected_freq": "medium"},
+            {"pattern": "TU-", "function": "verbal prefix", "expected_freq": "low"},
+        ],
+        "structural_note": "CRITICAL: Hattic is PREFIX-DOMINANT; Linear A is SUFFIX-DOMINANT — strong mismatch",
+    },
+    "vocabulary": {
+        "divine_names": [
+            {"pattern": "TA-RU", "hattic": "Taru (storm god)", "expected_freq": "low"},
+            {"pattern": "HA-TA-", "hattic": "Ḫattušili-type", "expected_freq": "low"},
+        ],
+    },
+    "phonotactics": {
+        "consonant_clusters_allowed": True,
+        "note": "Hattic allows initial clusters unlike CV syllabary",
+    },
+}
+
+ETRUSCAN_EXPECTATIONS = {
+    "name": "Etruscan/Tyrsenian",
+    "vowel_distribution": {
+        "expected": {"a": 0.30, "e": 0.25, "i": 0.20, "u": 0.15, "o": 0.10},
+        "tolerance": 0.10,
+        "critical_note": "Etruscan has reduced /o/ in later periods",
+    },
+    "morphology": {
+        "case_suffixes": [
+            {"pattern": "-SI", "function": "genitive (Etruscan -s)", "expected_freq": "high"},
+            {"pattern": "-LE", "function": "locative (Etruscan -l)", "expected_freq": "low"},
+            {
+                "pattern": "-SA",
+                "function": "genitive variant (Etruscan -sa)",
+                "expected_freq": "medium",
+            },
+            {"pattern": "-RI", "function": "pertinentive (Etruscan -ri)", "expected_freq": "low"},
+        ],
+        "verbal_endings": [
+            {"pattern": "-KE", "function": "past active (Etruscan -ce)", "expected_freq": "medium"},
+        ],
+        "note": "Etruscan is suffixing and agglutinative — structurally compatible",
+    },
+    "geographic": {
+        "lemnian_connection": True,
+        "aegean_presence": True,
+        "note": "Lemnos stele shows Tyrsenian language in Aegean; geographic plausibility",
+    },
+    "phonotactics": {
+        "vowel_reduction": True,
+        "note": "Etruscan undergoes vowel syncope — may explain some consonant clusters",
+    },
+}
+
 
 class NegativeEvidenceAnalyzer:
     """
@@ -677,6 +772,282 @@ class NegativeEvidenceAnalyzer:
 
         return analysis
 
+    def analyze_hurrian_negative_evidence(self, corpus_patterns: dict) -> dict:
+        """Analyze what Hurrian hypothesis predicts but doesn't appear."""
+        analysis = {
+            "hypothesis": "Hurrian",
+            "absent_patterns": [],
+            "present_patterns": [],
+            "statistical_deviations": [],
+            "overall_score": 0,
+        }
+
+        # Hurrian vowel system: a, e, i, u with near-zero /o/
+        # This MATCHES Linear A's low /o/ — positive for Hurrian
+        vowels = corpus_patterns.get("vowel_distribution_normalized", {})
+        o_freq = vowels.get("o", 0)
+        if o_freq < 0.10:
+            analysis["present_patterns"].append(
+                {
+                    "pattern": "Low /o/ frequency",
+                    "observation": f"/o/ at {o_freq * 100:.1f}% matches Hurrian 4-vowel system (a,e,i,u)",
+                    "significance": "HIGH",
+                    "score_delta": 3.0,
+                }
+            )
+            analysis["overall_score"] += 3.0
+
+        # Hurrian agglutination: expect longer words (3+ syllables average)
+        word_freqs = self._extract_words_from_corpus() or dict(self.statistics.get("top_words", {}))
+        syllable_counts = []
+        for word in word_freqs:
+            if "-" in word:
+                syllable_counts.append(len(word.split("-")))
+        if syllable_counts:
+            avg_syl = sum(syllable_counts) / len(syllable_counts)
+            if avg_syl >= 2.5:
+                analysis["present_patterns"].append(
+                    {
+                        "pattern": "Polysyllabic tendency",
+                        "observation": f"Average {avg_syl:.1f} syllables supports agglutinative model",
+                        "significance": "MEDIUM",
+                        "score_delta": 1.0,
+                    }
+                )
+                analysis["overall_score"] += 1.0
+            else:
+                analysis["absent_patterns"].append(
+                    {
+                        "pattern": "Expected polysyllabic words",
+                        "observation": f"Average {avg_syl:.1f} syllables — lower than Hurrian expectation (~3.0)",
+                        "significance": "MEDIUM",
+                        "score_delta": -1.0,
+                    }
+                )
+                analysis["overall_score"] -= 1.0
+
+        # Hurrian case suffixes check
+        hurrian_suffixes = ["-NE", "-DA", "-NA", "-WA", "-SSE"]
+        suffix_hits = 0
+        for word in word_freqs:
+            upper = word.upper()
+            parts = upper.split("-")
+            if len(parts) >= 2:
+                for suf in hurrian_suffixes:
+                    if upper.endswith(suf.lstrip("-")):
+                        suffix_hits += 1
+                        break
+        if suffix_hits > 10:
+            analysis["present_patterns"].append(
+                {
+                    "pattern": "Hurrian-compatible case suffixes",
+                    "observation": f"{suffix_hits} words end with Hurrian-like case markers",
+                    "significance": "MEDIUM",
+                    "score_delta": 1.5,
+                }
+            )
+            analysis["overall_score"] += 1.5
+        elif suffix_hits < 3:
+            analysis["absent_patterns"].append(
+                {
+                    "pattern": "Hurrian case suffixes rare",
+                    "observation": f"Only {suffix_hits} words match Hurrian case endings",
+                    "significance": "LOW",
+                    "score_delta": -0.5,
+                }
+            )
+            analysis["overall_score"] -= 0.5
+
+        # CRITICAL: Word order mismatch — Hurrian is SOV, Linear A shows VSO tendency
+        analysis["statistical_deviations"].append(
+            {
+                "pattern": "Word order: SOV expected (Hurrian) vs VSO observed",
+                "observation": "Structural grammar analysis indicates VSO tendency (PROBABLE); Hurrian is consistently SOV",
+                "significance": "HIGH",
+                "score_delta": -3.0,
+            }
+        )
+        analysis["overall_score"] -= 3.0
+
+        return analysis
+
+    def analyze_hattic_negative_evidence(self, corpus_patterns: dict) -> dict:
+        """Analyze what Hattic hypothesis predicts but doesn't appear."""
+        analysis = {
+            "hypothesis": "Hattic",
+            "absent_patterns": [],
+            "present_patterns": [],
+            "statistical_deviations": [],
+            "overall_score": 0,
+        }
+
+        word_freqs = self._extract_words_from_corpus() or dict(self.statistics.get("top_words", {}))
+
+        # CRITICAL: Hattic is prefix-dominant; Linear A is suffix-dominant
+        prefix_words = 0
+        suffix_words = 0
+        for word in word_freqs:
+            upper = word.upper()
+            parts = upper.split("-")
+            if len(parts) >= 2:
+                # Check Hattic prefixes
+                if parts[0] in ["WA", "A", "TA", "TE", "TU"]:
+                    prefix_words += 1
+                # Check suffix-dominant pattern (any common suffix)
+                if parts[-1] in [
+                    "ME",
+                    "SI",
+                    "JA",
+                    "TE",
+                    "TI",
+                    "U",
+                    "WA",
+                    "RE",
+                    "NA",
+                    "MA",
+                    "RU",
+                    "SE",
+                ]:
+                    suffix_words += 1
+
+        if suffix_words > prefix_words * 2:
+            analysis["statistical_deviations"].append(
+                {
+                    "pattern": "STRUCTURAL MISMATCH: Prefix vs Suffix dominance",
+                    "observation": f"Suffix-final words ({suffix_words}) vastly outnumber prefix-initial ({prefix_words}); Hattic is prefix-dominant",
+                    "significance": "CRITICAL",
+                    "score_delta": -5.0,
+                }
+            )
+            analysis["overall_score"] -= 5.0
+        else:
+            analysis["present_patterns"].append(
+                {
+                    "pattern": "Prefix frequency compatible",
+                    "observation": f"Prefix-initial ({prefix_words}) vs suffix-final ({suffix_words})",
+                    "significance": "MEDIUM",
+                    "score_delta": 1.0,
+                }
+            )
+            analysis["overall_score"] += 1.0
+
+        # Hattic divine names check
+        hattic_divine = ["TA-RU", "HA-TA"]
+        divine_found = 0
+        for word in word_freqs:
+            upper = word.upper()
+            for name in hattic_divine:
+                if name in upper:
+                    divine_found += 1
+                    break
+        if divine_found == 0:
+            analysis["absent_patterns"].append(
+                {
+                    "pattern": "No Hattic divine name traces",
+                    "observation": "TA-RU (storm god) and HA-TA- patterns absent from corpus",
+                    "significance": "LOW",
+                    "score_delta": -0.5,
+                }
+            )
+            analysis["overall_score"] -= 0.5
+
+        # Hattic is poorly attested — small corpus means weak discrimination
+        analysis["statistical_deviations"].append(
+            {
+                "pattern": "Low reference corpus confidence",
+                "observation": "Hattic known primarily from Hittite bilinguals; reference data insufficient for strong claims",
+                "significance": "METHODOLOGICAL",
+                "score_delta": 0,
+            }
+        )
+
+        return analysis
+
+    def analyze_etruscan_negative_evidence(self, corpus_patterns: dict) -> dict:
+        """Analyze what Etruscan/Tyrsenian hypothesis predicts but doesn't appear."""
+        analysis = {
+            "hypothesis": "Etruscan/Tyrsenian",
+            "absent_patterns": [],
+            "present_patterns": [],
+            "statistical_deviations": [],
+            "overall_score": 0,
+        }
+
+        vowels = corpus_patterns.get("vowel_distribution_normalized", {})
+        word_freqs = self._extract_words_from_corpus() or dict(self.statistics.get("top_words", {}))
+
+        # Etruscan vowel reduction: later Etruscan reduces internal vowels
+        # Linear A has full vowels — slight mismatch but not disqualifying
+        a_freq = vowels.get("a", 0)
+        if a_freq > 0.35:
+            analysis["statistical_deviations"].append(
+                {
+                    "pattern": "High /a/ frequency vs Etruscan vowel reduction",
+                    "observation": f"/a/ at {a_freq * 100:.1f}% — Etruscan undergoes vowel syncope; high /a/ suggests different phonology",
+                    "significance": "MEDIUM",
+                    "score_delta": -1.0,
+                }
+            )
+            analysis["overall_score"] -= 1.0
+
+        # Etruscan -SI genitive check (Etruscan -s genitive is very common)
+        si_words = sum(1 for w in word_freqs if w.upper().endswith("SI"))
+        if si_words >= 10:
+            analysis["present_patterns"].append(
+                {
+                    "pattern": "Frequent -SI ending",
+                    "observation": f"{si_words} words end in -SI; compatible with Etruscan genitive -s",
+                    "significance": "MEDIUM",
+                    "score_delta": 1.5,
+                }
+            )
+            analysis["overall_score"] += 1.5
+        elif si_words < 3:
+            analysis["absent_patterns"].append(
+                {
+                    "pattern": "Low -SI frequency",
+                    "observation": f"Only {si_words} -SI words; Etruscan genitive is very productive",
+                    "significance": "LOW",
+                    "score_delta": -0.5,
+                }
+            )
+            analysis["overall_score"] -= 0.5
+
+        # Geographic plausibility: Lemnos stele proves Tyrsenian in Aegean
+        analysis["present_patterns"].append(
+            {
+                "pattern": "Geographic plausibility (Lemnian connection)",
+                "observation": "Lemnos stele demonstrates Tyrsenian language family in Aegean; geographic overlap with Minoan",
+                "significance": "MEDIUM",
+                "score_delta": 1.0,
+            }
+        )
+        analysis["overall_score"] += 1.0
+
+        # Etruscan is suffixing — compatible with Linear A suffix dominance
+        analysis["present_patterns"].append(
+            {
+                "pattern": "Suffix-dominant morphology compatible",
+                "observation": "Etruscan uses suffixation (like Linear A), unlike prefix-dominant Hattic",
+                "significance": "MEDIUM",
+                "score_delta": 1.0,
+            }
+        )
+        analysis["overall_score"] += 1.0
+
+        # Temporal gap: Etruscan attested 700+ years after Linear A
+        analysis["statistical_deviations"].append(
+            {
+                "pattern": "Chronological gap",
+                "observation": "Etruscan texts are 7th c. BCE; Linear A is 17th-15th c. BCE; ~1000 year gap reduces comparability",
+                "significance": "HIGH",
+                "score_delta": -2.0,
+            }
+        )
+        analysis["overall_score"] -= 2.0
+
+        return analysis
+
     def analyze_reading_contradictions(self, top_n: int = 50) -> dict:
         """
         Analyze reading contradictions across hypotheses.
@@ -783,6 +1154,76 @@ class NegativeEvidenceAnalyzer:
             predictions["predictions"].append("May contain substrate phonology")
             return predictions
 
+        def hurrian_predicts(word: str) -> dict:
+            """What Hurrian hypothesis predicts about this word."""
+            word_upper = word.upper()
+            syllables = word_upper.split("-")
+            predictions = {"hypothesis": "Hurrian", "predictions": [], "violations": []}
+
+            # Hurrian expects agglutinative structure (multiple suffixes)
+            if len(syllables) >= 3:
+                predictions["predictions"].append("Polysyllabic — compatible with agglutination")
+
+            # Check for Hurrian-like case suffixes
+            if syllables:
+                final = syllables[-1]
+                if final in ["NE", "DA", "NA", "WA"]:
+                    predictions["predictions"].append(f"Case suffix -{final.lower()} (Hurrian)")
+                if final in ["MA"]:
+                    predictions["predictions"].append("Possible Hurrian prohibitive -ma")
+
+            # Hurrian expects no /o/ vowels
+            vowels = [s[-1] for s in syllables if s and s[-1] in "AEIOU"]
+            o_count = sum(1 for v in vowels if v == "O")
+            if o_count > 0:
+                predictions["violations"].append(
+                    f"/o/ vowel present ({o_count}x) — unusual for Hurrian"
+                )
+
+            return predictions
+
+        def hattic_predicts(word: str) -> dict:
+            """What Hattic hypothesis predicts about this word."""
+            word_upper = word.upper()
+            syllables = word_upper.split("-")
+            predictions = {"hypothesis": "Hattic", "predictions": [], "violations": []}
+
+            # Hattic is prefix-dominant
+            if syllables:
+                initial = syllables[0]
+                if initial in ["WA", "A", "TA", "TE", "TU"]:
+                    predictions["predictions"].append(f"Prefix {initial.lower()}- (Hattic)")
+
+            # Hattic violation: suffix-heavy words contradict prefix-dominant language
+            if len(syllables) >= 2:
+                final = syllables[-1]
+                if final in ["ME", "SI", "JA", "TE", "TI"]:
+                    predictions["violations"].append(
+                        f"Suffix-final -{final.lower()} contradicts Hattic prefix dominance"
+                    )
+
+            return predictions
+
+        def etruscan_predicts(word: str) -> dict:
+            """What Etruscan/Tyrsenian hypothesis predicts about this word."""
+            word_upper = word.upper()
+            syllables = word_upper.split("-")
+            predictions = {"hypothesis": "Etruscan", "predictions": [], "violations": []}
+
+            # Etruscan suffixation
+            if syllables:
+                final = syllables[-1]
+                if final in ["SI", "SA"]:
+                    predictions["predictions"].append(
+                        f"Genitive -{final.lower()} (Etruscan -s/-sa)"
+                    )
+                if final in ["LE"]:
+                    predictions["predictions"].append("Locative -le (Etruscan -l)")
+                if final in ["KE"]:
+                    predictions["predictions"].append("Past active -ke (Etruscan -ce)")
+
+            return predictions
+
         # Analyze each word
         for word, freq in sorted_words:
             if "-" not in word:
@@ -792,6 +1233,9 @@ class NegativeEvidenceAnalyzer:
             semitic = semitic_predicts(word)
             luwian = luwian_predicts(word)
             pregreek = pregreek_predicts(word)
+            hurrian = hurrian_predicts(word)
+            hattic = hattic_predicts(word)
+            etruscan = etruscan_predicts(word)
 
             # Find contradictions
             word_contradictions = []
@@ -850,6 +1294,34 @@ class NegativeEvidenceAnalyzer:
                     }
                 )
 
+            # Hurrian vs Hattic: suffix vs prefix dominance
+            hurrian_hits = len(hurrian["predictions"])
+            hattic_hits = len(hattic["predictions"])
+            hattic_violations = len(hattic["violations"])
+            if hurrian_hits > 0 and hattic_violations > 0:
+                word_contradictions.append(
+                    {
+                        "type": "morphological",
+                        "hyp1": "Hurrian",
+                        "hyp2": "Hattic",
+                        "observation": f"{word} has Hurrian-compatible suffixes but violates Hattic prefix expectation",
+                        "decisive_for": "Hurrian",
+                    }
+                )
+
+            # Hurrian vowel check: /o/ words disconfirm Hurrian
+            hurrian_violations = len(hurrian["violations"])
+            if hurrian_violations > 0 and greek_violations == 0:
+                word_contradictions.append(
+                    {
+                        "type": "phonological",
+                        "hyp1": "Hurrian",
+                        "hyp2": "Greek",
+                        "observation": f"{word} contains /o/ — expected for Greek, not Hurrian",
+                        "decisive_for": "Greek",
+                    }
+                )
+
             if word_contradictions:
                 contradictions["contradiction_matrix"].append(
                     {
@@ -861,6 +1333,9 @@ class NegativeEvidenceAnalyzer:
                             "semitic": semitic,
                             "luwian": luwian,
                             "pregreek": pregreek,
+                            "hurrian": hurrian,
+                            "hattic": hattic,
+                            "etruscan": etruscan,
                         },
                     }
                 )
@@ -965,6 +1440,21 @@ class NegativeEvidenceAnalyzer:
         self.results["hypothesis_analyses"]["pregreek"] = pregreek_analysis
         self.log(f"Pre-Greek score: {pregreek_analysis['overall_score']}")
 
+        print("Analyzing Hurrian negative evidence...")
+        hurrian_analysis = self.analyze_hurrian_negative_evidence(corpus_patterns)
+        self.results["hypothesis_analyses"]["hurrian"] = hurrian_analysis
+        self.log(f"Hurrian score: {hurrian_analysis['overall_score']}")
+
+        print("Analyzing Hattic negative evidence...")
+        hattic_analysis = self.analyze_hattic_negative_evidence(corpus_patterns)
+        self.results["hypothesis_analyses"]["hattic"] = hattic_analysis
+        self.log(f"Hattic score: {hattic_analysis['overall_score']}")
+
+        print("Analyzing Etruscan negative evidence...")
+        etruscan_analysis = self.analyze_etruscan_negative_evidence(corpus_patterns)
+        self.results["hypothesis_analyses"]["etruscan"] = etruscan_analysis
+        self.log(f"Etruscan score: {etruscan_analysis['overall_score']}")
+
         print("Analyzing reading contradictions...")
         self.results["contradictions"] = self.analyze_reading_contradictions(top_n=50)
 
@@ -1046,7 +1536,7 @@ def main():
         "--hypothesis",
         "-H",
         type=str,
-        choices=["greek", "semitic", "luwian", "pregreek", "all"],
+        choices=["greek", "semitic", "luwian", "pregreek", "hurrian", "hattic", "etruscan", "all"],
         default="all",
         help="Hypothesis to analyze (default: all)",
     )

@@ -355,7 +355,15 @@ class FalsificationSystem:
         """Classify all hypotheses."""
         results = {}
 
-        hypotheses = ["luwian", "semitic", "pregreek", "protogreek"]
+        hypotheses = [
+            "luwian",
+            "semitic",
+            "pregreek",
+            "protogreek",
+            "hurrian",
+            "hattic",
+            "etruscan",
+        ]
 
         for hyp in hypotheses:
             results[hyp] = self.classify_hypothesis(hyp)
@@ -551,7 +559,7 @@ def main():
         "-c",
         type=str,
         metavar="HYPOTHESIS",
-        help="Classify a specific hypothesis (luwian, semitic, pregreek, protogreek)",
+        help="Classify a specific hypothesis (luwian, semitic, pregreek, protogreek, hurrian, hattic, etruscan)",
     )
     parser.add_argument(
         "--all", "-a", action="store_true", help="Classify all hypotheses and generate report"

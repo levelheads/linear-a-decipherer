@@ -343,7 +343,15 @@ class PhaseValidator:
             # If both claim high percentages for different things
             if int(matches_a1[0]) > 80 and int(matches_a2[0]) > 80:
                 # Check if they're about different hypotheses
-                hyps = ["semitic", "luwian", "greek", "pregreek"]
+                hyps = [
+                    "semitic",
+                    "luwian",
+                    "protogreek",
+                    "pregreek",
+                    "hurrian",
+                    "hattic",
+                    "etruscan",
+                ]
                 h1 = [h for h in hyps if h in a1_lower]
                 h2 = [h for h in hyps if h in a2_lower]
                 if h1 and h2 and h1[0] != h2[0]:

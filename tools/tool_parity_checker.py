@@ -32,7 +32,7 @@ DEFAULT_INPUTS = [
     str(DATA_DIR / "integrated_results.json"),
 ]
 
-HYPOTHESES = ("luwian", "semitic", "pregreek", "protogreek")
+HYPOTHESES = ("luwian", "semitic", "pregreek", "protogreek", "hurrian", "hattic", "etruscan")
 
 
 @dataclass
