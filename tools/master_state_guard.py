@@ -25,9 +25,9 @@ MASTER_STATE = PROJECT_ROOT / "linear-a-decipherer" / "MASTER_STATE.md"
 README = PROJECT_ROOT / "README.md"
 
 LEGACY_REDIRECT_FILES = [
-    PROJECT_ROOT / "PROJECT_REVIEW.md",
+    PROJECT_ROOT / "analysis" / "archive" / "PROJECT_REVIEW.md",
     PROJECT_ROOT / "linear-a-decipherer" / "KNOWLEDGE.md",
-    PROJECT_ROOT / "analysis" / "active" / "OPERATION_MINOS_III_TRACKING.md",
+    PROJECT_ROOT / "analysis" / "archive" / "OPERATION_MINOS_III_TRACKING.md",
     PROJECT_ROOT / "linear-a-decipherer" / "ANALYSIS_INDEX.md",
 ]
 
