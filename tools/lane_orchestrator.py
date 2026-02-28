@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import shlex
 import subprocess
 import sys
 import time
@@ -79,9 +80,8 @@ def run_command(command: str, cwd: Path, timeout_sec: int) -> dict[str, Any]:
     start = time.monotonic()
     try:
         proc = subprocess.run(
-            command,
+            shlex.split(command),
             cwd=cwd,
-            shell=True,
             capture_output=True,
             text=True,
             timeout=timeout_sec,

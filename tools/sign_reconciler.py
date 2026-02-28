@@ -483,9 +483,10 @@ class SignReconciler:
         # Summary
         lines.append("SUMMARY")
         lines.append("-" * 40)
-        lines.append(
-            f"Syllabograms with AB mapping: {len([k for k, v in self.phonetic_to_ab.items() if v.get('type') == 'syllabogram'])}"
+        syl_count = len(
+            [k for k, v in self.phonetic_to_ab.items() if v.get("type") == "syllabogram"]
         )
+        lines.append(f"Syllabograms with AB mapping: {syl_count}")
         lines.append(f"Logograms: {len(self.logograms)}")
         lines.append(f"Signs without AB mapping: {len(self.unmapped_signs)}")
         lines.append(f"Total unified inventory: {len(self.unified_signs)}")
@@ -524,9 +525,10 @@ class SignReconciler:
             lines.append("-" * 60)
 
             for sign_info in sorted(self.unmapped_signs, key=lambda x: -x.get("occurrences", 0)):
-                lines.append(
-                    f"{sign_info['sign']:<15} {sign_info.get('occurrences', 0):<12} {sign_info.get('note', '')[:40]}"
-                )
+                sign = sign_info["sign"]
+                occ = sign_info.get("occurrences", 0)
+                note = sign_info.get("note", "")[:40]
+                lines.append(f"{sign:<15} {occ:<12} {note}")
 
         lines.append("")
         lines.append("=" * 70)
@@ -612,16 +614,24 @@ def main():
     if args.validate:
         report = reconciler.validate_corpus_signs()
         if args.output:
-            with open(args.output, "w", encoding="utf-8") as f:
+            out_path = Path(args.output).resolve()
+            if not str(out_path).startswith(str(PROJECT_ROOT)):
+                print("Error: output path must be within project root", file=sys.stderr)
+                return 1
+            with open(out_path, "w", encoding="utf-8") as f:
                 json.dump(report, f, ensure_ascii=False, indent=2)
-            print(f"\nValidation report saved to: {args.output}")
+            print(f"\nValidation report saved to: {out_path}")
 
     if args.report:
         report_text = reconciler.generate_report()
         if args.output:
-            with open(args.output, "w", encoding="utf-8") as f:
+            out_path = Path(args.output).resolve()
+            if not str(out_path).startswith(str(PROJECT_ROOT)):
+                print("Error: output path must be within project root", file=sys.stderr)
+                return 1
+            with open(out_path, "w", encoding="utf-8") as f:
                 f.write(report_text)
-            print(f"\nReport saved to: {args.output}")
+            print(f"\nReport saved to: {out_path}")
         else:
             print(report_text)
 
