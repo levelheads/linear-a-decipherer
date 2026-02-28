@@ -152,11 +152,7 @@ class LikelihoodEvidence:
 
     evidence_type: str  # lexical, morphological, phonological, structural
     observation: str
-    likelihood_luwian: float
-    likelihood_semitic: float
-    likelihood_pregreek: float
-    likelihood_protogreek: float
-    likelihood_isolate: float
+    likelihoods: Dict[str, float]  # hypothesis_name -> likelihood value
     weight: float  # How much this evidence counts
 
 
@@ -634,9 +630,9 @@ class BayesianHypothesisTester:
             if freq >= min_freq:
                 result = self.compute_posterior(word, freq)
                 results.append(result)
-                self.log(
-                    f"{word}: {result.best_hypothesis} (P={result.posteriors[result.best_hypothesis]:.2f})"
-                )
+                best = result.best_hypothesis
+                prob = result.posteriors[best]
+                self.log(f"{word}: {best} (P={prob:.2f})")
 
         return results
 
@@ -747,9 +743,9 @@ class BayesianHypothesisTester:
         ):
             print(f"\n  {hyp.upper()}:")
             print(f"    Best for {summary['best_for_n_words']} words")
-            print(
-                f"    Mean posterior: {summary['mean_posterior']:.3f} (prior: {summary['prior']:.2f})"
-            )
+            mean_p = summary["mean_posterior"]
+            prior = summary["prior"]
+            print(f"    Mean posterior: {mean_p:.3f} (prior: {prior:.2f})")
             print(f"    Max posterior: {summary['max_posterior']:.3f}")
             print(f"    Shift from prior: {summary['posterior_shift']:+.3f}")
 

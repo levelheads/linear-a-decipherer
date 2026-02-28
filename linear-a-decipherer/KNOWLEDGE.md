@@ -5,7 +5,7 @@
 
 **Essential lookup tables and project status for Linear A research**
 
-**Last Updated**: 2026-02-17
+**Last Updated**: 2026-02-22
 
 > **Refresh policy**: KNOWLEDGE.md updates when readings, hypotheses, or reference tables change.
 > MASTER_STATE.md updates for any operational metric or status change (and is canonical when they diverge).
@@ -17,27 +17,18 @@
 | Metric | Value |
 |--------|-------|
 | Corpus Processed | 1,721 inscriptions (100%) |
-| Detailed Analyses | **300/1,721 inscriptions (17.43% coverage)** |
-| Words Tested | **248 words** (freq >= 2) via batch_pipeline.py |
-| High-Confidence Words | **42** (CERTAIN/PROBABLE + CONSISTENT via batch_pipeline.py) |
-| KU-RO Totals Verified | 6/34 (18%) via arithmetic_verifier.py (EXACT MATCH verified) |
-| Commodity Functional Anchors | 6 strong anchors + 9 candidates via commodity_validator.py |
+| Detailed Analyses | **1,698/1,721 inscriptions (98.66% coverage)** |
+| Words Tested | **160 words** (freq >= 2, 100% compliant) |
+| Connected Readings | **35 tablets** across **9 sites** |
+| KU-RO Totals Verified | 10/34 VERIFIED + 4 CONSTRAINED + 4 STRUCTURAL + 5 NEAR-MATCH |
+| KU-RO Mismatches Investigated | 18/18 (all diagnosed) |
+| Commodity Functional Anchors | 7 strong anchors + 7 candidates via commodity_validator.py |
+| Cross-Tablet Name Links | 13 confirmed |
 | Personal Names | 127 identified |
 | Best-Fit Model | **Undetermined substrate** with contact features (Luwian morphological influence + Semitic admin loans) |
-| Active Operation | **CORPUS EXPANSION — 17% achieved** |
-
-**Corpus Expansion Progress**: 2026-02-05 — 17.43% coverage
-- Phase 1: ✅ Site Diversification — KH (9), ZA (28), PH (35) analyzed
-- Phase 2: ✅ Hypothesis Validation — 248 words tested, 42 high-confidence
-- Phase 3: ✅ Comprehensive Sweep — **17.43% coverage (300/1,721)**
-- **21 sites** now represented in batch analysis
-- **K-R absent** in 9 analyzed KH inscriptions (sample too small for confirmation)
-
-**Previous 5-Direction Progress** (2026-02-05 — ALL COMPLETE):
-- Direction 2: ✅ Phonological Reconstruction — /o/ at 3.92%, 15 CV gaps, *118 CVC confirmed
-- Direction 3: ✅ Khania K-R absence — observed in 9 KH inscriptions (requires larger sample)
-- Direction 4: ✅ Syntax Analysis — VSO word order suggested (limited evidence)
-- Direction 5: ✅ Sign Campaign — 21 K-R forms, 30 paradigm groups, 9 final-preference signs
+| Domain Layering | **CONFIRMED**: Religious=Luwian morphology, Admin=Semitic vocabulary |
+| Khania Zero-K-R | **CONFIRMED** (p=0.004, n=226 inscriptions) |
+| Active Operation | **Operation MINOS III — v0.9.0** |
 
 **See**: `CHANGELOG.md` for full discovery chronology
 
@@ -96,7 +87,7 @@
 | **SA-RA₂** | allocation (*šarāku*) | PROBABLE | Akkadian | This project |
 | **A-DU** | administrative term | PROBABLE | Semitic | Multiple |
 | **U-MI-NA-SI** | debt / '[s/he] owes' | POSSIBLE | Unknown | Younger (2024) |
-| **PO-TO-KU-RO** | grand total | PROBABLE | Multi-hypothesis | Extends Gordon |
+| **PO-TO-KU-RO** | grand total | **HIGH** | Multi-hypothesis | Extends Gordon; VERIFIED: 97=31+65+1 (HT122a+b) |
 | **JA-SA-SA-RA-ME** | divine name | PROBABLE | Pre-Greek | This project |
 | **SU-PU** | bowl (*suppu*) | PROBABLE | Akkadian | This project |
 | **KA-RO-PA₃** | vessel (*karpu*) | PROBABLE | Akkadian | This project |
@@ -116,12 +107,13 @@
 
 **Methodology Note**: These etymologies use Greek to decode Minoan, then claim Minoan is unrelated to Greek. This internal contradiction should prevent automatic acceptance.
 
-### Commodity-Word Functional Anchors (2026-02-17)
+### Commodity-Word Functional Anchors (2026-02-21)
 
 **Source**: `commodity_validator.py` (threshold 0.6, exhaustive corpus verification)
 
 | Word | Commodity | Specificity | N | Sites | Level | Confidence |
 |------|-----------|-------------|---|-------|-------|------------|
+| **NI** | **VIN** | **100%** | **77** | **8 (pan-Minoan)** | **STRONG_ANCHOR** | **HIGH** |
 | ≈ | VIN | 100% | 10 | 6 (pan-Minoan) | STRONG_ANCHOR | HIGH |
 | KU-NI-SU | GRA | 100% | 5 | 1 (HT) | STRONG_ANCHOR | PROBABLE |
 | 𐝉𐝫 | OLE | 100% | 5 | 2 (HT, KH) | STRONG_ANCHOR | HIGH |
@@ -129,7 +121,13 @@
 | KU-PA | GRA | 100% | 4 | 3 (HT, KH, ZA) | STRONG_ANCHOR | HIGH |
 | 𐝇𐝉 | CYP | 100% | 4 | 1 (KH) | STRONG_ANCHOR | PROBABLE |
 
-**Interpretation**: These words appear ONLY with their primary commodity when any commodity is present on the line. They are functional anchors: their meaning is tied to the commodity context regardless of language hypothesis. Cross-site anchors (≈, 𐝉𐝫, KU-PA) are strongest.
+**Candidates awaiting data** (100% specificity, insufficient attestation for STRONG):
+| Word | Commodity | Specificity | N | Sites | Status |
+|------|-----------|-------------|---|-------|--------|
+| `*307+*387` | VIR | 100% | 2 | 1 (HT) | CANDIDATE — awaiting additional attestations |
+| `I-QA-*118` | GRA | 100% | 2 | 1 (HT) | CANDIDATE — awaiting additional attestations |
+
+**Interpretation**: These words appear ONLY with their primary commodity when any commodity is present on the line. They are functional anchors: their meaning is tied to the commodity context regardless of language hypothesis. Cross-site anchors (NI, ≈, 𐝉𐝫, KU-PA) are strongest. NI has the largest attestation count (n=77, 8 sites) but low exclusivity (2.6%), meaning most of its appearances are without any commodity on the line.
 
 ### K-R Paradigm (3-Tier Accounting) — Table updated 2026-02-02
 
@@ -330,17 +328,47 @@
 | **HT 95a** | Hagia Triada | **MEDIUM** | GRA distribution; DA-DU-MA-TA header |
 | **SY Za 4** | Kato Symi | **MEDIUM** | A-TA-I-*301-WA-JA libation verb cross-site |
 | **KH 11** | Khania | **MEDIUM** | Mixed CYP+VIN; extensive fractions (¹⁄₁₆, ¹⁄₆, ¹⁄₃); *301+1 logographic |
+| **HT 92** | Hagia Triada | **PROBABLE** | Minimal GRA distribution; A-DU 680 GRA + *304 12; institutional scale; NO_KURO |
+| **HT 86a** | Hagia Triada | **PROBABLE** | Two-section GRA (K+L vs B); dual commodity anchor validation (KU-NI-SU + DA-ME); 6 anchors |
+| **HT 9a** | Hagia Triada | **PROBABLE** | VIN distribution (partner to HT 9b); KU-RO=31.75 MISMATCH (0.75); 5/7 recipients shared with side b; SA-RO S-R paradigm |
+| **HT 13** | Hagia Triada | **PROBABLE** | Largest VIN distribution (130.5 units); TE-TU 43% institutional; DA-SI-*118 + KU-ZU-NI cross-tablet; Scribe 8 |
 
-**Detailed Manual Analysis**: 24 inscriptions (above)
-**Automated Batch Analysis**: 300/1,721 inscriptions (17.43% coverage)
+| **HT 11b** | Hagia Triada | **HIGH** | KU-RO=180 VERIFIED (Class A); KA commodity (unknown bulk); DE-NU header; Scribe 24 |
+| **HT 95a/b** | Hagia Triada | **PROBABLE** | GRA pair; 5-6/6 recipients shared with HT86a (grain cohort); KU-NI-SU+DA-ME anchors |
+| **PEZg5** | Petras | **POSSIBLE** | First Petras reading; OLE *307 1.5; stone object |
+| **IOZa9** | Iouktas | **POSSIBLE** | Libation tablet; religious register |
+| **PH12a** | Phaistos | **POSSIBLE** | VIR-*339-HIDE compound (leather workers?); 10 units |
+| **SAMWa1** | Samothrace | **POSSIBLE** | Only non-Cretan inscription; MMII; 10 1/16; trade nodule |
+| **PKZa27** | Palaikastro | **HIGH** | Libation formula (JA-SA-SA-RA-ME / U-NA-KA-NA-SI) |
+| **KH22** | Khania | **POSSIBLE** | CYP copper allocation; zero K-R; CYP+E |
+| **KH50** | Khania | **POSSIBLE** | Distribution record; zero K-R |
+| **KH11** | Khania | **PROBABLE** | Largest KH tablet; A-DU header (first KH!); mixed CYP+VIN; zero K-R |
+| **KH29** | Khania | **POSSIBLE** | CYP allocation with fractions; RA header; KU-PA non-GRA |
+| **ZA6a** | Zakros | **POSSIBLE** | Mixed commodity (OLIV, GRA, *304); stone vessel |
+| **PH3a** | Phaistos | **POSSIBLE** | Object inventory; 4 undeciphered logograms (*556,*557,*560,*563) |
+| **PH3b** | Phaistos | **POSSIBLE** | Fractional commodity record; MI+JA compound; pair with PH3a |
+
+**Connected Readings**: 35 tablets across 9 sites (v0.7.0–v0.9.0)
+**Automated Batch Analysis**: 1,698/1,721 inscriptions (98.66% coverage)
 **See**: `data/extended_corpus_analysis.json` for full batch results
 
-### Recurrent Personal Names (Cross-Tablet)
+### Recurrent Personal Names (Cross-Tablet, 13 confirmed links)
 
-| Name | Tablets | Interpretation |
-|------|---------|----------------|
-| JA-QI | HT 28a, HT 28b | Appears on both sides; official or recipient |
-| KU-PA₃-NU | PH, HT | Cross-site attestation |
+| Name | Tablets | Commodities | Total Qty |
+|------|---------|-------------|-----------|
+| DA-SI-*118 | HT85a, HT13, HT122a | VIR 24, VIN 19, ? 2 | 45 |
+| PA3-NI | HT85a, HT102 | VIR 12, GRA+PA 33 | 45 |
+| KU-ZU-NI | HT85a, HT13 | VIR 5, VIN 18 | 23 |
+| DA-RE | HT85a, HT7a, HT122b | VIR 4+1+2 | 7 |
+| TE-TU | HT7a, HT13 | VIR 1, VIN 56 | 57 |
+| SA-RU | HT86a, HT94b | GRA 20, deficit 1 | 21 |
+| PA-DE | HT9a/9b, HT122a | VIN 8.75, ? 1 | 9.75 |
+| *306-TU | HT9a/9b, HT122a | VIN 18, ? 1 | 19 |
+| *324-DI-RA | HT9a/9b, HT122a | VIN 4.5, ? 1 | 5.5 |
+| DA-RI-DA | HT85a, HT122a | VIR 12, ? 1 | 13 |
+| PA-TA-NE | HT94b, HT122a | deficit 1, ? 1 | 2 |
+| KU-PA₃-NU | HT88, HT122a | VIR+KA 1, ? 2 | 3 |
+| QA-QA-RU | HT122b, HT118 | VIR 2, ? 6 | 8 |
 
 **Note**: See `data/personal_names_comprehensive.json` for full list of 127 identified names
 
@@ -710,10 +738,10 @@ Example cascade from `anchor_semitic_loan_layer`:
 |---------|--------------|--------|
 | K-R vocabulary | Full system | **ZERO** |
 | Commodity focus | Oil/grain/wine | **Copper (CYP)** |
-| CYP grading | — | CYP+D (fractions), CYP+E (integers) |
+| CYP grading | — | CYP+D, CYP+E, CYP+K, unqualified CYP |
 | Vocabulary overlap | — | 1.8% |
 
-**Key Discovery**: KH operates **PARALLEL** administrative system. CYP+D = lower grade (fractions), CYP+E = higher grade (integers).
+**Key Discovery (REVISED 2026-02-28)**: KH operates **PARALLEL** administrative system. CYP grades indicate copper **quality** (purity/refinement), not quantity format. CYP+D = lower grade (typically fractions), CYP+E = higher grade (typically integers), CYP+K = third grade (KH7b), unqualified CYP = fractional. KH7a has CYP+D AND CYP+E together, disproving the format-rule hypothesis. Statistical tendency reflects typical transaction sizes, not a constraint.
 
 ### Vector 4: Knossos Scepter
 

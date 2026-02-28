@@ -451,7 +451,8 @@ PREGREEK_VOCABULARY = {
     # NOTE: These are GREEK words with hypothesized Pre-Greek substrate etymology (Beekes 2014).
     # Used for PHONOLOGICAL PATTERN matching, not direct vocabulary correspondence.
     # No Level 1/2 anchors currently support Pre-Greek hypothesis directly.
-    # Confidence ratings indicate strength of substrate etymology claim, not Linear A match confidence.
+    # Confidence ratings indicate strength of substrate etymology claim,
+    # not Linear A match confidence.
     #
     # Flora - agricultural substrate terms (Beekes 2014)
     "elaia": {"meaning": "olive", "confidence": "HIGH", "source": "Beekes"},
@@ -1313,13 +1314,16 @@ GRAMMATICAL_ROLES = {
 
 class HypothesisTester:
     """
-    Tests Linear A words against four linguistic hypotheses.
+    Tests Linear A words against seven linguistic hypotheses.
 
     For each word, generates:
     - Luwian analysis (particles, morphology, cognates)
     - Semitic analysis (consonant skeleton matching)
     - Pre-Greek analysis (phonological markers)
     - Proto-Greek analysis (Greek cognate comparison)
+    - Hurrian analysis (agglutinative morphology, vowel system)
+    - Hattic analysis (prefix morphology, ergative patterns)
+    - Etruscan analysis (suffixing morphology, vowel patterns)
     """
 
     def __init__(self, verbose=False):
@@ -1331,7 +1335,7 @@ class HypothesisTester:
         self.results = {
             "metadata": {
                 "generated": None,
-                "method": "Four-Hypothesis Testing (First Principle #4)",
+                "method": "Seven-Hypothesis Testing (First Principle #4)",
                 "word_filter_contract": CONTRACT_VERSION,
             },
             "word_analyses": {},
@@ -1447,7 +1451,7 @@ class HypothesisTester:
             return analysis
 
         # Aggregate hypothesis scores
-        for hyp in ["luwian", "semitic", "pregreek", "protogreek"]:
+        for hyp in ["luwian", "semitic", "pregreek", "protogreek", "hurrian", "hattic", "etruscan"]:
             total_score = sum(r["hypotheses"][hyp]["score"] for r in word_results)
             supported_count = sum(
                 1 for r in word_results if r["hypotheses"][hyp]["verdict"] == "SUPPORTED"
@@ -1868,7 +1872,9 @@ class HypothesisTester:
                     {
                         "type": "phonology",
                         "observation": "Possible prothetic vowel",
-                        "interpretation": "Word-initial vowel before consonant cluster (Pre-Greek feature)",
+                        "interpretation": (
+                            "Word-initial vowel before consonant cluster (Pre-Greek feature)"
+                        ),
                         "confidence": "LOW",
                     }
                 )
@@ -2023,7 +2029,10 @@ class HypothesisTester:
                 {
                     "type": "functional",
                     "observation": "ku-ro totaling function",
-                    "interpretation": "Parallels Linear B administrative ku-ro; may relate to Greek kyrios or *kolos",
+                    "interpretation": (
+                        "Parallels Linear B administrative ku-ro;"
+                        " may relate to Greek kyrios or *kolos"
+                    ),
                     "confidence": "MEDIUM",
                 }
             )
@@ -2038,7 +2047,10 @@ class HypothesisTester:
                 {
                     "type": "phonology",
                     "observation": f"Contains /o/ syllable(s): {syllables_with_o}",
-                    "interpretation": "Presence of /o/ slightly favors Greek (expected ~20% in Greek vs ~3% in Linear A overall)",
+                    "interpretation": (
+                        "Presence of /o/ slightly favors Greek"
+                        " (expected ~20% in Greek vs ~3% in Linear A overall)"
+                    ),
                     "confidence": "LOW",
                 }
             )
@@ -2104,7 +2116,7 @@ class HypothesisTester:
             "best_score": 0,
         }
 
-        hypotheses = ["luwian", "semitic", "pregreek", "protogreek"]
+        hypotheses = list(CASE_MARKER_PREDICTIONS.keys())
 
         for hyp in hypotheses:
             if hyp not in CASE_MARKER_PREDICTIONS:
@@ -2610,9 +2622,8 @@ class HypothesisTester:
                 else:
                     self.results["hypothesis_summaries"][hyp]["contradicted"] += 1
 
-            self.log(
-                f"{word}: {analysis['synthesis']['best_hypothesis']} ({analysis['synthesis']['max_confidence']})"
-            )
+            synth = analysis["synthesis"]
+            self.log(f"{word}: {synth['best_hypothesis']} ({synth['max_confidence']})")
 
         self.results["metadata"]["words_tested"] = len(words_to_test)
         self.results["metadata"]["min_frequency"] = min_frequency
@@ -2683,7 +2694,7 @@ class HypothesisTester:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Test Linear A readings against four linguistic hypotheses"
+        description="Test Linear A readings against seven linguistic hypotheses"
     )
     parser.add_argument("--word", "-w", type=str, help="Test a specific word (e.g., ku-ro)")
     parser.add_argument("--all", "-a", action="store_true", help="Test all words in corpus")
@@ -2745,9 +2756,8 @@ def main():
         print(f"  Best hypothesis: {analysis['synthesis']['best_hypothesis']}")
         print(f"  Max confidence: {analysis['synthesis']['max_confidence']}")
         if analysis["synthesis"]["multi_hypothesis_support"]:
-            print(
-                f"  Multi-hypothesis support: {', '.join(analysis['synthesis']['supported_hypotheses'])}"
-            )
+            supported = ", ".join(analysis["synthesis"]["supported_hypotheses"])
+            print(f"  Multi-hypothesis support: {supported}")
 
     elif args.all:
         # Test all corpus words

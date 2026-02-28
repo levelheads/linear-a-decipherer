@@ -55,7 +55,7 @@ Use this packet for any confidence promotion or demotion proposal.
 - [x] required_inputs_present (Missing: none)
 - [x] no_direct_anchor_contradiction (dependency_warnings=0, threshold=MODERATE)
 - [x] parity_guard (parity_level=LOW)
-- [x] multi_hypothesis_run (All four hypotheses present in hypothesis_results)
+- [x] multi_hypothesis_run (All seven hypotheses present in hypothesis_results)
 - [x] cross_corpus_consistency (validated=True, positional=0.700, functional=0.550, sites=3, rule=min>=0.55 and max>=0.70)
 - [x] integrated_validation (entry=yes, final_confidence=PROBABLE, methodology_compliant=True)
 - [x] dependency_trace (anchor_dependencies=1, trace_source=existing)

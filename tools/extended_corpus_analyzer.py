@@ -444,9 +444,9 @@ def main():
         return 1
 
     if args.all:
-        # Analyze a large batch when --all is specified
+        # Analyze ALL remaining inscriptions (no artificial cap)
         total = len(analyzer.corpus["inscriptions"])
-        count = min(500, total - len(ALREADY_ANALYZED))  # Up to 500, excluding already analyzed
+        count = total - len(ALREADY_ANALYZED)
     else:
         count = args.batch
 

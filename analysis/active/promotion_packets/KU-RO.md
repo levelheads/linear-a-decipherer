@@ -10,7 +10,7 @@ Use this packet for any confidence promotion or demotion proposal.
 - Current confidence: HIGH
 - Proposed confidence: HIGH
 - Meaning claim: total/sum
-- Primary contexts: PH, ZA, HT
+- Primary contexts: HT, PH, ZA
 
 ## 2. Evidence Artifacts
 
@@ -19,7 +19,7 @@ Use this packet for any confidence promotion or demotion proposal.
 - Integrated results: `/Users/home/AI/Disciplines/Deciphering Ancient Languages/data/integrated_results.json`
 - Dependencies: `/Users/home/AI/Disciplines/Deciphering Ancient Languages/data/reading_dependencies.json`
 - Anchors: `/Users/home/AI/Disciplines/Deciphering Ancient Languages/data/anchors.json`
-- Optional supporting analysis: Provided via --regional-justification
+- Optional supporting analysis: None
 
 ## 3. Multi-Hypothesis Adjudication
 
@@ -37,10 +37,11 @@ Use this packet for any confidence promotion or demotion proposal.
 
 ## 5. Cross-Corpus and Regional Behavior
 
-- Sites attested: PH, ZA, HT
+- Sites attested: HT, PH, ZA
 - Site concentration (HT): 0.941
 - Period spread: ['', 'LMIB']
 - Regional weighting impact: 0.944
+- Parity status: LOW
 
 ## 6. Anchor and Dependency Check
 
@@ -48,13 +49,15 @@ Use this packet for any confidence promotion or demotion proposal.
 - anchor_kuro_total: level=2, confidence=HIGH
 - Weakest dependency: HIGH
 - Cascade risk if questioned: No cascade warnings
+- Dependency trace source: existing (status: complete)
 
 ## 7. Gate Checklist
 
 - [x] required_inputs_present (Missing: none)
 - [x] no_direct_anchor_contradiction (dependency_warnings=0, threshold=MODERATE)
+- [x] parity_guard (parity_level=LOW)
 - [x] integrated_validation (entry=yes, final_confidence=PROBABLE, methodology_compliant=True)
-- [x] dependency_trace (anchor_dependencies=2)
+- [x] dependency_trace (anchor_dependencies=2, trace_source=existing)
 
 ## 8. Decision
 

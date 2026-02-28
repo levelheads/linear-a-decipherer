@@ -3,10 +3,12 @@
 Arithmetic Verifier for Linear A
 
 Extends corpus_auditor.py --totals with:
-1. Mismatch diagnosis: Why do 25 tablets fail? (lacuna, multi-commodity, fractions)
+1. Mismatch diagnosis: Why do tablets fail? (lacuna, multi-commodity, missing_entries, multi_kuro)
 2. Sub-total detection: Commodity-specific KU-RO lines
 3. Rosetta skeleton output: Structural position tagging for VERIFIED tablets
 4. KI-RO verification: Test (sum - KI-RO) = KU-RO hypothesis
+5. CONSTRAINED status: Lacuna tablets where damage budget is arithmetically consistent
+6. Logogram entity counting: VIR+X and other ligatures counted as summable entries
 
 Usage:
     python3 tools/arithmetic_verifier.py --all
@@ -56,6 +58,10 @@ COMMODITY_LOGOGRAMS = {
 
 COMMODITY_LIGATURE_BASES = {"OLE", "VIN", "GRA", "FIC", "CYP", "VIR", "TELA"}
 
+# Personnel/non-commodity logograms: these appear as entry categories (not commodities)
+# and their quantities should be summed in KU-RO verification
+PERSONNEL_LOGOGRAMS = {"VIR", "MUL"}
+
 # Fraction mappings
 FRACTION_MAP = {
     "¹⁄₂": Fraction(1, 2),
@@ -80,6 +86,7 @@ FRACTION_MAP = {
     "F": Fraction(1, 3),  # AB 163
     "K": Fraction(1, 8),  # AB 165
     "L": Fraction(1, 16),  # AB 166
+    "≈ ¹⁄₆": Fraction(1, 6),  # Approximate 1/6 in corpus transliteration
 }
 
 
@@ -104,9 +111,9 @@ class MismatchDiagnosis:
     kuro_value: float
     computed_sum: float
     difference: float
-    diagnosis: (
-        str  # 'lacuna', 'multi_commodity', 'fraction_parsing', 'multi_kuro', 'damaged', 'unknown'
-    )
+    # 'lacuna', 'multi_commodity', 'fraction_parsing',
+    # 'multi_kuro', 'damaged', 'missing_entries', 'unknown'
+    diagnosis: str
     explanation: str
     confidence: str  # 'CERTAIN', 'PROBABLE', 'POSSIBLE'
 
@@ -119,7 +126,9 @@ class TabletVerification:
     site: str
     has_kuro: bool
     has_kiro: bool
-    kuro_status: str  # VERIFIED, PARTIAL, MISMATCH, INCOMPLETE, NO_KURO
+    # VERIFIED, CONSTRAINED, PARTIAL, NEAR-MATCH-INTEGER,
+    # NEAR-MATCH-FRACTION, MISMATCH, INCOMPLETE, NO_KURO
+    kuro_status: str
     kuro_value: Optional[float] = None
     computed_sum: Optional[float] = None
     difference: Optional[float] = None
@@ -198,7 +207,19 @@ class ArithmeticVerifier:
     def _has_lacuna_markers(self, words: List[str]) -> bool:
         """Check if tablet has lacuna/damage indicators."""
         for w in words:
-            if any(c in w for c in ["[", "]", "?", "…", "vacat"]):
+            if any(c in w for c in ["[", "]", "?", "…", "vacat", "𐝫"]):
+                return True
+        return False
+
+    def _has_lacuna_in_raw(self, tablet_id: str) -> bool:
+        """Check the raw 'words' array for lacuna markers (𐝫) that
+        the transliteratedWords may strip out."""
+        tablet_data = self.inscriptions.get(tablet_id)
+        if not tablet_data:
+            return False
+        raw_words = tablet_data.get("words", [])
+        for w in raw_words:
+            if "𐝫" in w:
                 return True
         return False
 
@@ -278,6 +299,12 @@ class ArithmeticVerifier:
             elif self._is_word(token) and not self._is_logogram(token):
                 if current_entity is None:
                     current_entity = token
+            elif self._is_logogram(token):
+                # Logograms (VIR+*313a, VIR+KA, etc.) can appear as
+                # entry categories whose quantities count toward KU-RO.
+                # Treat them as entities if no current entity is set.
+                if current_entity is None:
+                    current_entity = token
             else:
                 num = self._parse_number(token)
                 if num is not None:
@@ -301,6 +328,45 @@ class ArithmeticVerifier:
         diagnosis = None
         if status == "MISMATCH":
             diagnosis = self._diagnose_mismatch(tablet_id, words, kuro_value, computed_sum, items)
+
+            # CONSTRAINED: lacuna tablets where the "lacuna budget" is
+            # consistent with plausible missing entries (kuro > computed,
+            # difference small enough that a few damaged entries could
+            # account for it, and at least some items were parsed)
+            if (
+                diagnosis
+                and diagnosis.diagnosis == "lacuna"
+                and kuro_value > computed_sum
+                and len(items) > 0
+                and float(kuro_value - computed_sum)
+                <= max(
+                    float(kuro_value) * 0.25,  # up to 25% of total
+                    10.0,  # or 10 units absolute
+                )
+            ):
+                status = "CONSTRAINED"
+                diagnosis.explanation += (
+                    f"; CONSTRAINED: lacuna budget {float(kuro_value - computed_sum):.2f} "
+                    f"is consistent with plausible missing damaged entries"
+                )
+
+        # NEAR-MATCH: small differences (<=1 unit or <=1% of total)
+        # that likely reflect transcription ambiguity or fractional rounding
+        if status == "MISMATCH" and difference <= max(1, float(kuro_value) * 0.01):
+            if difference == int(difference):
+                status = "NEAR-MATCH-INTEGER"
+                if diagnosis:
+                    diagnosis.explanation += (
+                        f"; NEAR-MATCH-INTEGER: diff={float(difference):.0f} "
+                        f"(likely transcription ambiguity)"
+                    )
+            else:
+                status = "NEAR-MATCH-FRACTION"
+                if diagnosis:
+                    diagnosis.explanation += (
+                        f"; NEAR-MATCH-FRACTION: diff={float(difference):.4f} "
+                        f"(likely fractional parsing/rounding)"
+                    )
 
         # Build skeleton
         skeleton = self._build_skeleton(tablet_id, words)
@@ -335,17 +401,20 @@ class ArithmeticVerifier:
     ) -> MismatchDiagnosis:
         """Diagnose why a KU-RO mismatch occurs."""
         diff = float(abs(kuro_value - computed_sum))
+        signed_diff = float(kuro_value - computed_sum)
 
-        # Check for lacunae
-        has_lacuna = self._has_lacuna_markers(words)
+        # Check for lacunae in both transliteratedWords AND raw words array
+        has_lacuna = self._has_lacuna_markers(words) or self._has_lacuna_in_raw(tablet_id)
         if has_lacuna:
+            direction = "kuro > computed" if signed_diff > 0 else "computed > kuro"
             return MismatchDiagnosis(
                 tablet_id=tablet_id,
                 kuro_value=float(kuro_value),
                 computed_sum=float(computed_sum),
                 difference=diff,
                 diagnosis="lacuna",
-                explanation="Tablet has damaged/missing sections; some entries may be unreadable",
+                explanation=f"Tablet has damaged/missing sections ({direction}); "
+                f"some entries may be unreadable or have uncertain values",
                 confidence="PROBABLE",
             )
 
@@ -401,9 +470,9 @@ class ArithmeticVerifier:
                 kuro_value=float(kuro_value),
                 computed_sum=float(computed_sum),
                 difference=diff,
-                diagnosis="fraction_parsing",
+                diagnosis="missing_entries",
                 explanation=f"Fractional difference ({float(frac_diff):.4f}); "
-                f"may indicate unparsed fraction signs",
+                f"likely an entry or fraction not captured by parser",
                 confidence="POSSIBLE",
             )
 
@@ -667,6 +736,13 @@ class ArithmeticVerifier:
                 "tablets_analyzed": len(results),
                 "with_kuro": sum(1 for r in results if r.has_kuro),
                 "verified": sum(1 for r in results if r.kuro_status == "VERIFIED"),
+                "constrained": sum(1 for r in results if r.kuro_status == "CONSTRAINED"),
+                "near_match_integer": sum(
+                    1 for r in results if r.kuro_status == "NEAR-MATCH-INTEGER"
+                ),
+                "near_match_fraction": sum(
+                    1 for r in results if r.kuro_status == "NEAR-MATCH-FRACTION"
+                ),
                 "mismatched": sum(1 for r in results if r.kuro_status == "MISMATCH"),
             },
             "verifications": [

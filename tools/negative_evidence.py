@@ -742,14 +742,10 @@ class NegativeEvidenceAnalyzer:
         # Pre-Greek should NOT show IE or Semitic patterns
         # This is actually positive evidence for Pre-Greek when those are absent
 
-        # Check for Pre-Greek phonological markers
-        word_freqs = self._extract_words_from_corpus() or dict(self.statistics.get("top_words", {}))
-
-        for cluster_info in PREGREEK_EXPECTATIONS["phonology"]["characteristic_clusters"]:
-            for word, freq in word_freqs.items():
-                # Note: Linear A CV structure can't directly write -nth-, -ss- clusters
-                # They would appear as TA-TA (for tt), SA-SA (for ss), etc.
-                pass
+        # Pre-Greek characteristic clusters (-nth-, -ss-, -mn-) cannot be directly
+        # written in Linear A's CV syllabary structure. They would need to appear as
+        # reduplicated syllables (e.g., TA-TA for tt, SA-SA for ss), making absence
+        # of these clusters uninformative as negative evidence.
 
         analysis["structural_notes"].append(
             {

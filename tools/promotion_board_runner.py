@@ -8,7 +8,8 @@ the required evidence artifacts and gate rules from MASTER_STATE.md.
 Usage:
     python tools/promotion_board_runner.py --candidate KU-RO
     python tools/promotion_board_runner.py --candidate SA-RA₂ --target-confidence PROBABLE
-    python tools/promotion_board_runner.py --candidate A-TA-I-*301-WA-JA --regional-justification "Religious register expected to be concentrated"
+    python tools/promotion_board_runner.py --candidate A-TA-I-*301-WA-JA \\
+        --regional-justification "Religious register expected to be concentrated"
 """
 
 from __future__ import annotations
@@ -184,7 +185,10 @@ def main() -> int:
     )
     parser.add_argument(
         "--packet-out",
-        help="Output path for markdown packet (default: analysis/active/promotion_packets/<candidate>.md)",
+        help=(
+            "Output path for markdown packet"
+            " (default: analysis/active/promotion_packets/<candidate>.md)"
+        ),
     )
     parser.add_argument(
         "--json-out",
@@ -356,7 +360,10 @@ def main() -> int:
     gate_results["no_direct_anchor_contradiction"] = _gate(
         required=True,
         passed=(not direct_anchor_contradiction and not eliminated_flag),
-        evidence=f"dependency_warnings={len(dependency_warnings)}, threshold={threshold_category or 'unknown'}",
+        evidence=(
+            f"dependency_warnings={len(dependency_warnings)},"
+            f" threshold={threshold_category or 'unknown'}"
+        ),
     )
     gate_results["parity_guard"] = _gate(
         required=True,
@@ -372,8 +379,10 @@ def main() -> int:
         required=True,
         passed=cross_corpus_passed,
         evidence=(
-            f"validated={consistency_validated}, positional={positional_consistency:.3f}, "
-            f"functional={functional_consistency:.3f}, sites={len(sites_found)}, rule={cross_corpus_rule}"
+            f"validated={consistency_validated},"
+            f" positional={positional_consistency:.3f},"
+            f" functional={functional_consistency:.3f},"
+            f" sites={len(sites_found)}, rule={cross_corpus_rule}"
         ),
     )
     gate_results["integrated_validation"] = _gate(
@@ -387,18 +396,24 @@ def main() -> int:
     gate_results["dependency_trace"] = _gate(
         required=True,
         passed=bool(anchor_dependencies) and dependency_trace_source in {"existing", "provisional"},
-        evidence=f"anchor_dependencies={len(anchor_dependencies)}, trace_source={dependency_trace_source}",
-        notes=f"trace_source={dependency_trace_source}, trace_status={dependency_trace_status}",
+        evidence=(
+            f"anchor_dependencies={len(anchor_dependencies)},"
+            f" trace_source={dependency_trace_source}"
+        ),
+        notes=(f"trace_source={dependency_trace_source}, trace_status={dependency_trace_status}"),
     )
     gate_results["provisional_trace_review"] = _gate(
         required=target_confidence in ("PROBABLE", "HIGH", "CERTAIN"),
         passed=(dependency_trace_source != "provisional" or args.allow_provisional_trace),
-        evidence=f"trace_source={dependency_trace_source}, allow_override={args.allow_provisional_trace}",
+        evidence=(
+            f"trace_source={dependency_trace_source}, allow_override={args.allow_provisional_trace}"
+        ),
     )
+    neg_count = len(negative_items) if isinstance(negative_items, list) else "missing"
     gate_results["negative_evidence_statement"] = _gate(
         required=True,
         passed=isinstance(negative_items, list),
-        evidence=f"negative_evidence_items={len(negative_items) if isinstance(negative_items, list) else 'missing'}",
+        evidence=f"negative_evidence_items={neg_count}",
     )
     regional_note = (
         args.regional_justification
@@ -436,7 +451,11 @@ def main() -> int:
             and positional_consistency >= 0.8
             and functional_consistency >= 0.8
         ),
-        evidence=f"sites={len(sites_found)}, positional={positional_consistency:.3f}, functional={functional_consistency:.3f}",
+        evidence=(
+            f"sites={len(sites_found)},"
+            f" positional={positional_consistency:.3f},"
+            f" functional={functional_consistency:.3f}"
+        ),
     )
     gate_results["methodology_compliant_for_high"] = _gate(
         required=target_confidence in ("HIGH", "CERTAIN"),
@@ -596,6 +615,9 @@ def main() -> int:
                 f"- Semitic: {_hv('semitic')}",
                 f"- Pre-Greek: {_hv('pregreek')}",
                 f"- Proto-Greek: {_hv('protogreek')}",
+                f"- Hurrian: {_hv('hurrian')}",
+                f"- Hattic: {_hv('hattic')}",
+                f"- Etruscan: {_hv('etruscan')}",
             ]
         )
 
@@ -611,9 +633,9 @@ def main() -> int:
     for dep in anchor_dependencies:
         anchor = anchors.get(dep, {})
         if isinstance(anchor, dict):
-            anchor_lines.append(
-                f"- {dep}: level={anchor.get('level', 'n/a')}, confidence={anchor.get('confidence', 'n/a')}"
-            )
+            lvl = anchor.get("level", "n/a")
+            conf = anchor.get("confidence", "n/a")
+            anchor_lines.append(f"- {dep}: level={lvl}, confidence={conf}")
         else:
             anchor_lines.append(f"- {dep}: metadata unavailable")
     if not anchor_lines:
@@ -624,6 +646,20 @@ def main() -> int:
         row = gate_results[gate]
         mark = "x" if row["passed"] else " "
         gate_lines.append(f"- [{mark}] {gate} ({row['evidence']})")
+
+    meaning_claim = (dependency_entry or {}).get("meaning", "Not specified")
+    primary_ctx = ", ".join(sites_attested) if sites_attested else "Not available"
+    opt_analysis = (
+        "Provided via --regional-justification" if args.regional_justification else "None"
+    )
+    contradictions = "Yes" if direct_anchor_contradiction else "No"
+    threshold_str = threshold_category or "unknown"
+    period_spread = (
+        (consistency_entry or {}).get("periods_found", []) if consistency_entry else "Not available"
+    )
+    regional_weight = (integrated_entry or {}).get("regional_weight", "Not available")
+    weakest_dep = (integrated_entry or {}).get("max_confidence_from_anchors", "Unknown")
+    cascade_risk = "; ".join(dependency_warnings) if dependency_warnings else "No cascade warnings"
 
     packet_body = f"""# Promotion Packet: {candidate}
 
@@ -636,8 +672,8 @@ Use this packet for any confidence promotion or demotion proposal.
 - Reading: {candidate}
 - Current confidence: {current_confidence}
 - Proposed confidence: {target_confidence}
-- Meaning claim: {(dependency_entry or {}).get("meaning", "Not specified")}
-- Primary contexts: {", ".join(sites_attested) if sites_attested else "Not available"}
+- Meaning claim: {meaning_claim}
+- Primary contexts: {primary_ctx}
 
 ## 2. Evidence Artifacts
 
@@ -646,32 +682,32 @@ Use this packet for any confidence promotion or demotion proposal.
 - Integrated results: `{evidence_artifacts["integrated_results"]}`
 - Dependencies: `{evidence_artifacts["reading_dependencies"]}`
 - Anchors: `{evidence_artifacts["anchors"]}`
-- Optional supporting analysis: {"Provided via --regional-justification" if args.regional_justification else "None"}
+- Optional supporting analysis: {opt_analysis}
 
 ## 3. Multi-Hypothesis Adjudication
 
 {hypothesis_text}
-- Isolate/null: See integrated Bayesian/isolate context in `data/bayesian_results.json` if needed.
+- Isolate/null: See Bayesian context in `data/bayesian_results.json`.
 
 ## 4. Negative Evidence
 
 {negative_text}
-- Contradictions detected: {"Yes" if direct_anchor_contradiction else "No"}
-- Remaining uncertainty: threshold={threshold_category or "unknown"}, final_confidence={final_confidence}
+- Contradictions detected: {contradictions}
+- Remaining uncertainty: threshold={threshold_str}, final_confidence={final_confidence}
 
 ## 5. Cross-Corpus and Regional Behavior
 
-- Sites attested: {", ".join(sites_attested) if sites_attested else "Not available"}
+- Sites attested: {primary_ctx}
 - Site concentration (HT): {ht_concentration:.3f}
-- Period spread: {(consistency_entry or {}).get("periods_found", []) if consistency_entry else "Not available"}
-- Regional weighting impact: {(integrated_entry or {}).get("regional_weight", "Not available")}
+- Period spread: {period_spread}
+- Regional weighting impact: {regional_weight}
 - Parity status: {parity_level}
 
 ## 6. Anchor and Dependency Check
 
 {chr(10).join(anchor_lines)}
-- Weakest dependency: {(integrated_entry or {}).get("max_confidence_from_anchors", "Unknown")}
-- Cascade risk if questioned: {"; ".join(dependency_warnings) if dependency_warnings else "No cascade warnings"}
+- Weakest dependency: {weakest_dep}
+- Cascade risk if questioned: {cascade_risk}
 - Dependency trace source: {dependency_trace_source} (status: {dependency_trace_status})
 
 ## 7. Gate Checklist

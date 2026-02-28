@@ -19,7 +19,7 @@ Use this packet for any confidence promotion or demotion proposal.
 - Integrated results: `/Users/home/AI/Disciplines/Deciphering Ancient Languages/data/integrated_results.json`
 - Dependencies: `/Users/home/AI/Disciplines/Deciphering Ancient Languages/data/reading_dependencies.json`
 - Anchors: `/Users/home/AI/Disciplines/Deciphering Ancient Languages/data/anchors.json`
-- Optional supporting analysis: Provided via --regional-justification
+- Optional supporting analysis: None
 
 ## 3. Multi-Hypothesis Adjudication
 
@@ -56,7 +56,7 @@ Use this packet for any confidence promotion or demotion proposal.
 - [x] required_inputs_present (Missing: none)
 - [x] no_direct_anchor_contradiction (dependency_warnings=0, threshold=WEAK)
 - [x] parity_guard (parity_level=LOW)
-- [x] multi_hypothesis_run (All four hypotheses present in hypothesis_results)
+- [x] multi_hypothesis_run (All seven hypotheses present in hypothesis_results)
 - [x] cross_corpus_consistency (validated=True, positional=0.850, functional=0.750, sites=1, rule=min>=0.55 and max>=0.70)
 - [x] integrated_validation (entry=yes, final_confidence=MEDIUM, methodology_compliant=True)
 - [x] dependency_trace (anchor_dependencies=2, trace_source=existing)
