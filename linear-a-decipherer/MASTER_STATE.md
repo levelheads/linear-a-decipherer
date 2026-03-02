@@ -2,7 +2,7 @@
 
 **Canonical operational source of truth for active status, metrics, campaigns, and release readiness.**
 
-**Last Updated**: 2026-02-28
+**Last Updated**: 2026-03-02
 **Scope**: Current state only (not full historical narrative)
 **Historical log**: `linear-a-decipherer/CHANGELOG.md`
 
@@ -57,7 +57,7 @@ If any other file conflicts with this one, this file wins.
 | PO-TO-KU-RO verified | 97 = 31+65+1 (HT122a+b) | First cross-tablet grand total |
 | KH zero-K-R confirmed | p=0.004, n=226 | `analysis/completed/thematic/khania_expansion.md` |
 | Domain layering confirmed | Religious=Luwian, Admin=Semitic | `analysis/completed/thematic/linguistic_deep_analysis.md` |
-| Tool count (Python scripts) | 55 | `tools/*.py` |
+| Tool count (Python scripts) | 56 | `tools/*.py` |
 | Current release version | v0.10.0 | `CITATION.cff`, local tags |
 
 ---
