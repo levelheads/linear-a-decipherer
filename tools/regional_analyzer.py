@@ -251,7 +251,9 @@ class RegionalAnalyzer:
                     overlap = self.calculate_vocabulary_overlap(site1, site2)
                     self.results["vocabulary_comparisons"][key] = overlap
                     self.log(
-                        f"{key}: Jaccard={overlap['jaccard_similarity']:.3f}, shared={overlap['shared_count']}"
+                        f"{key}: Jaccard="
+                        f"{overlap['jaccard_similarity']:.3f}, "
+                        f"shared={overlap['shared_count']}"
                     )
 
     def identify_site_specific_words(self) -> dict:
@@ -418,7 +420,9 @@ class RegionalAnalyzer:
                     analysis["observations"].append(
                         {
                             "site": site,
-                            "observation": f"ki-ro ({data['ki_ro']}) more common than ku-ro ({data['ku_ro']})",
+                            "observation": (
+                                f"ki-ro ({data['ki_ro']}) more common than ku-ro ({data['ku_ro']})"
+                            ),
                             "significance": "May indicate different administrative function",
                         }
                     )
@@ -460,7 +464,9 @@ class RegionalAnalyzer:
             else:
                 findings["standardization_level"] = "LOW"
                 findings["research_implications"].append(
-                    "Low overlap may indicate regional administrative independence or dialectal variation"
+                    "Low overlap may indicate regional "
+                    "administrative independence or "
+                    "dialectal variation"
                 )
 
         # Check K-R paradigm consistency
@@ -484,7 +490,11 @@ class RegionalAnalyzer:
                     {
                         "site": site,
                         "unique_words": data["count"],
-                        "note": f"{SITE_FULL_NAMES.get(site, site)} has {data['count']} unique syllabic words",
+                        "note": (
+                            f"{SITE_FULL_NAMES.get(site, site)} "
+                            f"has {data['count']} unique "
+                            f"syllabic words"
+                        ),
                     }
                 )
 
@@ -559,7 +569,9 @@ class RegionalAnalyzer:
         for site, data in kr_data.items():
             if data["total_kr"] > 0:
                 print(
-                    f"  {site}: ku-ro={data['ku_ro']}, ki-ro={data['ki_ro']}, ratio={data['kr_ratio']}"
+                    f"  {site}: ku-ro={data['ku_ro']}, "
+                    f"ki-ro={data['ki_ro']}, "
+                    f"ratio={data['kr_ratio']}"
                 )
 
         # Shared vocabulary

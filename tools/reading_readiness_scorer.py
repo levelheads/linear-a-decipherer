@@ -108,7 +108,9 @@ class WordDetail:
 
     word: str
     position: int
-    category: str  # 'anchored', 'named', 'formula', 'logogram', 'number', 'fraction', 'unknown', 'structural'
+    # 'anchored', 'named', 'formula', 'logogram',
+    # 'number', 'fraction', 'unknown', 'structural'
+    category: str
     identification: str  # What we know about it
     confidence: str  # CERTAIN, HIGH, PROBABLE, POSSIBLE, UNKNOWN
     hypothesis_support: Optional[str] = None  # Best hypothesis if any

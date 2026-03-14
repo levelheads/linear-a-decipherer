@@ -579,7 +579,9 @@ class ParadigmDiscoverer:
         print(f"\nMembers ({len(paradigm.members)}):")
         for m in paradigm.members:
             print(
-                f"  {m.word:15} freq={m.frequency:3} vowels={m.vowel_pattern:5} sites={','.join(m.sites[:3])}"
+                f"  {m.word:15} freq={m.frequency:3}"
+                f" vowels={m.vowel_pattern:5}"
+                f" sites={','.join(m.sites[:3])}"
             )
 
         print(f"\nTotal occurrences: {paradigm.total_occurrences}")

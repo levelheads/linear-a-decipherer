@@ -170,8 +170,12 @@ class AdminIsomorphismScorer:
             "metadata": {
                 "generated": None,
                 "method": "Administrative Isomorphism Scoring — structural document comparison",
-                "description": "Compares Linear A document templates to Akkadian Ur III accounting patterns "
-                "to identify word meanings from positional correspondence.",
+                "description": (
+                    "Compares Linear A document templates to "
+                    "Akkadian Ur III accounting patterns "
+                    "to identify word meanings from "
+                    "positional correspondence."
+                ),
             },
             "template_comparisons": {},
             "isomorphism_scores": {},
@@ -308,7 +312,8 @@ class AdminIsomorphismScorer:
                 "all_scores": {k: v["combined_score"] for k, v in ranked},
             }
             print(
-                f"  {la_type:25s} → {ranked[0][0]:25s} (score: {ranked[0][1]['combined_score']:.3f})"
+                f"  {la_type:25s} → {ranked[0][0]:25s} "
+                f"(score: {ranked[0][1]['combined_score']:.3f})"
             )
 
         self.results["isomorphism_scores"] = best_matches
@@ -337,7 +342,11 @@ class AdminIsomorphismScorer:
                 "linear_a_word": "KI-RO",
                 "proposed_function": "DEFICIT_MARKER",
                 "akkadian_parallel": "lá-ì (deficit/remainder)",
-                "positional_evidence": "Occurs with CYP (copper) at Khania; deficit markers in Ur III also appear with metals",
+                "positional_evidence": (
+                    "Occurs with CYP (copper) at Khania; "
+                    "deficit markers in Ur III also appear "
+                    "with metals"
+                ),
                 "confidence": "HIGH",
                 "method": "Positional + commodity correlation",
             }
@@ -356,8 +365,15 @@ class AdminIsomorphismScorer:
                         {
                             "linear_a_word": "TE",
                             "proposed_function": "HEADER/TOPIC_MARKER",
-                            "akkadian_parallel": "mu (year/date header) or é (house/institution header)",
-                            "positional_evidence": f"Line-initial in {te_data.get('position_distribution', {}).get('INITIAL', 0)} cases, entropy {te_data.get('entropy', 0):.2f}",
+                            "akkadian_parallel": (
+                                "mu (year/date header) or \u00e9 (house/institution header)"
+                            ),
+                            "positional_evidence": (
+                                f"Line-initial in "
+                                f"{te_data.get('position_distribution', {}).get('INITIAL', 0)}"
+                                f" cases, entropy "
+                                f"{te_data.get('entropy', 0):.2f}"
+                            ),
                             "confidence": "PROBABLE",
                             "method": "Positional distribution analysis",
                         }
@@ -386,7 +402,9 @@ class AdminIsomorphismScorer:
                                 "linear_a_word": word.upper(),
                                 "proposed_function": f"COMMODITY_SPECIFIC_TERM ({primary})",
                                 "akkadian_parallel": akk_parallel,
-                                "positional_evidence": f"Specificity {spec:.2f} with {primary}, {total} attestations",
+                                "positional_evidence": (
+                                    f"Specificity {spec:.2f} with {primary}, {total} attestations"
+                                ),
                                 "confidence": "POSSIBLE",
                                 "method": "Commodity co-occurrence specificity",
                             }
@@ -404,8 +422,12 @@ class AdminIsomorphismScorer:
                         {
                             "linear_a_word": w,
                             "proposed_function": "ADMINISTRATIVE_TERM (slot word)",
-                            "akkadian_parallel": "Unknown — appears in commodity-adjacent grammatical slot",
-                            "positional_evidence": f"Appears {freq} times in commodity triplet context",
+                            "akkadian_parallel": (
+                                "Unknown — appears in commodity-adjacent grammatical slot"
+                            ),
+                            "positional_evidence": (
+                                f"Appears {freq} times in commodity triplet context"
+                            ),
                             "confidence": "SPECULATIVE",
                             "method": "Slot grammar extraction",
                         }
@@ -417,7 +439,9 @@ class AdminIsomorphismScorer:
 
         for ident in identifications:
             print(
-                f"    {ident['linear_a_word']:20s} → {ident['proposed_function']:30s} [{ident['confidence']}]"
+                f"    {ident['linear_a_word']:20s} → "
+                f"{ident['proposed_function']:30s} "
+                f"[{ident['confidence']}]"
             )
 
     def analyze_khania_copper(self):
@@ -488,8 +512,12 @@ class AdminIsomorphismScorer:
         findings.append(
             {
                 "category": "STRUCTURAL_ISOMORPHISM",
-                "finding": f"Average best-match isomorphism score: {avg_best:.3f}. "
-                f"Linear A commodity lists most closely match Ur III commodity disbursement templates.",
+                "finding": (
+                    f"Average best-match isomorphism score: "
+                    f"{avg_best:.3f}. Linear A commodity lists "
+                    f"most closely match Ur III commodity "
+                    f"disbursement templates."
+                ),
                 "confidence": "PROBABLE",
                 "evidence": "Slot overlap + structural similarity across 6 template types",
                 "falsification": "Would be disproven if random document pairs score equally high",
@@ -503,11 +531,20 @@ class AdminIsomorphismScorer:
         findings.append(
             {
                 "category": "POSITIONAL_IDENTIFICATION",
-                "finding": f"{len(high_conf)} high/probable confidence word identifications from positional analysis. "
-                f"{len(self.positional_identifications)} total identifications.",
+                "finding": (
+                    f"{len(high_conf)} high/probable confidence "
+                    f"word identifications from positional "
+                    f"analysis. "
+                    f"{len(self.positional_identifications)} "
+                    f"total identifications."
+                ),
                 "confidence": "PROBABLE",
-                "evidence": "Positional correspondence between Linear A slots and Ur III accounting slots",
-                "falsification": "Would be disproven if identified words appear in non-predicted positions",
+                "evidence": (
+                    "Positional correspondence between Linear A slots and Ur III accounting slots"
+                ),
+                "falsification": (
+                    "Would be disproven if identified words appear in non-predicted positions"
+                ),
             }
         )
 
@@ -517,11 +554,20 @@ class AdminIsomorphismScorer:
             findings.append(
                 {
                     "category": "KHANIA_COPPER",
-                    "finding": f"Khania CYP documents ({kh['total_kh_cyp_tablets']} tablets) show structural "
-                    f"parallel to Old Assyrian copper trade records from Kültepe.",
+                    "finding": (
+                        f"Khania CYP documents "
+                        f"({kh['total_kh_cyp_tablets']} tablets) "
+                        f"show structural parallel to Old Assyrian "
+                        f"copper trade records from K\u00fcltepe."
+                    ),
                     "confidence": "POSSIBLE",
-                    "evidence": f"{kh.get('unique_words_in_cyp_context', 0)} unique words in copper context",
-                    "falsification": "Would be disproven if Khania CYP structure diverges significantly from trade patterns",
+                    "evidence": (
+                        f"{kh.get('unique_words_in_cyp_context', 0)} unique words in copper context"
+                    ),
+                    "falsification": (
+                        "Would be disproven if Khania CYP structure "
+                        "diverges significantly from trade patterns"
+                    ),
                 }
             )
 
@@ -533,7 +579,10 @@ class AdminIsomorphismScorer:
             "P1_KOBER": "PASS — Template comparison is structure-based, not language-assuming",
             "P2_VENTRIS": "PASS — Isomorphism tested symmetrically across template types",
             "P3_ANCHORS": "PASS — Calibrated on KU-RO (confirmed anchor)",
-            "P4_MULTI_HYP": "PARTIAL — Focused on Akkadian parallel; other administrative traditions not yet tested",
+            "P4_MULTI_HYP": (
+                "PARTIAL — Focused on Akkadian parallel; "
+                "other administrative traditions not yet tested"
+            ),
             "P5_NEGATIVE": "PASS — Low-scoring comparisons noted as evidence of divergence",
             "P6_CORPUS": "PASS — All Khania and HT tablets included",
         }
@@ -541,7 +590,10 @@ class AdminIsomorphismScorer:
     def compile_summary(self):
         """Compile results summary."""
         self.results["summary"] = {
-            "templates_compared": f"{len(LINEAR_A_DOCUMENT_TYPES)} Linear A x {len(AKKADIAN_DOCUMENT_TEMPLATES)} Akkadian",
+            "templates_compared": (
+                f"{len(LINEAR_A_DOCUMENT_TYPES)} Linear A x "
+                f"{len(AKKADIAN_DOCUMENT_TEMPLATES)} Akkadian"
+            ),
             "total_identifications": len(self.positional_identifications),
             "high_confidence_identifications": len(
                 [
@@ -576,13 +628,17 @@ class AdminIsomorphismScorer:
         print("\nBest Template Matches:")
         for la_type, match_data in self.results.get("isomorphism_scores", {}).items():
             print(
-                f"  {la_type:25s} → {match_data['best_akkadian_match']:25s} ({match_data['score']:.3f})"
+                f"  {la_type:25s} → "
+                f"{match_data['best_akkadian_match']:25s} "
+                f"({match_data['score']:.3f})"
             )
 
         print("\nPositional Identifications:")
         for ident in self.positional_identifications[:10]:
             print(
-                f"  {ident['linear_a_word']:20s} → {ident['proposed_function'][:40]:40s} [{ident['confidence']}]"
+                f"  {ident['linear_a_word']:20s} → "
+                f"{ident['proposed_function'][:40]:40s} "
+                f"[{ident['confidence']}]"
             )
 
         print("\n" + "=" * 70)

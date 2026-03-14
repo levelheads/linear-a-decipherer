@@ -38,7 +38,7 @@ Executed the multi-phase Operation VENTRIS plan: 4 new tools built, 7 thematic a
 
 ### Metrics Impact
 
-- New tools: 55 → **59** (4 new)
+- New tools: 56 → **60** (4 new)
 - Thematic analyses: 7 → **14** (7 new)
 - Grammar features: suffix inventory → **case system + verbal paradigm + formal sketch**
 - Libation formula: SPECULATIVE → **POSSIBLE**

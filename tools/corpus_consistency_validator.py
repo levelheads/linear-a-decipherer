@@ -272,7 +272,9 @@ class CorpusConsistencyValidator:
                 anomalies.append(
                     {
                         "type": "site_concentration",
-                        "message": f"{word} appears at only {sites_found[0]} ({len(occurrences)} times)",
+                        "message": (
+                            f"{word} appears at only {sites_found[0]} ({len(occurrences)} times)"
+                        ),
                         "severity": "HIGH" if len(occurrences) > 20 else "MEDIUM",
                         "implication": "May be site-specific term or regional dialect",
                     }
@@ -316,8 +318,10 @@ class CorpusConsistencyValidator:
                 )
                 if total_positions < len(occurrences) * 0.5:
                     reading_issues.append(
-                        f"Reading '{proposed_reading}' expects totaling position, but "
-                        f"only {total_positions}/{len(occurrences)} occurrences are at end/total position"
+                        f"Reading '{proposed_reading}' expects"
+                        f" totaling position, but only"
+                        f" {total_positions}/{len(occurrences)}"
+                        f" occurrences are at end/total position"
                     )
                     reading_validated = False
 

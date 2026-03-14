@@ -611,7 +611,9 @@ class PhonemeReconstructor:
                 analysis["constraints"].append(
                     {
                         "type": "vowel_restriction",
-                        "description": f"/o/ rare in vowel sequences ({len(o_absent)} combinations absent)",
+                        "description": (
+                            f"/o/ rare in vowel sequences ({len(o_absent)} combinations absent)"
+                        ),
                         "absent_sequences": o_absent,
                         "confidence": "HIGH",
                     }
@@ -682,7 +684,9 @@ class PhonemeReconstructor:
             "consonants": consonants,
             "vowels": vowels,
             "syllable_structure": syllable_structure,
-            "unique_phonemes_count": "123 signs dropped from Linear B suggests 10-20 extra phonemes",
+            "unique_phonemes_count": (
+                "123 signs dropped from Linear B suggests 10-20 extra phonemes"
+            ),
             "key_differences_from_greek": [
                 "/o/ marginal (2.9% vs 20%)",
                 "Possible pharyngeals (*301)",

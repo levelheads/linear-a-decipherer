@@ -799,13 +799,17 @@ class BatchPipeline:
         rankings = self.synthesis.get("hypothesis_rankings", {})
         for hyp, data in sorted(rankings.items(), key=lambda x: x[1]["rank"]):
             print(
-                f"  {data['rank']}. {hyp.upper()}: score={data['total_score']}, words={data['words_supporting']}"
+                f"  {data['rank']}. {hyp.upper()}:"
+                f" score={data['total_score']},"
+                f" words={data['words_supporting']}"
             )
 
         print("\nTop High-Confidence Findings:")
         for item in self.synthesis.get("high_confidence_findings", [])[:10]:
             print(
-                f"  {item['word']} (freq={item['frequency']}): {item['best_hypothesis'].upper()} [{item['confidence']}]"
+                f"  {item['word']} (freq={item['frequency']}):"
+                f" {item['best_hypothesis'].upper()}"
+                f" [{item['confidence']}]"
             )
 
         print("\nRecommendations:")

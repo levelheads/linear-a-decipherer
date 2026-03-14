@@ -71,7 +71,12 @@ class AnalysisEntry:
         finding = self.key_finding
         if len(finding) > 100:
             finding = finding[:97] + "..."
-        return f"| {self.inscription_id} | {self.site} | {self.status} | {self.confidence} | {finding} | {self.analysis_file} | {self.date} |"
+        return (
+            f"| {self.inscription_id} | {self.site}"
+            f" | {self.status} | {self.confidence}"
+            f" | {finding} | {self.analysis_file}"
+            f" | {self.date} |"
+        )
 
 
 # ============================================================================

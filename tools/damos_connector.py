@@ -133,7 +133,14 @@ class DAMOSConnector:
                 "divine_element": "da-ma-te",
                 "is_theophoric": True,
                 "linear_a_cognate": "DA-MA-TE",
-                "notes": 'Appears as da-ma-te at Pylos. The Linear A DA-MA-TE at peak sanctuary PKZ may be the earliest attestation of Demeter worship. Etymology disputed: either "grain mother" (*dā- + mātēr) or Pre-Greek.',
+                "notes": (
+                    "Appears as da-ma-te at Pylos. The Linear A "
+                    "DA-MA-TE at peak sanctuary PKZ may be the "
+                    "earliest attestation of Demeter worship. "
+                    "Etymology disputed: either "
+                    '"grain mother" (*d\u0101- + m\u0101t\u0113r) '
+                    "or Pre-Greek."
+                ),
                 "confidence": "HIGH",
                 "source": "Aura Jorro DMic I pp.153-154; Ventris-Chadwick p.126",
             },
@@ -147,7 +154,13 @@ class DAMOSConnector:
                 "divine_element": "a-ta-na",
                 "is_theophoric": True,
                 "linear_a_cognate": "A-TA-NA",
-                "notes": "Full divine title at Knossos. The element a-ta-na appears independently and in compounds. Linear A A-TA-NA and A-TA-NA-TE at Hagia Triada suggest Athena worship in Minoan period.",
+                "notes": (
+                    "Full divine title at Knossos. The element "
+                    "a-ta-na appears independently and in "
+                    "compounds. Linear A A-TA-NA and A-TA-NA-TE "
+                    "at Hagia Triada suggest Athena worship "
+                    "in Minoan period."
+                ),
                 "confidence": "HIGH",
                 "source": "KT5; Ventris-Chadwick p.126",
             },
@@ -160,7 +173,12 @@ class DAMOSConnector:
                 "category": "divine_title",
                 "divine_element": "po-ti-ni-ja",
                 "is_theophoric": False,
-                "notes": "Common divine title; appears alone and with qualifiers (a-ta-na-po-ti-ni-ja, da-pu-ri-to-jo-po-ti-ni-ja). May correspond to Linear A goddess titles.",
+                "notes": (
+                    "Common divine title; appears alone and with "
+                    "qualifiers (a-ta-na-po-ti-ni-ja, "
+                    "da-pu-ri-to-jo-po-ti-ni-ja). May correspond "
+                    "to Linear A goddess titles."
+                ),
                 "confidence": "HIGH",
                 "source": "Aura Jorro DMic II pp.141-142",
             },
@@ -173,7 +191,11 @@ class DAMOSConnector:
                 "category": "divine_name",
                 "divine_element": "di-we/di-wo",
                 "is_theophoric": True,
-                "notes": "Zeus appears frequently in offerings tablets. The di- element appears in theophoric names.",
+                "notes": (
+                    "Zeus appears frequently in offerings "
+                    "tablets. The di- element appears in "
+                    "theophoric names."
+                ),
                 "confidence": "HIGH",
                 "source": "Aura Jorro DMic I pp.178-179",
             },
@@ -186,7 +208,11 @@ class DAMOSConnector:
                 "category": "divine_name",
                 "divine_element": "di-wo-nu-so",
                 "is_theophoric": True,
-                "notes": "Attested at both Pylos and Knossos. Important for wine-related vocabulary comparison with Linear A.",
+                "notes": (
+                    "Attested at both Pylos and Knossos. "
+                    "Important for wine-related vocabulary "
+                    "comparison with Linear A."
+                ),
                 "confidence": "HIGH",
                 "source": "Aura Jorro DMic I pp.181-182",
             },
@@ -225,7 +251,10 @@ class DAMOSConnector:
                 "category": "divine_name",
                 "divine_element": "po-se-da-o",
                 "is_theophoric": True,
-                "notes": 'Major deity at Pylos. Etymology may be Pre-Greek (*potis + *da "lord of earth").',
+                "notes": (
+                    "Major deity at Pylos. Etymology may be "
+                    'Pre-Greek (*potis + *da "lord of earth").'
+                ),
                 "confidence": "HIGH",
                 "source": "Aura Jorro DMic II pp.139-140",
             },
@@ -277,7 +306,9 @@ class DAMOSConnector:
                 "category": "divine_name",
                 "divine_element": "i-pe-me-de-ja",
                 "is_theophoric": True,
-                "notes": "Receives gold offerings at Pylos. Later known as mother of Otus and Ephialtes.",
+                "notes": (
+                    "Receives gold offerings at Pylos. Later known as mother of Otus and Ephialtes."
+                ),
                 "confidence": "HIGH",
                 "source": "Aura Jorro DMic I p.312",
             },
@@ -311,7 +342,11 @@ class DAMOSConnector:
                 "category": "totaling",
                 "is_theophoric": False,
                 "linear_a_cognate": "KU-RO (functional)",
-                "notes": "Greek totaling term. Linear A uses KU-RO in same position but different form, suggesting non-Greek origin for Linear A.",
+                "notes": (
+                    "Greek totaling term. Linear A uses KU-RO "
+                    "in same position but different form, "
+                    "suggesting non-Greek origin for Linear A."
+                ),
                 "confidence": "HIGH",
                 "source": "Ventris-Chadwick p.560",
             },
@@ -336,7 +371,11 @@ class DAMOSConnector:
                 "category": "deficit",
                 "is_theophoric": False,
                 "linear_a_cognate": "KI-RO (functional)",
-                "notes": "Greek deficit term. Compare with Linear A KI-RO which may serve similar function but has different form.",
+                "notes": (
+                    "Greek deficit term. Compare with Linear A "
+                    "KI-RO which may serve similar function "
+                    "but has different form."
+                ),
                 "confidence": "HIGH",
                 "source": "Ventris-Chadwick p.504",
             },
@@ -417,7 +456,10 @@ class DAMOSConnector:
                 "category": "toponym",
                 "is_toponym": True,
                 "linear_a_cognate": "PA-I-TO",
-                "notes": "Major Minoan/Mycenaean site. CERTAIN anchor reading. Identical in Linear A and B.",
+                "notes": (
+                    "Major Minoan/Mycenaean site. CERTAIN "
+                    "anchor reading. Identical in Linear A and B."
+                ),
                 "confidence": "CERTAIN",
                 "source": "Ventris-Chadwick p.410",
             },
@@ -430,7 +472,10 @@ class DAMOSConnector:
                 "category": "toponym",
                 "is_toponym": True,
                 "linear_a_cognate": "KU-DO-NI-JA",
-                "notes": "Major Minoan/Mycenaean city. CERTAIN anchor reading. Identical in Linear A and B.",
+                "notes": (
+                    "Major Minoan/Mycenaean city. CERTAIN "
+                    "anchor reading. Identical in Linear A and B."
+                ),
                 "confidence": "CERTAIN",
                 "source": "Ventris-Chadwick p.400",
             },
@@ -662,11 +707,16 @@ class DAMOSConnector:
         # Add notes
         if result["verified"]:
             result["notes"] = (
-                f"Linear B verification successful with {len(result['linear_b_matches'])} vocabulary matches and {len(result['cognates_json_matches'])} corpus attestations."
+                f"Linear B verification successful with "
+                f"{len(result['linear_b_matches'])} vocabulary "
+                f"matches and "
+                f"{len(result['cognates_json_matches'])} "
+                f"corpus attestations."
             )
         else:
             result["notes"] = (
-                "No direct Linear B cognate found. This does not invalidate the reading but limits anchoring."
+                "No direct Linear B cognate found. This does "
+                "not invalidate the reading but limits anchoring."
             )
 
         return result

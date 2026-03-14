@@ -107,7 +107,7 @@ def build_report() -> dict[str, Any]:
     return {
         "metadata": {
             "generated_utc": generated,
-            "purpose": "Project setup / corpus access readiness for further decipherment tests",
+            "purpose": ("Project setup / corpus access readiness for further decipherment tests"),
         },
         "core_corpus_access": {
             "inscriptions_total": total_inscriptions,
@@ -163,16 +163,40 @@ def build_report() -> dict[str, Any]:
                 else "insufficient_without_data_remediation"
             ),
             "blocking_gaps": [
-                "No new non-SYZ ritual-slot substitutions in current corpus; acceleration depends on new attestations or alternate targets.",
-                "Context metadata gaps weaken chronology-conditioned tests.",
-                "HT-cluster dominance remains high; queue diversification is still needed for robust cross-site inference.",
-                "Comparative connectors rely on static dictionaries or optional network fetches; live refresh paths are limited offline.",
+                (
+                    "No new non-SYZ ritual-slot substitutions in "
+                    "current corpus; acceleration depends on new "
+                    "attestations or alternate targets."
+                ),
+                ("Context metadata gaps weaken chronology-conditioned tests."),
+                (
+                    "HT-cluster dominance remains high; queue "
+                    "diversification is still needed for robust "
+                    "cross-site inference."
+                ),
+                (
+                    "Comparative connectors rely on static "
+                    "dictionaries or optional network fetches; "
+                    "live refresh paths are limited offline."
+                ),
             ],
             "recommended_actions": [
-                "Run a scheduled corpus refresh workflow (submodule update -> parse_lineara_corpus -> validate_corpus).",
-                "Maintain a remediation ledger for missing context/site/empty transliteration records and explicit validator exclusions.",
-                "Prioritize non-HT ritual-support inscriptions in expansion queues.",
-                "Version comparative snapshots (ORACC/SigLA/DAMOS) each cycle for drift tracking.",
+                (
+                    "Run a scheduled corpus refresh workflow "
+                    "(submodule update -> parse_lineara_corpus "
+                    "-> validate_corpus)."
+                ),
+                (
+                    "Maintain a remediation ledger for missing "
+                    "context/site/empty transliteration records "
+                    "and explicit validator exclusions."
+                ),
+                ("Prioritize non-HT ritual-support inscriptions in expansion queues."),
+                (
+                    "Version comparative snapshots "
+                    "(ORACC/SigLA/DAMOS) each cycle for "
+                    "drift tracking."
+                ),
             ],
         },
     }
@@ -238,7 +262,10 @@ def main() -> int:
         "--output",
         "-o",
         type=str,
-        help="JSON output path (default: analysis/active/YYYY-MM-DD_corpus_access_readiness_audit.json)",
+        help=(
+            "JSON output path (default: analysis/active/"
+            "YYYY-MM-DD_corpus_access_readiness_audit.json)"
+        ),
     )
     parser.add_argument(
         "--markdown",

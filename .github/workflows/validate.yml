@@ -76,6 +76,11 @@ jobs:
               print(f'Validated {len(glob.glob(\"data/*.json\"))} JSON files')
           "
 
+      - name: Run tests
+        run: |
+          pip install pytest
+          python -m pytest tests/ -v
+
   lint:
     runs-on: ubuntu-latest
     name: Lint Python

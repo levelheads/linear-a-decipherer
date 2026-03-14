@@ -327,14 +327,18 @@ def classify_severity(
 
     if max_delta >= threshold_delta:
         rationale.append(
-            f"At least one hypothesis support delta ({max_delta}%) exceeds threshold ({threshold_delta}%)."
+            f"At least one hypothesis support delta"
+            f" ({max_delta}%) exceeds threshold"
+            f" ({threshold_delta}%)."
         )
     elif max_delta > 0:
         rationale.append(f"Maximum support delta observed: {max_delta}%.")
 
     if max_mismatch >= 0.35:
         rationale.append(
-            f"Word-level mismatch rate reached {max_mismatch:.2%}, indicating strong pipeline disagreement."
+            f"Word-level mismatch rate reached"
+            f" {max_mismatch:.2%}, indicating strong"
+            f" pipeline disagreement."
         )
     elif max_mismatch > 0:
         rationale.append(f"Maximum word-level mismatch rate observed: {max_mismatch:.2%}.")

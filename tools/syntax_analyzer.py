@@ -484,7 +484,10 @@ class SyntaxAnalyzer:
             self.results["findings"].append(
                 {
                     "category": "morphology",
-                    "finding": f"Particles {', '.join(final_particles)} are predominantly word-final (suffixes)",
+                    "finding": (
+                        f"Particles {', '.join(final_particles)}"
+                        f" are predominantly word-final (suffixes)"
+                    ),
                     "implication": "Supports agglutinative morphology (Luwian-like)",
                     "confidence": "PROBABLE",
                 }
@@ -613,7 +616,8 @@ class SyntaxAnalyzer:
         print("\nParticle Positions:")
         for particle, data in particles.items():
             print(
-                f"  {particle}: {data['dominant_position']} dominant ({data['total_occurrences']} occ)"
+                f"  {particle}: {data['dominant_position']}"
+                f" dominant ({data['total_occurrences']} occ)"
             )
 
         # Word order hypothesis

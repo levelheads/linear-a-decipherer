@@ -158,9 +158,8 @@ class FalsificationSystem:
             if HYPOTHESIS_RESULTS_FILE.exists():
                 with open(HYPOTHESIS_RESULTS_FILE, "r", encoding="utf-8") as f:
                     self.hypothesis_results = json.load(f)
-                print(
-                    f"Loaded hypothesis results: {self.hypothesis_results.get('metadata', {}).get('words_tested', 0)} words"
-                )
+                words_tested = self.hypothesis_results.get("metadata", {}).get("words_tested", 0)
+                print(f"Loaded hypothesis results: {words_tested} words")
 
             if HISTORY_FILE.exists():
                 with open(HISTORY_FILE, "r", encoding="utf-8") as f:
@@ -508,7 +507,10 @@ class FalsificationSystem:
         print("\nTHRESHOLD DEFINITIONS:")
         for category, threshold in THRESHOLDS.items():
             print(
-                f"  {category:12} {threshold.min_pct:>5.1f}% - {threshold.max_pct:>5.1f}%  {threshold.interpretation[:40]}..."
+                f"  {category:12} "
+                f"{threshold.min_pct:>5.1f}% - "
+                f"{threshold.max_pct:>5.1f}%  "
+                f"{threshold.interpretation[:40]}..."
             )
 
         print("\n" + "─" * 70)
@@ -520,7 +522,11 @@ class FalsificationSystem:
             symbol = {"ELIMINATED": "✗", "WEAK": "○", "MODERATE": "◐", "STRONG": "●"}[category]
             ci = item["ci_95"]
             print(
-                f"  {item['rank']}. {symbol} {item['hypothesis']:12} {item['support_pct']:5.1f}% [{category:10}] CI: [{ci[0]:.1f}%, {ci[1]:.1f}%]"
+                f"  {item['rank']}. {symbol} "
+                f"{item['hypothesis']:12} "
+                f"{item['support_pct']:5.1f}% "
+                f"[{category:10}] "
+                f"CI: [{ci[0]:.1f}%, {ci[1]:.1f}%]"
             )
 
         print("\n" + "─" * 70)
@@ -544,7 +550,10 @@ class FalsificationSystem:
             print("\n  Recent Threshold Crossings:")
             for crossing in report["threshold_history"][-5:]:
                 print(
-                    f"    • {crossing['hypothesis']}: {crossing['old_category']} → {crossing['new_category']} ({crossing['timestamp'][:10]})"
+                    f"    • {crossing['hypothesis']}: "
+                    f"{crossing['old_category']} → "
+                    f"{crossing['new_category']} "
+                    f"({crossing['timestamp'][:10]})"
                 )
 
         print("\n" + "=" * 70)
@@ -559,7 +568,11 @@ def main():
         "-c",
         type=str,
         metavar="HYPOTHESIS",
-        help="Classify a specific hypothesis (luwian, semitic, pregreek, protogreek, hurrian, hattic, etruscan)",
+        help=(
+            "Classify a specific hypothesis "
+            "(luwian, semitic, pregreek, protogreek, "
+            "hurrian, hattic, etruscan)"
+        ),
     )
     parser.add_argument(
         "--all", "-a", action="store_true", help="Classify all hypotheses and generate report"
@@ -609,7 +622,10 @@ def main():
             for crossing in system.threshold_history:
                 print(f"\n  {crossing['timestamp'][:10]}: {crossing['hypothesis']}")
                 print(
-                    f"    {crossing['old_category']} ({crossing['old_pct']}%) → {crossing['new_category']} ({crossing['new_pct']}%)"
+                    f"    {crossing['old_category']} "
+                    f"({crossing['old_pct']}%) → "
+                    f"{crossing['new_category']} "
+                    f"({crossing['new_pct']}%)"
                 )
                 print(f"    Trigger: {crossing['trigger']}")
         return 0

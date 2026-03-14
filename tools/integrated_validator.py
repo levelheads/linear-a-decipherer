@@ -411,7 +411,8 @@ class IntegratedValidator:
             current_rank = conf_order.index(base_conf) if base_conf in conf_order else 0
             if current_rank < floor_rank:
                 compliance_notes.append(
-                    f"Anchor floor applied: Level {min_anchor_level} anchor prevents demotion below {floor_conf}"
+                    f"Anchor floor applied: Level {min_anchor_level}"
+                    f" anchor prevents demotion below {floor_conf}"
                 )
                 base_conf = floor_conf
 
@@ -632,12 +633,11 @@ class IntegratedValidator:
         print(f"    → {result.threshold_interpretation[:60]}...")
 
         print("\n[5] BAYESIAN ANALYSIS")
-        print(
-            f"    Best: {result.bayesian_best} (P={result.bayesian_posteriors.get(result.bayesian_best, 0):.3f})"
-        )
-        print(
-            f"    95% CI: [{result.credible_interval_95[0]:.2f}, {result.credible_interval_95[1]:.2f}]"
-        )
+        best_p = result.bayesian_posteriors.get(result.bayesian_best, 0)
+        print(f"    Best: {result.bayesian_best} (P={best_p:.3f})")
+        ci_lo = result.credible_interval_95[0]
+        ci_hi = result.credible_interval_95[1]
+        print(f"    95% CI: [{ci_lo:.2f}, {ci_hi:.2f}]")
         print(f"    Bayes Factor vs Isolate: {result.bayes_factor:.1f}")
         for hyp, post in sorted(result.bayesian_posteriors.items(), key=lambda x: -x[1])[:4]:
             print(f"    {hyp:12} P={post:.3f}")
@@ -687,9 +687,9 @@ class IntegratedValidator:
                 print(f"  {cat:12} {count:4d}")
 
         print("\nMethodology Compliance:")
-        print(
-            f"  Compliant:     {summary['methodology_compliant']:4d} ({summary['compliance_rate']}%)"
-        )
+        compliant = summary["methodology_compliant"]
+        rate = summary["compliance_rate"]
+        print(f"  Compliant:     {compliant:4d} ({rate}%)")
         print(f"  Non-compliant: {summary['non_compliant']:4d}")
 
         if report["non_compliant_readings"]:

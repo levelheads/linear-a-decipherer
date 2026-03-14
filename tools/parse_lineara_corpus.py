@@ -521,7 +521,11 @@ def main():
             {
                 "attribution": {
                     "source": "lineara.xyz (https://github.com/mwenge/lineara.xyz)",
-                    "note": "Sign-level frequency, position, and co-occurrence data for pattern analysis",
+                    "note": (
+                        "Sign-level frequency, position,"
+                        " and co-occurrence data"
+                        " for pattern analysis"
+                    ),
                     "generated": datetime.now().isoformat(),
                 },
                 "total_signs": len(sign_data),

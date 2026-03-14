@@ -186,7 +186,9 @@ def compare_hypothesis_results(pre, post):
     print(thin)
     if best_hyp_changes:
         print(
-            f"  {'Word':<25} {'Pre-Fix Best':<14} {'Post-Fix Best':<14} {'Score Pre':>10} {'Score Post':>10}"
+            f"  {'Word':<25} {'Pre-Fix Best':<14} "
+            f"{'Post-Fix Best':<14} {'Score Pre':>10} "
+            f"{'Score Post':>10}"
         )
         for word, bp, bpo, sp, spo in sorted(
             best_hyp_changes, key=lambda x: abs(x[4] - x[3]), reverse=True
@@ -206,7 +208,9 @@ def compare_hypothesis_results(pre, post):
             print(f"    Best hypothesis:  {entry['best_pre']:<14} -> {entry['best_post']}")
             print(f"    Confidence:       {entry['conf_pre']:<14} -> {entry['conf_post']}")
             print(
-                f"    Best score:       {entry['score_pre']:<14.2f} -> {entry['score_post']:.2f}  ({fmt_delta(entry['score_post'] - entry['score_pre'])})"
+                f"    Best score:       {entry['score_pre']:<14.2f} "
+                f"-> {entry['score_post']:.2f}  "
+                f"({fmt_delta(entry['score_post'] - entry['score_pre'])})"
             )
             print("    Per-hypothesis scores:")
             all_hyps = sorted(set(entry["hyp_scores_pre"]) | set(entry["hyp_scores_post"]))
@@ -310,7 +314,12 @@ def compare_batch_results(pre, post):
     print(thin)
     print("  SUMMARY COUNTS")
     print(thin)
-    for metric in ["total_words_analyzed", "high_confidence", "medium_confidence", "needs_review"]:
+    for metric in [
+        "total_words_analyzed",
+        "high_confidence",
+        "medium_confidence",
+        "needs_review",
+    ]:
         v_pre = sum_pre.get(metric, 0)
         v_post = sum_post.get(metric, 0)
         delta = v_post - v_pre
@@ -346,7 +355,10 @@ def compare_batch_results(pre, post):
             pe = pre_lookup.get(w, {})
             dest = "medium" if w in post_med else ("needs_review" if w in post_nr else "unknown")
             print(
-                f"    {w:<25} was {pe.get('confidence', '?'):<12} best={pe.get('best_hypothesis', '?'):<12} -> {dest}"
+                f"    {w:<25} was "
+                f"{pe.get('confidence', '?'):<12} "
+                f"best={pe.get('best_hypothesis', '?'):<12}"
+                f" -> {dest}"
             )
     else:
         print("  DEMOTED: (none)")
@@ -361,7 +373,10 @@ def compare_batch_results(pre, post):
             poe = post_lookup.get(w, {})
             origin = "medium" if w in pre_med else ("needs_review" if w in pre_nr else "unknown")
             print(
-                f"    {w:<25} now {poe.get('confidence', '?'):<12} best={poe.get('best_hypothesis', '?'):<12} <- {origin}"
+                f"    {w:<25} now "
+                f"{poe.get('confidence', '?'):<12} "
+                f"best={poe.get('best_hypothesis', '?'):<12}"
+                f" <- {origin}"
             )
     else:
         print("  PROMOTED: (none)")
@@ -386,7 +401,11 @@ def compare_batch_results(pre, post):
         )
         for w, pe, poe in sorted(hc_changes):
             print(
-                f"  {w:<25} {pe.get('confidence', '?'):<12} {poe.get('confidence', '?'):<12} {pe.get('best_hypothesis', '?'):<14} {poe.get('best_hypothesis', '?'):<14}"
+                f"  {w:<25} "
+                f"{pe.get('confidence', '?'):<12} "
+                f"{poe.get('confidence', '?'):<12} "
+                f"{pe.get('best_hypothesis', '?'):<14} "
+                f"{poe.get('best_hypothesis', '?'):<14}"
             )
     else:
         print("  (no changes for words that remained in high confidence)")
@@ -400,7 +419,10 @@ def compare_batch_results(pre, post):
     print(thin)
     all_hyps = sorted(set(hr_pre.keys()) | set(hr_post.keys()))
     print(
-        f"\n  {'Hypothesis':<14} {'Rank Pre':>10} {'Rank Post':>10} {'Score Pre':>12} {'Score Post':>12} {'Words Pre':>11} {'Words Post':>11}"
+        f"\n  {'Hypothesis':<14} {'Rank Pre':>10} "
+        f"{'Rank Post':>10} {'Score Pre':>12} "
+        f"{'Score Post':>12} {'Words Pre':>11} "
+        f"{'Words Post':>11}"
     )
     print(f"  {'-' * 14} {'-' * 10} {'-' * 10} {'-' * 12} {'-' * 12} {'-' * 11} {'-' * 11}")
     for h in sorted(all_hyps, key=lambda x: hr_post.get(x, {}).get("rank", 99)):
@@ -419,7 +441,10 @@ def compare_batch_results(pre, post):
             elif rank_post > rank_pre:
                 rank_marker = " [DOWN]"
         print(
-            f"  {h:<14} {str(rank_pre):>10} {str(rank_post):>10} {score_pre:>12.1f} {score_post:>12.1f} {ws_pre:>11} {ws_post:>11}{rank_marker}"
+            f"  {h:<14} {str(rank_pre):>10} "
+            f"{str(rank_post):>10} {score_pre:>12.1f} "
+            f"{score_post:>12.1f} {ws_pre:>11} "
+            f"{ws_post:>11}{rank_marker}"
         )
     print()
 
@@ -430,7 +455,8 @@ def compare_batch_results(pre, post):
         score_delta = rpo.get("total_score", 0) - rp.get("total_score", 0)
         words_delta = rpo.get("words_supporting", 0) - rp.get("words_supporting", 0)
         print(
-            f"    {h:<14}  score: {fmt_delta(score_delta):>10}   words_supporting: {fmt_delta(words_delta):>5}"
+            f"    {h:<14}  score: {fmt_delta(score_delta):>10}"
+            f"   words_supporting: {fmt_delta(words_delta):>5}"
         )
     print()
 
@@ -450,9 +476,8 @@ def compare_batch_results(pre, post):
     if mc_added:
         print(f"  Added ({len(mc_added)}): {mc_added[:20]}{'...' if len(mc_added) > 20 else ''}")
     if mc_removed:
-        print(
-            f"  Removed ({len(mc_removed)}): {mc_removed[:20]}{'...' if len(mc_removed) > 20 else ''}"
-        )
+        ellip = "..." if len(mc_removed) > 20 else ""
+        print(f"  Removed ({len(mc_removed)}): {mc_removed[:20]}{ellip}")
     print()
 
     nr_pre = pre.get("needs_review", [])
@@ -471,9 +496,8 @@ def compare_batch_results(pre, post):
     if nr_added:
         print(f"  Added ({len(nr_added)}): {nr_added[:20]}{'...' if len(nr_added) > 20 else ''}")
     if nr_removed:
-        print(
-            f"  Removed ({len(nr_removed)}): {nr_removed[:20]}{'...' if len(nr_removed) > 20 else ''}"
-        )
+        ellip = "..." if len(nr_removed) > 20 else ""
+        print(f"  Removed ({len(nr_removed)}): {nr_removed[:20]}{ellip}")
     print()
 
 

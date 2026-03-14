@@ -236,7 +236,10 @@ class KoberAnalyzer:
             self.results["findings"].append(
                 {
                     "category": "positional",
-                    "finding": f"{len(positional['initial_preference'])} signs prefer word-initial position (potential prefixes/determinatives)",
+                    "finding": (
+                        f"{len(positional['initial_preference'])} signs prefer "
+                        f"word-initial position (potential prefixes/determinatives)"
+                    ),
                     "signs": [s["sign"] for s in positional["initial_preference"][:10]],
                     "confidence": "HIGH",
                 }
@@ -246,7 +249,10 @@ class KoberAnalyzer:
             self.results["findings"].append(
                 {
                     "category": "positional",
-                    "finding": f"{len(positional['final_preference'])} signs prefer word-final position (potential suffixes/case endings)",
+                    "finding": (
+                        f"{len(positional['final_preference'])} signs prefer "
+                        f"word-final position (potential suffixes/case endings)"
+                    ),
                     "signs": [s["sign"] for s in positional["final_preference"][:10]],
                     "confidence": "HIGH",
                 }
@@ -340,7 +346,11 @@ class KoberAnalyzer:
             self.results["findings"].append(
                 {
                     "category": "word_analysis",
-                    "finding": f"Identified {len(function_word_candidates)} high-frequency words (possible function words or common terms)",
+                    "finding": (
+                        f"Identified {len(function_word_candidates)} "
+                        f"high-frequency words "
+                        f"(possible function words or common terms)"
+                    ),
                     "examples": [fw["word"] for fw in function_word_candidates[:5]],
                     "confidence": "MEDIUM",
                 }
@@ -437,7 +447,10 @@ class KoberAnalyzer:
             self.results["findings"].append(
                 {
                     "category": "inflection",
-                    "finding": f"Identified {len(top_paradigms)} potential paradigm groups (words sharing roots)",
+                    "finding": (
+                        f"Identified {len(top_paradigms)} potential "
+                        f"paradigm groups (words sharing roots)"
+                    ),
                     "top_example": {
                         "prefix": top_paradigms[0]["prefix"],
                         "variants": [v["word"] for v in top_paradigms[0]["variants"][:5]],
@@ -450,7 +463,10 @@ class KoberAnalyzer:
             self.results["findings"].append(
                 {
                     "category": "inflection",
-                    "finding": f"Found {len(common_suffixes)} recurring suffix patterns (potential grammatical endings)",
+                    "finding": (
+                        f"Found {len(common_suffixes)} recurring suffix "
+                        f"patterns (potential grammatical endings)"
+                    ),
                     "examples": [s["suffix"] for s in common_suffixes[:5]],
                     "confidence": "MEDIUM",
                 }
@@ -552,7 +568,10 @@ class KoberAnalyzer:
             self.results["findings"].append(
                 {
                     "category": "triplets",
-                    "finding": f"Detected {len(triplets)} Kober Triplets (words sharing root with 3+ variant endings)",
+                    "finding": (
+                        f"Detected {len(triplets)} Kober Triplets "
+                        f"(words sharing root with 3+ variant endings)"
+                    ),
                     "significance": "BREAKTHROUGH - suggests grammatical inflection system",
                     "top_example": triplets[0] if triplets else None,
                     "confidence": "HIGH",
@@ -632,7 +651,9 @@ class KoberAnalyzer:
             self.results["findings"].append(
                 {
                     "category": "co_occurrence",
-                    "finding": f"Found {len(unique_pairs)} significant sign co-occurrence patterns",
+                    "finding": (
+                        f"Found {len(unique_pairs)} significant sign co-occurrence patterns"
+                    ),
                     "top_pairs": [f"{p['signs'][0]}-{p['signs'][1]}" for p in unique_pairs[:5]],
                     "confidence": "MEDIUM",
                 }
@@ -673,9 +694,12 @@ class KoberAnalyzer:
         self.results["paradigm_candidates"].append(
             {
                 "paradigm": "K-R Root",
-                "description": "Words with K-vowel-R-vowel pattern (ku-ro, ki-ro, ka-i-ro, etc.)",
+                "description": ("Words with K-vowel-R-vowel pattern (ku-ro, ki-ro, ka-i-ro, etc.)"),
                 "forms": kr_forms,
-                "hypothesis": "May indicate ablaut system (vowel alternation for grammatical meaning) or derivational morphology",
+                "hypothesis": (
+                    "May indicate ablaut system (vowel alternation "
+                    "for grammatical meaning) or derivational morphology"
+                ),
                 "significance": "HIGH - if confirmed, reveals major morphological pattern",
             }
         )
@@ -684,10 +708,15 @@ class KoberAnalyzer:
             self.results["findings"].append(
                 {
                     "category": "paradigm",
-                    "finding": f"K-R paradigm confirmed: {len(kr_forms)} forms with K-V-R-V pattern",
+                    "finding": (
+                        f"K-R paradigm confirmed: {len(kr_forms)} forms with K-V-R-V pattern"
+                    ),
                     "forms": [f["word"] for f in kr_forms[:5]],
                     "confidence": "HIGH",
-                    "next_steps": "Verify all K-R forms across corpus; test for semantic/functional relationships",
+                    "next_steps": (
+                        "Verify all K-R forms across corpus; "
+                        "test for semantic/functional relationships"
+                    ),
                 }
             )
 

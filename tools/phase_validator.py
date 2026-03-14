@@ -239,7 +239,9 @@ class PhaseValidator:
                     description=(
                         f"HIGH-CONFIDENCE CONFLICT: {element} claimed as "
                         f"{existing.hypothesis.upper()} ({existing.assertion}) in {existing.phase} "
-                        f"vs {new_claim.hypothesis.upper()} ({new_claim.assertion}) in {new_claim.phase}"
+                        f"vs {new_claim.hypothesis.upper()}"
+                        f" ({new_claim.assertion})"
+                        f" in {new_claim.phase}"
                     ),
                     severity="HIGH",
                     resolution_guidance=(
@@ -268,7 +270,9 @@ class PhaseValidator:
                     resolution_guidance=(
                         f"Same hypothesis, different functions. Check if context-dependent "
                         f"(e.g., different positions = different functions). "
-                        f"Larger sample ({max(existing.sample_size, new_claim.sample_size)}) may be more reliable."
+                        f"Larger sample"
+                        f" ({max(existing.sample_size, new_claim.sample_size)})"
+                        f" may be more reliable."
                     ),
                     detected_at=datetime.now().isoformat(),
                 )

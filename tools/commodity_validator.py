@@ -353,7 +353,9 @@ class CommodityValidator:
         print(f"{'=' * 60}")
         print(f"  Occurrences: {mapping.total_occurrences}")
         print(
-            f"  With {mapping.primary_commodity}: {mapping.with_primary} ({mapping.specificity:.0%})"
+            f"  With {mapping.primary_commodity}:"
+            f" {mapping.with_primary}"
+            f" ({mapping.specificity:.0%})"
         )
         print(f"  With other: {mapping.with_other}")
         print(f"  Without any: {mapping.without_any}")

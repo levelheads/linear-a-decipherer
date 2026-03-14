@@ -764,7 +764,9 @@ class StructuralGridBuilder:
             total_formulas = formulas.get("total_formulas_found", 0)
             constraints["formulaic_density"] = {
                 "total_formulas": total_formulas,
-                "note": "High formula count indicates standardized administrative/religious language",
+                "note": (
+                    "High formula count indicates standardized administrative/religious language"
+                ),
             }
 
         self.constraint_matrix = constraints
@@ -805,7 +807,9 @@ class StructuralGridBuilder:
                     details["word_order"] = "UNKNOWN (+1.0)"
                 else:
                     details["word_order"] = (
-                        f"MISMATCH: expected {props['word_order']}, observed {wo['observed']} (+0.0)"
+                        f"MISMATCH: expected "
+                        f"{props['word_order']}, observed "
+                        f"{wo['observed']} (+0.0)"
                     )
 
             # Morphology type
@@ -851,7 +855,9 @@ class StructuralGridBuilder:
                     match_ratio = len(overlap) / len(expected_suffixes) if expected_suffixes else 0
                     score += match_ratio
                     details["suffix_match"] = (
-                        f"{len(overlap)}/{len(expected_suffixes)} expected suffixes observed (+{match_ratio:.2f})"
+                        f"{len(overlap)}/{len(expected_suffixes)}"
+                        f" expected suffixes observed "
+                        f"(+{match_ratio:.2f})"
                     )
                 else:
                     score += 0.5
@@ -898,11 +904,20 @@ class StructuralGridBuilder:
         findings.append(
             {
                 "category": "GRAMMATICAL_STRUCTURE",
-                "finding": f"Identified {len(sig_cats)} significant grammatical categories from suffix analysis "
-                f"(total {len(self.grammatical_categories)} including minor ones)",
+                "finding": (
+                    f"Identified {len(sig_cats)} significant "
+                    f"grammatical categories from suffix analysis "
+                    f"(total {len(self.grammatical_categories)} "
+                    f"including minor ones)"
+                ),
                 "confidence": "PROBABLE",
-                "evidence": f"Suffix groups with 5+ members, analyzed from {len(self.word_profiles)} unique words",
-                "falsification": "Would be disproven if suffix distributions are random (entropy test)",
+                "evidence": (
+                    f"Suffix groups with 5+ members, analyzed "
+                    f"from {len(self.word_profiles)} unique words"
+                ),
+                "falsification": (
+                    "Would be disproven if suffix distributions are random (entropy test)"
+                ),
             }
         )
 
@@ -912,11 +927,16 @@ class StructuralGridBuilder:
             findings.append(
                 {
                     "category": "WORD_ORDER",
-                    "finding": f"Best word order hypothesis: {wo['observed']} ({wo['confidence']}). "
-                    f"Eliminates: {wo.get('eliminates', [])}",
+                    "finding": (
+                        f"Best word order hypothesis: "
+                        f"{wo['observed']} ({wo['confidence']}). "
+                        f"Eliminates: {wo.get('eliminates', [])}"
+                    ),
                     "confidence": wo["confidence"],
                     "evidence": "Syntax analyzer scores: " + str(wo.get("scores", {})),
-                    "falsification": "Would be disproven by systematic counter-examples in religious texts",
+                    "falsification": (
+                        "Would be disproven by systematic counter-examples in religious texts"
+                    ),
                 }
             )
 
@@ -930,16 +950,26 @@ class StructuralGridBuilder:
                     f"Eliminates: {vs.get('eliminates', [])}. Supports: {vs.get('supports', [])}",
                     "confidence": "HIGH",
                     "evidence": f"Vowel distribution: {vs['distribution']}",
-                    "falsification": "Would be disproven if /o/ signs are underrepresented due to scribal convention",
+                    "falsification": (
+                        "Would be disproven if /o/ signs are "
+                        "underrepresented due to scribal convention"
+                    ),
                 }
             )
 
         # Finding 4: Document templates
+        admin_pct = self.constraint_matrix.get("text_type_distribution", {}).get(
+            "administrative_pct", 0
+        )
         findings.append(
             {
                 "category": "DOCUMENT_STRUCTURE",
-                "finding": f"Identified {len(self.document_templates)} document template types. "
-                f"Corpus is {self.constraint_matrix.get('text_type_distribution', {}).get('administrative_pct', 0):.0f}% administrative.",
+                "finding": (
+                    f"Identified "
+                    f"{len(self.document_templates)} "
+                    f"document template types. Corpus is "
+                    f"{admin_pct:.0f}% administrative."
+                ),
                 "confidence": "HIGH",
                 "evidence": "Syntax classification + contextual analysis",
                 "falsification": "N/A — structural observation",
@@ -952,11 +982,23 @@ class StructuralGridBuilder:
             findings.append(
                 {
                     "category": "MORPHOLOGY",
-                    "finding": f"{len(paradigms)} morphological paradigms identified, suggesting rich inflectional system. "
-                    f"Consistent with agglutinative morphology.",
+                    "finding": (
+                        f"{len(paradigms)} morphological paradigms "
+                        f"identified, suggesting rich inflectional "
+                        f"system. Consistent with agglutinative "
+                        f"morphology."
+                    ),
                     "confidence": "PROBABLE",
-                    "evidence": f"Paradigm discovery with vowel alternation patterns across {len(paradigms)} root groups",
-                    "falsification": "Would be disproven if paradigm members are independent lexemes, not inflected forms",
+                    "evidence": (
+                        f"Paradigm discovery with vowel alternation "
+                        f"patterns across {len(paradigms)} "
+                        f"root groups"
+                    ),
+                    "falsification": (
+                        "Would be disproven if paradigm members "
+                        "are independent lexemes, not "
+                        "inflected forms"
+                    ),
                 }
             )
 
@@ -973,11 +1015,18 @@ class StructuralGridBuilder:
             findings.append(
                 {
                     "category": "STRUCTURAL_CONSTRAINT",
-                    "finding": f"{len(constrained)} highly constrained words (low entropy, freq >= 5): "
-                    f"{', '.join(w for w, _ in constrained[:5])}",
+                    "finding": (
+                        f"{len(constrained)} highly constrained "
+                        f"words (low entropy, freq >= 5): "
+                        f"{', '.join(w for w, _ in constrained[:5])}"
+                    ),
                     "confidence": "PROBABLE",
-                    "evidence": "Shannon entropy of positional + text-type + commodity distributions",
-                    "falsification": "Low entropy could reflect small sample size rather than true constraint",
+                    "evidence": (
+                        "Shannon entropy of positional + text-type + commodity distributions"
+                    ),
+                    "falsification": (
+                        "Low entropy could reflect small sample size rather than true constraint"
+                    ),
                 }
             )
 

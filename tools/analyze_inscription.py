@@ -458,7 +458,9 @@ class InscriptionAnalyzer:
 
         for anchor in self.analysis["anchors"]:
             lines.append(
-                f"| {anchor['word']} | Level {anchor['level']} | {anchor['meaning']} | {anchor['confidence']} |"
+                f"| {anchor['word']} | Level {anchor['level']}"
+                f" | {anchor['meaning']}"
+                f" | {anchor['confidence']} |"
             )
 
         if not self.analysis["anchors"]:
@@ -502,24 +504,18 @@ class InscriptionAnalyzer:
         lines.append("╠══════════════════════════════════════════════════════════════════╣")
 
         fp = self.analysis["first_principles"]
-        lines.append(
-            f"║ [1] KOBER:    {fp['p1_kober']['status']:8} - {fp['p1_kober']['evidence'][:45]:45}║"
-        )
-        lines.append(
-            f"║ [2] VENTRIS:  {fp['p2_ventris']['status']:8} - {fp['p2_ventris']['evidence'][:45]:45}║"
-        )
-        lines.append(
-            f"║ [3] ANCHORS:  {fp['p3_anchors']['status']:8} - {fp['p3_anchors']['evidence'][:45]:45}║"
-        )
-        lines.append(
-            f"║ [4] MULTI-HYP:{fp['p4_multi_hyp']['status']:8} - {fp['p4_multi_hyp']['evidence'][:45]:45}║"
-        )
-        lines.append(
-            f"║ [5] NEGATIVE: {fp['p5_negative']['status']:8} - {fp['p5_negative']['evidence'][:45]:45}║"
-        )
-        lines.append(
-            f"║ [6] CORPUS:   {fp['p6_corpus']['status']:8} - {fp['p6_corpus']['evidence'][:45]:45}║"
-        )
+        p1 = fp["p1_kober"]
+        p2 = fp["p2_ventris"]
+        p3 = fp["p3_anchors"]
+        p4 = fp["p4_multi_hyp"]
+        p5 = fp["p5_negative"]
+        p6 = fp["p6_corpus"]
+        lines.append(f"║ [1] KOBER:    {p1['status']:8} - {p1['evidence'][:45]:45}║")
+        lines.append(f"║ [2] VENTRIS:  {p2['status']:8} - {p2['evidence'][:45]:45}║")
+        lines.append(f"║ [3] ANCHORS:  {p3['status']:8} - {p3['evidence'][:45]:45}║")
+        lines.append(f"║ [4] MULTI-HYP:{p4['status']:8} - {p4['evidence'][:45]:45}║")
+        lines.append(f"║ [5] NEGATIVE: {p5['status']:8} - {p5['evidence'][:45]:45}║")
+        lines.append(f"║ [6] CORPUS:   {p6['status']:8} - {p6['evidence'][:45]:45}║")
         lines.append("╚══════════════════════════════════════════════════════════════════╝")
         lines.append("```")
 

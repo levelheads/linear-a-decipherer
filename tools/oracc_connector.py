@@ -126,14 +126,33 @@ class ORACCConnector:
             self.log(f"Offline mode: skipping {url}")
             return None
 
+        req = urllib.request.Request(url, headers={"User-Agent": "LinearA-Decipherment/1.0"})
+
+        # First attempt: full SSL verification
         try:
-            # Create SSL context that doesn't verify certificates
-            # (ORACC sometimes has certificate issues)
+            with urllib.request.urlopen(req, timeout=timeout) as response:
+                data = json.loads(response.read().decode("utf-8"))
+                return data
+        except (ssl.SSLError, ssl.SSLCertVerificationError, urllib.error.URLError) as e:
+            # Only fall back for SSL/certificate errors
+            is_ssl = isinstance(e, (ssl.SSLError, ssl.SSLCertVerificationError))
+            if isinstance(e, urllib.error.URLError) and isinstance(
+                e.reason, (ssl.SSLError, ssl.SSLCertVerificationError)
+            ):
+                is_ssl = True
+            if not is_ssl:
+                self.log(f"URL Error: {e.reason}", "warning")
+                return None
+            self.log(
+                f"SSL verification failed for {url}, retrying without verification",
+                "warning",
+            )
+
+        # Retry with certificate verification disabled (ORACC sometimes has certificate issues)
+        try:
             ctx = ssl.create_default_context()
             ctx.check_hostname = False
             ctx.verify_mode = ssl.CERT_NONE
-
-            req = urllib.request.Request(url, headers={"User-Agent": "LinearA-Decipherment/1.0"})
 
             with urllib.request.urlopen(req, timeout=timeout, context=ctx) as response:
                 data = json.loads(response.read().decode("utf-8"))
@@ -268,7 +287,11 @@ class ORACCConnector:
                 "meaning": "total, sum, entirety, aggregate",
                 "root": "PḪR",
                 "usage": "Administrative totaling at end of commodity lists",
-                "context": 'Most common term for "total" in Neo-Assyrian/Babylonian texts; appears at list endings',
+                "context": (
+                    'Most common term for "total" in '
+                    "Neo-Assyrian/Babylonian texts; "
+                    "appears at list endings"
+                ),
                 "examples": [
                     'PAP 3 MA.NA napḫar - "total: 3 minas altogether"',
                     'napḫar nikkassī - "sum total of accounts"',
@@ -1975,7 +1998,9 @@ class ORACCConnector:
                     "time": "Days, months, years, dating",
                 },
                 "usage_note": "For comparative analysis with Linear A administrative texts",
-                "linear_a_relevance": "Terms selected for parallels with Bronze Age Aegean administration",
+                "linear_a_relevance": (
+                    "Terms selected for parallels with Bronze Age Aegean administration"
+                ),
             },
             "terms": self.vocabulary,
         }
@@ -2177,7 +2202,9 @@ class ORACCConnector:
             "linear_a": "te",
             "context": "Transaction sign at line beginnings",
             "akkadian_candidates": [],
-            "notes": "May be grammatical marker rather than lexical item; no clear Akkadian parallel",
+            "notes": (
+                "May be grammatical marker rather than lexical item; no clear Akkadian parallel"
+            ),
         },
         "po-to-ku-ro": {
             "linear_a": "po-to-ku-ro",
@@ -2541,7 +2568,9 @@ def main():
             for cand in result["akkadian_candidates"]:
                 phonetic = cand.get("phonetic_match", "N/A")
                 print(
-                    f"  {cand['term']}: {cand['meaning']} (root: {cand['root']}, phonetic: {phonetic})"
+                    f"  {cand['term']}: {cand['meaning']} "
+                    f"(root: {cand['root']}, "
+                    f"phonetic: {phonetic})"
                 )
 
         if result.get("notes"):
@@ -2590,7 +2619,9 @@ def main():
                 print("    Akkadian candidates:")
                 for cand in data["akkadian_candidates"]:
                     print(
-                        f"      - {cand['term']}: {cand['meaning']} [{cand.get('phonetic_match', 'N/A')}]"
+                        f"      - {cand['term']}: "
+                        f"{cand['meaning']} "
+                        f"[{cand.get('phonetic_match', 'N/A')}]"
                     )
             if data.get("notes"):
                 print(f"    Notes: {data['notes']}")

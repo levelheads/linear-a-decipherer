@@ -240,7 +240,8 @@ class RegionalWeighting:
             penalty = (distribution.ht_concentration - 0.5) * 0.5
             weight -= penalty
             rationale.append(
-                f"HT concentration penalty: -{penalty:.2f} ({distribution.ht_concentration:.1%} at HT)"
+                f"HT concentration penalty: -{penalty:.2f} "
+                f"({distribution.ht_concentration:.1%} at HT)"
             )
 
         # Single-site penalty
@@ -373,9 +374,8 @@ class RegionalWeighting:
             if freq >= min_freq:
                 weighted = self.weight_reading(word)
                 results.append(weighted)
-                self.log(
-                    f"{word}: weight={weighted.adjusted_weight:.2f} ({weighted.site_distribution.num_sites} sites)"
-                )
+                num_sites = weighted.site_distribution.num_sites
+                self.log(f"{word}: weight={weighted.adjusted_weight:.2f} ({num_sites} sites)")
 
         return results
 
@@ -451,18 +451,24 @@ class RegionalWeighting:
         for site, data in sorted(stats["sites"].items(), key=lambda x: -x[1]["count"]):
             bar = "█" * int(data["percentage"] / 2)
             print(
-                f"  {site:4} {data['name'][:15]:15} {data['count']:4} ({data['percentage']:5.1f}%) {bar}"
+                f"  {site:4} {data['name'][:15]:15} "
+                f"{data['count']:4} "
+                f"({data['percentage']:5.1f}%) {bar}"
             )
 
         print("\nBy Region:")
-        for region, count in sorted(stats["regional_distribution"].items(), key=lambda x: -x[1]):
+        for region, count in sorted(
+            stats["regional_distribution"].items(),
+            key=lambda x: -x[1],
+        ):
             pct = count / stats["total_inscriptions"] * 100
             print(f"  {region:8} {count:4} ({pct:.1f}%)")
 
         print("\n⚠ BIAS WARNING:")
         if stats["dominant_concentration"] > 50:
             print(
-                f"  {stats['dominant_site']} accounts for {stats['dominant_concentration']}% of corpus"
+                f"  {stats['dominant_site']} accounts for "
+                f"{stats['dominant_concentration']}% of corpus"
             )
             print("  Readings validated primarily at this site may be over-confident")
             print("  Apply regional weighting to adjust confidence scores")
@@ -559,18 +565,19 @@ def main():
         penalized = sorted(weighted_readings, key=lambda w: w.adjusted_weight)[:10]
         print("\nMost Penalized Words:")
         for w in penalized:
-            print(
-                f"  {w.word}: {w.adjusted_weight:.2f} (HT={w.site_distribution.ht_concentration:.0%})"
-            )
+            ht_conc = w.site_distribution.ht_concentration
+            print(f"  {w.word}: {w.adjusted_weight:.2f} (HT={ht_conc:.0%})")
 
         # Top cross-site validated
-        cross_site = sorted(weighted_readings, key=lambda w: -w.site_distribution.num_sites)[:10]
+        cross_site = sorted(
+            weighted_readings,
+            key=lambda w: -w.site_distribution.num_sites,
+        )[:10]
         print("\nBest Cross-Site Validation:")
         for w in cross_site:
             sites = ", ".join(w.site_distribution.site_counts.keys())
-            print(
-                f"  {w.word}: {w.adjusted_weight:.2f} ({w.site_distribution.num_sites} sites: {sites})"
-            )
+            num_s = w.site_distribution.num_sites
+            print(f"  {w.word}: {w.adjusted_weight:.2f} ({num_s} sites: {sites})")
 
         if args.output:
             report = system.generate_report(weighted_readings)

@@ -129,7 +129,9 @@ class GORILAIndexer:
                 "contents": "Sign list (AB numbers)",
                 "site_codes": [],
                 "inscription_count": 0,
-                "description": "Complete sign list with AB numbering system and paleographic analysis",
+                "description": (
+                    "Complete sign list with AB numbering system and paleographic analysis"
+                ),
             },
             3: {
                 "title": "Recueil des inscriptions en lineaire A, Volume 3",
@@ -141,7 +143,9 @@ class GORILAIndexer:
                 "contents": "HT 121+, KH, PH",
                 "site_codes": ["HT", "KH", "PH"],
                 "inscription_count": 180,
-                "description": "Remaining Hagia Triada tablets plus Khania and Phaistos inscriptions",
+                "description": (
+                    "Remaining Hagia Triada tablets plus Khania and Phaistos inscriptions"
+                ),
             },
             4: {
                 "title": "Recueil des inscriptions en lineaire A, Volume 4",
@@ -182,7 +186,9 @@ class GORILAIndexer:
                 "contents": "Supplements, new finds, KN scepter",
                 "site_codes": ["HT", "KH", "KN", "PH", "ZA"],
                 "inscription_count": 100,
-                "description": "Supplementary materials including 2024 Knossos ivory scepter (KN Zf 2)",
+                "description": (
+                    "Supplementary materials including 2024 Knossos ivory scepter (KN Zf 2)"
+                ),
             },
         }
 
@@ -727,7 +733,9 @@ class GORILAIndexer:
                 "has_numerals": nums,
                 "has_logograms": logos,
                 "key_sequences": seqs,
-                "notes": "KN Zf 2 is the 2024 Knossos ivory scepter (longest Linear A inscription)"
+                "notes": (
+                    "KN Zf 2 is the 2024 Knossos ivory scepter (longest Linear A inscription)"
+                )
                 if tablet_id == "KN Zf 2"
                 else "",
             }
@@ -969,7 +977,9 @@ def main():
         print(f"\nInscriptions in this volume: {len(inscriptions)}")
         for insc in inscriptions[:20]:
             print(
-                f"  {insc['tablet_id']} (p.{insc['page']}) - {insc['inscription_type']}, {insc['sign_count']} signs"
+                f"  {insc['tablet_id']} (p.{insc['page']}) - "
+                f"{insc['inscription_type']}, "
+                f"{insc['sign_count']} signs"
             )
         if len(inscriptions) > 20:
             print(f"  ... and {len(inscriptions) - 20} more")
@@ -978,14 +988,17 @@ def main():
         results = indexer.search_transcription(args.search)
         print(f"\nSearch for '{args.search}': {len(results)} matches")
         for insc in results:
-            print(f"  {insc['tablet_id']} - sequences: {', '.join(insc.get('key_sequences', []))}")
+            seqs = ", ".join(insc.get("key_sequences", []))
+            print(f"  {insc['tablet_id']} - sequences: {seqs}")
 
     elif args.site:
         inscriptions = indexer.get_inscriptions_by_site(args.site)
         print(f"\nInscriptions from {args.site.upper()}: {len(inscriptions)}")
         for insc in inscriptions[:20]:
             print(
-                f"  {insc['tablet_id']} (Vol.{insc['volume']}, p.{insc['page']}) - {insc['sign_count']} signs"
+                f"  {insc['tablet_id']} "
+                f"(Vol.{insc['volume']}, p.{insc['page']})"
+                f" - {insc['sign_count']} signs"
             )
         if len(inscriptions) > 20:
             print(f"  ... and {len(inscriptions) - 20} more")

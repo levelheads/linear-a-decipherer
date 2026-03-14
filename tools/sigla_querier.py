@@ -1608,7 +1608,11 @@ class SigLAQuerier:
             "shared_sites": list(shared_sites),
             "are_variants": are_variants,
             "frequency_ratio": round(freq_a / freq_b, 2) if freq_b > 0 else None,
-            "notes": f"{'These are variant forms of the same phoneme' if are_variants else 'These are distinct phonemes'}",
+            "notes": (
+                "These are variant forms of the same phoneme"
+                if are_variants
+                else "These are distinct phonemes"
+            ),
         }
 
     def get_tablet_signs(self, tablet_id: str) -> List[str]:
@@ -1821,16 +1825,14 @@ def main():
         result = querier.compare_signs(args.compare[0], args.compare[1])
         if result.get("valid"):
             print("\nSign Comparison:")
-            print(
-                f"\n  Sign A: {result['sign_a']['ab_number']} ({result['sign_a']['phonetic_value']})"
-            )
-            print(f"    Frequency: {result['sign_a']['frequency']}")
-            print(f"    Sites: {', '.join(result['sign_a']['sites'])}")
-            print(
-                f"\n  Sign B: {result['sign_b']['ab_number']} ({result['sign_b']['phonetic_value']})"
-            )
-            print(f"    Frequency: {result['sign_b']['frequency']}")
-            print(f"    Sites: {', '.join(result['sign_b']['sites'])}")
+            sign_a = result["sign_a"]
+            sign_b = result["sign_b"]
+            print(f"\n  Sign A: {sign_a['ab_number']} ({sign_a['phonetic_value']})")
+            print(f"    Frequency: {sign_a['frequency']}")
+            print(f"    Sites: {', '.join(sign_a['sites'])}")
+            print(f"\n  Sign B: {sign_b['ab_number']} ({sign_b['phonetic_value']})")
+            print(f"    Frequency: {sign_b['frequency']}")
+            print(f"    Sites: {', '.join(sign_b['sites'])}")
             print(f"\n  Shared sites: {', '.join(result['shared_sites']) or 'None'}")
             print(f"  Are variants: {result['are_variants']}")
             if result["frequency_ratio"]:
@@ -1854,9 +1856,8 @@ def main():
         signs = querier.get_signs_by_site(args.site)
         print(f"\nSigns attested at {args.site.upper()}: {len(signs)} signs")
         for s in signs[:20]:  # Show top 20
-            print(
-                f"  {s['ab_number']}: {s['phonetic_value'] or '(logogram)'} - {s['frequency']} occurrences"
-            )
+            pv = s["phonetic_value"] or "(logogram)"
+            print(f"  {s['ab_number']}: {pv} - {s['frequency']} occurrences")
         if len(signs) > 20:
             print(f"  ... and {len(signs) - 20} more")
 
@@ -1864,9 +1865,8 @@ def main():
         signs = querier.get_signs_by_frequency(args.frequency[0], args.frequency[1])
         print(f"\nSigns with frequency {args.frequency[0]}-{args.frequency[1]}: {len(signs)} signs")
         for s in signs:
-            print(
-                f"  {s['ab_number']}: {s['phonetic_value'] or '(logogram)'} - {s['frequency']} occurrences [{s['confidence']}]"
-            )
+            pv = s["phonetic_value"] or "(logogram)"
+            print(f"  {s['ab_number']}: {pv} - {s['frequency']} occurrences [{s['confidence']}]")
 
     elif args.stats:
         stats = querier.get_statistics()

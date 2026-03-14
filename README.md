@@ -14,7 +14,7 @@ A rigorous methodology system for analyzing undeciphered Minoan Bronze Age inscr
 ## Research Status (March 2026)
 
 > **v0.11.0 (2026-03-14)**: Operation VENTRIS — strategic pivot from breadth to depth.
-> **59 tools**, **55 tablet readings + 14 thematic analyses** across 9 sites.
+> **60 tools**, **55 tablet readings + 14 thematic analyses** across 9 sites.
 > First formal grammar sketch. Libation formula upgraded to POSSIBLE.
 > -SI reinterpreted as verbal/agentive (NOT dative). 47.8% KH names decompose
 > under Luwian rules. KH vs HT accounting philosophy confirmed (p<0.0001).
@@ -161,7 +161,7 @@ linear-a-decipherer/
 │   ├── completed/            # Finished inscription/thematic analyses
 │   └── archive/              # Historical phase analyses
 │
-├── tools/                    # 59 Python analysis scripts
+├── tools/                    # 60 Python analysis scripts
 ├── external/lineara/         # Corpus data (git submodule)
 ├── data/                     # Generated JSON files
 └── templates/                # Document templates
@@ -203,7 +203,7 @@ python3 tools/parse_lineara_corpus.py
 
 ## Analysis Tools
 
-The project includes 59 Python analysis scripts organized by function (stdlib-only, no external dependencies):
+The project includes 60 Python analysis scripts organized by function (stdlib-only, no external dependencies):
 
 ### Core Analysis
 
@@ -428,7 +428,7 @@ This project builds on decades of scholarly work on Linear A. Key contributions 
 - Systematic multi-hypothesis testing framework with tool-validated percentages
 - Anchor hierarchy formalization for confidence calibration
 - Regional administration systematization (HT vs KH parallel systems)
-- 59 Python analysis tools for corpus-wide verification (stdlib-only)
+- 60 Python analysis tools for corpus-wide verification (stdlib-only)
 - 4 process-automation tools (cascade detector, personnel dossier, sign extractor, reading pipeline)
 
 **Novel interpretations**:

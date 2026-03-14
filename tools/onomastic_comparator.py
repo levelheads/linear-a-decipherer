@@ -351,7 +351,10 @@ class OnomasticComparator:
 
             score.details = {
                 "pattern": f"{conv.get('pattern', 'unknown')}",
-                "theophoric_rate": f"{sum(1 for p in self.name_profiles if p.possible_theophoric)}/{len(self.name_profiles)}",
+                "theophoric_rate": (
+                    f"{sum(1 for p in self.name_profiles if p.possible_theophoric)}"
+                    f"/{len(self.name_profiles)}"
+                ),
             }
 
             self.convention_scores[culture] = score
@@ -417,12 +420,27 @@ class OnomasticComparator:
         # DA-MA-TE special analysis
         analysis["da_ma_te_analysis"] = {
             "element": "DA-MA-TE",
-            "hypothesis_greek": "Linear B da-ma-te = Demeter. If pre-Greek origin, Minoans contributed this deity name to Greek.",
-            "hypothesis_pregreek": "Pre-Greek substrate word adopted into Greek religion. The -TE suffix might be a Minoan morpheme.",
-            "hypothesis_hurrian": "No clear Hurrian parallel, but -TE could match Hurrian -te verbal suffix.",
-            "evidence": "Appears in religious context. Cross-cultural divine names are among the most stable vocabulary items.",
-            "direction_of_borrowing": "If Minoan → Greek, this is strong evidence for Minoan religious influence. "
-            "If Greek → Minoan, it argues for early Greek contact but not Minoan = Greek.",
+            "hypothesis_greek": (
+                "Linear B da-ma-te = Demeter. If pre-Greek origin, "
+                "Minoans contributed this deity name to Greek."
+            ),
+            "hypothesis_pregreek": (
+                "Pre-Greek substrate word adopted into Greek religion. "
+                "The -TE suffix might be a Minoan morpheme."
+            ),
+            "hypothesis_hurrian": (
+                "No clear Hurrian parallel, but -TE could match Hurrian -te verbal suffix."
+            ),
+            "evidence": (
+                "Appears in religious context. Cross-cultural divine "
+                "names are among the most stable vocabulary items."
+            ),
+            "direction_of_borrowing": (
+                "If Minoan \u2192 Greek, this is strong evidence for "
+                "Minoan religious influence. "
+                "If Greek \u2192 Minoan, it argues for early Greek "
+                "contact but not Minoan = Greek."
+            ),
         }
 
         self.results["theophoric_analysis"] = analysis
@@ -473,7 +491,11 @@ class OnomasticComparator:
                 "shared_finals": list(
                     set(regional["HT"]["top_finals"]) & set(regional["KH"]["top_finals"])
                 ),
-                "note": "Different naming patterns between sites could indicate regional dialects or different cultural influences",
+                "note": (
+                    "Different naming patterns between sites could "
+                    "indicate regional dialects or different "
+                    "cultural influences"
+                ),
             }
 
         self.results["regional_analysis"] = regional
@@ -488,11 +510,20 @@ class OnomasticComparator:
         decodings.append(
             {
                 "linear_a_name": "DA-MA-TE",
-                "proposed_reading": "Mother Earth / Earth Mother (deity name)",
-                "basis": "Linear B da-ma-te = Demeter. Appears in religious contexts in Linear A.",
-                "cultural_parallel": "Pre-Greek substrate → Greek adoption. Cf. Hurrian nera (mother) + concept.",
+                "proposed_reading": ("Mother Earth / Earth Mother (deity name)"),
+                "basis": (
+                    "Linear B da-ma-te = Demeter. Appears in religious contexts in Linear A."
+                ),
+                "cultural_parallel": (
+                    "Pre-Greek substrate \u2192 Greek adoption. "
+                    "Cf. Hurrian nera (mother) + concept."
+                ),
                 "confidence": "POSSIBLE",
-                "falsification": "Would be disproven if DA-MA-TE appears exclusively in administrative (non-religious) context",
+                "falsification": (
+                    "Would be disproven if DA-MA-TE appears "
+                    "exclusively in administrative "
+                    "(non-religious) context"
+                ),
             }
         )
 
@@ -503,9 +534,15 @@ class OnomasticComparator:
                 "proposed_reading": "Lady/Mistress (deity epithet) or personal name",
                 "basis": "Possible connection to Athena (a-ta-na po-ti-ni-ja in Linear B). "
                 "Also cf. Luwian Attana, Hurrian Attanni.",
-                "cultural_parallel": "Multi-cultural: could be pre-Greek substrate, Luwian borrowing, or Hurrian cognate",
+                "cultural_parallel": (
+                    "Multi-cultural: could be pre-Greek substrate, "
+                    "Luwian borrowing, or Hurrian cognate"
+                ),
                 "confidence": "SPECULATIVE",
-                "falsification": "Would be disproven if A-TA-NA occurs only in personal name lists (not divine contexts)",
+                "falsification": (
+                    "Would be disproven if A-TA-NA occurs only in "
+                    "personal name lists (not divine contexts)"
+                ),
             }
         )
 
@@ -525,11 +562,17 @@ class OnomasticComparator:
                         decodings.append(
                             {
                                 "linear_a_name": profile.name,
-                                "proposed_reading": f"Possible Hurrian element: {hurr_word} ({hurr_meaning})",
+                                "proposed_reading": (
+                                    f"Possible Hurrian element: {hurr_word} ({hurr_meaning})"
+                                ),
                                 "basis": "Phonetic similarity to Hurrian onomastic element",
                                 "cultural_parallel": f"Hurrian naming convention: {elem}",
                                 "confidence": "SPECULATIVE",
-                                "falsification": "Phonetic similarity alone is insufficient; requires contextual support",
+                                "falsification": (
+                                    "Phonetic similarity alone is "
+                                    "insufficient; requires "
+                                    "contextual support"
+                                ),
                             }
                         )
 
@@ -546,7 +589,9 @@ class OnomasticComparator:
 
         for d in unique_decodings[:10]:
             print(
-                f"    {d['linear_a_name']:25s} → {d['proposed_reading'][:50]:50s} [{d['confidence']}]"
+                f"    {d['linear_a_name']:25s} → "
+                f"{d['proposed_reading'][:50]:50s} "
+                f"[{d['confidence']}]"
             )
 
     def generate_findings(self):
@@ -560,11 +605,20 @@ class OnomasticComparator:
             findings.append(
                 {
                     "category": "NAMING_CONVENTION",
-                    "finding": f"Best naming convention match: {best[0]} (score: {best[1].total_score:.3f}). "
-                    f"Linear A names show {'Akkadian-type' if best[0] == 'akkadian' else best[0]} theophoric pattern.",
+                    "finding": (
+                        f"Best naming convention match: {best[0]} "
+                        f"(score: {best[1].total_score:.3f}). "
+                        f"Linear A names show "
+                        f"{'Akkadian-type' if best[0] == 'akkadian' else best[0]}"
+                        f" theophoric pattern."
+                    ),
                     "confidence": "POSSIBLE",
-                    "evidence": f"Compared against {len(self.convention_scores)} Bronze Age traditions",
-                    "falsification": "Would be disproven if re-analysis with larger name corpus shifts ranking",
+                    "evidence": (
+                        f"Compared against {len(self.convention_scores)} Bronze Age traditions"
+                    ),
+                    "falsification": (
+                        "Would be disproven if re-analysis with larger name corpus shifts ranking"
+                    ),
                 }
             )
 
@@ -574,11 +628,17 @@ class OnomasticComparator:
             findings.append(
                 {
                     "category": "THEOPHORIC_ELEMENTS",
-                    "finding": f"{theo['total_theophoric']} theophoric name elements identified across "
-                    f"{len(theo.get('elements', {}))} divine name candidates.",
+                    "finding": (
+                        f"{theo['total_theophoric']} theophoric "
+                        f"name elements identified across "
+                        f"{len(theo.get('elements', {}))} "
+                        f"divine name candidates."
+                    ),
                     "confidence": "POSSIBLE",
                     "evidence": "Cross-cultural divine name comparison",
-                    "falsification": "Theophoric identification depends on correct element segmentation",
+                    "falsification": (
+                        "Theophoric identification depends on correct element segmentation"
+                    ),
                 }
             )
 
@@ -589,9 +649,16 @@ class OnomasticComparator:
             findings.append(
                 {
                     "category": "REGIONAL_NAMING",
-                    "finding": f"HT and KH share {len(comp.get('shared_initials', []))} initial syllables and "
-                    f"{len(comp.get('shared_finals', []))} final syllables in names. "
-                    f"Length difference: {comp.get('length_difference', 0):.1f} syllables.",
+                    "finding": (
+                        f"HT and KH share "
+                        f"{len(comp.get('shared_initials', []))} "
+                        f"initial syllables and "
+                        f"{len(comp.get('shared_finals', []))} "
+                        f"final syllables in names. "
+                        f"Length difference: "
+                        f"{comp.get('length_difference', 0):.1f} "
+                        f"syllables."
+                    ),
                     "confidence": "POSSIBLE",
                     "evidence": "Regional name pattern comparison",
                     "falsification": "Small sample sizes at non-HT sites limit statistical power",
@@ -604,7 +671,10 @@ class OnomasticComparator:
         findings.append(
             {
                 "category": "NAME_DECODINGS",
-                "finding": f"{len(high_conf)} name decodings at POSSIBLE+ confidence out of {len(decoded)} attempts.",
+                "finding": (
+                    f"{len(high_conf)} name decodings at POSSIBLE+ "
+                    f"confidence out of {len(decoded)} attempts."
+                ),
                 "confidence": "POSSIBLE",
                 "evidence": "Cross-cultural onomastic comparison + phonetic analysis",
                 "falsification": "Would be disproven if decoded names fail contextual verification",
@@ -616,7 +686,10 @@ class OnomasticComparator:
 
     def verify_first_principles(self):
         self.results["first_principles_verification"] = {
-            "P1_KOBER": "PASS — Name extraction uses positional/distributional criteria, not language assumptions",
+            "P1_KOBER": (
+                "PASS — Name extraction uses positional/"
+                "distributional criteria, not language assumptions"
+            ),
             "P2_VENTRIS": "PASS — Multiple naming traditions tested symmetrically",
             "P3_ANCHORS": "PASS — DA-MA-TE and A-TA-NA based on Linear B cognate anchors",
             "P4_MULTI_HYP": "PASS — Akkadian, Luwian, Hurrian, Ugaritic conventions all tested",

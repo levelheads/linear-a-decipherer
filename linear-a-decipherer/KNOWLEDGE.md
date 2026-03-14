@@ -33,7 +33,7 @@
 | -SI Function | **Verbal/agentive** (70.1% header, NOT dative) |
 | Vowel Paradigms | 40 discovered (18 with 3+ members) |
 | Luwian Onomastics | 47.8% KH words decompose under Luwian rules |
-| Tool Count | **59** Python analysis tools |
+| Tool Count | **60** Python analysis tools |
 | Active Operation | **Operation VENTRIS — v0.11.0-dev** |
 
 **See**: `CHANGELOG.md` for full discovery chronology

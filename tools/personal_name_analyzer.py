@@ -753,7 +753,10 @@ def main():
         sorted_names = sorted(names.values(), key=lambda n: -n.name_probability)
         for name in sorted_names[:15]:
             print(
-                f"  {name.word}: prob={name.name_probability:.2f}, {name.best_hypothesis}, {name.name_type}"
+                f"  {name.word}:"
+                f" prob={name.name_probability:.2f},"
+                f" {name.best_hypothesis},"
+                f" {name.name_type}"
             )
 
         # Save results

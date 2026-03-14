@@ -46,7 +46,9 @@ DATA_DIR = PROJECT_ROOT / "data"
 GREEK_EXPECTATIONS = {
     "name": "Proto-Greek",
     "vowel_distribution": {
-        "description": "Greek has balanced vowel distribution (~20% each for a, e, i, o, with less u)",
+        "description": (
+            "Greek has balanced vowel distribution (~20% each for a, e, i, o, with less u)"
+        ),
         "expected": {"a": 0.22, "e": 0.20, "i": 0.18, "o": 0.20, "u": 0.15},
         "tolerance": 0.08,  # Allow 8% deviation
     },
@@ -239,7 +241,9 @@ HATTIC_EXPECTATIONS = {
             {"pattern": "TE-", "function": "3sg subject", "expected_freq": "medium"},
             {"pattern": "TU-", "function": "verbal prefix", "expected_freq": "low"},
         ],
-        "structural_note": "CRITICAL: Hattic is PREFIX-DOMINANT; Linear A is SUFFIX-DOMINANT — strong mismatch",
+        "structural_note": (
+            "CRITICAL: Hattic is PREFIX-DOMINANT; Linear A is SUFFIX-DOMINANT — strong mismatch"
+        ),
     },
     "vocabulary": {
         "divine_names": [
@@ -505,7 +509,11 @@ class NegativeEvidenceAnalyzer:
                         "observed": f"{obs_freq * 100:.1f}%",
                         "deviation": f"{deviation * 100:.1f}%",
                         "significance": "HIGH" if deviation > 0.15 else "MEDIUM",
-                        "interpretation": f"Linear A has {'more' if obs_freq > exp_freq else 'less'} /{vowel}/ than expected for Greek",
+                        "interpretation": (
+                            f"Linear A has "
+                            f"{'more' if obs_freq > exp_freq else 'less'}"
+                            f" /{vowel}/ than expected for Greek"
+                        ),
                     }
                 )
                 analysis["overall_score"] -= 2 if deviation > 0.15 else 1
@@ -519,7 +527,9 @@ class NegativeEvidenceAnalyzer:
                     "expected": "~20% (Greek)",
                     "observed": f"{o_freq * 100:.1f}%",
                     "significance": "CRITICAL",
-                    "interpretation": "Greek words should have frequent /o/ vowel; Linear A almost lacks it",
+                    "interpretation": (
+                        "Greek words should have frequent /o/ vowel; Linear A almost lacks it"
+                    ),
                 }
             )
             analysis["overall_score"] -= 5
@@ -561,7 +571,9 @@ class NegativeEvidenceAnalyzer:
                         "found_instead": "ku-ro",
                         "occurrences": ku_ro_count,
                         "significance": "HIGH",
-                        "interpretation": "Greek uses to-so for totals; Linear A uses ku-ro (non-Greek)",
+                        "interpretation": (
+                            "Greek uses to-so for totals; Linear A uses ku-ro (non-Greek)"
+                        ),
                     }
                 )
                 analysis["overall_score"] -= 3
@@ -610,7 +622,9 @@ class NegativeEvidenceAnalyzer:
                         "expected": "~3 consonants per root",
                         "observed": f"~{avg_consonants:.1f} consonants average",
                         "significance": "MEDIUM",
-                        "interpretation": "Semitic has triconsonantal roots; Linear A pattern differs",
+                        "interpretation": (
+                            "Semitic has triconsonantal roots; Linear A pattern differs"
+                        ),
                     }
                 )
                 analysis["overall_score"] -= 2
@@ -749,7 +763,9 @@ class NegativeEvidenceAnalyzer:
 
         analysis["structural_notes"].append(
             {
-                "observation": "Pre-Greek clusters (-nth-, -ss-) cannot be directly written in CV syllabary",
+                "observation": (
+                    "Pre-Greek clusters (-nth-, -ss-) cannot be directly written in CV syllabary"
+                ),
                 "implication": "Cannot use absence of these clusters as negative evidence",
                 "significance": "METHODOLOGICAL",
             }
@@ -759,7 +775,9 @@ class NegativeEvidenceAnalyzer:
         analysis["structural_notes"].append(
             {
                 "observation": 'Pre-Greek is a "residual" hypothesis',
-                "implication": "Negative evidence against Greek/Semitic is positive evidence for Pre-Greek",
+                "implication": (
+                    "Negative evidence against Greek/Semitic is positive evidence for Pre-Greek"
+                ),
                 "significance": "METHODOLOGICAL",
             }
         )
@@ -784,7 +802,9 @@ class NegativeEvidenceAnalyzer:
             analysis["present_patterns"].append(
                 {
                     "pattern": "Low /o/ frequency",
-                    "observation": f"/o/ at {o_freq * 100:.1f}% matches Hurrian 4-vowel system (a,e,i,u)",
+                    "observation": (
+                        f"/o/ at {o_freq * 100:.1f}% matches Hurrian 4-vowel system (a,e,i,u)"
+                    ),
                     "significance": "HIGH",
                     "score_delta": 3.0,
                 }
@@ -803,7 +823,9 @@ class NegativeEvidenceAnalyzer:
                 analysis["present_patterns"].append(
                     {
                         "pattern": "Polysyllabic tendency",
-                        "observation": f"Average {avg_syl:.1f} syllables supports agglutinative model",
+                        "observation": (
+                            f"Average {avg_syl:.1f} syllables supports agglutinative model"
+                        ),
                         "significance": "MEDIUM",
                         "score_delta": 1.0,
                     }
@@ -813,7 +835,10 @@ class NegativeEvidenceAnalyzer:
                 analysis["absent_patterns"].append(
                     {
                         "pattern": "Expected polysyllabic words",
-                        "observation": f"Average {avg_syl:.1f} syllables — lower than Hurrian expectation (~3.0)",
+                        "observation": (
+                            f"Average {avg_syl:.1f} syllables — "
+                            f"lower than Hurrian expectation (~3.0)"
+                        ),
                         "significance": "MEDIUM",
                         "score_delta": -1.0,
                     }
@@ -856,7 +881,10 @@ class NegativeEvidenceAnalyzer:
         analysis["statistical_deviations"].append(
             {
                 "pattern": "Word order: SOV expected (Hurrian) vs VSO observed",
-                "observation": "Structural grammar analysis indicates VSO tendency (PROBABLE); Hurrian is consistently SOV",
+                "observation": (
+                    "Structural grammar analysis indicates VSO "
+                    "tendency (PROBABLE); Hurrian is consistently SOV"
+                ),
                 "significance": "HIGH",
                 "score_delta": -3.0,
             }
@@ -908,7 +936,11 @@ class NegativeEvidenceAnalyzer:
             analysis["statistical_deviations"].append(
                 {
                     "pattern": "STRUCTURAL MISMATCH: Prefix vs Suffix dominance",
-                    "observation": f"Suffix-final words ({suffix_words}) vastly outnumber prefix-initial ({prefix_words}); Hattic is prefix-dominant",
+                    "observation": (
+                        f"Suffix-final words ({suffix_words}) "
+                        f"vastly outnumber prefix-initial "
+                        f"({prefix_words}); Hattic is prefix-dominant"
+                    ),
                     "significance": "CRITICAL",
                     "score_delta": -5.0,
                 }
@@ -918,7 +950,9 @@ class NegativeEvidenceAnalyzer:
             analysis["present_patterns"].append(
                 {
                     "pattern": "Prefix frequency compatible",
-                    "observation": f"Prefix-initial ({prefix_words}) vs suffix-final ({suffix_words})",
+                    "observation": (
+                        f"Prefix-initial ({prefix_words}) vs suffix-final ({suffix_words})"
+                    ),
                     "significance": "MEDIUM",
                     "score_delta": 1.0,
                 }
@@ -949,7 +983,10 @@ class NegativeEvidenceAnalyzer:
         analysis["statistical_deviations"].append(
             {
                 "pattern": "Low reference corpus confidence",
-                "observation": "Hattic known primarily from Hittite bilinguals; reference data insufficient for strong claims",
+                "observation": (
+                    "Hattic known primarily from Hittite bilinguals; "
+                    "reference data insufficient for strong claims"
+                ),
                 "significance": "METHODOLOGICAL",
                 "score_delta": 0,
             }
@@ -977,7 +1014,11 @@ class NegativeEvidenceAnalyzer:
             analysis["statistical_deviations"].append(
                 {
                     "pattern": "High /a/ frequency vs Etruscan vowel reduction",
-                    "observation": f"/a/ at {a_freq * 100:.1f}% — Etruscan undergoes vowel syncope; high /a/ suggests different phonology",
+                    "observation": (
+                        f"/a/ at {a_freq * 100:.1f}% — Etruscan "
+                        f"undergoes vowel syncope; high /a/ "
+                        f"suggests different phonology"
+                    ),
                     "significance": "MEDIUM",
                     "score_delta": -1.0,
                 }
@@ -990,7 +1031,9 @@ class NegativeEvidenceAnalyzer:
             analysis["present_patterns"].append(
                 {
                     "pattern": "Frequent -SI ending",
-                    "observation": f"{si_words} words end in -SI; compatible with Etruscan genitive -s",
+                    "observation": (
+                        f"{si_words} words end in -SI; compatible with Etruscan genitive -s"
+                    ),
                     "significance": "MEDIUM",
                     "score_delta": 1.5,
                 }
@@ -1000,7 +1043,9 @@ class NegativeEvidenceAnalyzer:
             analysis["absent_patterns"].append(
                 {
                     "pattern": "Low -SI frequency",
-                    "observation": f"Only {si_words} -SI words; Etruscan genitive is very productive",
+                    "observation": (
+                        f"Only {si_words} -SI words; Etruscan genitive is very productive"
+                    ),
                     "significance": "LOW",
                     "score_delta": -0.5,
                 }
@@ -1011,7 +1056,10 @@ class NegativeEvidenceAnalyzer:
         analysis["present_patterns"].append(
             {
                 "pattern": "Geographic plausibility (Lemnian connection)",
-                "observation": "Lemnos stele demonstrates Tyrsenian language family in Aegean; geographic overlap with Minoan",
+                "observation": (
+                    "Lemnos stele demonstrates Tyrsenian language "
+                    "family in Aegean; geographic overlap with Minoan"
+                ),
                 "significance": "MEDIUM",
                 "score_delta": 1.0,
             }
@@ -1022,7 +1070,9 @@ class NegativeEvidenceAnalyzer:
         analysis["present_patterns"].append(
             {
                 "pattern": "Suffix-dominant morphology compatible",
-                "observation": "Etruscan uses suffixation (like Linear A), unlike prefix-dominant Hattic",
+                "observation": (
+                    "Etruscan uses suffixation (like Linear A), unlike prefix-dominant Hattic"
+                ),
                 "significance": "MEDIUM",
                 "score_delta": 1.0,
             }
@@ -1033,7 +1083,11 @@ class NegativeEvidenceAnalyzer:
         analysis["statistical_deviations"].append(
             {
                 "pattern": "Chronological gap",
-                "observation": "Etruscan texts are 7th c. BCE; Linear A is 17th-15th c. BCE; ~1000 year gap reduces comparability",
+                "observation": (
+                    "Etruscan texts are 7th c. BCE; Linear A is "
+                    "17th-15th c. BCE; ~1000 year gap "
+                    "reduces comparability"
+                ),
                 "significance": "HIGH",
                 "score_delta": -2.0,
             }
@@ -1297,7 +1351,10 @@ class NegativeEvidenceAnalyzer:
                         "type": "morphological",
                         "hyp1": "Hurrian",
                         "hyp2": "Hattic",
-                        "observation": f"{word} has Hurrian-compatible suffixes but violates Hattic prefix expectation",
+                        "observation": (
+                            f"{word} has Hurrian-compatible suffixes "
+                            f"but violates Hattic prefix expectation"
+                        ),
                         "decisive_for": "Hurrian",
                     }
                 )

@@ -77,7 +77,7 @@ This contract is applied by:
 
 3. **Update knowledge management**
    - Add entry to ANALYSIS_INDEX.md
-   - If findings significant, add to FINDINGS_LOG.md
+   - If findings significant, add to CHANGELOG.md
 
 **Output location**: analysis/completed/inscriptions/[ID]_analysis.md
 
@@ -105,8 +105,8 @@ This contract is applied by:
 
 4. **Update knowledge management**
    - Add to ANALYSIS_INDEX.md (Words section)
-   - If reaches HIGH+, add to CONFIRMED_READINGS.md
-   - Document in FINDINGS_LOG.md
+   - If reaches HIGH+, add to KNOWLEDGE.md
+   - Document in CHANGELOG.md
 
 **Output location**: analysis/completed/thematic/[WORD]_investigation.md
 
@@ -163,7 +163,7 @@ This contract is applied by:
    - Unexpected positions
    - Numerical mismatches
 
-5. **Update confidence in CONFIRMED_READINGS.md**
+5. **Update confidence in KNOWLEDGE.md**
 
 ---
 
@@ -239,7 +239,7 @@ This contract is applied by:
    - Oil/commodity logograms
    - Numerical patterns
 
-3. **Document differences in STATE_OF_KNOWLEDGE.md**
+3. **Document differences in KNOWLEDGE.md**
 
 ---
 
@@ -312,7 +312,7 @@ This contract is applied by:
 - Multi-hypothesis analysis
 - First Principles verification
 
-**Generates**: Markdown report following SKILL.md template
+**Generates**: Markdown report following METHODOLOGY.md template
 
 ---
 
@@ -547,7 +547,7 @@ The following existing tools were extended to support all 7 hypotheses (luwian, 
    ```
 
 4. **Update knowledge management**
-   - If validated, update CONFIRMED_READINGS.md
+   - If validated, update KNOWLEDGE.md
    - If contradictions found, document in ENGINEERING_PRACTICES.md
 
 **Output location**: data/consistency_validation.json
@@ -796,8 +796,8 @@ Implements three audit functions from quantitative corpus linguistics:
 ### Before Starting Analysis
 
 1. Check ANALYSIS_INDEX.md - Has this been analyzed?
-2. Read FIRST_PRINCIPLES.md - Pre-flight checklist
-3. Review STATE_OF_KNOWLEDGE.md - Current understanding
+2. Read METHODOLOGY.md - Pre-flight checklist
+3. Review KNOWLEDGE.md - Current understanding
 
 ### During Analysis
 
@@ -809,10 +809,10 @@ Implements three audit functions from quantitative corpus linguistics:
 ### After Analysis
 
 1. Update ANALYSIS_INDEX.md
-2. Add discoveries to FINDINGS_LOG.md
-3. If HIGH+ confidence, update CONFIRMED_READINGS.md
+2. Add discoveries to CHANGELOG.md
+3. If HIGH+ confidence, update KNOWLEDGE.md
 4. If methodology refined, update ENGINEERING_PRACTICES.md
-5. If major finding, update STATE_OF_KNOWLEDGE.md
+5. If major finding, update KNOWLEDGE.md
 
 ---
 
@@ -1017,13 +1017,129 @@ Four new tools for strategic depth — transitioning from evidence accumulation 
 
 ---
 
+## Governance & Utility Tools
+
+Supporting tools for data management, release governance, and linguistic utilities.
+
+### Data Management
+
+#### validate_corpus.py
+
+**Purpose**: Validate Linear A corpus data integrity
+
+**Flags**: `--verbose`, `--quiet`, `--report FILE` (default: `data/validation_report.json`), `--report-only`
+
+---
+
+#### update_index.py
+
+**Purpose**: Auto-update ANALYSIS_INDEX.md from analysis files
+
+**Flags**: `--write` (default: preview only), `--json`, `--verbose`
+
+---
+
+#### compare_results.py
+
+**Purpose**: Compare hypothesis/batch results before and after a fix
+
+**Flags**: `--hypo-pre FILE`, `--hypo-post FILE`, `--batch-pre FILE`, `--batch-post FILE`
+
+---
+
+#### enrich_chronology.py
+
+**Purpose**: Enrich Linear A corpus with inferred chronology data
+
+**Flags**: `--dry-run`, `--verbose`, `--output FILE` (default: `data/corpus.json`), `--report FILE`
+
+---
+
+### Governance
+
+#### master_state_guard.py
+
+**Purpose**: Validate canonical-state governance (ensures MASTER_STATE.md is well-formed)
+
+**Flags**: `--strict` (fail on warnings as errors)
+
+---
+
+#### refresh_master_state.py
+
+**Purpose**: Refresh metrics in MASTER_STATE.md from live data sources
+
+**Flags**: `--write` (write updates to disk), `--check` (exit non-zero if out of date)
+
+---
+
+#### release_gate.py
+
+**Purpose**: Run strict release gate checks before tagging a version
+
+**Flags**: `--tag TAG` (e.g., `v0.4.1`)
+
+---
+
+#### release_audit.py
+
+**Purpose**: Audit local tags vs GitHub releases for consistency
+
+**Flags**: `--strict-network` (fail if GitHub release API is unavailable)
+
+---
+
+#### git_manager.py
+
+**Purpose**: Git workflow helper for Linear A Decipherer
+
+**Subcommands**: `status`, `pre-commit`, `summary`, `sync`, `release`
+
+---
+
+### Linguistic Utilities
+
+#### phoneme_reconstructor.py
+
+**Purpose**: Reconstruct Linear A phoneme inventory
+
+**Flags**: `--all`, `--vowel-matrix`, `--consonant-clusters`, `--cvc-signs`, `--output FILE`, `--verbose`
+
+---
+
+#### regional_weighting.py
+
+**Purpose**: Calculate regional weights for Linear A readings
+
+**Flags**: `--word WORD`, `--all`, `--min-freq N` (default: 3), `--site-stats`, `--output FILE`, `--verbose`
+
+---
+
+#### statistical_analysis.py
+
+**Purpose**: Statistical analysis of Linear A corpus (chronology, regional, register, positions, entropy)
+
+**Subcommands**: `chronology`, `regional`, `register`, `positions`, `entropy`, `summary` (default)
+
+**Flags**: `--sites SITES`, `--compare PERIOD1 PERIOD2`, `--output FILE`, `--verbose`
+
+---
+
+#### temporal_evolution_tracker.py
+
+**Purpose**: Analyze Linear A across archaeological periods
+
+**Flags**: `--all`, `--period PERIOD` (e.g., LMIB, MMIII), `--vocabulary`, `--structure`, `--output FILE`
+
+---
+
 ## Related Documents
 
-- [FIRST_PRINCIPLES.md](FIRST_PRINCIPLES.md) - Methodology
-- [SKILL.md](SKILL.md) - Operational procedures
+- [METHODOLOGY.md](METHODOLOGY.md) - First principles and methodology
+- [MASTER_STATE.md](MASTER_STATE.md) - Current operational state
 - [ANALYSIS_INDEX.md](ANALYSIS_INDEX.md) - What's been done
 - [ENGINEERING_PRACTICES.md](ENGINEERING_PRACTICES.md) - Tool-specific lessons
 
 ---
 
-*Guide maintained as part of the Linear A Decipherment Project knowledge management system. 59 tools as of v0.11.0.*
+*Guide maintained as part of the Linear A Decipherment Project knowledge management system. 60 tools as of v0.11.0.*

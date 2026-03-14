@@ -521,18 +521,16 @@ class StatisticalAnalyzer:
             print("\n[CHRONOLOGY]")
             chr = self.results["chronology"]
             for comp in chr["comparisons"][:3]:
-                print(
-                    f"  {comp['period1']} vs {comp['period2']}: Jaccard={comp['jaccard_similarity']:.3f}"
-                )
+                jacc = comp["jaccard_similarity"]
+                print(f"  {comp['period1']} vs {comp['period2']}: Jaccard={jacc:.3f}")
 
         # Regional
         if "regional" in self.results:
             print("\n[REGIONAL]")
             reg = self.results["regional"]
             for comp in reg["comparisons"][:3]:
-                print(
-                    f"  {comp['site1']} vs {comp['site2']}: Jaccard={comp['jaccard_similarity']:.3f}"
-                )
+                jacc = comp["jaccard_similarity"]
+                print(f"  {comp['site1']} vs {comp['site2']}: Jaccard={jacc:.3f}")
 
             if reg.get("site_specific_words"):
                 print("\n  Site-specific words:")
@@ -561,12 +559,12 @@ class StatisticalAnalyzer:
         if "entropy" in self.results:
             print("\n[ENTROPY]")
             ent = self.results["entropy"]
-            print(
-                f"  Sign distribution entropy: {ent['sign_frequency_entropy']:.3f} / {ent['max_sign_entropy']:.3f}"
-            )
-            print(
-                f"  Word distribution entropy: {ent['word_frequency_entropy']:.3f} / {ent['max_word_entropy']:.3f}"
-            )
+            s_ent = ent["sign_frequency_entropy"]
+            s_max = ent["max_sign_entropy"]
+            print(f"  Sign distribution entropy: {s_ent:.3f} / {s_max:.3f}")
+            w_ent = ent["word_frequency_entropy"]
+            w_max = ent["max_word_entropy"]
+            print(f"  Word distribution entropy: {w_ent:.3f} / {w_max:.3f}")
 
         print("\n" + "=" * 60)
 

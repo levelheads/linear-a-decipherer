@@ -144,6 +144,9 @@ def evaluate_lane(
             allow_failure = bool(command_spec.get("allow_failure", False))
             rel_cwd = str(command_spec.get("cwd", "")).strip()
             command_cwd = (PROJECT_ROOT / rel_cwd).resolve() if rel_cwd else PROJECT_ROOT
+            if rel_cwd and not str(command_cwd).startswith(str(PROJECT_ROOT)):
+                print(f"Error: cwd escapes project root: {rel_cwd}", file=sys.stderr)
+                continue
         else:
             continue
 
@@ -184,6 +187,11 @@ def evaluate_lane(
         if not rel:
             continue
         artifact_path = (PROJECT_ROOT / rel).resolve()
+        if not str(artifact_path).startswith(str(PROJECT_ROOT)):
+            artifact_checks.append(
+                {"path": rel, "exists": False, "error": "path escapes project root"}
+            )
+            continue
         artifact_checks.append(
             {
                 "path": rel,
@@ -329,6 +337,9 @@ def main() -> int:
         if args.output
         else (PROJECT_ROOT / "data" / "lane_handoffs" / f"{args.execution_date}.json").resolve()
     )
+    if not str(output_path).startswith(str(PROJECT_ROOT)):
+        print("Error: output path must be within project root", file=sys.stderr)
+        return 1
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
     report = {

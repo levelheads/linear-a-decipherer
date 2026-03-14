@@ -62,7 +62,7 @@ If any other file conflicts with this one, this file wins.
 | Vowel paradigms discovered | 40 (18 with 3+ members) | `data/discovered_paradigms.json` |
 | -SI positional finding | 70.1% header, 3.2% recipient (NOT dative) | `analysis/completed/thematic/case_system_extraction.md` |
 | Luwian onomastic score | 47.8% KH words decompose under Luwian rules | `analysis/completed/thematic/luwian_onomastic_test.md` |
-| Tool count (Python scripts) | 59 | `tools/*.py` |
+| Tool count (Python scripts) | 60 | `tools/*.py` |
 | Current release version | v0.11.0 | `CITATION.cff`, local tags |
 
 ---
@@ -290,7 +290,7 @@ No reading may be promoted without a complete evidence packet.
 
 | Check | Status | Evidence |
 |-------|--------|----------|
-| Local tags align with CITATION version lineage | PASS | tags `v0.2.0`, `v0.3.0`, `v0.4.0`, `v0.4.1`, `v0.5.0`, `v0.6.0`, `v0.6.1`, `v0.7.0` |
+| Local tags align with CITATION version lineage | PASS | tags `v0.2.0`, `v0.3.0`, `v0.4.0`, `v0.4.1`, `v0.5.0`, `v0.6.0`, `v0.6.1`, `v0.7.0`, `v0.8.0`, `v0.9.0`, `v0.10.0`, `v0.11.0` |
 | CITATION version/date present | PASS | `CITATION.cff` |
 | Validator commands in CI use execution flags | TARGETED | `.github/workflows/validate.yml` |
 | Canonical-state guard enabled in CI | TARGETED | `.github/workflows/validate.yml` |
@@ -300,7 +300,7 @@ No reading may be promoted without a complete evidence packet.
 
 ## Online Release Audit
 
-Latest local check date: 2026-02-13
+Latest local check date: 2026-03-14
 Status: GitHub API not reachable from local environment during planning run.
 
 When network is available:

@@ -436,7 +436,10 @@ class MorphologicalPredictor:
             print("\n  Top confirmed predictions:")
             for p in confirmed[:10]:
                 print(
-                    f"    {p.base_word:20s} → {p.predicted_form:20s} (freq={p.corpus_frequency}, {p.prediction_type})"
+                    f"    {p.base_word:20s} → "
+                    f"{p.predicted_form:20s} "
+                    f"(freq={p.corpus_frequency}, "
+                    f"{p.prediction_type})"
                 )
 
     def hunt_infixes(self):
@@ -634,8 +637,13 @@ class MorphologicalPredictor:
                 "finding": f"Morphological model generates {total_pred} predictions with "
                 f"{hits} corpus hits ({hit_rate:.1f}% hit rate).",
                 "confidence": "PROBABLE" if hit_rate > 30 else "POSSIBLE",
-                "evidence": f"Suffix swap + prefix/suffix application across {len(self.decompositions)} words",
-                "falsification": "Would be disproven if random suffix assignment achieves similar hit rate",
+                "evidence": (
+                    f"Suffix swap + prefix/suffix application "
+                    f"across {len(self.decompositions)} words"
+                ),
+                "falsification": (
+                    "Would be disproven if random suffix assignment achieves similar hit rate"
+                ),
             }
         )
 
@@ -645,11 +653,18 @@ class MorphologicalPredictor:
             findings.append(
                 {
                     "category": "INFIXATION",
-                    "finding": f"{len(new_infixes)} new potential infixes discovered beyond known -RU-: "
-                    f"{', '.join(i['infix'] for i in new_infixes[:5])}",
+                    "finding": (
+                        f"{len(new_infixes)} new potential infixes "
+                        f"discovered beyond known -RU-: "
+                        f"{', '.join(i['infix'] for i in new_infixes[:5])}"
+                    ),
                     "confidence": "POSSIBLE",
-                    "evidence": "Systematic corpus search for word pairs differing by internal syllable",
-                    "falsification": "Would be disproven if pairs are independent lexemes, not inflected forms",
+                    "evidence": (
+                        "Systematic corpus search for word pairs differing by internal syllable"
+                    ),
+                    "falsification": (
+                        "Would be disproven if pairs are independent lexemes, not inflected forms"
+                    ),
                 }
             )
 
@@ -660,11 +675,19 @@ class MorphologicalPredictor:
         findings.append(
             {
                 "category": "TYPOLOGICAL_CLASSIFICATION",
-                "finding": f"Best typological match: {best} (languages: {', '.join(best_langs[:3])}). "
-                f"Minoan morphology is predominantly suffixing with limited infixation.",
+                "finding": (
+                    f"Best typological match: {best} "
+                    f"(languages: {', '.join(best_langs[:3])}). "
+                    f"Minoan morphology is predominantly "
+                    f"suffixing with limited infixation."
+                ),
                 "confidence": "PROBABLE",
-                "evidence": "Morphological feature vector comparison against 6 typological profiles",
-                "falsification": "Would be disproven if prefix analysis reveals hidden prefixation patterns",
+                "evidence": (
+                    "Morphological feature vector comparison against 6 typological profiles"
+                ),
+                "falsification": (
+                    "Would be disproven if prefix analysis reveals hidden prefixation patterns"
+                ),
             }
         )
 
@@ -677,11 +700,16 @@ class MorphologicalPredictor:
         findings.append(
             {
                 "category": "DECOMPOSITION",
-                "finding": f"{probable}/{len(self.decompositions)} words decomposed at POSSIBLE+ confidence. "
-                f"Rich suffix system with 24 known suffixes.",
+                "finding": (
+                    f"{probable}/{len(self.decompositions)} words "
+                    f"decomposed at POSSIBLE+ confidence. "
+                    f"Rich suffix system with 24 known suffixes."
+                ),
                 "confidence": "PROBABLE",
-                "evidence": "Paradigm-based and distributional decomposition",
-                "falsification": "Would be disproven if decompositions fail cross-corpus consistency",
+                "evidence": ("Paradigm-based and distributional decomposition"),
+                "falsification": (
+                    "Would be disproven if decompositions fail cross-corpus consistency"
+                ),
             }
         )
 
@@ -690,11 +718,16 @@ class MorphologicalPredictor:
 
     def verify_first_principles(self):
         self.results["first_principles_verification"] = {
-            "P1_KOBER": "PASS — Morphological model built from distributional patterns, not language assumptions",
+            "P1_KOBER": (
+                "PASS — Morphological model built from "
+                "distributional patterns, not language assumptions"
+            ),
             "P2_VENTRIS": "PASS — Predictions tested against corpus; wrong predictions documented",
             "P3_ANCHORS": "PASS — Known paradigms (K-R) used as calibration",
             "P4_MULTI_HYP": "PASS — Typological profile tested against multiple language types",
-            "P5_NEGATIVE": "PASS — Absence of prefixation noted as evidence against prefixing languages",
+            "P5_NEGATIVE": (
+                "PASS — Absence of prefixation noted as evidence against prefixing languages"
+            ),
             "P6_CORPUS": "PASS — Predictions validated against full corpus",
         }
 

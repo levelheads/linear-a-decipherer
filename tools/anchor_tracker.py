@@ -33,7 +33,8 @@ New Features (2026-02):
     --auto-cascade: Automatically propagate confidence changes when an anchor
                     is questioned/demoted/rejected. Updates all dependent readings.
     --alert-threshold LEVEL: Output warnings when readings drop below specified
-                             confidence level (SPECULATIVE|POSSIBLE|LOW|MEDIUM|PROBABLE|HIGH|CERTAIN)
+                             confidence level
+                             (SPECULATIVE|POSSIBLE|LOW|MEDIUM|PROBABLE|HIGH|CERTAIN)
     --enforce-hierarchy: Ensure all readings respect anchor hierarchy constraints
                          (Levels 1-6 per METHODOLOGY.md Part 2)
 
@@ -691,7 +692,14 @@ class AnchorTracker:
                         "reading": reading_id,
                         "current": current_conf,
                         "max_allowed": max_conf,
-                        "violation": f"Exceeds max by {self.get_confidence_rank(current_conf) - self.get_confidence_rank(max_conf)} levels",
+                        "violation": (
+                            "Exceeds max by"
+                            f" {
+                                self.get_confidence_rank(current_conf)
+                                - self.get_confidence_rank(max_conf)
+                            }"
+                            " levels"
+                        ),
                     }
                 )
                 is_valid = False

@@ -446,7 +446,8 @@ class GrammaticalPredictor:
     """
     Generate hypothesis-specific predictions for grammatical roles.
 
-    For each of the seven hypotheses (Luwian, Semitic, Pre-Greek, Proto-Greek, Hurrian, Hattic, Etruscan),
+    For each of the seven hypotheses (Luwian, Semitic, Pre-Greek,
+    Proto-Greek, Hurrian, Hattic, Etruscan),
     predicts what morphological markers should appear on words in the [X] slot
     if they belong to specific grammatical roles.
     """
@@ -1094,7 +1095,15 @@ class SlotGrammarAnalyzer:
         self.results["prediction_matrix"] = predictor.get_prediction_matrix()
 
         print("Generated prediction matrix for 7 hypotheses x 7 roles")
-        for hyp in ["luwian", "semitic", "pregreek", "protogreek", "hurrian", "hattic", "etruscan"]:
+        for hyp in [
+            "luwian",
+            "semitic",
+            "pregreek",
+            "protogreek",
+            "hurrian",
+            "hattic",
+            "etruscan",
+        ]:
             markers = predictor.get_all_markers_for_hypothesis(hyp)
             print(f"  {hyp.upper()}: {len(markers)} unique markers")
 
@@ -1181,7 +1190,9 @@ class SlotGrammarAnalyzer:
         print("\nHypothesis Ranking:")
         for i, hyp in enumerate(self.results["hypothesis_ranking"], 1):
             print(
-                f"  {i}. {hyp['hypothesis'].upper()}: {hyp['overall_score']:.4f} (best role: {hyp['best_role']})"
+                f"  {i}. {hyp['hypothesis'].upper()}: "
+                f"{hyp['overall_score']:.4f} "
+                f"(best role: {hyp['best_role']})"
             )
 
         # Find discriminating patterns
@@ -1192,7 +1203,9 @@ class SlotGrammarAnalyzer:
         print(f"\nFound {len(self.results['discriminating_patterns'])} discriminating patterns")
         for dp in self.results["discriminating_patterns"][:5]:
             print(
-                f"  -{dp['suffix']}: favors {dp['favors_hypothesis'].upper()} (disc={dp['discrimination']:.3f})"
+                f"  -{dp['suffix']}: favors "
+                f"{dp['favors_hypothesis'].upper()} "
+                f"(disc={dp['discrimination']:.3f})"
             )
 
         # Best interpretation
@@ -1201,11 +1214,15 @@ class SlotGrammarAnalyzer:
         )
 
         print("\nBest Interpretation:")
+        best_interp = self.results["best_interpretation"]
         print(
-            f"  Hypothesis: {self.results['best_interpretation']['best_hypothesis']} ({self.results['best_interpretation']['hypothesis_confidence']})"
+            f"  Hypothesis: {best_interp['best_hypothesis']} "
+            f"({best_interp['hypothesis_confidence']})"
         )
         print(
-            f"  Grammatical Role: {self.results['best_interpretation']['best_grammatical_role']} ({self.results['best_interpretation']['role_confidence']})"
+            f"  Grammatical Role: "
+            f"{best_interp['best_grammatical_role']} "
+            f"({best_interp['role_confidence']})"
         )
 
         # First Principles verification
@@ -1290,17 +1307,24 @@ class SlotGrammarAnalyzer:
         print("\nTop Discriminating Patterns:")
         for dp in self.results.get("discriminating_patterns", [])[:5]:
             print(
-                f"  -{dp['suffix']}: {dp['favors_hypothesis'].upper()} ({dp['word_count']} words, disc={dp['discrimination']:.3f})"
+                f"  -{dp['suffix']}: "
+                f"{dp['favors_hypothesis'].upper()} "
+                f"({dp['word_count']} words, "
+                f"disc={dp['discrimination']:.3f})"
             )
 
         # Best interpretation
         interp = self.results.get("best_interpretation", {})
         print("\nBest Interpretation:")
         print(
-            f"  Hypothesis: {interp.get('best_hypothesis', 'Unknown')} ({interp.get('hypothesis_confidence', 'Unknown')})"
+            f"  Hypothesis: "
+            f"{interp.get('best_hypothesis', 'Unknown')} "
+            f"({interp.get('hypothesis_confidence', 'Unknown')})"
         )
         print(
-            f"  Grammatical Role: {interp.get('best_grammatical_role', 'Unknown')} ({interp.get('role_confidence', 'Unknown')})"
+            f"  Grammatical Role: "
+            f"{interp.get('best_grammatical_role', 'Unknown')} "
+            f"({interp.get('role_confidence', 'Unknown')})"
         )
 
         # First Principles
