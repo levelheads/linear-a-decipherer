@@ -59,7 +59,7 @@ jobs:
 
       - name: Generate commodity validation data
         run: |
-          python tools/commodity_validator.py --all --output data/commodity_validation.json
+          python tools/commodity_validator.py --all --output data/commodity_anchors.json
         continue-on-error: false
 
       - name: Generate personal names data
