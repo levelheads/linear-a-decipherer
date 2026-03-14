@@ -47,6 +47,26 @@ jobs:
           python tools/integrated_validator.py --all --output data/integrated_results.json
         continue-on-error: false
 
+      - name: Run batch pipeline
+        run: |
+          python tools/batch_pipeline.py --full
+        continue-on-error: false
+
+      - name: Generate arithmetic verification data
+        run: |
+          python tools/arithmetic_verifier.py --all --output data/arithmetic_verification.json
+        continue-on-error: false
+
+      - name: Generate commodity validation data
+        run: |
+          python tools/commodity_validator.py --all --output data/commodity_validation.json
+        continue-on-error: false
+
+      - name: Generate personal names data
+        run: |
+          python tools/personal_name_analyzer.py --output data/personal_names_comprehensive.json
+        continue-on-error: false
+
       - name: Run master state guard
         run: |
           python tools/master_state_guard.py

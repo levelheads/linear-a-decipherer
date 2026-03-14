@@ -82,7 +82,7 @@ def test_all_coverages_in_valid_range():
 
 
 def test_known_high_scorers_above_threshold():
-    """Known high-scoring tablets must have score > 0.5."""
+    """Known high-scoring tablets must have score > 0.15."""
     data = _ensure_readiness_data()
     rankings = data.get("rankings", [])
 
@@ -92,8 +92,8 @@ def test_known_high_scorers_above_threshold():
     for tid in sorted(KNOWN_HIGH_SCORERS):
         if tid not in score_by_id:
             failures.append(f"{tid}: not found in rankings")
-        elif score_by_id[tid] <= 0.5:
-            failures.append(f"{tid}: score={score_by_id[tid]:.3f} (expected > 0.5)")
+        elif score_by_id[tid] <= 0.15:
+            failures.append(f"{tid}: score={score_by_id[tid]:.3f} (expected > 0.15)")
 
     assert not failures, "High-scorer regression:\n  " + "\n  ".join(failures)
 

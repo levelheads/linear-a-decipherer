@@ -13,6 +13,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 TOOLS_DIR = Path(__file__).resolve().parent.parent / "tools"
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
@@ -135,6 +137,12 @@ def test_cascade_all_anchors_runs():
     )
 
 
+@pytest.mark.skipif(
+    not (
+        Path(__file__).resolve().parent.parent / "data" / "personal_names_comprehensive.json"
+    ).exists(),
+    reason="Requires data/personal_names_comprehensive.json",
+)
 def test_personnel_dossier_top_runs():
     """personnel_dossier_builder.py --top 5 should complete."""
     tool = TOOLS_DIR / "personnel_dossier_builder.py"
@@ -150,6 +158,10 @@ def test_personnel_dossier_top_runs():
     )
 
 
+@pytest.mark.skipif(
+    not (Path(__file__).resolve().parent.parent / "data" / "arithmetic_verification.json").exists(),
+    reason="Requires data/arithmetic_verification.json",
+)
 def test_sign_value_extractor_ratios_runs():
     """sign_value_extractor.py --ratios should complete."""
     tool = TOOLS_DIR / "sign_value_extractor.py"
