@@ -687,19 +687,15 @@ class AnchorTracker:
             max_conf = self.compute_max_confidence(reading_id)
 
             if self.get_confidence_rank(current_conf) > self.get_confidence_rank(max_conf):
+                rank_diff = self.get_confidence_rank(current_conf) - self.get_confidence_rank(
+                    max_conf
+                )
                 confidence_violations.append(
                     {
                         "reading": reading_id,
                         "current": current_conf,
                         "max_allowed": max_conf,
-                        "violation": (
-                            "Exceeds max by"
-                            f" {
-                                self.get_confidence_rank(current_conf)
-                                - self.get_confidence_rank(max_conf)
-                            }"
-                            " levels"
-                        ),
+                        "violation": f"Exceeds max by {rank_diff} levels",
                     }
                 )
                 is_valid = False
