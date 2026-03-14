@@ -27,6 +27,10 @@
 | **Run lane orchestration** | **lane_orchestrator.py** | config/lane_manifest.yaml |
 | **Pre-check dependency trace** | **dependency_trace_resolver.py** | promotion_board_runner.py |
 | **Normalize site names/codes** | **site_normalization.py** | extended_corpus_analyzer.py, regional_analyzer.py |
+| **Find cascade opportunities** | **cascade_opportunity_detector.py** | reading_readiness_scorer.py |
+| **Build personnel dossiers** | **personnel_dossier_builder.py** | onomastic_comparator.py |
+| **Extract sign value constraints** | **sign_value_extractor.py** | arithmetic_verifier.py |
+| **Automate reading workflow** | **reading_pipeline.py** | All evidence-gathering tools |
 
 ---
 
@@ -916,6 +920,103 @@ python tools/batch_pipeline.py --full --site HT --min-freq 5
 
 ---
 
+## Operation VENTRIS Tools (2026-03-14)
+
+Four new tools for strategic depth — transitioning from evidence accumulation to language understanding:
+
+### cascade_opportunity_detector.py
+
+**Purpose**: Detect which tablets become readable when new evidence confirms a word/sign value
+
+**Input**:
+- `--word [WORD]` - Trigger word to test
+- `--confidence [LEVEL]` - Confidence level (HIGH, PROBABLE, POSSIBLE)
+- `--all-anchors` - Test all current anchors
+- `--threshold [FLOAT]` - Minimum readiness delta (default: 0.1)
+- `--output FILE` - Save to JSON
+
+**Output**: Per-tablet readiness deltas, transitive cascade chains, priority queue for next readings
+
+**Key insight**: Answers "if we confirm X, which tablets become readable?" — guides research priorities
+
+---
+
+### personnel_dossier_builder.py
+
+**Purpose**: Build cross-tablet name intelligence for profiled individuals
+
+**Input**:
+- `--all` - Build dossiers for all 111 profiled names
+- `--name [NAME]` - Build dossier for specific name
+- `--top N` - Show top N most-connected names
+- `--cross-tablet` - Focus on names appearing on multiple tablets
+- `--output FILE` - Save to JSON
+
+**Output**: `data/personnel_dossiers.json` — per-name dossier with tablets, roles, commodities, quantities, co-occurring names, sites, admin tier
+
+**Key insight**: Tracks individual "careers" across the archive — reveals administrative hierarchy
+
+---
+
+### sign_value_extractor.py
+
+**Purpose**: Arithmetic-driven sign value discovery from VERIFIED tablets
+
+**Input**:
+- `--all` - Extract from all VERIFIED tablets
+- `--tablet [ID]` - Extract from specific tablet
+- `--sign '*NNN'` - Constrain specific sign (quote the asterisk!)
+- `--ratios` - Show quantity ratio analysis
+- `--output FILE` - Save to JSON
+
+**Output**: `data/sign_value_constraints.json` — arithmetic skeletons with unknown sign value constraints
+
+**Key insight**: Uses arithmetic proof (not linguistic guess) to constrain sign values
+
+---
+
+### reading_pipeline.py
+
+**Purpose**: Automated reading workflow (SELECT → PREPARE → READ → RECORD)
+
+**Input**:
+- `--select` - Generate prioritized, site-balanced reading queue
+- `--prepare [TABLET]` - Generate reading brief for specific tablet
+- `--queue` - Show current reading queue
+- `--top N` - Limit queue to top N tablets
+- `--site-balanced` - Enforce site diversification
+- `--output FILE` - Save to JSON
+
+**Output**: `data/reading_queue.json` — prioritized tablet queue excluding already-read tablets
+
+**Key workflow**: SELECT → PREPARE → [Human analysis] → RECORD
+
+---
+
+### "I want to read a new tablet"
+
+**Example**: Systematic tablet reading from selection to recording
+
+**Steps**:
+1. **Select best candidates**
+   ```bash
+   python3 tools/reading_pipeline.py --select --top 20 --site-balanced
+   ```
+
+2. **Prepare reading brief**
+   ```bash
+   python3 tools/reading_pipeline.py --prepare TABLET_ID
+   ```
+
+3. **[Human analysis using the reading brief]**
+
+4. **Check cascade opportunities from new findings**
+   ```bash
+   python3 tools/cascade_opportunity_detector.py --word NEW_WORD --confidence LEVEL
+   ```
+
+---
+
 ## Related Documents
 
 - [FIRST_PRINCIPLES.md](FIRST_PRINCIPLES.md) - Methodology
@@ -925,4 +1026,4 @@ python tools/batch_pipeline.py --full --site HT --min-freq 5
 
 ---
 
-*Guide maintained as part of the Linear A Decipherment Project knowledge management system. 55 tools as of v0.7.0.*
+*Guide maintained as part of the Linear A Decipherment Project knowledge management system. 59 tools as of v0.11.0.*

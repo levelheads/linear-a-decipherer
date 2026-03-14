@@ -5,7 +5,7 @@
 
 **Essential lookup tables and project status for Linear A research**
 
-**Last Updated**: 2026-02-22
+**Last Updated**: 2026-03-14
 
 > **Refresh policy**: KNOWLEDGE.md updates when readings, hypotheses, or reference tables change.
 > MASTER_STATE.md updates for any operational metric or status change (and is canonical when they diverge).
@@ -19,16 +19,22 @@
 | Corpus Processed | 1,721 inscriptions (100%) |
 | Detailed Analyses | **1,698/1,721 inscriptions (98.66% coverage)** |
 | Words Tested | **160 words** (freq >= 2, 100% compliant) |
-| Connected Readings | **35 tablets** across **9 sites** |
+| Connected Readings | **55 tablets + 14 thematic** across **9 sites** |
 | KU-RO Totals Verified | 10/34 VERIFIED + 4 CONSTRAINED + 4 STRUCTURAL + 5 NEAR-MATCH |
 | KU-RO Mismatches Investigated | 18/18 (all diagnosed) |
 | Commodity Functional Anchors | 7 strong anchors + 7 candidates via commodity_validator.py |
 | Cross-Tablet Name Links | 13 confirmed |
-| Personal Names | 127 identified |
-| Best-Fit Model | **Undetermined substrate** with contact features (Luwian morphological influence + Semitic admin loans) |
+| Personal Names | 111 profiled (46 theophoric) |
+| Best-Fit Model | **Isolate substrate** + Luwian morphology (0.316) + Semitic admin loans (0.130) |
 | Domain Layering | **CONFIRMED**: Religious=Luwian morphology, Admin=Semitic vocabulary |
-| Khania Zero-K-R | **CONFIRMED** (p=0.004, n=226 inscriptions) |
-| Active Operation | **Operation MINOS III — v0.9.0** |
+| Khania Zero-K-R | **CONFIRMED** (structural: transaction-level accounting, p<0.0001) |
+| Libation Formula | **POSSIBLE** (upgraded from SPECULATIVE via SYZa2 OLE proof) |
+| Grammar Sketch | **First formal sketch**: case system + verbal paradigm |
+| -SI Function | **Verbal/agentive** (70.1% header, NOT dative) |
+| Vowel Paradigms | 40 discovered (18 with 3+ members) |
+| Luwian Onomastics | 47.8% KH words decompose under Luwian rules |
+| Tool Count | **59** Python analysis tools |
+| Active Operation | **Operation VENTRIS — v0.11.0-dev** |
 
 **See**: `CHANGELOG.md` for full discovery chronology
 
@@ -620,6 +626,46 @@ do, ji, jo, mo, no, pe, kwo, kwu, so, we, wo, wu, ze, zi, zo
 - **-WA**: Medial dominant (42 occ) — clitic particle
 
 **Our Position**: VSO now **PROBABLE** based on systematic analysis. Religious texts show clear verb-initial pattern; administrative texts show suffix-heavy morphology consistent with Luwian influence.
+
+### Suffix Positional Functions (2026-03-14 Case System Extraction)
+
+| Suffix | Primary Position | % Header | % Recipient | Proposed Function | Confidence |
+|--------|-----------------|----------|-------------|-------------------|------------|
+| -SI | Header | 70.1% | 3.2% | **Verbal/agentive** (NOT dative) | PROBABLE |
+| -RA₂ | Recipient | 35.7% | 40.5% | **Allocation marker** | PROBABLE |
+| -JA | Header | 49.3% | 4.0% | Adjectival/ethnic | MEDIUM |
+| -TE | Header | 44.7% | 9.6% | Ablative/source? | POSSIBLE |
+| -ME | Mixed | 24.1% | 10.3% | Nominal/divine | PROBABLE |
+| -TI | Mixed | 27.9% | 3.3% | Verbal variant (Form B) | POSSIBLE |
+| -NE | Mixed | — | — | Luwian nominal -ni | POSSIBLE |
+| -ZA | Mixed | — | — | Luwian ablative -za | POSSIBLE |
+
+**Source**: `analysis/completed/thematic/case_system_extraction.md`
+
+### Verbal Paradigm (2026-03-14)
+
+| Verb form | Morphology | Attestations | Meaning | Confidence |
+|-----------|-----------|-------------|---------|------------|
+| U-NA-KA-NA-SI | U-NA- + KA-NA + -SI | 4+ | offers/provides (oil) | POSSIBLE |
+| U-NA-KA-NA | U-NA- + KA-NA | 1 (TLZa1) | base form | POSSIBLE |
+| SE-KA-NA-SI | SE- + KA-NA + -SI | 1 (SYZa3) | prefix variant | POSSIBLE |
+| DA-RE | root | 7 | transaction verb | PROBABLE |
+| U-MI-NA-SI | U- + MI-NA + -SI | 2 | owes/is obligated | POSSIBLE |
+
+**Source**: `analysis/completed/thematic/formal_grammar_sketch.md`
+
+### Productive Vowel Paradigms (2026-03-14)
+
+| Root | Members | Total Freq | Template Test | Status |
+|------|---------|-----------|---------------|--------|
+| K-R | KU-RO, KI-RO +7 | 64 | REFERENCE | CONFIRMED |
+| S-R | SA-RA₂, SI-RU +7 | 38 | POSSIBLE (SA-/SI- polarity) | POSSIBLE |
+| Ø-D | A-DU, I-DA +5 | 20 | POSSIBLE (A-/I- polarity) | POSSIBLE |
+| D-R | DA-RE +3 | 10 | INCONCLUSIVE | SPECULATIVE |
+| Ø-R | I-RA₂, A-RA +3 | 17 | NO (reversed frequencies) | NEGATIVE |
+| K-P | KA-PA, KU-PA +2 | 12 | UNTESTABLE (no KI- form) | SPECULATIVE |
+
+**Source**: `analysis/completed/thematic/vowel_alternation_atlas.md`
 
 ---
 

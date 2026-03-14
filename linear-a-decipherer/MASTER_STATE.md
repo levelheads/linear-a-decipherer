@@ -2,7 +2,7 @@
 
 **Canonical operational source of truth for active status, metrics, campaigns, and release readiness.**
 
-**Last Updated**: 2026-02-28
+**Last Updated**: 2026-03-14
 **Scope**: Current state only (not full historical narrative)
 **Historical log**: `linear-a-decipherer/CHANGELOG.md`
 
@@ -49,16 +49,21 @@ If any other file conflicts with this one, this file wins.
 | Commodity functional anchors | 7 strong + 7 candidates | `data/commodity_anchors.json` |
 | KU-RO arithmetic verified | 7/34 VERIFIED + 4 CONSTRAINED + 4 STRUCTURAL + 5 NEAR-MATCH | `data/arithmetic_verification.json` + mismatch_investigation.md |
 | KU-RO mismatches investigated | 18/18 (all diagnosed) | `analysis/completed/thematic/mismatch_investigation.md` |
-| Reading attempts completed | 55 tablets + 7 thematic | `analysis/completed/inscriptions/*_READING.md` |
+| Reading attempts completed | 55 tablets + 14 thematic | `analysis/completed/inscriptions/*_READING.md` |
 | Cross-site readings | 30 (ZA×7, PEZ, IO, PH×6, SAMW, PK, KH×12, SY) | `analysis/completed/inscriptions/` |
 | Sites with readings | 9 (HT, ZA, PEZ, IO, PH, SAMW, PK, KH, SY) | `analysis/completed/inscriptions/` |
 | Cross-tablet name links | 13 confirmed | `analysis/completed/thematic/cross_tablet_network.md` |
 | KU-RO scope typology | 3 types (grand, per-commodity, section) | `analysis/completed/thematic/mismatch_investigation.md` |
 | PO-TO-KU-RO verified | 97 = 31+65+1 (HT122a+b) | First cross-tablet grand total |
-| KH zero-K-R confirmed | p=0.004, n=226 | `analysis/completed/thematic/khania_expansion.md` |
+| KH zero-K-R confirmed | p<0.0001 (accounting philosophy test) | `analysis/completed/thematic/kh_vs_ht_accounting_philosophy.md` |
 | Domain layering confirmed | Religious=Luwian, Admin=Semitic | `analysis/completed/thematic/linguistic_deep_analysis.md` |
-| Tool count (Python scripts) | 55 | `tools/*.py` |
-| Current release version | v0.10.0 | `CITATION.cff`, local tags |
+| Libation formula confidence | POSSIBLE (upgraded from SPECULATIVE) | `analysis/completed/thematic/phase2_sentence_breakthrough.md` |
+| Grammar features | Case system + verbal paradigm + formal sketch | `analysis/completed/thematic/formal_grammar_sketch.md` |
+| Vowel paradigms discovered | 40 (18 with 3+ members) | `data/discovered_paradigms.json` |
+| -SI positional finding | 70.1% header, 3.2% recipient (NOT dative) | `analysis/completed/thematic/case_system_extraction.md` |
+| Luwian onomastic score | 47.8% KH words decompose under Luwian rules | `analysis/completed/thematic/luwian_onomastic_test.md` |
+| Tool count (Python scripts) | 59 | `tools/*.py` |
+| Current release version | v0.11.0 | `CITATION.cff`, local tags |
 
 ---
 
@@ -84,6 +89,10 @@ If any other file conflicts with this one, this file wins.
 | Reading readiness | `python tools/reading_readiness_scorer.py --all --output data/reading_readiness.json` | `data/reading_readiness.json` |
 | Arithmetic verification | `python tools/arithmetic_verifier.py --all --output data/arithmetic_verification.json` | `data/arithmetic_verification.json` |
 | Commodity validation | `python tools/commodity_validator.py --all --output data/commodity_anchors.json` | `data/commodity_anchors.json` |
+| Cascade opportunities | `python3 tools/cascade_opportunity_detector.py --word X --confidence HIGH` | (stdout / --output) |
+| Personnel dossiers | `python3 tools/personnel_dossier_builder.py --all --output data/personnel_dossiers.json` | `data/personnel_dossiers.json` |
+| Sign value constraints | `python3 tools/sign_value_extractor.py --all --output data/sign_value_constraints.json` | `data/sign_value_constraints.json` |
+| Reading pipeline queue | `python3 tools/reading_pipeline.py --select --top 20 --output data/reading_queue.json` | `data/reading_queue.json` |
 
 ---
 

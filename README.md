@@ -11,9 +11,13 @@ A rigorous methodology system for analyzing undeciphered Minoan Bronze Age inscr
 
 ---
 
-## Research Status (February 2026)
+## Research Status (March 2026)
 
-> **v0.7.0 (2026-02-17)**: First connected tablet readings produced. **3 tablets read** (HT 85a, HT 117a, HT 9b) with arithmetic-verified KU-RO totals. **Libation formula complete alignment** across 34 inscriptions at 14 sites. **6 commodity functional anchors** validated. 55 analysis tools. 7 linguistic hypotheses tested; **5 ELIMINATED**. Only **Luwian** (STRONG, 35.0%) and **Semitic** (MODERATE, 17.5%) survive.
+> **v0.11.0 (2026-03-14)**: Operation VENTRIS — strategic pivot from breadth to depth.
+> **59 tools**, **55 tablet readings + 14 thematic analyses** across 9 sites.
+> First formal grammar sketch. Libation formula upgraded to POSSIBLE.
+> -SI reinterpreted as verbal/agentive (NOT dative). 47.8% KH names decompose
+> under Luwian rules. KH vs HT accounting philosophy confirmed (p<0.0001).
 
 **Best-fit model**: Linear A records a **contact language** with three distinct layers, building on proposals by Gordon (1966), Palmer (1958), and Beekes (2014):
 
@@ -80,7 +84,7 @@ See [METHODOLOGY.md](linear-a-decipherer/METHODOLOGY.md) for pre-flight checklis
 
 ### Hypothesis Discrimination Results
 
-#### Current Results (`batch_pipeline.py`, 160 words, freq ≥ 2 — v0.6.0, 2026-02-16)
+#### Current Results (`batch_pipeline.py`, 160 words, freq ≥ 2 — v0.10.0, 2026-02-28)
 
 | Hypothesis | Support | Batch Score | Status | Key Proponents |
 |------------|---------|-------------|--------|----------------|
@@ -117,6 +121,12 @@ Building on prior scholarship with systematic corpus validation:
 - **127 personal names identified**: 22% Semitic, 20% Pre-Greek, 17% Luwian; DA-MA-TE and A-TA-NA suggest Minoan origins for Demeter/Athena worship
 - **Libation formula inflectional paradigm**: The formula actively inflects — coordinated suffix changes across all 5 positions simultaneously (extends Finkelberg 1990, Davis 2014, Thomas 2020). Novel: SE-KA-NA-SI prefix substitution proves KA-NA is minimal root; KA-NA bridges religious and admin registers; U-...-SI cross-register template
 - **K-R paradigm**: 9 forms mapped (64 total occurrences) with vowel alternation system (extends Gordon's 1966 ku-ro proposal)
+- **First formal grammar sketch** with predictive power — suffixing agglutinative language with case system via function words (admin) and suffixes (religious); verbal paradigm [PREFIX]-ROOT-[SUFFIX]; 6/6 predictions confirmed
+- **Libation formula sentence reading** at POSSIBLE confidence — OLE determinative on SYZa2 proves verb relates to oil offering; KA-NA root confirmed by prefix substitution
+- **-SI = verbal/agentive marker** — 70.1% header position, 3.2% recipient; NOT dative as previously suggested (Davis 2014 reframed)
+- **KH vs HT accounting philosophy** — transaction-level (KH) vs balance-sheet (HT) accounting; explains zero-KU-RO structurally, not linguistically (p<0.0001)
+- **Luwian onomastic decomposition** — 47.8% of KH multi-syllable words decompose under Luwian morphological rules; WI-SA-SA-NE = triple marker
+- **40 vowel paradigms discovered** — 18 with 3+ members; K-R template (U/I polarity) tested on S-R and Ø-D paradigms
 
 ---
 
@@ -151,7 +161,7 @@ linear-a-decipherer/
 │   ├── completed/            # Finished inscription/thematic analyses
 │   └── archive/              # Historical phase analyses
 │
-├── tools/                    # 55 Python analysis scripts
+├── tools/                    # 59 Python analysis scripts
 ├── external/lineara/         # Corpus data (git submodule)
 ├── data/                     # Generated JSON files
 └── templates/                # Document templates
@@ -193,7 +203,7 @@ python3 tools/parse_lineara_corpus.py
 
 ## Analysis Tools
 
-The project includes 55 Python analysis scripts organized by function (stdlib-only, no external dependencies):
+The project includes 59 Python analysis scripts organized by function (stdlib-only, no external dependencies):
 
 ### Core Analysis
 
@@ -227,6 +237,8 @@ The project includes 55 Python analysis scripts organized by function (stdlib-on
 | `arithmetic_verifier.py` | KU-RO mismatch diagnosis, Rosetta skeletons |
 | `commodity_validator.py` | Co-occurrence → functional anchor promotion |
 | `reading_readiness_scorer.py` | Tablet readability ranking |
+| `cascade_opportunity_detector.py` | Cascade readability impact from new evidence |
+| `sign_value_extractor.py` | Arithmetic-driven sign value constraints |
 | `phase_validator.py` | Detect contradictions between phases |
 
 ### External Database Connectors
@@ -248,6 +260,8 @@ The project includes 55 Python analysis scripts organized by function (stdlib-on
 | `dependency_trace_resolver.py` | Pre-check and optional auto-resolution for dependency-trace promotion gaps |
 | `word_filter_contract.py` | Shared lexical eligibility/normalization contract for hypothesis pipelines |
 | `site_normalization.py` | Shared site code/full-name normalization contract for corpus and regional tools |
+| `personnel_dossier_builder.py` | Cross-tablet name intelligence and career tracking |
+| `reading_pipeline.py` | Automated reading workflow (SELECT → PREPARE → READ → RECORD) |
 
 ### Usage Examples
 
@@ -311,7 +325,10 @@ This project integrates the [lineara.xyz](https://lineara.xyz) corpus as a git s
 | **Feb 16, 2026** | v0.6.0: Compliance breakthrough (10% → 100%), 6 new analyses, 2 promotions, 2 anchors |
 | **Feb 16, 2026** | v0.6.1: Libation formula inflectional paradigm; prior art attribution (Finkelberg 1990, Davis 2014, Thomas 2020) |
 | **Feb 17, 2026** | v0.7.0: First connected readings (3 tablets + libation formula); 6 commodity anchors; 55 tools; ~30 stale files archived |
-| **Ongoing** | Strategic Plan: Expand reading attempts, paradigm completion |
+| **Feb 21, 2026** | v0.8.0: Connected readings expansion — 12 tablets, HT deep-dive, cross-tablet network analysis |
+| **Feb 22, 2026** | v0.9.0: Operation MINOS III — 30 tablets across 9 sites, first cross-site readings (PEZ, IO, PH, SAMW, PK, KH, SY) |
+| **Feb 28, 2026** | v0.10.0: Operation MINOS IV — Khania deep-dive (8 KH tablets), 55 total readings, CYP grading system |
+| **Mar 14, 2026** | v0.11.0: Operation VENTRIS — formal grammar sketch, sentence reading at POSSIBLE, 4 new tools, 7 thematic analyses |
 
 ### OPERATION MINOS III + BREAKTHROUGH Key Findings (Feb 2026)
 
@@ -411,7 +428,8 @@ This project builds on decades of scholarly work on Linear A. Key contributions 
 - Systematic multi-hypothesis testing framework with tool-validated percentages
 - Anchor hierarchy formalization for confidence calibration
 - Regional administration systematization (HT vs KH parallel systems)
-- 55 Python analysis tools for corpus-wide verification (stdlib-only)
+- 59 Python analysis tools for corpus-wide verification (stdlib-only)
+- 4 process-automation tools (cascade detector, personnel dossier, sign extractor, reading pipeline)
 
 **Novel interpretations**:
 - **\*118 = Word-final consonant** — proves Linear A had closed syllables (CVC), explaining why Greeks dropped 123 signs
@@ -423,6 +441,10 @@ This project builds on decades of scholarly work on Linear A. Key contributions 
 - First connected tablet readings with arithmetic proof (HT 85a, HT 117a, HT 9b)
 - 6 commodity functional anchors validated (100% specificity each)
 - Libation formula complete alignment across 34 inscriptions at 14 sites
+- **First formal grammar sketch for Minoan** — case system + verbal paradigm, 6/6 predictions confirmed
+- **First POSSIBLE-confidence sentence reading** — libation formula via SYZa2 OLE-determinative proof
+- **-SI function reinterpretation** — verbal/agentive marker (70.1% header), not dative
+- **KH vs HT accounting philosophy** — structural explanation for zero-KU-RO (p<0.0001)
 
 ---
 

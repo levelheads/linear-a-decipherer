@@ -49,25 +49,29 @@ All workstreams must follow:
 
 Mission accomplished: 5/7 hypotheses ELIMINATED. Focus on Luwian (STRONG 35.0%) and Semitic (MODERATE 17.5%) only. Further refinement of Bayesian posteriors and falsification thresholds produces diminishing returns. Lane D reduced to maintenance — re-run validators only when new evidence surfaces.
 
-### Lane G: Reading Attempts — NEW (2026-02-17)
+### Lane G: Reading Attempts — ACTIVE (2026-03-14)
 
 **Mission**: Produce connected readings of specific tablets using all accumulated evidence.
 
 **Rationale**: The project has answered the language question as well as it can without a breakthrough: isolate substrate with Luwian morphological influence and Semitic administrative loans. The strategic pivot moves from "which language is it?" to "what do these texts say?"
 
-**Workflow**:
-1. Select tablets with highest density of anchored/identified words
-2. List every word on the tablet with known values
-3. Mark positional identifications from admin_isomorphism (46 identifications)
-4. Mark paradigm memberships from morphological_predictor
-5. Apply arithmetic verification where possible
-6. Attempt connected reading (even with 50%+ unknown)
-7. Identify which unknown words are most constrained by context → next analysis targets
+**Current status (v0.11.0)**: 55 tablet readings + 14 thematic analyses completed across 9 sites (HT, ZA, PEZ, IO, PH, SAMW, PK, KH, SY). First formal grammar sketch produced. Libation formula upgraded to POSSIBLE.
+
+**Automated workflow** (4 new VENTRIS tools):
+1. `reading_pipeline.py --select --top 20 --site-balanced` — SELECT candidates
+2. `reading_pipeline.py --prepare TABLET_ID` — PREPARE reading brief
+3. [Human analysis using the reading brief] — READ
+4. `cascade_opportunity_detector.py --word NEW_WORD --confidence LEVEL` — RECORD + cascade
+
+**Supporting tools**:
+- `personnel_dossier_builder.py` — Cross-tablet name tracking (111 profiled names)
+- `sign_value_extractor.py` — Arithmetic-driven sign value constraints from VERIFIED tablets
 
 **Priority targets**:
-- KU-RO tablets (39 occurrences) — arithmetic verification possible
-- Libation formula texts (11 occurrences across 5 sites) — best candidate for complete reading
-- Commodity co-occurrence exploitation (43 POSSIBLE-confidence identifications)
+- Tier 3 HT readings (remaining high-readiness tablets)
+- NI promotion (packet prepared, awaiting formal registration)
+- Cross-site deepening (IO, PK, SY religious register analysis)
+- CYP grading system formalization across KH corpus
 
 ---
 
