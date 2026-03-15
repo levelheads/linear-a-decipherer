@@ -1,0 +1,549 @@
+{
+  "schema_version": 1,
+  "sprint_id": "month1-decipherment-2026-03",
+  "title": "Month 1 Decipherment Sprint",
+  "summary": "Operationalize the evidence-first month plan as an executable multi-agent sprint focused on the administrative core, ritual/libation register, and the highest-leverage cascade targets.",
+  "lane_manifest": "config/lane_manifest.yaml",
+  "success_criteria": [
+    "Month-end dossier presents a defensible decipherment candidate for the administrative core plus ritual/libation system.",
+    "NI is operationalized as an approved HIGH anchor and exploited through queue/cascade work, or explicitly re-held with full gate evidence if later challenged.",
+    "A site-balanced queue and cascade-driven target list are locked at sprint start and revisited weekly.",
+    "New readings, promotions, and grammar claims remain consistent with anchors, arithmetic, and integrated validation."
+  ],
+  "month_end_deliverables": [
+    "analysis/completed/thematic/MONTH1_DECIPHERMENT_SYNTHESIS.md",
+    "linear-a-decipherer/MASTER_STATE.md",
+    "linear-a-decipherer/KNOWLEDGE.md",
+    "linear-a-decipherer/ANALYSIS_INDEX.md",
+    "analysis/active/promotion_packets/",
+    "data/sprint_reports/"
+  ],
+  "critical_risks": [
+    "HT concentration can inflate confidence unless site balancing is enforced.",
+    "Mixed-role signs and terms can create false cascade optimism without lane C review.",
+    "Ritual translation claims can outrun evidence if sentence-level assertions skip promotion gates."
+  ],
+  "execution_profile": {
+    "mode": "balanced_split",
+    "capacity_split": {
+      "admin_translation_pct": 55,
+      "ritual_register_pct": 35,
+      "breakthrough_hunting_pct": 10
+    },
+    "speculation_policy": "moderate_bounded",
+    "primary_inputs": [
+      "data/project_acceleration_review.json",
+      "data/reading_queue.json",
+      "data/ni_cascade_report.json",
+      "data/promotion_decisions.json",
+      "analysis/active/promotion_packets/"
+    ],
+    "month_targets": {
+      "admin_readings": 5,
+      "ritual_outputs": 3,
+      "kh_formalization_memos": 1,
+      "breakthrough_memos": 1,
+      "synthesis_dossiers": 1
+    }
+  },
+  "workstreams": [
+    {
+      "stream_id": "S1",
+      "name": "Administrative Cascade Exploitation",
+      "allocation_pct": 55,
+      "owners": [
+        "E",
+        "F",
+        "B",
+        "LEAD"
+      ],
+      "objective": "Convert the approved NI anchor into new connected administrative readings.",
+      "guardrails": [
+        "Maintain site balancing.",
+        "Attach arithmetic, anchor, and dependency notes to each reading.",
+        "Prioritize NI-enabled crossers and non-HT follow-ons."
+      ]
+    },
+    {
+      "stream_id": "S2",
+      "name": "KH Administrative Formalization",
+      "allocation_pct": 15,
+      "owners": [
+        "C",
+        "F"
+      ],
+      "objective": "Turn KH versus HT accounting differences into a reusable administrative model.",
+      "guardrails": [
+        "Only resolve blockers touching the active slate.",
+        "Keep sign work subordinate to reading throughput."
+      ]
+    },
+    {
+      "stream_id": "S3",
+      "name": "Ritual/Register Deepening",
+      "allocation_pct": 35,
+      "owners": [
+        "G",
+        "B",
+        "D"
+      ],
+      "objective": "Deepen ritual and register analysis without outrunning the evidence floor.",
+      "guardrails": [
+        "Keep I-PI-NA-MA on HOLD unless lane B gates change.",
+        "Limit ritual claims to template or sentence-fragment level when promotion gates do not pass."
+      ]
+    },
+    {
+      "stream_id": "S4",
+      "name": "Bounded Breakthrough Hunting",
+      "allocation_pct": 10,
+      "owners": [
+        "C",
+        "D",
+        "G"
+      ],
+      "objective": "Run tightly bounded micro-studies for breakthrough candidates without derailing core work.",
+      "guardrails": [
+        "Maximum two micro-studies for the remainder of Month 1.",
+        "No promotion without a packet-backed lane B decision."
+      ]
+    },
+    {
+      "stream_id": "S5",
+      "name": "Governance and Promotion Discipline",
+      "allocation_pct": 10,
+      "owners": [
+        "A",
+        "B",
+        "LEAD"
+      ],
+      "objective": "Keep weekly execution bound to the review artifact, validators, and canonical docs.",
+      "guardrails": [
+        "Run project review before each weekly queue lock.",
+        "Update canonical docs when lane B decisions materially change priorities."
+      ]
+    }
+  ],
+  "agents": [
+    {
+      "agent_id": "A",
+      "name": "Corpus and Governance",
+      "primary_lanes": [
+        "A"
+      ],
+      "mission": "Keep the canonical state, analysis index, and sprint reporting artifacts in sync.",
+      "standing_deliverables": [
+        "SSOT checks",
+        "index refresh",
+        "sprint report publication"
+      ]
+    },
+    {
+      "agent_id": "B",
+      "name": "Validation and Promotion",
+      "primary_lanes": [
+        "B"
+      ],
+      "mission": "Block unsupported promotions and maintain packet-backed confidence discipline.",
+      "standing_deliverables": [
+        "validator runs",
+        "promotion packets",
+        "dependency trace review"
+      ]
+    },
+    {
+      "agent_id": "C",
+      "name": "Script Asymmetry",
+      "primary_lanes": [
+        "C"
+      ],
+      "mission": "Resolve sign-function blockers for *304, *21F/*21M, *118, *188, and *86 compounds.",
+      "standing_deliverables": [
+        "sign reports",
+        "paradigm refresh",
+        "falsification notes for mixed-role signs"
+      ]
+    },
+    {
+      "agent_id": "D",
+      "name": "Language Layering",
+      "primary_lanes": [
+        "D"
+      ],
+      "mission": "Run maintenance-only adversarial checks when new evidence threatens the current isolate/Luwian/Semitic balance.",
+      "standing_deliverables": [
+        "hypothesis refresh on demand",
+        "negative-evidence checks",
+        "regional weighting audit"
+      ]
+    },
+    {
+      "agent_id": "E",
+      "name": "Throughput and Queue",
+      "primary_lanes": [
+        "E",
+        "G"
+      ],
+      "mission": "Maintain a site-balanced reading queue and route effort to the largest validated cascade opportunities.",
+      "standing_deliverables": [
+        "coverage snapshots",
+        "queue locks",
+        "cascade leverage reports"
+      ]
+    },
+    {
+      "agent_id": "F",
+      "name": "Administrative Reading Team",
+      "primary_lanes": [
+        "G"
+      ],
+      "mission": "Convert the highest-confidence administrative tablets into connected readings with explicit cross-tablet dependencies.",
+      "standing_deliverables": [
+        "reading briefs",
+        "completed admin readings",
+        "cross-tablet dossiers"
+      ]
+    },
+    {
+      "agent_id": "G",
+      "name": "Ritual Reading Team",
+      "primary_lanes": [
+        "C",
+        "G"
+      ],
+      "mission": "Deepen the libation/ritual register without overrunning the evidence floor.",
+      "standing_deliverables": [
+        "ritual sequence tests",
+        "formula analyses",
+        "register split notes"
+      ]
+    },
+    {
+      "agent_id": "LEAD",
+      "name": "Lead Synthesizer",
+      "primary_lanes": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G"
+      ],
+      "mission": "Merge lane outputs into one decision-complete decipherment candidate and month-end dossier.",
+      "standing_deliverables": [
+        "weekly synthesis memo",
+        "month-end dossier",
+        "resolved vs unresolved map"
+      ]
+    }
+  ],
+  "weeks": [
+    {
+      "week_id": "1",
+      "label": "Week 1 - Evidence Floor and Queue Lock",
+      "objective": "Refresh the corpus baseline, lock the reading queue, register or formally hold NI, and preserve a defensible evidence floor before deeper translation work.",
+      "primary_lanes": [
+        "A",
+        "B",
+        "E",
+        "G"
+      ],
+      "priority_targets": [
+        "NI promotion packet and gate decision",
+        "Top queue seed: HT2, KNZb<27>, HTWb229, PYR2, KHWa1013, KNWc48, KYZa2, MAZb8, NEZa1, PH12c",
+        "Top NI cascade leverage: KH15, KH25, KH54, HT46b, HT50b, HT154g, ZA4b, PH25, ZA28"
+      ],
+      "phases": [
+        {
+          "phase_id": "baseline",
+          "cadence": "Monday",
+          "summary": "Refresh readiness, queue, and validation artifacts; publish the sprint kickoff snapshot.",
+          "lanes": [
+            "A",
+            "B",
+            "E",
+            "G"
+          ]
+        },
+        {
+          "phase_id": "sync",
+          "cadence": "Wednesday",
+          "summary": "Resolve blockers around NI, queue anomalies, and sign-function risks before reading volume increases.",
+          "lanes": [
+            "B",
+            "C",
+            "G"
+          ]
+        },
+        {
+          "phase_id": "promotion",
+          "cadence": "Friday",
+          "summary": "Run the promotion board for NI and finalize the week-2 admin/ritual slate.",
+          "lanes": [
+            "A",
+            "B",
+            "F",
+            "G"
+          ]
+        }
+      ],
+      "deliverables": [
+        "data/reading_queue.json",
+        "data/ni_cascade_report.json",
+        "analysis/active/2026-03-15_MONTH1_DECIPHERMENT_CHARTER.md"
+      ]
+    },
+    {
+      "week_id": "2",
+      "label": "Week 2 - Balanced Admin Push",
+      "objective": "Run the first balanced-split week: admin throughput first, ritual work active, and one bounded breakthrough study under validator control.",
+      "primary_lanes": [
+        "A",
+        "B",
+        "C",
+        "E",
+        "G"
+      ],
+      "priority_targets": [
+        "Admin primary slate: HT2, KNZb<27>, HTWb229, PYR2, KHWa1013, PH12c",
+        "Admin reserve/cascade slate: KH15, KH25, KH54, HT46b, ZA4b, PH25",
+        "Ritual primary slate: IO formula set, PK formula set, SY formula set, I-PI-NA-MA evidence review",
+        "Breakthrough micro-study 1: KA-NA prefix alternations and formula reuse",
+        "KH memo draft: CYP grading, zero-K-R, KH/HT contrasts"
+      ],
+      "execution_slates": {
+        "admin_primary": [
+          "HT2",
+          "KNZb<27>",
+          "HTWb229",
+          "PYR2",
+          "KHWa1013",
+          "PH12c"
+        ],
+        "admin_reserve": [
+          "KH15",
+          "KH25",
+          "KH54",
+          "HT46b",
+          "ZA4b",
+          "PH25"
+        ],
+        "ritual_primary": [
+          "IO formula set",
+          "PK formula set",
+          "SY formula set",
+          "I-PI-NA-MA evidence review"
+        ],
+        "breakthrough_micro_studies": [
+          "KA-NA prefix alternations and formula reuse"
+        ]
+      },
+      "weekly_output_targets": {
+        "admin_readings": 3,
+        "ritual_outputs": 1,
+        "kh_memo_drafts": 1,
+        "breakthrough_micro_studies": 1
+      },
+      "acceptance_checks": [
+        "Three admin readings completed with arithmetic and dependency notes.",
+        "At least one ritual output completed without promotion overreach.",
+        "KH memo draft produced.",
+        "Breakthrough micro-study 1 concluded with strengthen/hold/discard outcome."
+      ],
+      "phases": [
+        {
+          "phase_id": "baseline",
+          "cadence": "Monday",
+          "summary": "Refresh the project review, lock the balanced week-2 slate, and refresh dossiers for high-connectivity names.",
+          "lanes": [
+            "A",
+            "E",
+            "G"
+          ]
+        },
+        {
+          "phase_id": "sync",
+          "cadence": "Wednesday",
+          "summary": "Route mixed-role sign blockers from lane G to lane C and hold any weak admin claims.",
+          "lanes": [
+            "B",
+            "C",
+            "G"
+          ]
+        },
+        {
+          "phase_id": "promotion",
+          "cadence": "Friday",
+          "summary": "Advance only those administrative claims that pass arithmetic, anchor, and dependency checks.",
+          "lanes": [
+            "B",
+            "G"
+          ]
+        }
+      ],
+      "deliverables": [
+        "new administrative readings",
+        "ritual evidence memo",
+        "updated cross-tablet dossiers",
+        "KH accounting formalization memo"
+      ]
+    },
+    {
+      "week_id": "3",
+      "label": "Week 3 - Balanced Ritual Deepening",
+      "objective": "Keep the balanced split in place while shifting more capacity into ritual/register outputs and the second bounded breakthrough study.",
+      "primary_lanes": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "G"
+      ],
+      "priority_targets": [
+        "Finish the remaining two month-target admin readings from the reserve/cascade slate",
+        "Ritual outputs: IO/PK/SY register comparison, -SI/-TI note, KA-NA/prefix note",
+        "I-PI-NA-MA remains HOLD unless lane B gates materially change",
+        "Breakthrough micro-study 2: whichever of *304 or *21F/*21M most directly blocks an active slate item"
+      ],
+      "execution_slates": {
+        "admin_primary": [
+          "KH15",
+          "KH25",
+          "KH54",
+          "HT46b",
+          "ZA4b",
+          "PH25"
+        ],
+        "ritual_primary": [
+          "IO formula set",
+          "PK formula set",
+          "SY formula set",
+          "-SI/-TI register comparison",
+          "KA-NA and prefix alternation note"
+        ],
+        "breakthrough_micro_studies": [
+          "Highest-blocking sign among *304 and *21F/*21M touching the active slate"
+        ]
+      },
+      "weekly_output_targets": {
+        "admin_readings": 2,
+        "ritual_outputs": 2,
+        "kh_memo_final": 1,
+        "breakthrough_micro_studies": 1
+      },
+      "acceptance_checks": [
+        "Two admin readings completed from the reserve/cascade slate.",
+        "Two ritual outputs completed with explicit confidence boundaries.",
+        "KH memo finalized.",
+        "Breakthrough micro-study 2 concluded with strengthen/hold/discard outcome."
+      ],
+      "phases": [
+        {
+          "phase_id": "baseline",
+          "cadence": "Monday",
+          "summary": "Refresh the project review, freeze the ritual target set, and confirm the week-3 balanced split slate.",
+          "lanes": [
+            "A",
+            "G"
+          ]
+        },
+        {
+          "phase_id": "sync",
+          "cadence": "Wednesday",
+          "summary": "Stress-test ritual readings against sign ambiguity and language-layer overreach.",
+          "lanes": [
+            "B",
+            "C",
+            "D",
+            "G"
+          ]
+        },
+        {
+          "phase_id": "promotion",
+          "cadence": "Friday",
+          "summary": "Decide which ritual interpretations are stable enough for the month-end synthesis and which remain template-only.",
+          "lanes": [
+            "B",
+            "D",
+            "G"
+          ]
+        }
+      ],
+      "deliverables": [
+        "ritual reading memo",
+        "updated register split note",
+        "bounded breakthrough memo",
+        "promotion/HOLD packet updates"
+      ]
+    },
+    {
+      "week_id": "4",
+      "label": "Week 4 - Synthesis and Stress Test",
+      "objective": "Merge the month’s validated admin and ritual outputs into one defensible decipherment candidate with explicit unresolved zones and no unsupported public-claim language.",
+      "primary_lanes": [
+        "A",
+        "B",
+        "D",
+        "F",
+        "G"
+      ],
+      "priority_targets": [
+        "Month-end decipherment dossier",
+        "Resolved / partially resolved / unresolved corpus map",
+        "Final promotion board and dependency review",
+        "Balanced split close-out against month targets"
+      ],
+      "weekly_output_targets": {
+        "synthesis_dossiers": 1,
+        "canonical_doc_refreshes": 3,
+        "promotion_review_rounds": 1
+      },
+      "acceptance_checks": [
+        "Five admin readings total for the month.",
+        "Three ritual outputs total for the month.",
+        "One KH memo and one bounded breakthrough memo completed.",
+        "Month-end synthesis dossier published with unresolved items called out explicitly."
+      ],
+      "phases": [
+        {
+          "phase_id": "baseline",
+          "cadence": "Monday",
+          "summary": "Freeze new exploration, refresh the project review, and switch the team into synthesis mode.",
+          "lanes": [
+            "A",
+            "B",
+            "F",
+            "G"
+          ]
+        },
+        {
+          "phase_id": "sync",
+          "cadence": "Wednesday",
+          "summary": "Run adversarial review against the month-end model and mark every unresolved dependency.",
+          "lanes": [
+            "B",
+            "D",
+            "F",
+            "G"
+          ]
+        },
+        {
+          "phase_id": "promotion",
+          "cadence": "Friday",
+          "summary": "Finalize the dossier, canonical state updates, and release-ready research packet.",
+          "lanes": [
+            "A",
+            "B",
+            "F"
+          ]
+        }
+      ],
+      "deliverables": [
+        "analysis/completed/thematic/MONTH1_DECIPHERMENT_SYNTHESIS.md",
+        "updated canonical docs",
+        "final sprint report"
+      ]
+    }
+  ]
+}

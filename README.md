@@ -13,11 +13,12 @@ A rigorous methodology system for analyzing undeciphered Minoan Bronze Age inscr
 
 ## Research Status (March 2026)
 
-> **v0.11.0 (2026-03-14)**: Operation VENTRIS — strategic pivot from breadth to depth.
-> **60 tools**, **55 tablet readings + 14 thematic analyses** across 9 sites.
-> First formal grammar sketch. Libation formula upgraded to POSSIBLE.
-> -SI reinterpreted as verbal/agentive (NOT dative). 47.8% KH names decompose
-> under Luwian rules. KH vs HT accounting philosophy confirmed (p<0.0001).
+> **v0.12.0 (2026-03-15)**: Operation VENTRIS Week 2 — sprint execution, bounded reading expansion, and stronger release governance.
+> **62 tools**, **62 tablet readings + 14 thematic analyses** across **10 sites**.
+> `NI` is now approved at `HIGH`; `I-PI-NA-MA` remains `HOLD`.
+> Seven new bounded connected readings (`HT2`, `KN Zb 27`, `PH12c`, `KH15`, `KH54`,
+> `KH25`, `ZA4b`) and explicit reserve handling for weaker cases like `PH25`.
+> Linear A remains undeciphered; this release is a research snapshot, not a claim of full decipherment.
 
 **Best-fit model**: Linear A records a **contact language** with three distinct layers, building on proposals by Gordon (1966), Palmer (1958), and Beekes (2014):
 
@@ -161,7 +162,7 @@ linear-a-decipherer/
 │   ├── completed/            # Finished inscription/thematic analyses
 │   └── archive/              # Historical phase analyses
 │
-├── tools/                    # 60 Python analysis scripts
+├── tools/                    # 62 Python analysis scripts
 ├── external/lineara/         # Corpus data (git submodule)
 ├── data/                     # Generated JSON files
 └── templates/                # Document templates
@@ -203,7 +204,7 @@ python3 tools/parse_lineara_corpus.py
 
 ## Analysis Tools
 
-The project includes 60 Python analysis scripts organized by function (stdlib-only, no external dependencies):
+The project includes 62 Python analysis scripts organized by function (stdlib-only, no external dependencies):
 
 ### Core Analysis
 
@@ -257,6 +258,7 @@ The project includes 60 Python analysis scripts organized by function (stdlib-on
 | `tool_parity_checker.py` | Cross-artifact drift detection (hypothesis vs batch vs integrated) |
 | `promotion_board_runner.py` | Promotion packet + gate decision generator for candidate readings |
 | `lane_orchestrator.py` | Lane-based command orchestration with structured handoff JSON output |
+| `sprint_orchestrator.py` | Month-sprint wrapper for weekly phases, agent rosters, and nested lane execution |
 | `dependency_trace_resolver.py` | Pre-check and optional auto-resolution for dependency-trace promotion gaps |
 | `word_filter_contract.py` | Shared lexical eligibility/normalization contract for hypothesis pipelines |
 | `site_normalization.py` | Shared site code/full-name normalization contract for corpus and regional tools |
@@ -329,6 +331,7 @@ This project integrates the [lineara.xyz](https://lineara.xyz) corpus as a git s
 | **Feb 22, 2026** | v0.9.0: Operation MINOS III — 30 tablets across 9 sites, first cross-site readings (PEZ, IO, PH, SAMW, PK, KH, SY) |
 | **Feb 28, 2026** | v0.10.0: Operation MINOS IV — Khania deep-dive (8 KH tablets), 55 total readings, CYP grading system |
 | **Mar 14, 2026** | v0.11.0: Operation VENTRIS — formal grammar sketch, sentence reading at POSSIBLE, 4 new tools, 7 thematic analyses |
+| **Mar 15, 2026** | v0.12.0: Operation VENTRIS Week 2 — sprint orchestration, `NI` HIGH approval, 7 new bounded readings, 62 tools, 10 sites |
 
 ### OPERATION MINOS III + BREAKTHROUGH Key Findings (Feb 2026)
 
@@ -428,7 +431,7 @@ This project builds on decades of scholarly work on Linear A. Key contributions 
 - Systematic multi-hypothesis testing framework with tool-validated percentages
 - Anchor hierarchy formalization for confidence calibration
 - Regional administration systematization (HT vs KH parallel systems)
-- 60 Python analysis tools for corpus-wide verification (stdlib-only)
+- 61 Python analysis tools for corpus-wide verification (stdlib-only)
 - 4 process-automation tools (cascade detector, personnel dossier, sign extractor, reading pipeline)
 
 **Novel interpretations**:

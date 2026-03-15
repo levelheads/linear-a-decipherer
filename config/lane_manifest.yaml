@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "manifest_name": "linear-a-lane-manifest",
-  "description": "Lane contracts for orchestrated weekly execution",
+  "description": "Lane contracts for orchestrated weekly and sprint execution",
   "lanes": [
     {
       "lane_id": "A",
@@ -18,11 +18,16 @@
           "allow_failure": true
         },
         {
+          "name": "Project acceleration review",
+          "cmd": "python3 tools/project_acceleration_review.py --output-json data/project_acceleration_review.json"
+        },
+        {
           "name": "Analysis index preview",
           "cmd": "python3 tools/update_index.py"
         }
       ],
       "required_artifacts": [
+        "data/project_acceleration_review.json",
         "linear-a-decipherer/MASTER_STATE.md",
         "linear-a-decipherer/ANALYSIS_INDEX.md"
       ],
@@ -244,6 +249,44 @@
           "Network-restricted environments can leave release audits partial."
         ],
         "required_reviewer_lane": "A"
+      }
+    },
+    {
+      "lane_id": "G",
+      "owner": "Reading Attempts",
+      "mission": "Lock prioritized reading queues, track cascade leverage, and stage high-confidence tablet work",
+      "commands": [
+        {
+          "name": "Reading readiness refresh",
+          "cmd": "python3 tools/reading_readiness_scorer.py --all --output data/reading_readiness.json"
+        },
+        {
+          "name": "Site-balanced queue lock",
+          "cmd": "python3 tools/reading_pipeline.py --select --top 30 --site-balanced --output data/reading_queue.json"
+        },
+        {
+          "name": "NI cascade leverage snapshot",
+          "cmd": "python3 tools/cascade_opportunity_detector.py --word NI --confidence HIGH --output data/ni_cascade_report.json"
+        }
+      ],
+      "required_artifacts": [
+        "data/reading_readiness.json",
+        "data/reading_queue.json",
+        "data/ni_cascade_report.json"
+      ],
+      "merge_gate": "Queue is locked, cascade leverage is recorded, and selected readings remain anchor-safe",
+      "fallback": "Reduce queue size, re-balance sites, and hold reading promotions until blockers are isolated",
+      "handoff": {
+        "confidence_impact": "May change which tablets are prioritized, but does not itself promote readings.",
+        "dependencies_affected": [
+          "data/reading_readiness.json",
+          "data/reading_queue.json",
+          "data/ni_cascade_report.json"
+        ],
+        "open_risks": [
+          "High cascade targets can still fail if sign-function ambiguity remains unresolved."
+        ],
+        "required_reviewer_lane": "B"
       }
     }
   ]

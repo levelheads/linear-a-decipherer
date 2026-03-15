@@ -32,6 +32,30 @@ All workstreams must follow:
 
 ---
 
+## Sprint Execution
+
+Month-scale research sprints should route through the sprint manifest and orchestrator:
+
+```bash
+python3 tools/sprint_orchestrator.py --week 1 --phase baseline --run-lanes --dry-run
+python3 tools/sprint_orchestrator.py --week 1 --phase baseline --run-lanes
+```
+
+Default sprint manifest: `config/month1_decipherment_manifest.yaml`
+
+Current Month 1 execution profile (2026-03-15):
+- `55%` admin translation expansion
+- `35%` ritual/register deepening
+- `10%` bounded breakthrough hunting
+
+Current week-2 slate:
+- Admin primary: `HT2`, `KNZb<27>`, `HTWb229`, `PYR2`, `KHWa1013`, `PH12c`
+- Admin reserve: `KH15`, `KH25`, `KH54`, `HT46b`, `ZA4b`, `PH25`
+- Ritual primary: `IO formula set`, `PK formula set`, `SY formula set`, `I-PI-NA-MA evidence review`
+- Breakthrough micro-study 1: `KA-NA` prefix alternations and formula reuse
+
+---
+
 ## Handoff Contract (Required in every lane update)
 
 1. What changed
@@ -55,7 +79,9 @@ Mission accomplished: 5/7 hypotheses ELIMINATED. Focus on Luwian (STRONG 35.0%) 
 
 **Rationale**: The project has answered the language question as well as it can without a breakthrough: isolate substrate with Luwian morphological influence and Semitic administrative loans. The strategic pivot moves from "which language is it?" to "what do these texts say?"
 
-**Current status (v0.11.0)**: 55 tablet readings + 14 thematic analyses completed across 9 sites (HT, ZA, PEZ, IO, PH, SAMW, PK, KH, SY). First formal grammar sketch produced. Libation formula upgraded to POSSIBLE.
+**Current status (v0.12.0)**: 62 tablet readings + 14 thematic analyses completed across 10 sites (HT, ZA, PEZ, IO, PH, SAMW, PK, KH, SY, KN). First formal grammar sketch produced. Libation formula upgraded to POSSIBLE, `NI` is approved at HIGH, and the week-2 reading/template block is now repo-native.
+
+**Week-2 progress (2026-03-15)**: `HT2`, `KNZb<27>`, `PH12c`, `KH15`, `KH54`, `KH25`, and `ZA4b` are now completed connected readings; KH formalization, blocker-routing, `KA-NA` micro-study, KH `*86-RO` subsystem work, KH control-object comparison, KH support-ecology checking, the `HTWb229` warehouse-classifier note, the HTW slot-order memo, the HTW `KA` vs `*188-DU` comparison, a week-2 credibility verification memo, a portfolio-based breakthrough brief, explicit admin and ritual template-induction memos, a `PH25` reserve note, and a staged conservative next-block reading queue all now have active outputs.
 
 **Automated workflow** (4 new VENTRIS tools):
 1. `reading_pipeline.py --select --top 20 --site-balanced` — SELECT candidates
@@ -69,7 +95,7 @@ Mission accomplished: 5/7 hypotheses ELIMINATED. Focus on Luwian (STRONG 35.0%) 
 
 **Priority targets**:
 - Tier 3 HT readings (remaining high-readiness tablets)
-- NI promotion (packet prepared, awaiting formal registration)
+- NI cascade exploitation (APPROVED at HIGH; 535 threshold crossers queued for follow-on work)
 - Cross-site deepening (IO, PK, SY religious register analysis)
 - CYP grading system formalization across KH corpus
 

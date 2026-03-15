@@ -19,6 +19,7 @@ Use this packet for any confidence promotion or demotion proposal.
 - Integrated results: `/Users/home/AI/Disciplines/Deciphering Ancient Languages/data/integrated_results.json`
 - Dependencies: `/Users/home/AI/Disciplines/Deciphering Ancient Languages/data/reading_dependencies.json`
 - Anchors: `/Users/home/AI/Disciplines/Deciphering Ancient Languages/data/anchors.json`
+- Commodity anchors: `/Users/home/AI/Disciplines/Deciphering Ancient Languages/data/commodity_anchors.json`
 - Optional supporting analysis: None
 
 ## 3. Multi-Hypothesis Adjudication
@@ -27,7 +28,10 @@ Use this packet for any confidence promotion or demotion proposal.
 - Semitic: score=0.75, verdict=WEAK
 - Pre-Greek: score=1, verdict=WEAK
 - Proto-Greek: score=0.75, verdict=WEAK
-- Isolate/null: See integrated Bayesian/isolate context in `data/bayesian_results.json` if needed.
+- Hurrian: score=0.7, verdict=NEUTRAL
+- Hattic: score=0, verdict=NEUTRAL
+- Etruscan: score=0.15, verdict=NEUTRAL
+- Isolate/null: See Bayesian context in `data/bayesian_results.json`.
 
 ## 4. Negative Evidence
 
@@ -55,9 +59,9 @@ Use this packet for any confidence promotion or demotion proposal.
 - [x] required_inputs_present (Missing: none)
 - [x] no_direct_anchor_contradiction (dependency_warnings=0, threshold=STRONG)
 - [x] parity_guard (parity_level=LOW)
-- [x] multi_hypothesis_run (All four hypotheses present in hypothesis_results)
+- [x] multi_hypothesis_run (All seven hypotheses present in hypothesis_results)
 - [ ] cross_corpus_consistency (validated=True, positional=0.333, functional=0.417, sites=5, rule=min>=0.55 and max>=0.70)
-- [x] integrated_validation (entry=yes, final_confidence=PROBABLE, methodology_compliant=True)
+- [x] integrated_validation (entry=yes, source=integrated_results, final_confidence=PROBABLE, methodology_compliant=True)
 - [x] dependency_trace (anchor_dependencies=1, trace_source=existing)
 - [x] provisional_trace_review (trace_source=existing, allow_override=False)
 - [x] negative_evidence_statement (negative_evidence_items=0)

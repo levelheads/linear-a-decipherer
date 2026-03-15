@@ -25,6 +25,8 @@
 | **Check tool drift/parity** | **tool_parity_checker.py** | integrated_validator.py |
 | **Generate promotion packet** | **promotion_board_runner.py** | integrated_validator.py, corpus_consistency_validator.py |
 | **Run lane orchestration** | **lane_orchestrator.py** | config/lane_manifest.yaml |
+| **Run month sprint orchestration** | **sprint_orchestrator.py** | lane_orchestrator.py, config/month1_decipherment_manifest.yaml |
+| **Review project state before replanning** | **project_acceleration_review.py** | sprint_orchestrator.py, promotion_board_runner.py |
 | **Pre-check dependency trace** | **dependency_trace_resolver.py** | promotion_board_runner.py |
 | **Normalize site names/codes** | **site_normalization.py** | extended_corpus_analyzer.py, regional_analyzer.py |
 | **Find cascade opportunities** | **cascade_opportunity_detector.py** | reading_readiness_scorer.py |
@@ -258,6 +260,35 @@ This contract is applied by:
    python3 tools/lane_orchestrator.py --lane A,B,F
    ```
 
+---
+
+### "I want a data-informed project review before choosing the next workstreams"
+
+**Example**: Replan after a promotion decision or weekly sprint baseline
+
+**Steps**:
+1. **Generate the machine-readable review**
+   ```bash
+   python3 tools/project_acceleration_review.py --output-json data/project_acceleration_review.json
+   ```
+
+2. **Publish a dated Markdown snapshot** (optional)
+   ```bash
+   python3 tools/project_acceleration_review.py \
+     --output-json data/project_acceleration_review.json \
+     --markdown-out analysis/active/2026-03-15_PROJECT_ACCELERATION_REVIEW.md
+   ```
+
+3. **Use the output to set the next sprint/workstream focus**
+   - Promotion outcomes (`NI`, `I-PI-NA-MA`)
+   - Queue pressure and site balance
+   - NI cascade leverage
+   - Sprint/lane readiness
+
+**Output location**:
+- `data/project_acceleration_review.json`
+- optional dated Markdown summary in `analysis/active/`
+
 3. **Review handoff report**
    - Output: `data/lane_handoffs/YYYY-MM-DD.json`
    - Confirm command status, artifact presence, and required reviewer lane
@@ -276,6 +307,29 @@ This contract is applied by:
    ```bash
    python3 tools/promotion_board_runner.py --candidate KU-RO --target-confidence HIGH
    ```
+
+---
+
+### "I want to run the month decipherment sprint"
+
+**Example**: Kick off week 1 baseline with the current month plan
+
+**Steps**:
+1. **Preview the week/phase**
+   ```bash
+   python3 tools/sprint_orchestrator.py --week 1 --phase baseline --run-lanes --dry-run
+   ```
+
+2. **Run the selected week/phase**
+   ```bash
+   python3 tools/sprint_orchestrator.py --week 1 --phase baseline --run-lanes
+   ```
+
+3. **Review sprint report**
+   - Output: `data/sprint_reports/YYYY-MM-DD_month1-decipherment-2026-03_1.json`
+   - Nested lane handoff: `data/lane_handoffs/YYYY-MM-DD_month1-decipherment-2026-03_1.json`
+
+**Manifest**: `config/month1_decipherment_manifest.yaml`
 
 ---
 
@@ -1142,4 +1196,4 @@ Supporting tools for data management, release governance, and linguistic utiliti
 
 ---
 
-*Guide maintained as part of the Linear A Decipherment Project knowledge management system. 60 tools as of v0.11.0.*
+*Guide maintained as part of the Linear A Decipherment Project knowledge management system. 62 tools in the current repo state.*

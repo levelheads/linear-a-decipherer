@@ -4,6 +4,72 @@
 
 ---
 
+## 2026-03-15 (v0.12.0 — Operation VENTRIS Week 2 — Sprint Execution + Bounded Reading Expansion)
+
+### Summary
+
+Released the week-2 VENTRIS execution block as a citable research snapshot. This release turns the month-one sprint into repo-native execution infrastructure, repairs the `NI` promotion path, approves `NI` at `HIGH`, adds two new orchestration/review tools, completes seven new bounded connected readings, and tightens blocker handling so weak cases are held rather than over-read. The project now stands at **62 tools**, **62 tablet readings + 14 thematic analyses**, and **10 sites with connected readings**.
+
+### Boundaries and Prior-Art Guard
+
+- **Linear A remains undeciphered.** This release does not claim a full decipherment or complete translation of the corpus.
+- Prior scholarship remains explicitly credited where applicable:
+  - `ku-ro`, `ki-ro`, major toponyms, and deity names are not new claims here.
+  - Libation-formula work builds on Finkelberg (1990), Davis (2014), and Thomas (2020).
+  - Core corpus publication and sign references still depend on GORILA and the local corpus sources.
+- The project’s contribution in this release is **validation, integration, workflow hardening, bounded readings, and explicit confidence control** rather than asserting first discovery for already-known proposals.
+
+### Follow-on Execution Update
+
+1. **`promotion_board_runner.py` repaired for commodity-anchor promotions** — `NI` now resolves through commodity-anchor evidence instead of falsely failing when absent from `integrated_results.json`.
+2. **`NI` approved at `HIGH`** — lane B now records `NI` as approved, shifting the bottleneck from packet repair to cascade exploitation.
+3. **`project_acceleration_review.py` added** — generates a repo-native review of tools, platform state, promotion outcomes, queue pressure, and next workstreams before replanning.
+
+### New Connected Readings
+
+1. **`HT2`** — compact OLE-variant account; `A-KA-RU` strengthened as header-like across commodity settings.
+2. **`KNZb27`** — explicit wine-context control for `DI-NA-U`, extending it to Knossos.
+3. **`PH12c`** — standalone `TE` control confirming header/topic-marker behavior at Phaistos.
+4. **`KH15`** — mixed `CYP` + `NI` fractional account; extends approved `NI` inside ordinary KH administration.
+5. **`KH54`** — mixed `CYP+E` + `GRA`; confirms KH mixed-commodity accounting without K-R.
+6. **`KH25`** — large `VIR+[?]` counts (`140`, `10`); confirms personnel-scale KH recording without HT-style total framing.
+7. **`ZA4b`** — bounded Zakros stone-vessel wine record (`VIN 104`) with unresolved opener held explicitly unresolved.
+
+### Bounded Non-Promotion Results
+
+1. **`PH25` reserve note** — secure floor kept at `VIN 2`; repeated unresolved lines block a completed connected reading.
+2. **`I-PI-NA-MA` remains HOLD** — cross-corpus consistency gate still fails.
+3. **HTW/KH blocker families tightened structurally** — `*86-RO`, `*86+*188`, `*188`, and `*188-DU` are bounded as subsystem/control-family items rather than promoted translations.
+
+### New Tooling and Operational Artifacts
+
+1. **`sprint_orchestrator.py`** — Wraps `lane_orchestrator.py` with sprint metadata: agents, week objectives, cadence phases, nested lane execution, and sprint report output.
+2. **`config/month1_decipherment_manifest.yaml`** — Machine-readable month plan with 7 agents + lead, four weekly objectives, cadence phases, deliverables, and risks.
+3. **Lane G added to `config/lane_manifest.yaml`** — Formalizes reading-readiness refresh, queue lock, and NI cascade snapshot as an orchestrated lane rather than an informal workflow.
+4. **`analysis/active/2026-03-15_MONTH1_DECIPHERMENT_CHARTER.md`** — Human-readable sprint charter grounded in current findings.
+5. **`templates/SPRINT_WEEKLY_UPDATE_TEMPLATE.md`** — Standard weekly sprint update template aligned with the handoff contract.
+
+### Validation and Documentation Impact
+
+- `project_acceleration_review.py` now gives the release process a repo-native pre-planning review of tools, platform state, queue pressure, and promotion outcomes.
+- Release-facing documentation now reflects the bounded research position rather than an inflated “cracked Linear A” narrative.
+- Tests expanded around sprint orchestration, promotion-board handling, project acceleration review, and index parsing.
+
+### Metrics Impact
+
+- Tools: **60 → 62**
+- Connected readings: **55 → 62**
+- Sites with connected readings: **9 → 10**
+- Cross-site readings: **30 → 36**
+- `NI`: repair packet → **approved HIGH**
+
+### Strategic Effect
+
+- The month plan is now executable from the repo, not only described in prose.
+- Queue-lock and cascade analysis are elevated to first-class sprint artifacts.
+- Weak evidence paths are now more clearly held in reserve instead of being forced into completed readings.
+- The release is stronger methodologically because it documents both advances and non-advances.
+
 ## 2026-03-14 (v0.11.0 — Operation VENTRIS — Strategic Acceleration)
 
 ### Summary

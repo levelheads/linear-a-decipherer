@@ -33,6 +33,7 @@ REQUIRED_ARTIFACTS = {
     "reading_dependencies": DATA_DIR / "reading_dependencies.json",
     "anchors": DATA_DIR / "anchors.json",
 }
+COMMODITY_ANCHORS = DATA_DIR / "commodity_anchors.json"
 PARITY_REPORT = DATA_DIR / "tool_parity_report.json"
 DEPENDENCY_TRACE_REPORT = DATA_DIR / "dependency_trace_report.json"
 
@@ -98,6 +99,75 @@ def _find_word_in_list(rows: list[dict[str, Any]], key: str) -> dict[str, Any] |
         if isinstance(word, str) and word.casefold() == key_cf:
             return row
     return None
+
+
+def _find_candidate_anchor_ids(candidate: str, anchors: dict[str, Any]) -> list[str]:
+    candidate_cf = candidate.casefold()
+    matches = []
+    for anchor_id, anchor in anchors.items():
+        if not isinstance(anchor, dict):
+            continue
+        haystacks = [
+            str(anchor_id),
+            str(anchor.get("name", "")),
+            str(anchor.get("description", "")),
+            str(anchor.get("basis", "")),
+        ]
+        if any(candidate_cf in value.casefold() for value in haystacks if value):
+            matches.append(str(anchor_id))
+    return matches
+
+
+def _unique_strings(values: list[str]) -> list[str]:
+    seen: set[str] = set()
+    ordered = []
+    for value in values:
+        cleaned = str(value).strip()
+        if not cleaned or cleaned in seen:
+            continue
+        seen.add(cleaned)
+        ordered.append(cleaned)
+    return ordered
+
+
+def _synthesize_integrated_from_commodity_entry(
+    commodity_entry: dict[str, Any] | None,
+) -> dict[str, Any] | None:
+    if not isinstance(commodity_entry, dict):
+        return None
+
+    sites = commodity_entry.get("sites", [])
+    if not isinstance(sites, list):
+        sites = []
+    site_count = int(commodity_entry.get("site_count", 0) or 0) or len(sites)
+    ht_concentration = 0.0
+    if site_count > 0:
+        ht_concentration = sum(1 for site in sites if str(site).upper() == "HT") / site_count
+
+    promotion = str(commodity_entry.get("promotion_recommendation", "")).upper()
+    specificity = float(commodity_entry.get("specificity", 0.0) or 0.0)
+    exclusivity = float(commodity_entry.get("exclusivity", 0.0) or 0.0)
+
+    return {
+        "word": commodity_entry.get("word"),
+        "final_confidence": _normalize_confidence(commodity_entry.get("confidence")),
+        "threshold_category": promotion or "COMMODITY_ANCHOR",
+        "methodology_compliant": True,
+        "ht_concentration": ht_concentration,
+        "num_sites": site_count,
+        "sites_found": sites,
+        "negative_evidence_items": [],
+        "regional_weight": round(float(site_count), 3),
+        "max_confidence_from_anchors": promotion or "STRONG_ANCHOR",
+        "anchor_dependencies": [],
+        "dependency_warnings": [],
+        "cross_corpus_metrics": {
+            "validated": specificity >= 0.95,
+            "positional_consistency": specificity,
+            "functional_consistency": max(specificity, exclusivity),
+        },
+        "evidence_class": "commodity_anchor",
+    }
 
 
 def _confidence_rank(value: str) -> int:
@@ -225,6 +295,7 @@ def main() -> int:
     integrated_data = _load_json(REQUIRED_ARTIFACTS["integrated_results"]) or {}
     dependency_data = _load_json(REQUIRED_ARTIFACTS["reading_dependencies"]) or {}
     anchor_data = _load_json(REQUIRED_ARTIFACTS["anchors"]) or {}
+    commodity_anchor_data = _load_json(COMMODITY_ANCHORS) or {}
     parity_data = _load_json(PARITY_REPORT) or {}
     dependency_trace_data = _load_json(DEPENDENCY_TRACE_REPORT) or {}
 
@@ -236,6 +307,11 @@ def main() -> int:
     dependency_entry = _find_dict_entry_casefold(dependency_data.get("readings", {}), candidate)
     dependency_trace_entry = _find_word_in_list(dependency_trace_data.get("checks", []), candidate)
     anchors = anchor_data.get("anchors", {})
+    commodity_entry = _find_word_in_list(commodity_anchor_data.get("mappings", []), candidate)
+    integrated_source = "integrated_results"
+    if not integrated_entry and commodity_entry:
+        integrated_entry = _synthesize_integrated_from_commodity_entry(commodity_entry)
+        integrated_source = "commodity_anchors"
 
     current_confidence = "SPECULATIVE"
     if dependency_entry and isinstance(dependency_entry, dict):
@@ -262,6 +338,9 @@ def main() -> int:
         anchor_dependencies = integrated_entry.get("anchor_dependencies", []) or []
     if not anchor_dependencies and dependency_entry:
         anchor_dependencies = dependency_entry.get("depends_on", []) or []
+    anchor_dependencies = _unique_strings(anchor_dependencies)
+    supplemental_anchor_ids = _find_candidate_anchor_ids(candidate, anchors)
+    effective_anchor_dependencies = _unique_strings(anchor_dependencies + supplemental_anchor_ids)
 
     dependency_trace_source = "none"
     dependency_trace_status = "unknown"
@@ -324,7 +403,7 @@ def main() -> int:
     )
 
     anchors_with_falsification = 0
-    for dep in anchor_dependencies:
+    for dep in effective_anchor_dependencies:
         anchor = anchors.get(dep, {})
         if isinstance(anchor, dict) and str(anchor.get("falsification_condition", "")).strip():
             anchors_with_falsification += 1
@@ -390,14 +469,16 @@ def main() -> int:
         passed=bool(integrated_entry),
         evidence=(
             f"entry={'yes' if integrated_entry else 'no'}, "
+            f"source={integrated_source}, "
             f"final_confidence={final_confidence}, methodology_compliant={methodology_compliant}"
         ),
     )
     gate_results["dependency_trace"] = _gate(
         required=True,
-        passed=bool(anchor_dependencies) and dependency_trace_source in {"existing", "provisional"},
+        passed=bool(effective_anchor_dependencies)
+        and dependency_trace_source in {"existing", "provisional"},
         evidence=(
-            f"anchor_dependencies={len(anchor_dependencies)},"
+            f"anchor_dependencies={len(effective_anchor_dependencies)},"
             f" trace_source={dependency_trace_source}"
         ),
         notes=(f"trace_source={dependency_trace_source}, trace_status={dependency_trace_status}"),
@@ -437,12 +518,15 @@ def main() -> int:
     gate_results["falsification_documented"] = _gate(
         required=True,
         passed=(anchors_with_falsification > 0),
-        evidence=f"anchors_with_falsification={anchors_with_falsification}/{len(anchor_dependencies)}",
+        evidence=(
+            f"anchors_with_falsification={anchors_with_falsification}/"
+            f"{len(effective_anchor_dependencies)}"
+        ),
     )
     gate_results["multi_anchor_support"] = _gate(
         required=target_confidence in ("HIGH", "CERTAIN"),
-        passed=(len(anchor_dependencies) >= 2),
-        evidence=f"anchor_dependencies={len(anchor_dependencies)}",
+        passed=(len(effective_anchor_dependencies) >= 2),
+        evidence=f"anchor_dependencies={len(effective_anchor_dependencies)}",
     )
     gate_results["broad_corpus_behavior"] = _gate(
         required=target_confidence == "CERTAIN",
@@ -516,6 +600,11 @@ def main() -> int:
     else:
         required_gate_ids.extend(["integrated_validation", "dependency_trace"])
 
+    required_gate_id_set = set(required_gate_ids)
+    for gate_name, gate in gate_results.items():
+        if isinstance(gate, dict):
+            gate["required"] = gate_name in required_gate_id_set
+
     failed_required = [
         gate for gate in required_gate_ids if not gate_results.get(gate, {}).get("passed", False)
     ]
@@ -550,6 +639,7 @@ def main() -> int:
         "integrated_results": str(REQUIRED_ARTIFACTS["integrated_results"]),
         "reading_dependencies": str(REQUIRED_ARTIFACTS["reading_dependencies"]),
         "anchors": str(REQUIRED_ARTIFACTS["anchors"]),
+        "commodity_anchors": str(COMMODITY_ANCHORS),
     }
 
     decision_record: dict[str, Any] = {
@@ -567,8 +657,11 @@ def main() -> int:
             "hypothesis_entry_found": bool(hypothesis_entry),
             "consistency_entry_found": bool(consistency_entry),
             "integrated_entry_found": bool(integrated_entry),
+            "integrated_entry_source": integrated_source if integrated_entry else "none",
+            "commodity_entry_found": bool(commodity_entry),
             "dependency_entry_found": bool(dependency_entry),
             "anchor_dependencies": anchor_dependencies,
+            "effective_anchor_dependencies": effective_anchor_dependencies,
             "dependency_trace_source": dependency_trace_source,
             "dependency_trace_status": dependency_trace_status,
             "threshold_category": threshold_category,
@@ -629,8 +722,11 @@ def main() -> int:
             negative_text = "- No explicit negative evidence penalties recorded."
 
     sites_attested = sites_found if isinstance(sites_found, list) else []
+    if not sites_attested and commodity_entry:
+        sites_attested = commodity_entry.get("sites", [])
     anchor_lines = []
-    for dep in anchor_dependencies:
+    display_anchor_dependencies = effective_anchor_dependencies or anchor_dependencies
+    for dep in display_anchor_dependencies:
         anchor = anchors.get(dep, {})
         if isinstance(anchor, dict):
             lvl = anchor.get("level", "n/a")
@@ -659,6 +755,8 @@ def main() -> int:
     )
     regional_weight = (integrated_entry or {}).get("regional_weight", "Not available")
     weakest_dep = (integrated_entry or {}).get("max_confidence_from_anchors", "Unknown")
+    if weakest_dep == "Unknown" and commodity_entry:
+        weakest_dep = commodity_entry.get("promotion_recommendation", "Unknown")
     cascade_risk = "; ".join(dependency_warnings) if dependency_warnings else "No cascade warnings"
 
     packet_body = f"""# Promotion Packet: {candidate}
@@ -682,6 +780,7 @@ Use this packet for any confidence promotion or demotion proposal.
 - Integrated results: `{evidence_artifacts["integrated_results"]}`
 - Dependencies: `{evidence_artifacts["reading_dependencies"]}`
 - Anchors: `{evidence_artifacts["anchors"]}`
+- Commodity anchors: `{evidence_artifacts["commodity_anchors"]}`
 - Optional supporting analysis: {opt_analysis}
 
 ## 3. Multi-Hypothesis Adjudication

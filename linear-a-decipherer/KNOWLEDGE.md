@@ -5,7 +5,7 @@
 
 **Essential lookup tables and project status for Linear A research**
 
-**Last Updated**: 2026-03-14
+**Last Updated**: 2026-03-15
 
 > **Refresh policy**: KNOWLEDGE.md updates when readings, hypotheses, or reference tables change.
 > MASTER_STATE.md updates for any operational metric or status change (and is canonical when they diverge).
@@ -19,7 +19,7 @@
 | Corpus Processed | 1,721 inscriptions (100%) |
 | Detailed Analyses | **1,698/1,721 inscriptions (98.66% coverage)** |
 | Words Tested | **160 words** (freq >= 2, 100% compliant) |
-| Connected Readings | **55 tablets + 14 thematic** across **9 sites** |
+| Connected Readings | **62 tablets + 14 thematic** across **10 sites** |
 | KU-RO Totals Verified | 10/34 VERIFIED + 4 CONSTRAINED + 4 STRUCTURAL + 5 NEAR-MATCH |
 | KU-RO Mismatches Investigated | 18/18 (all diagnosed) |
 | Commodity Functional Anchors | 7 strong anchors + 7 candidates via commodity_validator.py |
@@ -33,8 +33,8 @@
 | -SI Function | **Verbal/agentive** (70.1% header, NOT dative) |
 | Vowel Paradigms | 40 discovered (18 with 3+ members) |
 | Luwian Onomastics | 47.8% KH words decompose under Luwian rules |
-| Tool Count | **60** Python analysis tools |
-| Active Operation | **Operation VENTRIS — v0.11.0-dev** |
+| Tool Count | **62** Python analysis tools |
+| Active Operation | **Operation VENTRIS — v0.12.0** |
 
 **See**: `CHANGELOG.md` for full discovery chronology
 

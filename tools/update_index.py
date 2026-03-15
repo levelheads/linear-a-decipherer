@@ -115,6 +115,8 @@ SITE_CODES = {
 INSCRIPTION_ID_PATTERNS = [
     # Peak sanctuary format: IO Za 2, PS Za 2 (must come before standard format)
     (r"\b([A-Z]{2})\s+Za\s+(\d+)\b", "za"),
+    # Vessel/other Z-series format: KN Zb 27
+    (r"\b([A-Z]{2})\s+Z([abfg])\s+(\d+)\b", "zseries"),
     # Scepter format: KN Zf 2
     (r"\b([A-Z]{2})\s+Zf\s+(\d+)\b", "zf"),
     # With parenthetical: PH(?)31a/b
@@ -247,6 +249,10 @@ class AnalysisFileParser:
 
                 if pattern_type == "za":
                     insc_id = f"{site_code} Za {number}"
+                elif pattern_type == "zseries":
+                    series = match.group(2).lower()
+                    number = match.group(3)
+                    insc_id = f"{site_code} Z{series} {number}"
                 elif pattern_type == "zf":
                     insc_id = f"{site_code} Zf {number}"
                 else:
@@ -265,6 +271,10 @@ class AnalysisFileParser:
                 # Handle special cases
                 if pattern_type == "za":
                     insc_id = f"{site_code} Za {number}"
+                elif pattern_type == "zseries":
+                    series = match.group(2).lower()
+                    number = match.group(3)
+                    insc_id = f"{site_code} Z{series} {number}"
                 elif pattern_type == "zf":
                     insc_id = f"{site_code} Zf {number}"
                 else:

@@ -2,7 +2,7 @@
 
 **Canonical operational source of truth for active status, metrics, campaigns, and release readiness.**
 
-**Last Updated**: 2026-03-14
+**Last Updated**: 2026-03-15
 **Scope**: Current state only (not full historical narrative)
 **Historical log**: `linear-a-decipherer/CHANGELOG.md`
 
@@ -31,8 +31,8 @@ If any other file conflicts with this one, this file wins.
 | Hypothesis run word set | 160 words (freq >= 2) | `data/hypothesis_results.json` |
 | Batch pipeline word set | 160 words | `data/batch_analysis_results.json` |
 | High-confidence batch words | 28 | `data/batch_analysis_results.json` |
-| Integrated validated words | 160 | `data/integrated_results.json` (run 2026-02-17) |
-| Methodology compliance | 160/160 (100.0%) | `data/integrated_results.json` (run 2026-02-17) |
+| Integrated validated words | 160 | `data/integrated_results.json` (run 2026-03-15) |
+| Methodology compliance | 160/160 (100.0%) | `data/integrated_results.json` (run 2026-03-15) |
 | Registered anchor types | 11 | `data/anchors.json` |
 | Corpus validation status | PASS with 8 warnings, 0 critical errors | `data/validation_report.json` |
 | Hypotheses tested | 7 | `data/hypothesis_results.json` |
@@ -49,9 +49,9 @@ If any other file conflicts with this one, this file wins.
 | Commodity functional anchors | 7 strong + 7 candidates | `data/commodity_anchors.json` |
 | KU-RO arithmetic verified | 7/34 VERIFIED + 4 CONSTRAINED + 4 STRUCTURAL + 5 NEAR-MATCH | `data/arithmetic_verification.json` + mismatch_investigation.md |
 | KU-RO mismatches investigated | 18/18 (all diagnosed) | `analysis/completed/thematic/mismatch_investigation.md` |
-| Reading attempts completed | 55 tablets + 14 thematic | `analysis/completed/inscriptions/*_READING.md` |
-| Cross-site readings | 30 (ZA×7, PEZ, IO, PH×6, SAMW, PK, KH×12, SY) | `analysis/completed/inscriptions/` |
-| Sites with readings | 9 (HT, ZA, PEZ, IO, PH, SAMW, PK, KH, SY) | `analysis/completed/inscriptions/` |
+| Reading attempts completed | 62 tablets + 14 thematic | `analysis/completed/inscriptions/*_READING.md` |
+| Cross-site readings | 36 (ZA×8, PEZ, IO, PH×7, SAMW, PK, KH×15, SY, KN) | `analysis/completed/inscriptions/` |
+| Sites with readings | 10 (HT, ZA, PEZ, IO, PH, SAMW, PK, KH, SY, KN) | `analysis/completed/inscriptions/` |
 | Cross-tablet name links | 13 confirmed | `analysis/completed/thematic/cross_tablet_network.md` |
 | KU-RO scope typology | 3 types (grand, per-commodity, section) | `analysis/completed/thematic/mismatch_investigation.md` |
 | PO-TO-KU-RO verified | 97 = 31+65+1 (HT122a+b) | First cross-tablet grand total |
@@ -62,8 +62,8 @@ If any other file conflicts with this one, this file wins.
 | Vowel paradigms discovered | 40 (18 with 3+ members) | `data/discovered_paradigms.json` |
 | -SI positional finding | 70.1% header, 3.2% recipient (NOT dative) | `analysis/completed/thematic/case_system_extraction.md` |
 | Luwian onomastic score | 47.8% KH words decompose under Luwian rules | `analysis/completed/thematic/luwian_onomastic_test.md` |
-| Tool count (Python scripts) | 60 | `tools/*.py` |
-| Current release version | v0.11.0 | `CITATION.cff`, local tags |
+| Tool count (Python scripts) | 62 | `tools/*.py` |
+| Current release version | v0.12.0 | `CITATION.cff`, local tags |
 
 ---
 
@@ -211,7 +211,7 @@ Current throughput target:
 44. Thematic: Mismatch investigation — 18/18 KU-RO mismatches diagnosed, 4 reclassified STRUCTURAL
 45. Thematic: Khania expansion — 226 KH inscriptions scanned, zero-K-R confirmed (p=0.004), CYP grading system mapped
 46. Thematic: Linguistic deep analysis — domain layering confirmed, Bayesian stable, *301=/kya/ maintained
-47. Thematic: Anchor consolidation — KU-RO HIGH confirmed, SA-RA₂ PROBABLE, A-DU PROBABLE, NI held
+47. Thematic: Anchor consolidation — KU-RO HIGH confirmed, SA-RA₂ PROBABLE, A-DU PROBABLE, NI HIGH approved
 
 **Completed (v0.10.0 — Operation MINOS IV)**:
 48. KH5 reading — CYP grading + Luwian names, WI-SA-SA-NE Pre-Greek geminate, double-name header, zero K-R
@@ -233,9 +233,27 @@ Current throughput target:
 
 **Next priorities**:
 1. Tier 3 HT readings (remaining high-readiness tablets)
-2. NI promotion (packet prepared, awaiting formal registration)
+2. NI cascade exploitation (HIGH approved; 535 threshold crossers)
 3. Cross-site deepening (IO, PK, SY religious register analysis)
 4. CYP grading system formalization across KH corpus
+
+**Week 2 execution progress (2026-03-15)**:
+- `HT2` completed: OLE variant control tablet; `A-KA-RU` reinforced as header-like across commodities
+- `KN Zb 27` completed: first connected Knossos reading in the current campaign; `DI-NA-U` strengthened in explicit wine context
+- `PH12c` completed: standalone `TE` confirms header/topic marker behavior at Phaistos
+- `KH15` completed: mixed `CYP` + `NI` fractional account; `NI` strengthened inside ordinary KH administrative practice
+- `KH54` completed: mixed `CYP+E` + `GRA` confirms KH mixed-commodity accounting without K-R
+- `KH25` completed: large `VIR+[?]` counts (`140`, `10`) confirm KH can record personnel-scale values without K-R
+- `ZA4b` completed: short Zakros stone-vessel wine record (`VIN 104`) confirms the single-label commodity template in a compressed site-local format
+- blocker routing memo published for `HTWb229`, `PYR2`, `KHWa1013`; `I-PI-NA-MA` remains HOLD on failed consistency gate
+- KH `*86-RO` subsystem memo published: `KHWa1013-1016` now treated as one KH administrative control family, not four separate reading targets
+- `HTWb229` warehouse-classifier note published: `*188` now bounded as an HTW warehouse-chain marker before copper-grade notation rather than an open lexical breakthrough
+- KH control-object comparison published: `*86-RO` nodules and `*86+*188` roundels now modeled as parallel object-class labels within one KH control apparatus
+- HTW slot-order memo and credibility verification published: `*188`/`*188-DU` stay bounded as upstream warehouse-control markers; no lexical promotion justified
+- KH support ecology check published: nodule and roundel sole-content vocabularies are effectively segregated, strengthening the `*86` object-class split
+- HTW `KA` vs `*188-DU` comparison and multi-stream breakthrough brief published: warehouse upstream variation now modeled as classifier-family variation, and next execution is organized into conservative, balanced, and ambitious streams with academic-overlap controls
+- admin template induction memo, ritual template induction memo, and next-block target staging published: the next execution block now has reusable templates plus an ordered conservative reading queue (`KH54`, `KH25`, `ZA4b`, `PH25`, `HT46b`)
+- conservative stream advanced further: `KH54`, `KH25`, and `ZA4b` are now canonical readings, while `PH25` has been explicitly bounded in a reserve note instead of being over-read
 
 ### Lane F: Release and Process Excellence
 
@@ -290,7 +308,7 @@ No reading may be promoted without a complete evidence packet.
 
 | Check | Status | Evidence |
 |-------|--------|----------|
-| Local tags align with CITATION version lineage | PASS | tags `v0.2.0`, `v0.3.0`, `v0.4.0`, `v0.4.1`, `v0.5.0`, `v0.6.0`, `v0.6.1`, `v0.7.0`, `v0.8.0`, `v0.9.0`, `v0.10.0`, `v0.11.0` |
+| Local tags align with CITATION version lineage | PASS | tags `v0.2.0`, `v0.3.0`, `v0.4.0`, `v0.4.1`, `v0.5.0`, `v0.6.0`, `v0.6.1`, `v0.7.0`, `v0.8.0`, `v0.9.0`, `v0.10.0`, `v0.11.0`, `v0.12.0` |
 | CITATION version/date present | PASS | `CITATION.cff` |
 | Validator commands in CI use execution flags | TARGETED | `.github/workflows/validate.yml` |
 | Canonical-state guard enabled in CI | TARGETED | `.github/workflows/validate.yml` |
