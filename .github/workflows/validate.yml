@@ -67,6 +67,16 @@ jobs:
           python tools/personal_name_analyzer.py --output data/personal_names_comprehensive.json
         continue-on-error: false
 
+      - name: Generate reading queue
+        run: |
+          python tools/reading_pipeline.py --select --output data/reading_queue.json
+        continue-on-error: false
+
+      - name: Generate cascade opportunity report
+        run: |
+          python tools/cascade_opportunity_detector.py --all-anchors --output data/ni_cascade_report.json
+        continue-on-error: false
+
       - name: Run promotion board for NI
         run: |
           python tools/promotion_board_runner.py --candidate NI --target-confidence HIGH
