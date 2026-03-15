@@ -59,4 +59,7 @@ references/local/
 *.epub
 
 # Generated data (regenerate with: python tools/parse_lineara_corpus.py)
-data/
+data/*
+# Curated reference data (committed, not generated)
+!data/anchors.json
+!data/reading_dependencies.json

@@ -67,6 +67,16 @@ jobs:
           python tools/personal_name_analyzer.py --output data/personal_names_comprehensive.json
         continue-on-error: false
 
+      - name: Run promotion board for NI
+        run: |
+          python tools/promotion_board_runner.py --candidate NI --target-confidence HIGH
+        continue-on-error: false
+
+      - name: Run promotion board for I-PI-NA-MA
+        run: |
+          python tools/promotion_board_runner.py --candidate I-PI-NA-MA --target-confidence PROBABLE
+        continue-on-error: false
+
       - name: Run master state guard
         run: |
           python tools/master_state_guard.py

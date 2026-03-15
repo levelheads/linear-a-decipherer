@@ -1,0 +1,2391 @@
+{
+  "metadata": {
+    "description": "Reading-to-anchor dependency mappings for cascade failure detection",
+    "created": "2026-02-01",
+    "methodology": "Each reading specifies which anchors it depends on. If anchor confidence changes, readings must be re-evaluated.",
+    "last_updated": "2026-02-28T16:52:13.248740",
+    "round2_dependency_resolution": true,
+    "updated": "2026-02-15T04:04:16.965456+00:00",
+    "dependency_trace_resolver_last_run": "2026-02-16T07:29:02.536105+00:00"
+  },
+  "readings": {
+    "KU-RO": {
+      "meaning": "total/sum",
+      "confidence": "HIGH",
+      "max_confidence": "HIGH",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_kuro_total"
+      ],
+      "supports": [
+        "anchor_semitic_loan_layer"
+      ],
+      "evidence_sources": [
+        "Gordon 1966",
+        "corpus_auditor.py verification"
+      ],
+      "cascade_note": "Primary anchor for arithmetic verification"
+    },
+    "KI-RO": {
+      "meaning": "deficit/category marker",
+      "confidence": "MEDIUM",
+      "max_confidence": "MEDIUM",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_kiro_deficit",
+        "anchor_semitic_loan_layer"
+      ],
+      "supports": [],
+      "evidence_sources": [
+        "Gordon 1966",
+        "multi-function analysis"
+      ],
+      "cascade_note": "Dependent on KU-RO reading validity"
+    },
+    "SA-RA\u2082": {
+      "meaning": "allocation (*\u0161ar\u0101ku)",
+      "confidence": "MEDIUM",
+      "max_confidence": "MEDIUM",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ],
+      "supports": [],
+      "evidence_sources": [
+        "This project",
+        "Akkadian parallel"
+      ],
+      "cascade_note": "If Semitic loan layer questioned, demote to SPECULATIVE"
+    },
+    "PO-TO-KU-RO": {
+      "meaning": "grand total",
+      "confidence": "PROBABLE",
+      "max_confidence": "PROBABLE",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_kuro_total"
+      ],
+      "supports": [],
+      "evidence_sources": [
+        "HT 122b.6",
+        "extends Gordon"
+      ],
+      "cascade_note": "Extends KU-RO interpretation"
+    },
+    "JA-suffix": {
+      "meaning": "adjectival/ethnic suffix",
+      "confidence": "MEDIUM",
+      "max_confidence": "MEDIUM",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology",
+        "anchor_ja_suffix"
+      ],
+      "supports": [],
+      "evidence_sources": [
+        "Palmer 1958",
+        "positional analysis"
+      ],
+      "cascade_note": "Single-hypothesis support caps at PROBABLE"
+    },
+    "PA-I-TO": {
+      "meaning": "Phaistos (toponym)",
+      "confidence": "CERTAIN",
+      "max_confidence": "CERTAIN",
+      "depends_on": [
+        "anchor_toponym_phaistos"
+      ],
+      "supports": [
+        "anchor_linear_b_comparison"
+      ],
+      "evidence_sources": [
+        "Linear B parallel",
+        "geographic confirmation"
+      ],
+      "cascade_note": "Primary anchor; if questioned, entire Linear B comparison framework affected"
+    },
+    "KU-DO-NI-JA": {
+      "meaning": "Kydonia (toponym)",
+      "confidence": "CERTAIN",
+      "max_confidence": "CERTAIN",
+      "depends_on": [
+        "anchor_toponym_kydonia"
+      ],
+      "supports": [
+        "anchor_linear_b_comparison"
+      ],
+      "evidence_sources": [
+        "Linear B parallel",
+        "geographic confirmation"
+      ],
+      "cascade_note": "Primary anchor"
+    },
+    "DA-MA-TE": {
+      "meaning": "Demeter (deity)",
+      "confidence": "HIGH",
+      "max_confidence": "HIGH",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ],
+      "supports": [],
+      "evidence_sources": [
+        "Linear B cognate da-ma-te",
+        "peak sanctuary context"
+      ],
+      "cascade_note": "Suggests divine name continuity into Greek period"
+    },
+    "A-TA-NA": {
+      "meaning": "Athena (deity)",
+      "confidence": "HIGH",
+      "max_confidence": "HIGH",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ],
+      "supports": [],
+      "evidence_sources": [
+        "Linear B cognate a-ta-na"
+      ],
+      "cascade_note": "Suggests divine name continuity"
+    },
+    "JA-SA-SA-RA-ME": {
+      "meaning": "divine name (religious formula)",
+      "confidence": "PROBABLE",
+      "max_confidence": "PROBABLE",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ],
+      "supports": [],
+      "evidence_sources": [
+        "Libation formula analysis",
+        "Salgarella 2020"
+      ],
+      "cascade_note": "Interpretation based on positional analysis, not cognate"
+    },
+    "SU-PU": {
+      "meaning": "bowl (*suppu)",
+      "confidence": "MEDIUM",
+      "max_confidence": "MEDIUM",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ],
+      "supports": [],
+      "evidence_sources": [
+        "Akkadian parallel",
+        "vessel context"
+      ],
+      "cascade_note": "Semitic loan layer dependent"
+    },
+    "KA-RO-PA\u2083": {
+      "meaning": "vessel (*karpu)",
+      "confidence": "MEDIUM",
+      "max_confidence": "MEDIUM",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ],
+      "supports": [],
+      "evidence_sources": [
+        "Akkadian parallel",
+        "vessel context"
+      ],
+      "cascade_note": "Semitic loan layer dependent"
+    },
+    "MA-RU": {
+      "meaning": "wool (*maru)",
+      "confidence": "PROBABLE",
+      "max_confidence": "HIGH",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_commodity_logograms"
+      ],
+      "supports": [],
+      "evidence_sources": [
+        "Salgarella 2020",
+        "Linear B 145/LANA connection"
+      ],
+      "cascade_note": "Complex sign analysis"
+    },
+    "*411-VS": {
+      "meaning": "vessel/sealing administrative marker (provisional)",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "depends_on": [
+        "anchor_semitic_loan_layer",
+        "anchor_commodity_logograms"
+      ],
+      "supports": [],
+      "evidence_sources": [
+        "integrated_results round-1 dependency resolver"
+      ],
+      "cascade_note": "Provisional dependency mapping for promotion-gate completeness"
+    },
+    "A-TA-I-*301-WA-JA": {
+      "meaning": "formulaic/religious expression (provisional)",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "depends_on": [
+        "anchor_luwian_morphology"
+      ],
+      "supports": [],
+      "evidence_sources": [
+        "integrated_results round-1 dependency resolver"
+      ],
+      "cascade_note": "Provisional dependency mapping for promotion-gate completeness"
+    },
+    "I-RA\u2082": {
+      "meaning": "administrative term (provisional)",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "depends_on": [
+        "anchor_semitic_loan_layer"
+      ],
+      "supports": [],
+      "evidence_sources": [
+        "integrated_results round-1 dependency resolver"
+      ],
+      "cascade_note": "Provisional dependency mapping for promotion-gate completeness"
+    },
+    "KU-PA\u2083-NU": {
+      "meaning": "administrative/morphological form (provisional)",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "depends_on": [
+        "anchor_luwian_morphology"
+      ],
+      "supports": [],
+      "evidence_sources": [
+        "integrated_results round-1 dependency resolver"
+      ],
+      "cascade_note": "Provisional dependency mapping for promotion-gate completeness"
+    },
+    "DA-RE": {
+      "meaning": "administrative/morphological form (provisional)",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "depends_on": [
+        "anchor_luwian_morphology"
+      ],
+      "supports": [],
+      "evidence_sources": [
+        "integrated_results round-1 dependency resolver"
+      ],
+      "cascade_note": "Provisional dependency mapping for promotion-gate completeness"
+    },
+    "DI-NA-U": {
+      "meaning": "administrative/morphological form (provisional)",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "depends_on": [
+        "anchor_luwian_morphology"
+      ],
+      "supports": [],
+      "evidence_sources": [
+        "integrated_results round-1 dependency resolver"
+      ],
+      "cascade_note": "Provisional dependency mapping for promotion-gate completeness"
+    },
+    "A-DU": {
+      "meaning": "administrative term under Semitic layer review",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "depends_on": [
+        "anchor_semitic_loan_layer"
+      ],
+      "supports": [],
+      "evidence_sources": [
+        "integrated_results 2026-02-15 hypothesis alignment",
+        "promotion board remediation 2026-02-15"
+      ],
+      "cascade_note": "Dependency trace established for gate completeness; confidence remains constrained by cross-corpus evidence."
+    },
+    "SI-RU-TE": {
+      "meaning": "administrative term under Semitic layer review",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "depends_on": [
+        "anchor_semitic_loan_layer"
+      ],
+      "supports": [],
+      "evidence_sources": [
+        "integrated_results 2026-02-15 hypothesis alignment",
+        "promotion board remediation 2026-02-15"
+      ],
+      "cascade_note": "Dependency trace established for gate completeness; confidence remains constrained by cross-corpus evidence."
+    },
+    "I-PI-NA-MA": {
+      "meaning": "administrative/morphological form under Luwian layer review",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "depends_on": [
+        "anchor_luwian_morphology"
+      ],
+      "supports": [],
+      "evidence_sources": [
+        "integrated_results 2026-02-15 hypothesis alignment",
+        "promotion board remediation 2026-02-15"
+      ],
+      "cascade_note": "Dependency trace established for gate completeness; confidence remains constrained by cross-corpus evidence."
+    },
+    "KA-PA": {
+      "meaning": "contested form; proto-Greek hypothesis currently eliminated",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "SPECULATIVE",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ],
+      "supports": [],
+      "evidence_sources": [
+        "integrated_results 2026-02-15 elimination check",
+        "promotion board remediation 2026-02-15"
+      ],
+      "cascade_note": "Trace completeness only; threshold-eliminated status blocks promotion."
+    },
+    "anchor_me_suffix": {
+      "meaning": "-ME detachable suffix (morphological marker in libation formula; IOZa16 line-break proof)",
+      "confidence": "PROBABLE",
+      "max_confidence": "HIGH",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ],
+      "supports": [],
+      "evidence_sources": [],
+      "cascade_note": "",
+      "registered": "2026-02-16T15:07:30.995635"
+    },
+    "anchor_si_suffix": {
+      "meaning": "-SI detachable suffix (morphological marker; TLZa1 base form U-NA-KA-NA proves detachability)",
+      "confidence": "PROBABLE",
+      "max_confidence": "HIGH",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ],
+      "supports": [],
+      "evidence_sources": [],
+      "cascade_note": "",
+      "registered": "2026-02-16T15:08:01.238607"
+    },
+    "MA-DI": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ]
+    },
+    "SA-RU": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "SI-KA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "*409-VS": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "DA-KA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "I-DA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "KU-NI-SU": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "*306-TU": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "*408-VS": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "*86-RO": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ]
+    },
+    "A-SE": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "DA-ME": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "DA-RI-DA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "DA-SI-*118": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "JA-SA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "JE-DI": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ]
+    },
+    "KI-RE-TA-NA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "KU-PA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "MI-NU-TE": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "PA-JA-RE": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ]
+    },
+    "QA-*310-I": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "SA-MA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "SA-RO": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "TA-NA-TI": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "U-NA-KA-NA-SI": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "*188-DU": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "*21F-*118": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "*21F-TU-NE": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "*28B-NU-MA-RE": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "*304+PA-CYP+D": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "*324-DI-RA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "A-JA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "A-KA-RU": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "A-MA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "A-RA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "A-RI": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "DA-QE-RA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ]
+    },
+    "DI-DE-RU": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ]
+    },
+    "DU-RE-ZA-SE": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "I-GRA+PA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "KA-KU-PA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "MA-RU-ME": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "PA-DE": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ]
+    },
+    "PA-SE-JA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "PA-TA-NE": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ]
+    },
+    "PA\u2083-NI-NA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "QA-QA-RU": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "QE-RA\u2082-U": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "RE-ZA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "SI-PI-KI": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "TA-I-AROM": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "TE-RI": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ]
+    },
+    "TE-TU": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "U-*325-ZA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "U-*34-SI": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "*301-*301": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ]
+    },
+    "*306-TA-JE": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "*417-VS": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "*805-MI": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "A-MI": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "A-NE": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "A-PA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "A-PA-RA-NE": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ]
+    },
+    "A-RI-NI-TA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "A-RU": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "A-SI-JA-KA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "A-TI-KA-A-DU-KO-MI": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "AU-SI-RE": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "DA-I": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "DA-I-PI-TA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "DA-KU-SE-NE": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "DI-KI-SE": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ]
+    },
+    "DI-NA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ]
+    },
+    "DI-RI-NA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ]
+    },
+    "I-DA-MA-TE": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ]
+    },
+    "I-JA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "I-KA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "I-PI-NA-MI-NA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "I-QA-*118": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "I-SE": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "I-SI": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "I-TI": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "JA-*21F": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "JA-JA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "JA-SI": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "KA-DI": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ]
+    },
+    "KA-KI": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "KA-NA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ]
+    },
+    "KA-RU": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "KI-DA-RO": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "KI-RA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "KI-RE-TA\u2082": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "KI-RI-TA\u2082": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "KU-MI-NA-QE": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "KU-PA\u2083-NA-TU": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "KU-RA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "KU-RE": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "KU-RE-JU": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ]
+    },
+    "KU-ZU-NI": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ]
+    },
+    "MA-KA-I-TA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "MA-KA-RI-TE": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "ME-ZA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "MI-TU": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "MU-RU": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "NU-RO": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "NU-TI": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "PA-RA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ]
+    },
+    "PA-RA-NE": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ]
+    },
+    "PA-SE": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ]
+    },
+    "PA\u2083-NI": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "PI-SA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "PU-RA\u2082": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "PU-VIN": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "QA-NU-MA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "QE-DE-MI-NU": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "QE-KA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "QE-PU": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "QE-SI-ZU-E": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "RE-JA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "RE-TI": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "RI-SU-MA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "RU-DI": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "RU-MA-TA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "SA-MI-DA-E": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "SA-RA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "SA-SA-RA-ME": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ]
+    },
+    "SA-VIN": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "SI-CYP": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "SI-DA-RE": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "SI-RU": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "SI-TE": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ]
+    },
+    "SI-TU": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "TA-NI-KA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_semitic_loan_layer"
+      ]
+    },
+    "TA-TI": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "TE-*301": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ]
+    },
+    "TE-KI": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ]
+    },
+    "TI-TI-KU": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "U-*49": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "U-MI-NA-SI": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "VIR+[?]-I": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison"
+      ]
+    },
+    "WA-DI-NI": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "WA-DU-NI-MI": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "ZU-DI-RA": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "ZU-DU": {
+      "meaning": "provisional mapping from dependency resolver",
+      "confidence": "SPECULATIVE",
+      "max_confidence": "PROBABLE",
+      "supports": [],
+      "evidence_sources": [
+        "dependency_trace_resolver.py --write"
+      ],
+      "cascade_note": "Provisional dependency mapping auto-generated by dependency_trace_resolver.py",
+      "depends_on": [
+        "anchor_linear_b_comparison",
+        "anchor_luwian_morphology"
+      ]
+    },
+    "NI": {
+      "meaning": "wine marker (VIN specificity)",
+      "confidence": "HIGH",
+      "max_confidence": "HIGH",
+      "depends_on": [
+        "VIN"
+      ],
+      "supports": [],
+      "evidence_sources": [],
+      "cascade_note": "",
+      "registered": "2026-02-28T16:52:13.248232"
+    }
+  },
+  "cascade_rules": {
+    "description": "Rules for propagating confidence changes through dependencies",
+    "rules": [
+      {
+        "trigger": "anchor_confidence_downgrade",
+        "action": "Reading confidence cannot exceed lowest anchor confidence"
+      },
+      {
+        "trigger": "anchor_status_questioned",
+        "action": "All dependent readings flagged for review"
+      },
+      {
+        "trigger": "anchor_status_rejected",
+        "action": "All dependent readings demoted to SPECULATIVE minimum"
+      },
+      {
+        "trigger": "single_hypothesis_support",
+        "action": "Reading confidence capped at PROBABLE per Principle 4"
+      }
+    ]
+  }
+}

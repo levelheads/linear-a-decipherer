@@ -1,0 +1,277 @@
+{
+  "metadata": {
+    "description": "Anchor definitions for Linear A decipherment dependency tracking",
+    "created": "2026-02-01",
+    "methodology": "See METHODOLOGY.md Part 2: The Anchor Hierarchy"
+  },
+  "anchors": {
+    "anchor_linear_b_comparison": {
+      "name": "Linear B Phonetic Comparison",
+      "level": 2,
+      "confidence": "HIGH",
+      "description": "Phonetic values derived from Linear B cognates where sign forms are identical or nearly identical",
+      "basis": "87 Linear A signs have Linear B counterparts; phonetic values assumed to transfer",
+      "limitations": [
+        "123 Linear A signs have no Linear B equivalent",
+        "Minoan may have had phonemic distinctions Greek collapsed",
+        "Transfer assumes phonology unchanged across ~300 years"
+      ],
+      "proponents": [
+        "Ventris (1952)",
+        "Chadwick (1958)"
+      ],
+      "falsification_condition": "Consistent mismatches in toponymic anchors would invalidate"
+    },
+    "anchor_semitic_loan_layer": {
+      "name": "Semitic Loanword Layer",
+      "level": 4,
+      "confidence": "MEDIUM",
+      "description": "Administrative vocabulary shows Akkadian/West Semitic parallels (ku-ro \u2194 *kull, SA-RA\u2082 \u2194 *\u0161ar\u0101ku)",
+      "basis": "Gordon (1966) identified consonant skeleton matches; 17.7% corpus support",
+      "limitations": [
+        "Absence of triconsonantal morphology suggests loans, not genetic relationship",
+        "Limited to administrative domain",
+        "Depends on Linear B phonetic assumptions"
+      ],
+      "proponents": [
+        "Gordon (1966)",
+        "Best (1972)"
+      ],
+      "falsification_condition": "If KU-RO arithmetic verification fails consistently"
+    },
+    "anchor_luwian_morphology": {
+      "name": "Luwian Morphological Layer",
+      "level": 4,
+      "confidence": "MEDIUM",
+      "description": "Grammatical particles and suffixes show Luwian parallels (-JA \u2194 -iya, WA \u2194 quotative)",
+      "basis": "Palmer (1958) and Finkelberg (1998); 30.3% corpus support (highest)",
+      "limitations": [
+        "Morphological particles may be contact features, not genetic",
+        "Religious texts show higher Luwian affinity than administrative"
+      ],
+      "proponents": [
+        "Palmer (1958)",
+        "Finkelberg (1998)"
+      ],
+      "falsification_condition": "If -JA distribution fails cross-corpus verification"
+    },
+    "anchor_toponym_phaistos": {
+      "name": "PA-I-TO = Phaistos",
+      "level": 1,
+      "confidence": "CERTAIN",
+      "description": "Geographic toponym confirmed by Linear B parallel and site location",
+      "basis": "Linear B pa-i-to at Phaistos = Greek \u03a6\u03b1\u03b9\u03c3\u03c4\u03cc\u03c2",
+      "limitations": [
+        "Greek name may be re-analysis of Minoan original",
+        "Greeks arrived ~250 years after Linear A ceased"
+      ],
+      "proponents": [
+        "Ventris & Chadwick (1973)"
+      ],
+      "falsification_condition": "Virtually unfalsifiable without new archaeological evidence"
+    },
+    "anchor_toponym_kydonia": {
+      "name": "KU-DO-NI-JA = Kydonia",
+      "level": 1,
+      "confidence": "CERTAIN",
+      "description": "Geographic toponym confirmed by Linear B parallel and Khania site",
+      "basis": "Linear B ku-do-ni-ja = Greek \u039a\u03c5\u03b4\u03c9\u03bd\u03af\u03b1 (modern Khania)",
+      "limitations": [
+        "Same as PA-I-TO limitations"
+      ],
+      "proponents": [
+        "Ventris & Chadwick (1973)"
+      ],
+      "falsification_condition": "Virtually unfalsifiable without new archaeological evidence"
+    },
+    "anchor_commodity_logograms": {
+      "name": "Commodity Logograms",
+      "level": 3,
+      "confidence": "HIGH",
+      "description": "Pictographic signs for grain, wine, oil, animals clearly identifiable",
+      "basis": "GRA (grain stalk), VIN (vine), OLE (oil vessel) are pictographically transparent",
+      "limitations": [
+        "Some variants (OLE+KI, OLE+MI) meanings unclear",
+        "Exact commodities may differ from Linear B usage"
+      ],
+      "proponents": [
+        "GORILA editors",
+        "Salgarella (2020)"
+      ],
+      "falsification_condition": "Would require reinterpretation of all administrative texts"
+    },
+    "anchor_kuro_total": {
+      "name": "KU-RO = Total/Sum",
+      "level": 2,
+      "confidence": "HIGH",
+      "description": "KU-RO appears list-final with values matching preceding sums",
+      "basis": "Arithmetic validation (11.4% verified via corpus_auditor.py); positional evidence",
+      "limitations": [
+        "Only 11.4% arithmetically verified",
+        "Depends on fraction value assumptions"
+      ],
+      "proponents": [
+        "Gordon (1966)",
+        "Schoep (2002)"
+      ],
+      "falsification_condition": "If verified percentage drops below 5% or consistent mismatches found"
+    },
+    "anchor_kiro_deficit": {
+      "name": "KI-RO = Deficit/Category",
+      "level": 4,
+      "confidence": "MEDIUM",
+      "description": "KI-RO as 'deficit' or category marker in accounting contexts",
+      "basis": "Multi-function analysis; HT-exclusive distribution",
+      "limitations": [
+        "Function appears to vary by context",
+        "HT-exclusive raises regional bias concerns"
+      ],
+      "proponents": [
+        "Gordon (1966)",
+        "Schoep (2002)"
+      ],
+      "falsification_condition": "If non-administrative contexts show inconsistent usage"
+    },
+    "anchor_ja_suffix": {
+      "name": "-JA Adjectival Suffix",
+      "level": 5,
+      "confidence": "MEDIUM",
+      "description": "-JA as adjectival/ethnic suffix (cf. Luwian -iya)",
+      "basis": "65.9% word-final position; consistent with ethnic/place adjectives",
+      "limitations": [
+        "Single-hypothesis (Luwian) support",
+        "Alternative interpretations exist"
+      ],
+      "proponents": [
+        "Palmer (1958)"
+      ],
+      "falsification_condition": "If positional distribution changes significantly"
+    },
+    "anchor_me_suffix": {
+      "name": "-ME Nominal Suffix",
+      "level": 5,
+      "confidence": "PROBABLE",
+      "description": "-ME as detachable nominal suffix, proven by IOZa16 line-break evidence (JA-SA-SA-RA / ME split across lines)",
+      "basis": "IOZa16 physical line-break proof; 14 distinct -ME words (24 total occ); base form JA-SA-SA-RA attested without suffix",
+      "limitations": [
+        "Pre-Greek parallel (-mn-, -m- in substrate words) is typological, not proven genetic",
+        "Luwian -ma suffix is alternative explanation",
+        "DA-ME (4 occ) may have different morphological structure"
+      ],
+      "proponents": [],
+      "falsification_condition": "If -ME is shown to be integral to roots (not detachable) in new attestations, or if base forms consistently fail to appear without -ME"
+    },
+    "anchor_si_suffix": {
+      "name": "-SI Verbal/Adjectival Suffix",
+      "level": 5,
+      "confidence": "PROBABLE",
+      "description": "-SI as detachable suffix, proven by TLZa1 base form U-NA-KA-NA without -SI in same formulaic position",
+      "basis": "TLZa1 U-NA-KA-NA (base) vs U-NA-KA-NA-SI (suffixed); 28 distinct -SI words (35 total occ); U-NA-RU-KA-NA-SI shows internal morphological complexity",
+      "limitations": [
+        "Pre-Greek parallel (-ss- in toponyms) is typological, not proven genetic",
+        "Luwian -ssi suffix is alternative explanation",
+        "High hapax count among -SI words (25 of 28 forms)"
+      ],
+      "proponents": [],
+      "falsification_condition": "If -SI words consistently fail to show base forms without suffix, or if -SI position varies (not consistently word-final)"
+    },
+    "anchor_ni_vin": {
+      "name": "NI \u2192 VIN (wine marker)",
+      "level": 3,
+      "confidence": "HIGH",
+      "description": "NI functions as wine marker, 100% VIN specificity",
+      "basis": "77 occurrences, 8 sites, 100% VIN co-occurrence when commodity present",
+      "limitations": [
+        "Single syllable \u2014 linguistic hypothesis testing not applicable"
+      ],
+      "proponents": [
+        "Commodity validator (distributional evidence)"
+      ],
+      "falsification_condition": "NI appearing with non-VIN commodity in clear context"
+    },
+    "anchor_approx_vin": {
+      "name": "\u2248 \u2192 VIN (wine abbreviation)",
+      "level": 3,
+      "confidence": "HIGH",
+      "description": "\u2248 sign functions as VIN shorthand, 100% specificity",
+      "basis": "10 occurrences, 6 sites, 100% VIN co-occurrence",
+      "limitations": [
+        "Low frequency"
+      ],
+      "proponents": [
+        "Commodity validator (distributional evidence)"
+      ],
+      "falsification_condition": "\u2248 appearing with non-VIN commodity"
+    },
+    "anchor_kunisu_gra": {
+      "name": "KU-NI-SU \u2192 GRA (grain commodity word)",
+      "level": 3,
+      "confidence": "HIGH",
+      "description": "KU-NI-SU is grain-specific commodity term, 100% GRA specificity",
+      "basis": "5 occurrences, 1 site, 100% GRA co-occurrence",
+      "limitations": [
+        "Single-site attestation (HT only)"
+      ],
+      "proponents": [
+        "Commodity validator (distributional evidence)"
+      ],
+      "falsification_condition": "KU-NI-SU appearing with non-GRA commodity"
+    },
+    "anchor_ole_ligature": {
+      "name": "OLE ligature \u2192 OLE (oil)",
+      "level": 3,
+      "confidence": "HIGH",
+      "description": "OLE ligature sign has 100% OLE specificity",
+      "basis": "5 occurrences, 2 sites, 100% OLE co-occurrence",
+      "limitations": [
+        "Low frequency, limited site distribution"
+      ],
+      "proponents": [
+        "Commodity validator (distributional evidence)"
+      ],
+      "falsification_condition": "Ligature appearing with non-OLE commodity"
+    },
+    "anchor_dame_gra": {
+      "name": "DA-ME \u2192 GRA (grain commodity word)",
+      "level": 3,
+      "confidence": "HIGH",
+      "description": "DA-ME is grain-specific commodity term, 100% GRA specificity",
+      "basis": "4 occurrences, 1 site, 100% GRA co-occurrence",
+      "limitations": [
+        "Low frequency, single-site attestation"
+      ],
+      "proponents": [
+        "Commodity validator (distributional evidence)"
+      ],
+      "falsification_condition": "DA-ME appearing with non-GRA commodity"
+    },
+    "anchor_kupa_gra": {
+      "name": "KU-PA \u2192 GRA (grain commodity word)",
+      "level": 3,
+      "confidence": "HIGH",
+      "description": "KU-PA is grain-specific commodity term, 100% GRA specificity",
+      "basis": "4 occurrences, 3 sites, 100% GRA co-occurrence",
+      "limitations": [
+        "Low frequency"
+      ],
+      "proponents": [
+        "Commodity validator (distributional evidence)"
+      ],
+      "falsification_condition": "KU-PA appearing with non-GRA commodity"
+    },
+    "anchor_cyp_ligature": {
+      "name": "CYP ligature \u2192 CYP (copper)",
+      "level": 3,
+      "confidence": "HIGH",
+      "description": "CYP ligature sign has 100% CYP specificity",
+      "basis": "4 occurrences, 1 site, 100% CYP co-occurrence",
+      "limitations": [
+        "Low frequency, single-site attestation"
+      ],
+      "proponents": [
+        "Commodity validator (distributional evidence)"
+      ],
+      "falsification_condition": "Ligature appearing with non-CYP commodity"
+    }
+  }
+}
