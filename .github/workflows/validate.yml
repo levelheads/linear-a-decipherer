@@ -64,7 +64,7 @@ jobs:
 
       - name: Generate personal names data
         run: |
-          python tools/personal_name_analyzer.py --output data/personal_names_comprehensive.json
+          python tools/personal_name_analyzer.py --extract --output data/personal_names_comprehensive.json
         continue-on-error: false
 
       - name: Generate reading queue
